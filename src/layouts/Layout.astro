@@ -39,10 +39,12 @@ const { title, currentPage } = Astro.props;
   :root {
     --color-text: #3a5273;
     --color-accent: #82d4bb;
+    --color-accent-rgb: 130, 212, 187;
     --color-accent-darker: #67cbad;
     --color-accent-shadow: #256b5622;
     --color-secondary: #607cb3;
     --color-secondary-darker: #405273;
+    --color-secondary-lighter: #f4f8ff;
   }
 
   html {
@@ -53,5 +55,45 @@ const { title, currentPage } = Astro.props;
   /* Remove blue highlight of clicked button in mobile Chrome browser */
   * {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Set up page height for better mobile height support */
+  html,
+  body {
+    height: 100%;
+  }
+
+  /* Style scrollbars */
+  /* Firefox */
+  html {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--color-text) var(--color-secondaty-lighter) !important;
+  }
+
+  /* Chrome */
+  /* Width */
+  html::-webkit-scrollbar {
+    width: 5px !important;
+  }
+
+  /* Track */
+  html::-webkit-scrollbar-track {
+    background: var(--color-secondaty-lighter);
+    /* border-radius: 10px; */
+  }
+  /* Handle */
+  html::-webkit-scrollbar-thumb {
+    background: var(--color-text);
+    border-radius: 2px;
+  }
+
+  /* Handle on hover */
+  html::-webkit-scrollbar-thumb:hover {
+    background: var(--color-secondary);
+  }
+
+  /* Style text selection */
+  ::selection {
+    background-color: rgba(var(--color-accent-rgb), 0.7);
   }
 </style>

@@ -5,8 +5,8 @@ import ButtonAnimated from "../components/ui/buttons/ButtonAnimated.astro";
 ---
 
 <Layout title="Viet Land" currentPage="/">
-  <main>
-    <header class="w-full h-screen overflow-hidden relative cursor-default">
+  <main class="w-full h-full">
+    <header class="w-full h-full overflow-hidden relative cursor-default">
       <div
         class="w-full h-full absolute top-0 left-0 select-none overflow-hidden"
       >
@@ -38,16 +38,19 @@ import ButtonAnimated from "../components/ui/buttons/ButtonAnimated.astro";
               tươi sáng. Nơi nụ cười nở, hạnh phúc tươi sáng.
             </p>
             <div class="mt-6">
-              <ButtonAnimated hiddenText="XEM DAT">TIM HIEU</ButtonAnimated>
+              <ButtonAnimated hiddenText="xem đất">Tìm hiểu</ButtonAnimated>
             </div>
           </div>
         </Container>
       </div>
     </header>
+    <section class="w-full h-screen"><Container>sdf</Container></section>
   </main>
 </Layout>
 
 <style>
+  /* Position hero image on the page */
+  /* TODO: responsive hero image sizes and preload */
   .bg-hero-image {
     background-size: cover;
     width: 100%;

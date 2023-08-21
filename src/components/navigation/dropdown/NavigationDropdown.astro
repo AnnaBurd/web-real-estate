@@ -1,0 +1,45 @@
+---
+import HamburgerButton from "../../ui/buttons/HamburgerButton.astro";
+import NavigationDropdownItem from "./NavigationDropdownItem.astro";
+
+interface Page {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  currentPage: string;
+  pages: Page[];
+}
+
+const { currentPage, pages } = Astro.props;
+---
+
+<HamburgerButton />
+<ul
+  class="hamburger-menu hamburger-menu--closed fixed bg-white w-screen top-0 right-0 -z-10 pt-14 pb-1.5"
+>
+  {
+    pages.map((page) => (
+      <NavigationDropdownItem
+        href={page.href}
+        isActive={page.href === currentPage}
+      >
+        {page.title}
+      </NavigationDropdownItem>
+    ))
+  }
+</ul>
+
+<style>
+  .hamburger-menu {
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+    transform: translateY(0%);
+  }
+
+  .hamburger-menu--closed {
+    display: hidden;
+    transform: translateY(-100%);
+    transition: transform 0.2s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
+</style>

@@ -1,20 +1,57 @@
 ---
-import Button from "../ui/Button.astro";
-import ButtonSmall from "../ui/ButtonSmall.astro";
+import Logo from "../Logo.astro";
+import CallButton from "../ui/buttons/CallButton.astro";
+import ButtonSmall from "../ui/buttons/ButtonSmall.astro";
 import NavigationItem from "./NavigationItem.astro";
+import NavigationDropdown from "./dropdown/NavigationDropdown.astro";
+
+interface Props {
+  currentPage: string;
+}
+
+const { currentPage } = Astro.props;
+
+const navigationPages = [
+  {
+    title: "Trang chủ",
+    href: "/",
+  },
+  {
+    title: "Tìm kiếm đất",
+    href: "/#",
+  },
+  {
+    title: "Xem trên bản đồ",
+    href: "/#",
+  },
+  {
+    title: "Liên hệ",
+    href: "/#",
+  },
+];
 ---
 
-<div
-  class="absolute top-0 left-0 z-50 w-full grid justify-items-center items-center grid-cols-[1fr,4fr,1fr]"
->
-  <div class="bg-yellow-200 justify-self-start">logo</div>
-  <ul class="flex flex-wrap gap-x-2">
-    <NavigationItem href="/">Trang chủ</NavigationItem>
-    <NavigationItem href="/">Tìm kiếm đất</NavigationItem>
-    <NavigationItem href="/">Xem trên bản đồ</NavigationItem>
-    <NavigationItem href="/">Liên hệ</NavigationItem>
+<div class="absolute top-0 left-0 z-50 w-full py-2 flex flex-row items-center">
+  <div class="px-4 md:px-8 lg:px-16 flex-1">
+    <Logo companyTitle="VietLand" />
+  </div>
+
+  <ul class="xl:flex flex-wrap gap-x-2 hidden">
+    {
+      navigationPages.map((page) => (
+        <NavigationItem href={page.href} isActive={page.href === currentPage}>
+          {page.title}
+        </NavigationItem>
+      ))
+    }
   </ul>
-  <div class="justify-self-end flex flex-wrap">
-    <Button>+84(09)0160-6982</Button><ButtonSmall>Gọi lại</ButtonSmall>
+  <div class="flex xl:px-16 flex-1 justify-end items-center">
+    <div class="hidden xl:block"><ButtonSmall>Gọi lại</ButtonSmall></div>
+    <div class="hidden sm:block"><CallButton>+84(09)0160-6982</CallButton></div>
+    <div
+      class="xl:hidden flex flex-col items-center justify-center ml-4 mr-4 lg:mr-16 md:mr-8 relative"
+    >
+      <NavigationDropdown currentPage={currentPage} pages={navigationPages} />
+    </div>
   </div>
 </div>

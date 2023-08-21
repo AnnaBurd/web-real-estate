@@ -1,0 +1,13 @@
+---
+interface Props {
+  companyTitle: string;
+}
+
+const { companyTitle } = Astro.props;
+---
+
+<a href="/" class="flex items-center gap-x-1.5"
+  ><img src="/favicon.svg" class="w-7 h-7" /><span
+    class="text-xl tracking-wide font-medium">{companyTitle}</span
+  ></a
+>

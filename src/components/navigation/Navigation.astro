@@ -1,0 +1,20 @@
+---
+import Button from "../ui/Button.astro";
+import ButtonSmall from "../ui/ButtonSmall.astro";
+import NavigationItem from "./NavigationItem.astro";
+---
+
+<div
+  class="absolute top-0 left-0 z-50 w-full grid justify-items-center items-center grid-cols-[1fr,4fr,1fr]"
+>
+  <div class="bg-yellow-200 justify-self-start">logo</div>
+  <ul class="flex flex-wrap gap-x-2">
+    <NavigationItem href="/">Trang chủ</NavigationItem>
+    <NavigationItem href="/">Tìm kiếm đất</NavigationItem>
+    <NavigationItem href="/">Xem trên bản đồ</NavigationItem>
+    <NavigationItem href="/">Liên hệ</NavigationItem>
+  </ul>
+  <div class="justify-self-end flex flex-wrap">
+    <Button>+84(09)0160-6982</Button><ButtonSmall>Gọi lại</ButtonSmall>
+  </div>
+</div>

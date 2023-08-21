@@ -1,0 +1,17 @@
+---
+interface Props {
+  href: string;
+  isActive?: boolean;
+}
+
+const { href, isActive } = Astro.props;
+---
+
+<li>
+  <a
+    href={href}
+    class="uppercase text-xs tracking-tight font-semibold px-6 py-3 text-opacity-80"
+  >
+    <slot />
+  </a>
+</li>

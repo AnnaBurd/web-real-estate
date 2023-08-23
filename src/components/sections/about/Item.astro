@@ -17,13 +17,13 @@ const { textBehind, title, description } = Astro.props;
       >{textBehind}</span
     >
     <h3
-      class="uppercase tracking-normal font-semibold text-sm [grid-column:1/2] [grid-row:1/2] z-20"
+      class="uppercase tracking-wide md:tracking-normal font-semibold text-xs md:text-sm [grid-column:1/2] [grid-row:1/2] z-20"
     >
       {title}
     </h3>
   </div>
   <p
-    class="text-sm font-normal opacity-90 tracking-normal leading-relaxed max-w-[38ch]"
+    class="text-xs md:text-sm font-normal opacity-90 tracking-normal leading-relaxed max-w-[38ch]"
   >
     {description}
   </p>

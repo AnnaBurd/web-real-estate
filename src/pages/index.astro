@@ -1,89 +1,11 @@
 ---
-import Container from "../layouts/Container.astro";
 import Layout from "../layouts/Layout.astro";
-import ButtonAnimated from "../components/ui/buttons/ButtonAnimated.astro";
+
+import Hero from "../components/sections/hero/Hero.astro";
+import About from "../components/sections/about/About.astro";
 ---
 
 <Layout title="Viet Land" currentPage="/">
-  <main class="w-full h-full">
-    <header class="w-full h-full overflow-hidden relative cursor-default">
-      <div
-        class="w-full h-full absolute top-0 left-0 select-none overflow-hidden"
-      >
-        <div class="bg-hero-image">
-          <div
-            class="w-full h-full bg-blue-400 absolute top-0 left-0 opacity-10 select-none"
-          >
-          </div>
-          <div
-            class="w-full h-full bg-white absolute top-0 left-0 opacity-30 md:opacity-10 select-none"
-          >
-          </div>
-        </div>
-      </div>
-      <div class="w-full h-full flex justify-center flex-col z-30 relative">
-        <Container>
-          <div
-            class="mb-[12vh] sm:mb-[10vh] md:mb-[10vh] lg:mb-[12vh] max-w-lg"
-          >
-            <h1
-              class="text-4xl md:text-5xl font-normal tracking-wide leading-[1.2] mb-3.5 md:mb-7 w-full"
-            >
-              Nơi Hạnh Phúc <br />Ngập Tràn
-            </h1>
-            <p
-              class="text-sm md:text-base font-normal text-opacity-90 w-[85%] tracking-normal leading-relaxed"
-            >
-              Nơi nụ cười nở, hạnh phúc tươi sáng. Nơi nụ cười nở, hạnh phúc
-              tươi sáng. Nơi nụ cười nở, hạnh phúc tươi sáng.
-            </p>
-            <div class="mt-6">
-              <ButtonAnimated hiddenText="xem đất">Tìm hiểu</ButtonAnimated>
-            </div>
-          </div>
-        </Container>
-      </div>
-    </header>
-    <section class="w-full h-screen"><Container>sdf</Container></section>
-  </main>
+  <Hero />
+  <About />
 </Layout>
-
-<style>
-  /* Position hero image on the page */
-  /* TODO: responsive hero image sizes and preload */
-  .bg-hero-image {
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    background-position: center bottom;
-    background-image: url("/img/main-hero__portrait.jpg");
-  }
-
-  @media (orientation: landscape) and (min-width: 768px) {
-    .bg-hero-image {
-      background-position: center top;
-      background-image: url("/img/main-hero.jpg");
-      width: 160%;
-      height: 160%;
-      margin-top: -13vh;
-    }
-  }
-
-  @media (orientation: landscape) and (min-width: 1280px) {
-    .bg-hero-image {
-      background-position: center top;
-      background-image: url("/img/main-hero.jpg");
-      width: 140%;
-      height: 140%;
-      margin-top: -8vh;
-    }
-  }
-
-  @media (orientation: landscape) and (min-width: 1536px) {
-    .bg-hero-image {
-      width: 100%;
-      height: 100%;
-      margin-top: -1vh;
-    }
-  }
-</style>

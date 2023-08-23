@@ -1,0 +1,52 @@
+<div class="w-full h-full absolute top-0 left-0 select-none overflow-hidden">
+  <div class="bg-hero-image">
+    <div
+      class="w-full h-full bg-blue-400 absolute top-0 left-0 opacity-10 select-none"
+    >
+    </div>
+    <div
+      class="w-full h-full bg-white absolute top-0 left-0 opacity-30 md:opacity-10 select-none"
+    >
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Position hero image on the page */
+  /* TODO: responsive hero image sizes and preload */
+  .bg-hero-image {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-position: center bottom;
+    background-image: url("/img/main-hero__portrait.jpg");
+  }
+
+  @media (orientation: landscape) and (min-width: 768px) {
+    .bg-hero-image {
+      background-position: center top;
+      background-image: url("/img/main-hero.jpg");
+      width: 160%;
+      height: 160%;
+      margin-top: -13vh;
+    }
+  }
+
+  @media (orientation: landscape) and (min-width: 1280px) {
+    .bg-hero-image {
+      background-position: center top;
+      background-image: url("/img/main-hero.jpg");
+      width: 140%;
+      height: 140%;
+      margin-top: -8vh;
+    }
+  }
+
+  @media (orientation: landscape) and (min-width: 1536px) {
+    .bg-hero-image {
+      width: 105%;
+      height: 105%;
+      margin-top: -1vh;
+    }
+  }
+</style>

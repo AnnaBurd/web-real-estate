@@ -1,5 +1,5 @@
 ---
-import ContainerFullscreen from "../../../layouts/ContainerFullscreen.astro";
+import Container from "../../../layouts/Container.astro";
 
 import SaleIcon from "./icons/Sale.astro";
 import OwnerIcon from "./icons/Owner.astro";
@@ -10,7 +10,7 @@ import CheckIconSolid from "./icons/CheckIconSolid.astro";
 import Item from "./Item.astro";
 ---
 
-<ContainerFullscreen>
+<Container fullHeight={true}>
   <h2
     class="uppercase text-xs md:text-sm tracking-wider font-semibold px-6 pb-6 opacity-40 pt-24"
   >
@@ -89,4 +89,4 @@ import Item from "./Item.astro";
       />
     </div>
   </div>
-</ContainerFullscreen>
+</Container>

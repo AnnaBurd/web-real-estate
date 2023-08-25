@@ -70,6 +70,25 @@ const { title, currentPage } = Astro.props;
     height: 100%;
   }
 
+  /* Set up scroll snapping points */
+  /* Note: css scroll-snap works, but has different behaviour across browsers (Chrome-Firefox) and on mobile
+    As an alternative - > increase spaces between sections
+  */
+  html {
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+
+  body > section,
+  body > div {
+    scroll-snap-align: start;
+  }
+
+  body > footer {
+    scroll-snap-align: end;
+  }
+
   /* Style scrollbars */
   /* Firefox */
   html {

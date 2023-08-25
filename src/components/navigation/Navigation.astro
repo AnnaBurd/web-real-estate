@@ -1,5 +1,5 @@
 ---
-import Logo from "../Logo.astro";
+import Logo from "../logo/Logo.astro";
 import CallButton from "../ui/buttons/CallButton.astro";
 import ButtonSmall from "../ui/buttons/ButtonSmall.astro";
 import NavigationItem from "./NavigationItem.astro";
@@ -31,7 +31,9 @@ const navigationPages = [
 ];
 ---
 
-<div class="absolute top-0 left-0 z-50 w-full py-2 flex flex-row items-center">
+<header
+  class="absolute top-0 left-0 z-50 w-full py-2 flex flex-row items-center"
+>
   <div class="px-4 md:px-8 lg:px-16 flex-1">
     <Logo companyTitle="VietLand" />
   </div>
@@ -54,4 +56,4 @@ const navigationPages = [
       <NavigationDropdown currentPage={currentPage} pages={navigationPages} />
     </div>
   </div>
-</div>
+</header>

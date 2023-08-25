@@ -1,0 +1,32 @@
+---
+import Facebook from "./icons/Facebook.astro";
+import Zalo from "./icons/Zalo.astro";
+
+interface Props {
+  className?: string;
+  facebookRef?: string;
+  zaloRef?: string;
+}
+
+const { className, facebookRef, zaloRef } = Astro.props;
+---
+
+<div class=`flex items-center gap-1.5 ${className ? className : ""}`>
+  <a
+    href={facebookRef ? facebookRef : "#"}
+    target="_blank"
+    rel="noopener"
+    class="text-[--color-grey-light] w-10 h-10 block opacity-20 hover:opacity-60 transition-opacity duration-150"
+  >
+    <Facebook />
+  </a>
+
+  <a
+    href={zaloRef ? zaloRef : "#"}
+    target="_blank"
+    rel="noopener"
+    class="text-[--color-grey-light] w-10 h-10 block opacity-20 hover:opacity-60 transition-opacity duration-150"
+  >
+    <Zalo />
+  </a>
+</div>

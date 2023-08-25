@@ -1,0 +1,14 @@
+---
+interface Props {
+  text: string;
+  className?: string;
+}
+
+const { text, className } = Astro.props;
+---
+
+<div
+  class=`uppercase text-xs text-[--color-grey-light] tracking-widest opacity-30 font-bold pointer-events-none pt-2.5 ${className? className : ''}`
+>
+  {text}
+</div>

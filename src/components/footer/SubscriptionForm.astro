@@ -1,0 +1,47 @@
+<form
+  name="subscription-form"
+  method="post"
+  data-netlify="true"
+  id="subsctiption-form"
+>
+  <div class="relative">
+    <input
+      required
+      type="email"
+      placeholder="Địa chỉ email"
+      name="email"
+      id="email"
+      oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email')"
+      class="input bg-[--color-dark] rounded-full px-6 py-3 text-sm w-full text-[#ffffff99]"
+    />
+    <!-- <label for="email">Địa chỉ email</label> -->
+    <button type="submit" class="absolute top-0 right-0 pr-4 h-full"
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="var(--color-secondary)"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
+      </svg>
+    </button>
+  </div>
+</form>
+
+<style>
+  .input {
+  }
+
+  .input::placeholder {
+    color: var(--color-grey-light);
+    opacity: 0.1;
+  }
+
+  .input:placeholder-shown {
+  }
+</style>

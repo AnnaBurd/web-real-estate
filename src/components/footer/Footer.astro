@@ -1,1 +1,73 @@
-FOOTER
+---
+import Container from "../../layouts/Container.astro";
+import LogoSmall from "../logo/LogoSmall.astro";
+import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
+import ColumnHeader from "./ColumnHeader.astro";
+import Link from "./Link.astro";
+import SocialIcons from "./SocialIcons.astro";
+import SubscriptionForm from "./SubscriptionForm.astro";
+---
+
+<footer class="w-full grid grid-cols-1 grid-rows-[1fr,min,min]">
+  <div class="bg-image w-full h-full [grid-row:1/2] [grid-column:1/2] z-0">
+  </div>
+  <div
+    class="w-full h-full bg-gradient-to-t from-[--color-secondary-darkest] to-[#405273DD] [grid-row:1/2] [grid-column:1/2] z-10"
+  >
+  </div>
+  <Container
+    className="h-[30vh] min-h-fit z-30 [grid-row:1/2] [grid-column:1/2] flex flex-col justify-center items-center my-16"
+  >
+    <h2
+      class="md:text-2xl tracking-normal font-light px-6 pb-3 pt-0 text-white max-w-[40ch] text-center !leading-relaxed"
+    >
+      VietLand đã đưa công nghệ và tính minh bạch vào bất động sản
+    </h2>
+    <div class="mt-4">
+      <ButtonAnimated hiddenText="xem đất">Tìm hiểu</ButtonAnimated>
+    </div>
+  </Container>
+  <div class="bg-[--color-secondary-darkest]">
+    <Container className="grid grid-cols-3 grid-rows-3 gap-2 pb-16">
+      <ColumnHeader text="Công ty" />
+      <ColumnHeader text="đầu tư" />
+      <ColumnHeader text="Nhận ưu đãi mới qua email" />
+
+      <Link href="#">Thông tin</Link>
+      <Link href="#">Tìm kiếm đất</Link>
+      <SubscriptionForm />
+      <Link href="#">Liên hệ</Link>
+      <Link href="#">Xem trên bản đồ</Link>
+      <ColumnHeader
+        text="LIÊN KẾT"
+        className="[grid-column:3/4] [grid-row:4/5]"
+      />
+      <SocialIcons className="[grid-column:3/4] [grid-row:5/6] -ml-1" />
+    </Container>
+  </div>
+  <div class="bg-[--color-secondary-darkest]">
+    <Container>
+      <div class="w-full h-[1px] opacity-5 bg-white"></div>
+    </Container>
+
+    <Container className="flex justify-between items-center py-6 ">
+      <LogoSmall companyTitle="VietLand" />
+      <div
+        class="text-xs text-white opacity-20 font-extralight pointer-events-none"
+      >
+        © 2022 - {new Date().getFullYear()} VietLand All Rights Reserved
+      </div>
+    </Container>
+  </div>
+</footer>
+
+<style>
+  /* TODO: responsive image sizes and preload */
+  .bg-image {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-position: center top;
+    background-image: url("/img/footer.jpg");
+  }
+</style>

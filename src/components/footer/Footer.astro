@@ -16,10 +16,10 @@ import SubscriptionForm from "./SubscriptionForm.astro";
   >
   </div>
   <Container
-    className="h-[30vh] min-h-fit z-30 [grid-row:1/2] [grid-column:1/2] flex flex-col justify-center items-center my-16"
+    className="h-[20vh] md:h-[30vh] min-h-fit z-30 [grid-row:1/2] [grid-column:1/2] flex flex-col justify-center items-center my-16"
   >
     <h2
-      class="md:text-2xl tracking-normal font-light px-6 pb-3 pt-0 text-white max-w-[40ch] text-center !leading-relaxed"
+      class="md:text-xl xl:text-2xl tracking-normal font-light px-6 pb-3 pt-0 text-white max-w-[40ch] text-center !leading-relaxed"
     >
       VietLand đã đưa công nghệ và tính minh bạch vào bất động sản
     </h2>
@@ -28,21 +28,34 @@ import SubscriptionForm from "./SubscriptionForm.astro";
     </div>
   </Container>
   <div class="bg-[--color-secondary-darkest]">
-    <Container className="grid grid-cols-3 grid-rows-3 gap-2 pb-16">
+    <Container
+      className="grid lg:grid-cols-3 gap-2 pb-16 grid-cols-1 md:grid-cols-2 "
+    >
       <ColumnHeader text="Công ty" />
-      <ColumnHeader text="đầu tư" />
-      <ColumnHeader text="Nhận ưu đãi mới qua email" />
-
       <Link href="#">Thông tin</Link>
+      <Link href="#" className="md:[grid-column:1/2] md:[grid-row:3/4]">
+        Liên hệ
+      </Link>
+      <ColumnHeader
+        text="đầu tư"
+        className="md:[grid-column:2/3] md:[grid-row:1/2]"
+      />
       <Link href="#">Tìm kiếm đất</Link>
-      <SubscriptionForm />
-      <Link href="#">Liên hệ</Link>
-      <Link href="#">Xem trên bản đồ</Link>
+      <Link href="#" className="lg:[grid-column:2/3] lg:[grid-row:3/4]">
+        Xem đất trên bản đồ
+      </Link>
+      <ColumnHeader
+        text="Nhận ưu đãi mới qua email"
+        className="mt-4 mb-1.5 md:mt-0 md:mb-0 lg:[grid-column:3/4] lg:[grid-row:1/2] lg:mb-1.5"
+      />
+      <SubscriptionForm className="lg:row-span-2" />
       <ColumnHeader
         text="LIÊN KẾT"
-        className="[grid-column:3/4] [grid-row:4/5]"
+        className="lg:[grid-column:3/4] lg:[grid-row:4/5] mt-2 md:[grid-column:1/2] md:[grid-row:4/5] lg:mt-0"
       />
-      <SocialIcons className="[grid-column:3/4] [grid-row:5/6] -ml-1" />
+      <SocialIcons
+        className="lg:[grid-column:3/4] lg:[grid-row:5/6] -ml-1 [grid-column:1/2] md:[grid-row:5/6]"
+      />
     </Container>
   </div>
   <div class="bg-[--color-secondary-darkest]">
@@ -50,7 +63,9 @@ import SubscriptionForm from "./SubscriptionForm.astro";
       <div class="w-full h-[1px] opacity-5 bg-white"></div>
     </Container>
 
-    <Container className="flex justify-between items-center py-6 ">
+    <Container
+      className="flex justify-between items-center py-6 flex-col md:flex-row gap-4"
+    >
       <LogoSmall companyTitle="VietLand" />
       <div
         class="text-xs text-white opacity-20 font-extralight pointer-events-none"

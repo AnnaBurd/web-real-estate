@@ -1,5 +1,7 @@
 import * as contentful from "contentful";
-const createClientFunc = contentful.createClient;
+const createClientFunc = contentful.createClient
+  ? contentful.createClient
+  : (contentful as any).default.createClient;
 
 // Import environment variables from .env file (Astro automatically loads them into import.meta.env)
 const CONTENTFUL_DELIVERY_TOKEN = import.meta.env.CONTENTFUL_DELIVERY_TOKEN;
@@ -129,7 +131,7 @@ class ContentfulModel implements Model {
       });
 
       // Contentful does not allow to store address, so use another API to get it from the coordinates
-      await this.loadLandsAddresses(lands);
+      // await this.loadLandsAddresses(lands); // TODO: uncomment this line to enable fetching addresses
 
       // Update the application data and state
       this.lands = lands;

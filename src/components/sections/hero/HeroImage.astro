@@ -1,5 +1,6 @@
 <div class="w-full h-full absolute top-0 left-0 select-none overflow-hidden">
   <div class="bg-hero-image">
+    <!-- Image overlays -->
     <div
       class="w-full h-full bg-blue-400 absolute top-0 left-0 opacity-10 select-none"
     >
@@ -11,42 +12,38 @@
   </div>
 </div>
 
-<style>
-  /* Position hero image on the page */
-  /* TODO: responsive hero image sizes and preload */
-  .bg-hero-image {
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    background-position: center bottom;
-    background-image: url("/img/main-hero__portrait.jpg");
-  }
+<!-- Position hero image on the page and apply responsive src loading -->
+<style lang="sass">
+  // Image src
+  $hero-image--portrait: "https://images.ctfassets.net/2lc6rsj68vep/28nzwK95NUEfbQ0H6a6FTa/c1623d14157a04fc110fa465a75cab1c/main-hero__portrait-min.jpg?fm=jpg&fl=progressive" // contentful asset url
 
-  @media (orientation: landscape) and (min-width: 768px) {
-    .bg-hero-image {
-      background-position: center top;
-      background-image: url("/img/main-hero.jpg");
-      width: 160%;
-      height: 160%;
-      margin-top: -13vh;
-    }
-  }
+  $hero-image: "/img/main-hero" // public folder
 
-  @media (orientation: landscape) and (min-width: 1280px) {
-    .bg-hero-image {
-      background-position: center top;
-      background-image: url("/img/main-hero.jpg");
-      width: 140%;
-      height: 140%;
-      margin-top: -8vh;
-    }
-  }
+  //  Portrait mode (for mobile devices)
+  .bg-hero-image
+    background-size: cover
+    width: 100%
+    height: 100%
+    background-position: center bottom
+    background-image: url($hero-image--portrait + "&w=768")
 
-  @media (orientation: landscape) and (min-width: 1536px) {
-    .bg-hero-image {
-      width: 105%;
-      height: 105%;
-      margin-top: -1vh;
-    }
-  }
+  @media screen  and (-webkit-min-device-pixel-ratio: 2)
+    .bg-hero-image
+      background-image: url($hero-image--portrait + "&w=1536")
+
+  // Landscape mode
+  @media (orientation: landscape) and (min-width: 768px)
+    .bg-hero-image
+      background-position: center center
+      width: 100%
+      height: 100%
+      background-image: url($hero-image + "_small.jpg")
+
+  @media (orientation: landscape) and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), (orientation: landscape) and (min-width: 1280px)
+    .bg-hero-image
+      background-image: url($hero-image + "_medium.jpg")
+
+  @media (orientation: landscape) and (min-width: 1280px) and (-webkit-min-device-pixel-ratio: 2) , (min-width: 1500px )
+    .bg-hero-image
+      background-image: url($hero-image + "_large.jpg")
 </style>

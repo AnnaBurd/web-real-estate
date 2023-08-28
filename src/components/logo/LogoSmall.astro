@@ -1,0 +1,34 @@
+---
+interface Props {
+  companyTitle: string;
+}
+
+const { companyTitle } = Astro.props;
+---
+
+<a href="/" class="flex items-center gap-x-1.5 opacity-20">
+  <div class="w-5 h-5">
+    <svg
+      viewBox="0 0 230 205"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-full h-full"
+    >
+      <path
+        d="M228 2H2.5L25.5 44H160L93.5 161L117.5 202.5L228 2Z"
+        fill="white"
+        stroke="white"
+        stroke-width="4"
+        stroke-linejoin="round"></path>
+      <path
+        d="M104 71.5H42L72.5 125.5L104 71.5Z"
+        fill="white"
+        stroke="white"
+        stroke-width="4"
+        stroke-linejoin="round"></path>
+    </svg>
+  </div>
+  <span class="text-base tracking-wide text-white font-normal"
+    >{companyTitle}</span
+  ></a
+>

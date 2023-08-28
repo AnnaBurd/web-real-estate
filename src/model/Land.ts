@@ -11,7 +11,7 @@ type LandLongDescriptionNode = ParagraphNode | BulletPointsNode;
 export type Land = {
   id?: string;
   slug: string;
-  name?: string;
+  title?: string;
   promoted?: boolean;
   briefDescription?: string;
   longDescription?: LandLongDescriptionNode[];

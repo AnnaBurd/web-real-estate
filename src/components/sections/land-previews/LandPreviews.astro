@@ -1,0 +1,166 @@
+---
+import Container from "../../../layouts/Container.astro";
+import Card from "./cards/Card.astro";
+
+import dataModel from "../../../model/ContentfulModel.js";
+import IconLeft from "./buttons/IconLeft.astro";
+import IconRight from "./buttons/IconRight.astro";
+
+const promotedLands = await dataModel.getPromotedLands();
+console.log("promoted lands component: 🎴", promotedLands.length);
+---
+
+<div
+  class="bg-gradient-to-b from-[--color-secondary-lighter] w-full py-20 md:py-0"
+>
+  <Container fullHeight={true}>
+    <h2
+      class="capitalize text-xl md:text-2xl xl:text-4xl tracking-normal font-normal px-6 pb-2 md:pb-3"
+    >
+      Dự án hiện tại
+    </h2>
+    <p
+      class="text-xs md:text-sm font-normal opacity-80 tracking-wide md:leading-relaxed max-w-[44ch] text-center"
+    >
+      Công ty giới thiệu mấy dự án đất đang bán với tỷ giá và diện tích các loại
+      đang bán.
+    </p>
+
+    <div class="w-full mt-10 xl:mt-20 flex items-center md:gap-14 xl:gap-6">
+      <div
+        class="swiper rounded-md md:px-.5 order-2 w-full overflow-visible md:overflow-hidden"
+        data-slides={promotedLands.length}
+      >
+        <div class="swiper-wrapper flex-col md:flex-row gap-8 md:gap-0">
+          {
+            promotedLands.map((land) => (
+              <Card land={land} className="swiper-slide " />
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-5 order-1 rounded-full hidden md:block hover:bg-[#40527311]"
+      >
+        <IconLeft />
+      </div>
+      <div
+        class="swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-5 order-3 rounded-full hidden md:block hover:bg-[#40527311]"
+      >
+        <IconRight />
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style is:global lang="sass">
+  /* Additional styles for swiper transitions */
+  @media screen and (min-width: 768px)
+    // Space for transform-y animation (otherwise the slide overflow will be cut off)
+    .swiper
+      padding-top: 20px !important
+      margin-top: -20px !important
+
+    // Not active slides (on the sides)
+    .swiper-slide
+      a
+        transform: scale(0.99) translateY(1px)
+        transition: transform 0.2s ease-in-out
+        box-shadow: 0 16px 20px -4px rgb(0 0 0 / 0.08), 0 6px 8px -4px rgb(0 0 0 / 0.07)
+
+    // Active slide (in the middle)
+    .swiper-slide-active
+      a
+        transform: scale(1.01) translateY(0px)
+        transition: transform 0.4s ease-in-out
+        box-shadow: 0 20px 28px -2px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)
+</style>
+
+<style>
+  .swiper-button {
+    transition: border-color 0.3s, background-color 0.3s,
+      transform ease-in 0.15s, box-shadow ease-in 0.25s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+
+  .swiper-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 15px var(--color-accent-shadow);
+  }
+</style>
+
+<!-- Handle swiper functionality -->
+<script>
+  // Import Swiper JS, its modules and styles
+  import Swiper from "swiper";
+  import { Navigation, Keyboard } from "swiper/modules";
+  import "swiper/css";
+
+  // Workaround for swiper limitation of slides dissapearing in loop mode + centeredSlides when number of slides is less than slidesPerView * 2;
+  // Ref. official docs: https://swiperjs.com/migration-guide-v9#loop-mode
+  // Temporary solution - compare number of slides with required slides per view and duplicate slides if there is not enough slides
+  let totalSlides = (document.querySelector(".swiper") as HTMLDivElement)
+    ?.dataset.slides;
+  const viewportWidth = window.innerWidth;
+  const expectedNumberOfSlides =
+    viewportWidth >= 1536
+      ? 4 * 2 + 1
+      : viewportWidth >= 1280
+      ? 3 * 2 + 1
+      : viewportWidth >= 1024
+      ? 2 * 2 + 1
+      : 0;
+
+  if (((totalSlides || 0) as number) < expectedNumberOfSlides) {
+    const slidesContainer = document.querySelector(".swiper-wrapper")!;
+    const slidesHTML = slidesContainer.innerHTML;
+    slidesContainer?.insertAdjacentHTML("beforeend", slidesHTML);
+  }
+
+  // Init swiper on desktop and destroy on mobile (breakpoint is 768px - same as tailwind's md breakpoint)
+  let hasInitSwiper = false;
+  let swiper: Swiper;
+  const mobileBreakpoint = 768;
+
+  const initSwiper = () => {
+    if (!hasInitSwiper && window.innerWidth >= mobileBreakpoint) {
+      swiper = new Swiper(".swiper", {
+        modules: [Navigation, Keyboard],
+        direction: "horizontal",
+        loop: true,
+        centeredSlides: true,
+        slidesPerView: 1,
+        breakpoints: {
+          1024: {
+            slidesPerView: 2,
+          },
+          1280: {
+            slidesPerView: 3,
+          },
+          1536: {
+            slidesPerView: 4,
+          },
+        },
+        keyboard: {
+          enabled: true,
+          onlyInViewport: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+
+      hasInitSwiper = true;
+    }
+
+    if (hasInitSwiper && window.innerWidth < mobileBreakpoint) {
+      swiper.destroy();
+      hasInitSwiper = false;
+    }
+  };
+
+  initSwiper();
+  window.addEventListener("resize", initSwiper);
+</script>

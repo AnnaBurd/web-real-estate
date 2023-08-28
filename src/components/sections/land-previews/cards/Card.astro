@@ -1,0 +1,59 @@
+---
+import type { Land } from "../../../../model/Land";
+
+interface Props {
+  land: Land;
+  className?: string;
+}
+
+const { land, className } = Astro.props;
+---
+
+<div
+  class=` md:px-6 md:pb-10 xl:px-3 h-auto ${className ? className : ""} overflow-visible`
+>
+  <a
+    href={`/${land.slug}`}
+    class="bg-white rounded-md overflow-hidden flex flex-col h-full shadow-xl max-w-md mx-auto md:max-w-lg"
+  >
+    <div class="w-full h-48 md:h-56 xl:h-64">
+      <img
+        src={land.images ? land.images[0] : "/no-image.svg"}
+        alt={land.title}
+        class="w-full h-full object-cover object-center"
+      />
+    </div>
+    <div
+      class="py-4 px-4 xl:py-6 xl:px-6 w-full flex flex-col self-stretch flex-1 justify-between"
+    >
+      <div>
+        <span
+          class="text-base md:text-xl font-semibold tracking-tight leading-tight"
+          >{land.title}</span
+        >
+        <address class="text-xs md:text-sm font-normal not-italic opacity-80">
+          {land.address || land.briefDescription?.slice(0, 50)}
+        </address>
+      </div>
+
+      <span class="block mt-6">
+        <span
+          class="text-[--color-accent] text-base font-medium xl:font-normal xl:text-xl"
+        >
+          <span
+            class="text-2xl md:text-3xl xl:text-4xl font-normal md:font-light tracking-tighter leading-tight"
+            >{(land?.price || 0) / 1000000000}
+          </span> tỷ
+        </span>
+        {
+          land?.area && (
+            <span class="opacity-90 tracking-tighter text-sm">
+              <span class=" bg-[--color-text] w-[1px] h-5 xl:h-7 inline-block -mb-1 ml-1 mr-1.5 opacity-20" />
+              {land.area.toLocaleString().replace(/,/g, " ")} m&sup2
+            </span>
+          )
+        }
+      </span>
+    </div>
+  </a>
+</div>

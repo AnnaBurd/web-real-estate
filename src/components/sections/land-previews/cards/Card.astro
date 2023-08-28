@@ -1,5 +1,6 @@
 ---
 import type { Land } from "../../../../model/Land";
+import Badge from "../../../ui/Badge.astro";
 
 interface Props {
   land: Land;
@@ -14,14 +15,21 @@ const { land, className } = Astro.props;
 >
   <a
     href={`/${land.slug}`}
-    class="bg-white rounded-md overflow-hidden flex flex-col h-full shadow-xl max-w-md mx-auto md:max-w-lg"
+    class="bg-white rounded-md overflow-hidden flex flex-col h-full shadow-xl max-w-md mx-auto md:max-w-lg hover:shadow-xl"
   >
-    <div class="w-full h-48 md:h-56 xl:h-64">
+    <div class="w-full h-48 md:h-56 xl:h-64 relative">
       <img
         src={land.images ? land.images[0] : "/no-image.svg"}
         alt={land.title}
         class="w-full h-full object-cover object-center"
       />
+      {
+        land.tag && (
+          <Badge className="absolute bottom-0 left-0 mb-3.5 ml-4 xl:ml-6 xl:mb-5">
+            {land.tag}
+          </Badge>
+        )
+      }
     </div>
     <div
       class="py-4 px-4 xl:py-6 xl:px-6 w-full flex flex-col self-stretch flex-1 justify-between"

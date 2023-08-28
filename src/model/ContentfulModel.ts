@@ -112,6 +112,7 @@ class ContentfulModel implements Model {
           title,
           slug,
           promoted: item.fields.promoted as boolean,
+          tag: item.fields.tag ? (item.fields.tag as string) : "",
           briefDescription: item.fields.briefDescription
             ? (item.fields.briefDescription as string)
             : "",

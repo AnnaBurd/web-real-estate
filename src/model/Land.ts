@@ -13,6 +13,7 @@ export type Land = {
   slug: string;
   title?: string;
   promoted?: boolean;
+  tag?: string;
   briefDescription?: string;
   longDescription?: LandLongDescriptionNode[];
   coords?: [number, number];

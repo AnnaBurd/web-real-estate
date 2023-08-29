@@ -77,7 +77,8 @@ const { className } = Astro.props;
   const formEl = document.getElementById(
     "subscription-form"
   ) as HTMLFormElement;
-  const inputEl = formEl?.querySelector("input") as HTMLInputElement;
+  // Note: Netlify injects a hidden input field with name="form-name" and value="subscription-form" into the form, so can not use this name for other fields
+  const inputEl = formEl?.querySelector("#email") as HTMLInputElement;
   const successAlertEl = formEl?.querySelector(".success-alert") as HTMLElement;
   const errorAlertEl = formEl?.querySelector(".error-alert") as HTMLElement;
 

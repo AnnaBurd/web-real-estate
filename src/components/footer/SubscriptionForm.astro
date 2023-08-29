@@ -1,4 +1,7 @@
 ---
+import SuccessAlert from "../ui/alerts/Success.astro";
+import ErrorAlert from "../ui/alerts/Error.astro";
+
 interface Props {
   className?: string;
 }
@@ -10,27 +13,26 @@ const { className } = Astro.props;
   name="subscription-form"
   method="post"
   data-netlify="true"
-  id="subsctiption-form"
+  id="subscription-form"
   class=` ${className? className : ''}`
 >
   <div class="relative max-w-sm">
     <input
-      required
-      type="email"
       placeholder="Địa chỉ email"
       name="email"
       id="email"
-      oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email')"
-      class="input bg-[--color-dark] rounded-full px-6 py-3 text-sm w-full text-[#ffffff99]"
+      class="input bg-[--color-dark] rounded-full px-6 py-3 text-sm w-full text-[#ffffff99] transition-all duration-300 ease-in-out outline-none ring-2 ring-transparent focus:ring-[#ffffff99] focus:ring-opacity-50"
     />
     <!-- <label for="email">Địa chỉ email</label> -->
-    <button type="submit" class="absolute top-0 right-0 pr-4 h-full"
+    <button
+      type="submit"
+      class="button absolute top-0 right-0 pr-4 h-full text-[var(--color-secondary)] hover:text-[var(--color-accent)] transition-all duration-300 ease-in-out"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
-        stroke="var(--color-secondary)"
+        stroke="currentColor"
         class="w-6 h-6"
       >
         <path
@@ -40,17 +42,146 @@ const { className } = Astro.props;
       </svg>
     </button>
   </div>
+  <SuccessAlert title="Đăng ký thành công">
+    Cảm ơn bạn đã đăng ký, chúng tôi đã thêm bạn vào danh sách gửi thư của chúng
+    tôi.
+  </SuccessAlert>
+  <ErrorAlert title="Đăng ký không thành công">
+    Rất tiếc, đã xảy ra lỗi, vui lòng thử lại đăng ký sau.
+  </ErrorAlert>
 </form>
 
+<!-- Style form components (use css for advanced styles) -->
 <style>
-  .input {
+  /* Button on-click animation */
+  .button {
+    transition: color 0.3s, transform ease-in 0.15s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+  .button:active {
+    transform: translateX(0.15rem);
+    color: var(--color-secondary) !important;
   }
 
+  /* Placeholder text */
   .input::placeholder {
     color: var(--color-grey-light);
     opacity: 0.1;
   }
-
-  .input:placeholder-shown {
-  }
 </style>
+
+<!-- Form functionality: submit data to netlify backend 
+  (reference: https://docs.netlify.com/forms/setup) -->
+<script>
+  // Form elements reference
+  const formEl = document.getElementById(
+    "subscription-form"
+  ) as HTMLFormElement;
+  const inputEl = formEl?.querySelector("input") as HTMLInputElement;
+  const successAlertEl = formEl?.querySelector(".success-alert") as HTMLElement;
+  const errorAlertEl = formEl?.querySelector(".error-alert") as HTMLElement;
+
+  // Helper function to check if input is a valid email address
+  const validateInput = (value: string) => {
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    return re.test(String(value));
+  };
+
+  // Handle opening and closing of alerts (works in combination with tailwind classes)
+  const showAlert = (alertElement: HTMLElement) => {
+    // Make success alert visible
+    alertElement?.classList.remove("invisible");
+    alertElement?.classList.add("!opacity-100");
+
+    // Automatically hide it after 5 seconds
+    const timer = setTimeout(() => {
+      hideAlert(alertElement);
+    }, 5000);
+
+    // Or allow to close it by clicking the button
+    alertElement?.querySelector("button")?.addEventListener("click", () => {
+      hideAlert(alertElement);
+
+      // Clear timeout
+      clearTimeout(timer);
+    });
+  };
+
+  const hideAlert = (alertElement: HTMLElement) => {
+    alertElement?.classList.remove("!opacity-100");
+    setTimeout(() => {
+      alertElement?.classList.add("invisible");
+    }, 600);
+  };
+
+  // Handle form submissions with netlify backend
+  const handleFormSubmit = async (e: SubmitEvent) => {
+    // Prevent default browser form submission behavior (do not redirect or refresh page)
+    e.preventDefault();
+
+    // Get input values
+    const formData = new FormData(e.target as HTMLFormElement);
+    const inputEmailValue = formData.get("email");
+
+    // Check if input is valid and focus input if not
+    if (!inputEmailValue || !validateInput(String(inputEmailValue))) {
+      formEl.querySelector("input")?.focus();
+      return;
+    }
+
+    // Send form data to netlify backend
+    const startTime = Date.now();
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(), // Note: URLSearchParams and formData are not compatible in TS, ref: https://github.com/microsoft/TypeScript/issues/30584#issuecomment-890515551
+      });
+
+      if (response.ok) {
+        inputEl.value = "";
+
+        // Show success message with slight delay in case if network speed is too fast
+        const timeElapsed = Date.now() - startTime;
+        const delay = timeElapsed < 1000 ? 1000 - timeElapsed : 0;
+        setTimeout(() => {
+          showAlert(successAlertEl);
+        }, delay);
+      } else {
+        throw new Error("Network response was not ok.");
+      }
+    } catch (error) {
+      if (import.meta.env.MODE === "development")
+        console.log("Error submitting email to subscription form", error);
+      showAlert(errorAlertEl);
+    }
+  };
+
+  // Listen to form submissions
+  formEl?.addEventListener("submit", handleFormSubmit);
+
+  // Listen to input changes and show error hint if input is incorrect (this is much easier with react!)
+  const showErrorHint = () => {
+    inputEl?.classList.add("!ring-pink-700");
+  };
+
+  const hideErrorHint = () => {
+    inputEl?.classList.remove("!ring-pink-700");
+  };
+
+  inputEl?.addEventListener("blur", hideErrorHint);
+
+  inputEl?.addEventListener("focus", () => {
+    if (inputEl.value !== "" && !validateInput(inputEl.value)) showErrorHint();
+  });
+
+  inputEl?.addEventListener("input", () => {
+    if (inputEl.value !== "" && !validateInput(inputEl.value)) {
+      showErrorHint();
+    } else {
+      hideErrorHint();
+    }
+  });
+</script>

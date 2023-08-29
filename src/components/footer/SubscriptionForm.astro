@@ -127,7 +127,10 @@ const { className } = Astro.props;
 
     // Check if input is valid and focus input if not
     if (!inputEmailValue || !validateInput(String(inputEmailValue))) {
-      formEl.querySelector("input")?.focus();
+      inputEl.focus();
+
+      console.log("Invalid email address");
+      console.log(inputEl);
       return;
     }
 

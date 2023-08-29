@@ -8,6 +8,14 @@ interface Props {
 }
 
 const { land, className } = Astro.props;
+
+// Prepare responsive image srcset and sizes
+const imgUrl = land.images ? land.images[0] : "/no-image.svg";
+const apiQuery = "fm=jpg&fl=progressive&fit=fill";
+const imgSizes = "(max-width: 1024px) 500px, 350px";
+
+const imgSrc = `${imgUrl}?${apiQuery}&w=800&h=500`;
+const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}&w=400&h=300 400w, ${imgUrl}?${apiQuery}&w=800&h=500 800w`;
 ---
 
 <div
@@ -19,8 +27,10 @@ const { land, className } = Astro.props;
   >
     <div class="w-full h-48 md:h-56 xl:h-64 relative">
       <img
-        src={land.images ? land.images[0] : "/no-image.svg"}
         alt={land.title}
+        srcset={imgSrcSet}
+        sizes={imgSizes}
+        src={imgSrc}
         class="w-full h-full object-cover object-center"
       />
       {

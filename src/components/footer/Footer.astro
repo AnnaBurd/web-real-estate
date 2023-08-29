@@ -76,13 +76,20 @@ import SubscriptionForm from "./SubscriptionForm.astro";
   </div>
 </footer>
 
-<style>
-  /* TODO: responsive image sizes and preload */
-  .bg-image {
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    background-position: center top;
-    background-image: url("/img/footer.jpg");
-  }
+<style lang="sass">
+  // $img: "/img/footer.jpg?"
+  $img: "https://images.ctfassets.net/2lc6rsj68vep/s1n2ZOawBGsBTzS7r1Hzb/2308aceb48c276fdc2d94a68d3c9e7c1/footer-min.jpg?q=100&fm=webp"
+
+  .bg-image
+    background-size: cover
+    width: 100%
+    height: 100%
+    background-position: center top
+    background-image: url($img + "&w=1200")
+    @media (min-width: 768px)
+      background-image: url($img + "&w=800")
+    @media (min-width: 1024px)
+      background-image: url($img + "&w=1200")
+    @media (min-width: 1280px)
+      background-image: url($img + "&w=1600")
 </style>

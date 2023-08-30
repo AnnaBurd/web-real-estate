@@ -1,4 +1,15 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const attributes = id ? { id } : {}; // optionally add id attribute
+---
+
 <button
+  {...attributes}
   class="uppercase text-xs tracking-tight font-semibold px-5 py-3 text-opacity-80"
   ><slot /></button
 >

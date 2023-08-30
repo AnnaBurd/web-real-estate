@@ -1,9 +1,11 @@
 ---
 import Logo from "../logo/Logo.astro";
-import CallButton from "../ui/buttons/CallButton.astro";
+import CallButton from "./CallButton.astro";
 import ButtonSmall from "../ui/buttons/ButtonSmall.astro";
 import NavigationItem from "./NavigationItem.astro";
 import NavigationDropdown from "./dropdown/NavigationDropdown.astro";
+import CallbackForm from "../modals/CallbackForm.astro";
+import Popup from "../../layouts/Popup.astro";
 
 interface Props {
   currentPage: string;
@@ -48,8 +50,10 @@ const navigationPages = [
     }
   </ul>
   <div class="flex xl:px-16 flex-1 justify-end items-center">
-    <div class="hidden xl:block"><ButtonSmall>Gọi lại</ButtonSmall></div>
-    <div class="hidden sm:block"><CallButton>+84(09)0160-6982</CallButton></div>
+    <div class="hidden xl:block">
+      <ButtonSmall id="callback-form-btn">Gọi lại</ButtonSmall>
+    </div>
+    <div class="hidden sm:block"><CallButton phone="+84(09)0160-6982" /></div>
     <div
       class="xl:hidden flex flex-col items-center justify-center ml-4 mr-4 lg:mr-16 md:mr-8 relative"
     >
@@ -57,3 +61,25 @@ const navigationPages = [
     </div>
   </div>
 </header>
+
+<style>
+  /* Prevent scrollbar from repositioning page content */
+  header {
+    left: calc(100vw - 100%) !important;
+    overflow-x: hidden !important;
+  }
+</style>
+
+<!-- Functionality of the call back button -->
+<script>
+  const callbackFormBtn = document.getElementById(
+    "callback-form-btn"
+  ) as HTMLButtonElement;
+
+  // TODO: later research the correct way to do TS + web components + astro typing
+  const callbackFormPopup: any = document.getElementById("callback-form-popup");
+
+  callbackFormBtn.addEventListener("click", () => {
+    callbackFormPopup.show();
+  });
+</script>

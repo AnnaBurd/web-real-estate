@@ -3,6 +3,8 @@ import "../styles/main.css";
 
 import Footer from "../components/footer/Footer.astro";
 import Navigation from "../components/navigation/Navigation.astro";
+import CallbackForm from "../components/modals/CallbackForm.astro";
+import Popup from "./Popup.astro";
 import Alert from "../components/ui/alerts/Alert.astro";
 interface Props {
   title: string;
@@ -12,7 +14,7 @@ interface Props {
 const { title, currentPage } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!-- TODO: SEO optimization --><!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -36,16 +38,25 @@ const { title, currentPage } = Astro.props;
     <!-- <meta name="generator" content={Astro.generator} /> -->
     <title>{title}</title>
   </head>
-  <body class="font-signica text-[--color-text]">
-    <Navigation currentPage={currentPage} />
-    <slot />
-    <Footer />
+  <body class="font-signica text-[--color-text] w-full h-full relative">
+    <main
+      class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"
+    >
+      <Navigation currentPage={currentPage} />
+      <slot />
+      <Footer />
+    </main>
+
+    <Popup id="callback-form-popup">
+      <div class="w-10 h-10 bg-orange-600">CONTENT</div>
+    </Popup>
     <Alert id="success-alert" type="success" title="Success">
       Success message
     </Alert>
     <Alert id="error-alert" type="error" title="Error">Error message</Alert>
   </body>
 </html>
+
 <style is:global>
   :root {
     --color-accent: #82d4bb;
@@ -63,10 +74,11 @@ const { title, currentPage } = Astro.props;
     --color-gradient-start: #eef4ff;
 
     --color-dark: #2d3549;
+
+    --color-error: #be185d;
   }
 
   html {
-    background: #ffffff;
     background-size: 224px;
   }
 
@@ -79,6 +91,7 @@ const { title, currentPage } = Astro.props;
   html,
   body {
     height: 100%;
+    overflow-x: hidden;
   }
 
   /* Set up scroll snapping points */
@@ -100,32 +113,43 @@ const { title, currentPage } = Astro.props;
     scroll-snap-align: end;
   } */
 
+  /* Prevent scrollbar from repositioning page content */
+  /* html {
+    padding-left: calc(100vw - 100%) !important;
+    overflow-x: hidden !important;
+  } */
+
   /* Style scrollbars */
   /* Firefox */
-  html {
+  html,
+  .main-content {
     scrollbar-width: thin !important;
     scrollbar-color: var(--color-text) var(--color-secondaty-lighter) !important;
   }
 
   /* Chrome */
   /* Width */
-  html::-webkit-scrollbar {
+  html::-webkit-scrollbar,
+  .main-content::-webkit-scrollbar {
     width: 5px !important;
   }
 
   /* Track */
-  html::-webkit-scrollbar-track {
+  html::-webkit-scrollbar-track,
+  .main-content::-webkit-scrollbar-track {
     background: var(--color-secondaty-lighter);
     /* border-radius: 10px; */
   }
   /* Handle */
-  html::-webkit-scrollbar-thumb {
+  html::-webkit-scrollbar-thumb,
+  .main-content::-webkit-scrollbar-thumb {
     background: var(--color-text);
     border-radius: 2px;
   }
 
   /* Handle on hover */
-  html::-webkit-scrollbar-thumb:hover {
+  html::-webkit-scrollbar-thumb:hover,
+  .main-content::-webkit-scrollbar-thumb:hover {
     background: var(--color-secondary);
   }
 

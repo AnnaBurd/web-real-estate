@@ -1,9 +1,15 @@
 ---
-import ButtonDefault from "./ButtonDefault.astro";
+import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
+
+interface Props {
+  phone: string;
+}
+
+const { phone } = Astro.props;
 ---
 
 <!-- TODO: animate call icon on hover -->
-<ButtonDefault>
+<ButtonDefault onClick={`location.href='tel:${phone}'`}>
   <span class="flex flex-row items-center gap-x-1"
     ><svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,6 +31,6 @@ import ButtonDefault from "./ButtonDefault.astro";
 6.75V4.5z"
         clip-rule="evenodd"></path>
     </svg>
-    <slot />
+    {phone}
   </span>
 </ButtonDefault>

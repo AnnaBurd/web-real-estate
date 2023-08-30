@@ -117,6 +117,8 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
       message,
     };
 
+    console.log(data);
+
     const btnElement = callbackFormEl.querySelector(
       "button[type=submit]"
     ) as HTMLButtonElement;
@@ -161,21 +163,10 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
         "Gửi tin nhắn không thành công",
         "Rất tiếc, lỗi đã xảy ra, vui lòng thử lại sau."
       );
+
+      console.log(error);
       btnElement.innerText = "Gửi thông tin";
       btnElement.disabled = false;
     }
-
-    // fetch("/", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   body: new URLSearchParams(data).toString(),
-    // })
-    //   .then(() => {
-    //     alert(
-    //       "Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi sẽ gọi lại sớm trong vòng 24 tiếng."
-    //     );
-    //     callbackForm.reset();
-    //   })
-    //   .catch((error) => alert(error));
   });
 </script>

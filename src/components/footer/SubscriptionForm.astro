@@ -98,37 +98,35 @@ const { className } = Astro.props;
     }
 
     // Send form data to netlify backend
-    const startTime = Date.now();
     try {
+      const startTime = Date.now();
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as any).toString(), // Note: URLSearchParams and formData are not compatible in TS, ref: https://github.com/microsoft/TypeScript/issues/30584#issuecomment-890515551
       });
 
-      if (response.ok) {
-        inputEl.value = "";
+      if (!response.ok) throw new Error("Network response was not ok.");
 
-        // Show success message with slight delay in case if network speed is too fast
-        const timeElapsed = Date.now() - startTime;
-        const delay = timeElapsed < 1000 ? 1000 - timeElapsed : 0;
-        setTimeout(() => {
-          successAlertEl.show(
-            "Đăng ký thành công",
-            "Cảm ơn bạn đã đăng ký, chúng tôi đã thêm bạn vào danh sách gửi thư của chúng tôi."
-          );
-          // showAlert(successAlertEl);
-        }, delay);
-      } else {
-        throw new Error("Network response was not ok.");
-      }
+      // Clear input
+      inputEl.value = "";
+
+      // Show success message with slight delay in case if network speed is too fast
+      const timeElapsed = Date.now() - startTime;
+      const delay = timeElapsed < 1000 ? 1000 - timeElapsed : 0;
+      setTimeout(() => {
+        successAlertEl.show(
+          "Đăng ký thành công",
+          "Cảm ơn bạn đã đăng ký, chúng tôi đã thêm bạn vào danh sách gửi thư của chúng tôi."
+        );
+      }, delay);
     } catch (error) {
       if (import.meta.env.MODE === "development")
         console.log("Error submitting email to subscription form", error);
 
       errorAlertEl.show(
         "Đăng ký không thành công",
-        "Rất tiếc, đã xảy ra lỗi, vui lòng thử lại đăng ký sau"
+        "Rất tiếc, đã xảy ra lỗi, vui lòng thử lại đăng ký sau."
       );
     }
   };

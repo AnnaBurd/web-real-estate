@@ -7,7 +7,7 @@ const { hiddenText } = Astro.props;
 ---
 
 <button
-  class="button button--winona bg-[--color-accent] hover:bg-[--color-accent-darker] p-0 text-xs md:text-sm text-center text-white text-opacity-90 hover:text-opacity-100 font-semibold tracking-widest rounded-full uppercase relative overflow-hidden min-w-[130px] md:min-w-[150px]"
+  class="button button--winona bg-[--color-accent] hover:bg-[--color-accent-darker] p-0 text-xs md:text-sm text-center text-white text-opacity-90 hover:text-opacity-100 font-semibold tracking-widest rounded-full uppercase relative overflow-hidden min-w-[130px] md:min-w-[150px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#607cb3] focus-visible:border-[#607cb344] focus-visible:outline-none"
   data-text={hiddenText}
   ><span class="block align-middle"><slot /></span></button
 >

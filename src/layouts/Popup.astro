@@ -8,7 +8,7 @@ const { id } = Astro.props;
 
 <pop-up
   id={id}
-  class="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center px-10 md:px-16 lg:px-32 min-[1700px]:px-0 xl:mx-auto"
+  class="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center px-10 md:px-16 lg:px-32 min-[1700px]:px-0 xl:mx-auto bg-gradient-to-tr from-[--color-grey-light] to-[#72B3E3]"
   open="false"
 >
   <slot />
@@ -16,7 +16,7 @@ const { id } = Astro.props;
 
 <!-- Style popup open, closed states and transition -->
 <style lang="sass" is:global>
-  // Container with page content
+  /* Container with page content */
   // Default (before animations)
   .main-content
     position: relative
@@ -32,11 +32,11 @@ const { id } = Astro.props;
     height: 100vh
     animation: slideUpLarge .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
 
-  // Popup container
+  /* Popup container */
   // Default (before animations)
   pop-up
     z-index: 0
-    background-color: var(--color-secondary)
+    // background-color: #405273CC
 
   // Visible
   pop-up[open="true"]
@@ -51,6 +51,7 @@ const { id } = Astro.props;
     & > *
       animation: moveDown .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
 
+  /* Animations */
   @keyframes slideUpLarge
     0%
       transform: translateY(0%)

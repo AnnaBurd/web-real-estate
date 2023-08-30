@@ -111,13 +111,17 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
     if (!name) return nameInputEl.focus();
     if (!phone || !phoneRegex.test(phone)) return phoneInputEl.focus();
 
-    const data = {
-      name,
-      phone,
-      message,
-    };
+    // const data = {
+    //   name,
+    //   phone,
+    //   message,
+    // };
+    // console.log(data);
 
-    console.log(data);
+    const formData = new FormData(e.target as HTMLFormElement);
+    formData.append("name", name);
+    formData.append("phone", phone);
+    formData.append("message", message);
 
     const btnElement = callbackFormEl.querySelector(
       "button[type=submit]"
@@ -131,7 +135,7 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data).toString(),
+        body: new URLSearchParams(formData as any).toString(),
       });
 
       if (!response.ok) throw new Error("Error sending data to backend.");

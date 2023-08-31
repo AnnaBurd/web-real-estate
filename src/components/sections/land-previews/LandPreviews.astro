@@ -11,6 +11,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 ---
 
 <div
+  id="land-previews"
   class="bg-gradient-to-t from-[--color-secondary-lighter] w-full py-20 md:py-0"
 >
   <Container fullHeight={true}>
@@ -28,7 +29,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 
     <div class="w-full mt-10 xl:mt-20 flex items-center md:gap-14 xl:gap-6">
       <div
-        class="swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-5 order-1 rounded-full hidden md:block hover:bg-[#40527311] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#607cb3] focus-visible:border-[#607cb344] focus-visible:outline-none"
+        class="swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-5 order-1 rounded-full hidden md:block hover:bg-[#40527311] tabbable"
         tabindex="0"
       >
         <IconLeft />
@@ -48,7 +49,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
       </div>
 
       <div
-        class="swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-5 order-3 rounded-full hidden md:block hover:bg-[#40527311] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#607cb3] focus-visible:border-[#607cb344] focus-visible:outline-none"
+        class="swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-5 order-3 rounded-full hidden md:block hover:bg-[#40527311] tabbable"
         tabindex="0"
       >
         <IconRight />

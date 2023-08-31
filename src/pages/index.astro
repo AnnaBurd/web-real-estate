@@ -12,7 +12,7 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
   <About />
 </Layout>
 
-<!-- Smooth scroll functionality -->
+<!-- Smooth scroll functionality - css classes requred by Lenis library -->
 <style is:global>
   html.lenis {
     height: auto !important;
@@ -36,32 +36,14 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
   header
 
   header[scroll-hide="true"]
-    // animation: slideUpSmooth .6s ease forwards
     transform: translateY(-50px)
     opacity: 0
     transition: transform .6s ease, opacity .4s ease
 
   header[scroll-hide="false"]
-    // animation: slideDownSmooth .6s ease forwards
     transform: translateY(0%)
     opacity: 1
     transition: transform .6s ease, opacity .4s .1s ease
-
-  // @keyframes slideUpSmooth
-  //   0%
-  //     transform: translateY(0%)
-  //   50%
-  //     transform: translateY(-50vh)
-  //   100%
-  //     transform: translateY(-50vh)
-
-  // @keyframes slideDownSmooth
-  //   0%
-  //     transform: translateY(-50vh)
-  //   30%
-  //     transform: translateY(-50vh)
-  //   100%
-  //     transform: translateY(0%)
 </style>
 
 <script>
@@ -73,6 +55,11 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
 
   const headerEl = document.querySelector("header") as HTMLElement;
   let isHeaderVisible = true;
+
+  const buttonDownEl = document.getElementById("button-down") as HTMLElement;
+  const landPreviewsEl = document.getElementById(
+    "land-previews"
+  ) as HTMLElement;
 
   // Allow smooth scrolling only on desktop devices
   if (!isMobileDevice()) {
@@ -107,7 +94,18 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
       scrollCallback: onScroll,
     });
 
-    // locomotiveScroll.scrollTo(footer);
+    // Scroll from hero section down to land previews section
+    buttonDownEl.addEventListener("click", () => {
+      const deltaY =
+        window.innerHeight - landPreviewsEl.getBoundingClientRect().top;
+
+      locomotiveScroll.scrollTo(landPreviewsEl, {
+        duration: 1.4 * (1 - deltaY / window.innerHeight),
+        easing: (t) => {
+          return 1 - Math.pow(1 - t, 4);
+        },
+      });
+    });
   }
 
   window.addEventListener("scrollEvent", (e) => {

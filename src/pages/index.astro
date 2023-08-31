@@ -11,3 +11,107 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
   <LandPreviews />
   <About />
 </Layout>
+
+<!-- Smooth scroll functionality -->
+<style is:global>
+  html.lenis {
+    height: auto !important;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden !important;
+  }
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none !important;
+  }
+</style>
+
+<!-- Hide and show animations of navigation bar in header, triggered by scroll -->
+<style is:global lang="sass">
+  header
+
+  header[scroll-hide="true"]
+    // animation: slideUpSmooth .6s ease forwards
+    transform: translateY(-50px)
+    opacity: 0
+    transition: transform .6s ease, opacity .4s ease
+
+  header[scroll-hide="false"]
+    // animation: slideDownSmooth .6s ease forwards
+    transform: translateY(0%)
+    opacity: 1
+    transition: transform .6s ease, opacity .4s .1s ease
+
+  // @keyframes slideUpSmooth
+  //   0%
+  //     transform: translateY(0%)
+  //   50%
+  //     transform: translateY(-50vh)
+  //   100%
+  //     transform: translateY(-50vh)
+
+  // @keyframes slideDownSmooth
+  //   0%
+  //     transform: translateY(-50vh)
+  //   30%
+  //     transform: translateY(-50vh)
+  //   100%
+  //     transform: translateY(0%)
+</style>
+
+<script>
+  import LocomotiveScroll from "locomotive-scroll";
+
+  import isMobileDevice from "../scripts/isMobileDevice.js";
+
+  // const navbar headerEl.setAttribute("hide", this.isOpen.toString());
+
+  const headerEl = document.querySelector("header") as HTMLElement;
+  let isHeaderVisible = true;
+
+  // Allow smooth scrolling only on desktop devices
+  if (!isMobileDevice()) {
+    const mainContentContainer = document.querySelector(
+      ".main-content"
+    ) as HTMLElement;
+
+    const footer = document.querySelector("footer") as HTMLElement;
+
+    function onScroll({ scroll, limit, velocity, direction, progress }) {
+      // console.log(scroll, limit, velocity, direction, progress);
+
+      if (isHeaderVisible && direction === 1 && scroll >= 201) {
+        isHeaderVisible = false;
+
+        headerEl.setAttribute("scroll-hide", "true");
+      }
+
+      if (!isHeaderVisible && direction === -1 && scroll <= 299) {
+        isHeaderVisible = true;
+
+        headerEl.setAttribute("scroll-hide", "false");
+      }
+    }
+
+    const locomotiveScroll = new LocomotiveScroll({
+      lenisOptions: {
+        wrapper: mainContentContainer,
+
+        // content: mainContentContainer,
+      },
+      scrollCallback: onScroll,
+    });
+
+    // locomotiveScroll.scrollTo(footer);
+  }
+
+  window.addEventListener("scrollEvent", (e) => {
+    const { target, way, from } = e.detail;
+    console.log(`target: ${target}`, `way: ${way}`, `from: ${from}`);
+  });
+</script>

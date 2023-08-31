@@ -1,5 +1,6 @@
 ---
 import PopupCloseBtn from "../../layouts/PopupCloseBtn.astro";
+import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
 import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
 ---
 
@@ -65,9 +66,13 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
           </div>
 
           <div class="mt-4">
-            <ButtonDefault type="submit" className="rounded-md px-5 py-3 ">
+            <ButtonAnimated
+              type="submit"
+              hiddenText={"Gửi thông tin"}
+              className=" !tracking-wide button-smaller rounded-md"
+            >
               Gửi thông tin
-            </ButtonDefault>
+            </ButtonAnimated>
           </div>
         </form>
       </p>
@@ -123,11 +128,14 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
     const btnElement = callbackFormEl.querySelector(
       "button[type=submit]"
     ) as HTMLButtonElement;
+    const btnElementTextContainer = btnElement.querySelector(
+      "span"
+    ) as HTMLSpanElement;
 
     try {
       // Send data to the netlify backend
       const startTime = Date.now();
-      btnElement.innerText = "Đang gửi ...";
+      btnElementTextContainer.innerText = "Đang gửi ...";
       btnElement.disabled = true;
       const response = await fetch("/", {
         method: "POST",
@@ -154,7 +162,7 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
         nameInputEl.value = "";
         phoneInputEl.value = "";
         messageInputEl.value = "";
-        btnElement.innerText = "Gửi thông tin";
+        btnElementTextContainer.innerText = "Gửi thông tin";
         btnElement.disabled = false;
       }, delay + 1000);
     } catch (error) {

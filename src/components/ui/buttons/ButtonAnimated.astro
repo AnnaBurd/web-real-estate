@@ -1,13 +1,23 @@
 ---
 interface Props {
   hiddenText: string;
+  onClick?: string;
+  type?: "button" | "submit";
+  className?: string;
 }
 
-const { hiddenText } = Astro.props;
+const { hiddenText, onClick, type, className } = Astro.props;
+
+const attributes: any = {};
+if (onClick) attributes.onclick = onClick;
+if (type) attributes.type = type;
 ---
 
 <button
-  class="button button--winona bg-[--color-accent] hover:bg-[--color-accent-darker] p-0 text-xs md:text-sm text-center text-white text-opacity-90 hover:text-opacity-100 font-semibold tracking-widest rounded-full uppercase relative overflow-hidden min-w-[130px] md:min-w-[150px] tabbable"
+  {...attributes}
+  class=`button button--winona bg-[--color-accent] hover:bg-[--color-accent-darker] p-0 text-xs md:text-sm text-center text-white text-opacity-90 hover:text-opacity-100 font-semibold tracking-widest rounded-full uppercase relative overflow-hidden min-w-[130px] md:min-w-[150px] tabbable ${
+    className ? className : ""
+  }`
   data-text={hiddenText}
   ><span class="block align-middle"><slot /></span></button
 >
@@ -28,6 +38,11 @@ const { hiddenText } = Astro.props;
   .button--winona::after,
   .button--winona > span {
     padding: 1em 1.5em;
+  }
+
+  .button--smaller::after,
+  .button--smaller > span {
+    padding: 0.6em 1.2em;
   }
 
   @media screen and (min-width: 768px) {

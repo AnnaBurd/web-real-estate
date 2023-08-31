@@ -13,6 +13,7 @@
     "@astrojs/tailwind": "^4.0.0",
     "astro": "^2.10.9",
     "contentful": "^10.5.0",
+    "locomotive-scroll": "^5.0.0-beta.8",
     "swiper": "^10.2.0",
     "tailwindcss": "^3.3.3"
   },

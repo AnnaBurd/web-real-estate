@@ -39,10 +39,11 @@ const { title, currentPage } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="font-signica text-[--color-text] w-full h-full relative">
+    <Navigation currentPage={currentPage} />
     <main
       class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"
     >
-      <Navigation currentPage={currentPage} />
+      <!-- <Navigation currentPage={currentPage} /> -->
       <slot />
       <Footer />
     </main>

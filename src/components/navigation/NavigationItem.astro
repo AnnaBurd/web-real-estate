@@ -11,7 +11,7 @@ const { href, isActive } = Astro.props;
 <li>
   <a
     href={href}
-    class=`uppercase text-xs tracking-tight font-semibold px-6 py-3 text-opacity-80 ${isActive? '' : ""} tabbable rounded-full`
+    class="uppercase text-xs tracking-tight font-semibold px-2 mx-4 py-1.5 my-1.5 text-opacity-80 tabbable rounded-full hover:text-[--color-accent-darkest] duration-300 transition-colors"
   >
     <slot />
   </a>

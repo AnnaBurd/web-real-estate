@@ -114,6 +114,7 @@ const { title, currentPage } = Astro.props;
   } */
 
   /* Prevent scrollbar from repositioning page content */
+  /* Note: can use css scrollbar-gutter:stable instead? */
   /* html {
     padding-left: calc(100vw - 100%) !important;
     overflow-x: hidden !important;
@@ -158,5 +159,14 @@ const { title, currentPage } = Astro.props;
     background-color: rgba(var(--color-accent-rgb), 0.7);
     /* border-radius: 100%; */
     /* color: white; */
+  }
+
+  /* Style focus outline */
+  .tabbable {
+    @apply focus-visible:ring-2;
+    @apply focus-visible:ring-offset-2;
+    @apply focus-visible:ring-[#607cb3];
+    @apply focus-visible:border-[#607cb344];
+    @apply focus-visible:outline-none;
   }
 </style>

@@ -1,12 +1,15 @@
 ---
 interface Props {
   companyTitle: string;
+  className?: string;
 }
 
-const { companyTitle } = Astro.props;
+const { companyTitle, className } = Astro.props;
 ---
 
-<a href="/" class="flex items-center gap-x-1.5"
+<a
+  href="/"
+  class=`flex items-center w-fit gap-x-1.5 ${className? className : ''} tabbable rounded-full`
   ><div class="w-7 h-7">
     <svg
       width="230"

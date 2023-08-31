@@ -16,7 +16,7 @@ const { className, facebookRef, zaloRef } = Astro.props;
     href={facebookRef ? facebookRef : "#"}
     target="_blank"
     rel="noopener"
-    class="text-[--color-grey-light] md:w-10 md:h-10 w-7 h-7 block opacity-20 hover:opacity-60 transition-opacity duration-150"
+    class="text-[--color-grey-light] md:w-10 md:h-10 w-7 h-7 block opacity-20 hover:opacity-60 transition-opacity duration-150 tabbable rounded-full"
   >
     <Facebook />
   </a>
@@ -25,7 +25,7 @@ const { className, facebookRef, zaloRef } = Astro.props;
     href={zaloRef ? zaloRef : "#"}
     target="_blank"
     rel="noopener"
-    class="text-[--color-grey-light] md:w-10 md:h-10 w-7 h-7 block opacity-20 hover:opacity-60 transition-opacity duration-150"
+    class="text-[--color-grey-light] md:w-10 md:h-10 w-7 h-7 block opacity-20 hover:opacity-60 transition-opacity duration-150 tabbable rounded-full"
   >
     <Zalo />
   </a>

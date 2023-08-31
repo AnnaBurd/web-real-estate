@@ -28,6 +28,13 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 
     <div class="w-full mt-10 xl:mt-20 flex items-center md:gap-14 xl:gap-6">
       <div
+        class="swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-5 order-1 rounded-full hidden md:block hover:bg-[#40527311] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#607cb3] focus-visible:border-[#607cb344] focus-visible:outline-none"
+        tabindex="0"
+      >
+        <IconLeft />
+      </div>
+
+      <div
         class="swiper rounded-md md:px-.5 order-2 w-full overflow-visible md:overflow-hidden"
         data-slides={promotedLands.length}
       >
@@ -41,12 +48,8 @@ console.log("promoted lands component: 🎴", promotedLands.length);
       </div>
 
       <div
-        class="swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-5 order-1 rounded-full hidden md:block hover:bg-[#40527311]"
-      >
-        <IconLeft />
-      </div>
-      <div
-        class="swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-5 order-3 rounded-full hidden md:block hover:bg-[#40527311]"
+        class="swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-5 order-3 rounded-full hidden md:block hover:bg-[#40527311] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#607cb3] focus-visible:border-[#607cb344] focus-visible:outline-none"
+        tabindex="0"
       >
         <IconRight />
       </div>
@@ -116,6 +119,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
   if (((totalSlides || 0) as number) < expectedNumberOfSlides) {
     const slidesContainer = document.querySelector(".swiper-wrapper")!;
     const slidesHTML = slidesContainer.innerHTML;
+
     slidesContainer?.insertAdjacentHTML("beforeend", slidesHTML);
   }
 
@@ -130,6 +134,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
         modules: [Navigation, Keyboard],
         direction: "horizontal",
         loop: true,
+        // cssMode: true,
         // speed: 800,
         centeredSlides: true,
         slidesPerView: 1,

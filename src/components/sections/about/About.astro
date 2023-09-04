@@ -18,18 +18,19 @@ import Item from "./Item.astro";
   fullHeight={true}
   attributes={{
     "data-scroll": "",
-    "data-scroll-offset": "80%,110%",
+    "data-scroll-speed": "-0.38",
+    "data-scroll-offset": "100%,90%",
     "data-scroll-event-progress": "aboutSectionScrollProgressEvent",
   }}
-  className="[perspective:2000px]"
+  className="xl:[perspective:2000px] xl:pb-[40vh] xl:pt-[60vh] 2xl:pb-[50vh] 2xl:pt-[50vh]"
 >
   <h2
-    class="uppercase text-xs md:text-sm tracking-wider font-semibold px-6 pb-6 opacity-40 pt-24"
+    class="uppercase text-xs md:text-sm tracking-wider font-semibold px-6 pb-6 opacity-40 pt-24 z-10"
   >
     Về chúng tôi
   </h2>
   <p
-    class="text-sm md:text-base font-normal opacity-90 tracking-wide leading-relaxed max-w-prose text-center"
+    class="text-sm md:text-base font-normal opacity-90 tracking-wide leading-relaxed max-w-prose text-center z-10"
   >
     Chúng tôi cung cấp các lô đất có giấy tờ chứng minh đầy đủ thuộc quyền sở
     hữu của chúng tôi, vì vậy bạn không cần phải mất thời gian tìm kiếm và tốn

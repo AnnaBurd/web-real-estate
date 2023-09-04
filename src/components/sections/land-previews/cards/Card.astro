@@ -5,9 +5,10 @@ import Badge from "../../../ui/Badge.astro";
 interface Props {
   land: Land;
   className?: string;
+  attributes?: any;
 }
 
-const { land, className } = Astro.props;
+const { land, className, attributes } = Astro.props;
 
 // Prepare responsive image srcset and sizes
 const imgUrl = land.images ? land.images[0] : "/no-image.svg";
@@ -19,6 +20,7 @@ const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}
 ---
 
 <div
+  {...attributes}
   class=` md:px-6 md:pb-10 xl:px-3 h-auto ${className ? className : ""} overflow-visible`
 >
   <a

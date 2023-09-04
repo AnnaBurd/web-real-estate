@@ -42,53 +42,25 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
     transform: translateY(0%)
     opacity: 1
     transition: transform .6s ease, opacity .4s .1s ease
-
-  #land-previews
-
-  #land-previews-title
-
-    // margin-bottom: -100px
-    // transform: translateY(50px)
-    // opacity: 0
-    // transition: transform .6s ease, opacity .4s ease
-
-  #land-previews-description
-    // margin-bottom: -100px
-
-  #land-previews-slides
-    // background: red
-    // transform: translateY(50px)
-    // background: red
 </style>
 
 <script>
   import LocomotiveScroll from "locomotive-scroll";
-
+  import gsap from "gsap";
   import isMobileDevice from "../scripts/isMobileDevice.js";
-
-  // const navbar headerEl.setAttribute("hide", this.isOpen.toString());
-
-  const headerEl = document.querySelector("header") as HTMLElement;
-  let isHeaderVisible = true;
-
-  const buttonDownEl = document.getElementById("button-down") as HTMLElement;
-  const landPreviewsEl = document.getElementById(
-    "land-previews"
-  ) as HTMLElement;
 
   // Allow smooth scrolling only on desktop devices
   if (!isMobileDevice()) {
-    const mainContentContainer = document.querySelector(
-      ".main-content"
-    ) as HTMLElement;
-
-    const footer = document.querySelector("footer") as HTMLElement;
-
-    const windowHeight = window.innerHeight;
-
-    function onScroll({ scroll, limit, velocity, direction, progress }) {
-      // console.log(scroll, limit, velocity, direction, progress);
-
+    // Callback control when to show and hide navigation bar in header
+    let isHeaderVisible = true;
+    const headerEl = document.querySelector("header") as HTMLElement;
+    const onScroll = ({
+      scroll,
+      direction,
+    }: {
+      scroll: number;
+      direction: number;
+    }) => {
       if (isHeaderVisible && direction === 1 && scroll >= 201) {
         isHeaderVisible = false;
 
@@ -100,20 +72,24 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
 
         headerEl.setAttribute("scroll-hide", "false");
       }
+    };
 
-      // console.log(scroll, limit, velocity, direction, progress);
-    }
-
+    // Initialize LocomotiveScroll library - smooth scrolling
+    const mainContentContainer = document.querySelector(
+      ".main-content"
+    ) as HTMLElement;
     const locomotiveScroll = new LocomotiveScroll({
       lenisOptions: {
-        wrapper: mainContentContainer,
-
-        // content: mainContentContainer,
+        wrapper: mainContentContainer, // Specify which element is scrollable
       },
-      scrollCallback: onScroll,
+      scrollCallback: onScroll, // Callback function on scroll event (currently used to show and hide navigation bar in header, but any logic is possible)
     });
 
-    // Scroll from hero section down to land previews section
+    // Scroll down to land previews section on button click
+    const buttonDownEl = document.getElementById("button-down") as HTMLElement;
+    const landPreviewsEl = document.getElementById(
+      "land-previews"
+    ) as HTMLElement;
     buttonDownEl.addEventListener("click", () => {
       const deltaY =
         window.innerHeight - landPreviewsEl.getBoundingClientRect().top;
@@ -125,343 +101,215 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
         },
       });
     });
-  }
 
-  import gsap from "gsap";
+    // Animations of land previews section
+    const timelineLandPreviews = gsap.timeline({ paused: true });
 
-  gsap.defaults({ lazy: false });
+    timelineLandPreviews.from("#land-previews-title", {
+      y: -120,
+      scale: 0.95,
+      opacity: 0.65,
+      ease: "linear",
+    });
 
-  const timelineLandPreviews = gsap.timeline({ paused: true });
-
-  timelineLandPreviews.from("#land-previews-title", {
-    y: -120,
-    scale: 0.95,
-    // rotate: 90,
-    opacity: 0.65,
-    ease: "linear",
-  });
-
-  timelineLandPreviews.from("#land-previews-description", {
-    y: 10,
-    scale: 0.95,
-    // filter: "blur(2px)",
-    // scale: 0.95,
-    // rotate: 90,
-    opacity: 0,
-    ease: "linear",
-    delay: -0.1,
-  });
-
-  // tl.from("#land-previews-title", {
-  //   // y: 50,
-  //   rotate: 90,
-  //   opacity: 0.2,
-  //   ease: "linear",
-  //   duration: 1,
-  // });
-
-  window.addEventListener("landPreviewsScrollProgressEvent", (e) => {
-    const { target, progress } = (e as CustomEvent).detail;
-    // console.log(
-    //   `landPreviewsScrollProgressEvent: target: ${target}`,
-    //   `progress: ${progress}`
-    // );
-
-    timelineLandPreviews.progress(progress);
-  });
-
-  const timelineAboutSection = gsap.timeline({ paused: true });
-
-  // timelineAboutSection
-  //   .from("#icon-1", {
-  //     y: 50,
-  //     opacity: 0,
-  //     ease: "linear",
-  //   })
-  //   .from("#item-1", {
-  //     y: -50,
-  //     opacity: 0,
-  //     ease: "linear",
-  //     delay: 0.2,
-  //   })
-  //   .from("#check-1", {
-  //     scale: 0,
-  //     opacity: 0,
-  //     ease: "linear",
-  //     delay: 0.2,
-  //   })
-
-  //   .from("#icon-2", {
-  //     y: 50,
-  //     opacity: 0,
-  //     ease: "linear",
-  //   })
-  //   .from("#item-2", {
-  //     y: -50,
-  //     opacity: 0,
-  //     ease: "linear",
-  //     delay: 0.2,
-  //   })
-  //   .from("#check-2", {
-  //     scale: 0,
-  //     opacity: 0,
-  //     ease: "linear",
-  //     delay: 0.2,
-  //   })
-  //   .from("#icon-3", {
-  //     y: 50,
-  //     opacity: 0,
-  //     ease: "linear",
-  //   })
-  //   .from("#item-3", {
-  //     y: -50,
-  //     opacity: 0,
-  //     ease: "linear",
-  //     delay: 0.2,
-  //   })
-  //   .from("#check-3", {
-  //     scale: 0,
-  //     opacity: 0,
-  //     ease: "linear",
-  //     delay: 0.2,
-  //   });
-
-  // gsap.registerPlugin(ScrollTrigger);
-
-  let gsTimelineAboutSection = gsap
-    .timeline({
-      paused: true,
-      defaults: { ease: "easeOutQuart" },
-      // scrollTrigger: {
-      //   trigger: "#about-container",
-      //   scroller: ".main-content",
-      //   start: "top 80%",
-      //   end: "bottom 20%",
-      //   scrub: 1.2,
-      //   markers: true,
-      //   // scrub: true,
-      //   pin: true,
-      //   pinSpacing: false,
-      //   // toggleActions: "restart pause revers
-      // },
-    })
-    .from("#icon-1", {
-      translateZ: 500,
-      translateX: 250,
-      duration: 0.6,
+    timelineLandPreviews.from("#land-previews-description", {
+      y: 10,
+      scale: 0.95,
       opacity: 0,
+      ease: "linear",
+      delay: -0.1,
+    });
 
-      // msScrollTranslation: 122,
-    })
-    .fromTo(
-      "#item-1",
-      { translateZ: 500, translateX: 250, opacity: 0 },
-      {
-        // perspective: 550,
-        translateZ: 0,
-        // translateY: 100,
-        translateX: 0,
-        // scale: 0.9,
-        // opacity: 0,
-        // visibility: "hidden",
-        duration: 0.6,
-        opacity: 1,
-        // delay: -0.3,
-        // delay: "<30",
-      },
-      "-=0.4"
-    )
-    .from(
-      "#check-1",
-      {
-        scale: 0.3,
-        opacity: 0,
-        duration: 0.8,
-        ease: "elastic.out(1, 0.3)",
-      },
-      "-=0.2"
-    )
-    .fromTo(
-      "#border-overlay",
-      { scaleX: 1, transformOrigin: "right" },
-      {
-        scaleX: 0.5,
-        duration: 0.8,
-        ease: "easeOutQuart",
-        // delay: 0.2,
-        transformOrigin: "right",
-      },
-      "-=0.2"
-    )
-    .from(
-      "#icon-2",
-      {
+    window.addEventListener("landPreviewsScrollProgressEvent", (e) => {
+      const { target, progress } = (e as CustomEvent).detail;
+
+      timelineLandPreviews.progress(progress);
+    });
+
+    // Animations of about section
+    let gsTimelineAboutSection = gsap
+      .timeline({
+        paused: true,
+        defaults: { ease: "linear" },
+      })
+      .from("#icon-1", {
         translateZ: 500,
-        translateX: 0,
+        translateX: 250,
         duration: 0.6,
-        // delay: 0.2,
         opacity: 0,
-      },
-      "-=0.4"
-    )
-    .fromTo(
-      "#item-2",
-      { translateZ: 500, translateX: 250, opacity: 0 },
-      {
-        // perspective: 550,
-        translateZ: 0,
-        // translateY: 100,
-        translateX: 0,
-        // scale: 0.9,
-        // opacity: 0,
-        // visibility: "hidden",
-        duration: 0.6,
-        opacity: 1,
-        // delay: -0.3,
-        // delay: "<30",
-      },
-      "-=0.4"
-    )
+      })
+      .fromTo(
+        "#item-1",
+        { translateZ: 500, translateX: 250, opacity: 0 },
+        {
+          translateZ: 0,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 1,
+        },
+        "-=0.4"
+      )
+      .from(
+        "#check-1",
+        {
+          scale: 0.3,
+          opacity: 0,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.3)",
+        },
+        "-=0.2"
+      )
+      .fromTo(
+        "#border-overlay",
+        { scaleX: 1, transformOrigin: "right" },
+        {
+          scaleX: 0.5,
+          duration: 0.8,
+          ease: "easeOutQuart",
+          transformOrigin: "right",
+        },
+        "-=0.2"
+      )
+      .from(
+        "#icon-2",
+        {
+          translateZ: 500,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 0,
+        },
+        "-=0.4"
+      )
+      .fromTo(
+        "#item-2",
+        { translateZ: 500, translateX: 250, opacity: 0 },
+        {
+          translateZ: 0,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 1,
+        },
+        "-=0.4"
+      )
+      .fromTo(
+        "#check-2",
+        {
+          scale: 0.3,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          opacity: 0.99,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.3)",
+        },
+        "-=0.2"
+      )
+      .to(
+        "#border-overlay",
+        {
+          scaleX: 0,
+          duration: 0.6,
+          ease: "easeOutQuart",
+          transformOrigin: "right",
+        },
 
-    .fromTo(
-      "#check-2",
-      {
-        scale: 0.3,
-        opacity: 0,
-        // autoAlpha: 0,
-        // duration: 0.8,
-        // ease: "elastic.out(1, 0.3)",
-      },
-      {
-        scale: 1,
-        opacity: 0.99,
-        // autoAlpha: 0.99,
-        duration: 0.8,
-        ease: "elastic.out(1, 0.3)",
-      },
-      "-=0.2"
-    )
-    .to(
-      "#border-overlay",
-      // { scaleX: 0.5, transformOrigin: "right" },
-      {
-        scaleX: 0,
-        duration: 0.6,
-        ease: "easeOutQuart",
-        // delay: 0.2,
-        transformOrigin: "right",
-      },
+        "-=0.2"
+      )
+      .from(
+        "#icon-3",
+        {
+          translateZ: 500,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 0,
+        },
+        "-=0.4"
+      )
+      .fromTo(
+        "#item-3",
+        { translateZ: 500, translateX: 250, opacity: 0 },
+        {
+          translateZ: 0,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 1,
+        },
+        "-=0.4"
+      )
+      .from(
+        "#check-3",
+        {
+          scale: 0.3,
+          opacity: 0,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.3)",
+        },
+        "-=0.2"
+      );
 
-      "-=0.2"
-      // "+=0.2"
-    )
-    .from(
-      "#icon-3",
-      {
-        translateZ: 500,
-        translateX: 0,
-        duration: 0.6,
-        // delay: 0.2,
-        opacity: 0,
-      },
-      "-=0.4"
-    )
-    .fromTo(
-      "#item-3",
-      { translateZ: 500, translateX: 250, opacity: 0 },
-      {
-        // perspective: 550,
-        translateZ: 0,
-        // translateY: 100,
-        translateX: 0,
-        // scale: 0.9,
-        // opacity: 0,
-        // visibility: "hidden",
-        duration: 0.6,
-        opacity: 1,
-        // delay: -0.3,
-        // delay: "<30",
-      },
-      "-=0.4"
-    )
-    .from(
-      "#check-3",
-      {
-        scale: 0.3,
-        opacity: 0,
-        duration: 0.8,
-        ease: "elastic.out(1, 0.3)",
-      },
-      "-=0.2"
-    );
+    let gsTimelineAboutContainer = gsap
+      .timeline({
+        paused: true,
+        defaults: { ease: "linear" },
+        // markers: true,
+      })
+      .fromTo(
+        "#about-container",
+        {
+          translateZ: 400,
+          rotateZ: 0,
+          rotateX: 0,
+          rotateY: 0,
+        },
+        {
+          translateZ: 0,
+          duration: gsTimelineAboutSection.duration() + 1.2,
+        }
+      );
 
-  let gsTimelineAboutContainer = gsap
-    .timeline({
-      paused: true,
-      defaults: { ease: "easeOutQuart" },
-    })
-    .fromTo(
-      "#about-container",
-      {
-        // backgroundColor: "red",
-        translateZ: 400,
-        rotateZ: 0,
-        rotateX: 0,
-        rotateY: 0,
-        // translateX: 250,
-        // duration: gsTimelineAboutSection.duration(),
-        // opacity: 0,
-      },
-      {
-        // backgroundColor: "red",
-        translateZ: 0,
-        // rotateZ: 0,
-        // rotateX: 0,
-        // rotateY: -0.01,
-        // translateX: 250,
-        duration: gsTimelineAboutSection.duration() + 1.2,
-        // opacity: 0,
-      }
-    );
+    // let isPlayingAnimation = false;
+    // let isPlayingAnimation2 = false;
+    window.addEventListener("aboutSectionScrollProgressEvent", (e) => {
+      const { target, progress } = (e as CustomEvent).detail;
+      console.log(
+        `aboutSectionScrollProgressEvent: target: ${target}`,
+        `progress: ${progress}`
+      );
 
-  let isPlayingAnimation = false;
-  let isPlayingAnimation2 = false;
-  window.addEventListener("aboutSectionScrollProgressEvent", (e) => {
-    const { target, progress } = (e as CustomEvent).detail;
-    console.log(
-      `aboutSectionScrollProgressEvent: target: ${target}`,
-      `progress: ${progress}`
-    );
+      gsTimelineAboutSection.progress(progress);
+      gsTimelineAboutContainer.progress(progress);
 
-    // tl.progress(progress);
-    // timelineAboutSection.progress(progress);
-    if (progress >= 0.1 && !isPlayingAnimation) {
-      gsTimelineAboutSection.play();
-      isPlayingAnimation = true;
+      // tl.progress(progress);
+      // timelineAboutSection.progress(progress);
+      // if (progress >= 0.1 && !isPlayingAnimation) {
+      //   gsTimelineAboutSection.play();
+      //   isPlayingAnimation = true;
 
-      gsTimelineAboutContainer.play();
+      //   gsTimelineAboutContainer.play();
 
-      setTimeout(() => {
-        // gsTimelineAboutSection.pause();
-      }, 1200);
-    }
+      //   setTimeout(() => {
+      //     // gsTimelineAboutSection.pause();
+      //   }, 1200);
+      // }
 
-    if (
-      progress >= 0.6 &&
-      !gsTimelineAboutSection.isActive() &&
-      !isPlayingAnimation2
-    ) {
-      gsTimelineAboutSection.play();
-      isPlayingAnimation2 = true;
+      // if (
+      //   progress >= 0.6 &&
+      //   !gsTimelineAboutSection.isActive() &&
+      //   !isPlayingAnimation2
+      // ) {
+      //   gsTimelineAboutSection.play();
+      //   isPlayingAnimation2 = true;
 
-      setTimeout(() => {
-        // gsTimelineAboutSection.pause();
-      }, 200);
-    }
+      //   setTimeout(() => {
+      //     // gsTimelineAboutSection.pause();
+      //   }, 200);
+      // }
 
-    if (progress >= 0.7 && !gsTimelineAboutSection.isActive()) {
-      gsTimelineAboutSection.play();
-    }
-    // timelineAboutSection.play();
-  });
+      // if (progress >= 0.7 && !gsTimelineAboutSection.isActive()) {
+      //   gsTimelineAboutSection.play();
+      // }
+      // timelineAboutSection.play();
+    });
+  }
 </script>

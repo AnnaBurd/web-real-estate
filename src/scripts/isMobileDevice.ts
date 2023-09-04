@@ -1,4 +1,9 @@
+let cacheDeviceType: "desktop" | "mobile" | null;
+
 const isMobileDevice = () => {
+  // Check if the device type has already been determined.
+  if (cacheDeviceType) return cacheDeviceType === "mobile";
+
   // Check if the user agent reported by the browser matches any of the known mobile device types.
   const isMobileUserAgent = () => {
     const agent = navigator.userAgent || navigator.vendor;
@@ -34,7 +39,11 @@ const isMobileDevice = () => {
     return window.innerWidth < 768;
   };
 
-  return isMobileUserAgent() || isMobileScreenSize();
+  // Check if the device is a mobile device and cache the result.
+  const isMobile = isMobileUserAgent() || isMobileScreenSize();
+  cacheDeviceType = isMobile ? "mobile" : "desktop";
+
+  return isMobile;
 };
 
 export default isMobileDevice;

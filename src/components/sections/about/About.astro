@@ -8,21 +8,17 @@ import CheckIcon from "./icons/CheckIcon.astro";
 import CheckIconSolid from "./icons/CheckIconSolid.astro";
 
 import Item from "./Item.astro";
-
-// data-scroll
-//     data-scroll-offset="-100%,100%"
-//     data-scroll-event-progress="aboutSectionScrollProgressEvent"
 ---
 
 <Container
   fullHeight={true}
   attributes={{
     "data-scroll": "",
-    "data-scroll-speed": "-0.38",
+    "data-scroll-speed": "-0.46",
     "data-scroll-offset": "100%,90%",
     "data-scroll-event-progress": "aboutSectionScrollProgressEvent",
   }}
-  className="xl:[perspective:2000px] xl:pb-[40vh] xl:pt-[60vh] 2xl:pb-[50vh] 2xl:pt-[50vh]"
+  className="xl:[perspective:2000px] md:pt-[40vh] pb-[60vh] xl:pb-[40vh] xl:pt-[55vh] 2xl:pb-[50vh] 2xl:pt-[50vh]"
 >
   <h2
     class="uppercase text-xs md:text-sm tracking-wider font-semibold px-6 pb-6 opacity-40 pt-24 z-10"
@@ -61,11 +57,11 @@ import Item from "./Item.astro";
 
     <div
       id="border"
-      class="xl:[grid-column:2/6] xl:[grid-row:2/3] xl:h-1 xl:w-[115%] self-center xl:border-b-[--color-grey-light] xl:border-b-2 border-dotted hidden md:block md:[grid-column:2/3] md:[grid-row:2/6] md:border-r-[--color-grey-light] md:border-r-2 md:h-full md:w-0 relative"
+      class="xl:[grid-column:2/6] xl:[grid-row:2/3] xl:h-1 xl:w-[111%] self-center xl:border-b-[--color-accent-lighter] xl:border-r-0 xl:border-b-2 border-dotted hidden md:block md:[grid-column:2/3] md:[grid-row:2/6] md:border-r-[--color-accent-lighter] md:border-r-2 md:h-full md:w-0 relative"
     >
       <div
         id="border-overlay"
-        class="w-full h-4 bg-white absolute -top-2 left-0"
+        class="h-full w-4 xl:w-[100%] xl:h-4 bg-white absolute xl:-top-2 xl:left-0 -left-2 top-0"
       >
       </div>
     </div>
@@ -120,3 +116,173 @@ import Item from "./Item.astro";
     </div>
   </div>
 </Container>
+
+<!-- On scroll animations of about section   -->
+<script>
+  import gsap from "gsap";
+  import isMobileDevice from "../../../scripts/isMobileDevice";
+
+  if (!isMobileDevice()) {
+    const isLargeScreen = window.innerWidth >= 1280;
+
+    // This must be possible to write in shorter form with a better understanding of gsap
+    const animationTimelineAboutCards = gsap
+      .timeline({
+        paused: true,
+        defaults: { ease: "linear" },
+        snap: {
+          snapTo: "labels",
+          duration: { min: 0.2, max: 3 },
+          delay: 0.2,
+          ease: "linear",
+        },
+      })
+      .addLabel("start")
+      .from("#icon-1", {
+        translateZ: 500,
+        translateX: 250,
+        duration: 0.6,
+        opacity: 0,
+      })
+      .fromTo(
+        "#item-1",
+        { translateZ: 500, translateX: 250, opacity: 0 },
+        {
+          translateZ: 0,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 1,
+        },
+        "-=0.4"
+      )
+      .from(
+        "#check-1",
+        {
+          scale: 0.3,
+          opacity: 0,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.3)",
+        },
+        "-=0.2"
+      )
+      .addLabel("item-1-end")
+      .fromTo(
+        "#border-overlay",
+        { scaleX: 1, scaleY: 1, transformOrigin: "right bottom" },
+        {
+          scaleX: isLargeScreen ? 0.5 : 1,
+          scaleY: isLargeScreen ? 1 : 0.5,
+          duration: 0.8,
+          ease: "easeOutQuart",
+          transformOrigin: "right bottom",
+        },
+        "-=0.2"
+      )
+      .from(
+        "#icon-2",
+        {
+          translateZ: 500,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 0,
+        },
+        "-=0.4"
+      )
+      .fromTo(
+        "#item-2",
+        { translateZ: 500, translateX: 250, opacity: 0 },
+        {
+          translateZ: 0,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 1,
+        },
+        "-=0.4"
+      )
+      .fromTo(
+        "#check-2",
+        {
+          scale: 0.3,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          opacity: 0.99,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.3)",
+        },
+        "-=0.2"
+      )
+      .addLabel("item-2-end")
+      .to(
+        "#border-overlay",
+        {
+          scaleX: isLargeScreen ? 0 : 1,
+          scaleY: isLargeScreen ? 1 : 0,
+          duration: 0.6,
+          ease: "easeOutQuart",
+          transformOrigin: "right bottom",
+        },
+
+        "-=0.2"
+      )
+      .from(
+        "#icon-3",
+        {
+          translateZ: 500,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 0,
+        },
+        "-=0.4"
+      )
+      .fromTo(
+        "#item-3",
+        { translateZ: 500, translateX: 250, opacity: 0 },
+        {
+          translateZ: 0,
+          translateX: 0,
+          duration: 0.6,
+          opacity: 1,
+        },
+        "-=0.4"
+      )
+      .from(
+        "#check-3",
+        {
+          scale: 0.3,
+          opacity: 0,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.3)",
+        },
+        "-=0.2"
+      )
+      .addLabel("end");
+
+    const animationTimelineAboutContainer = gsap
+      .timeline({
+        paused: true,
+        defaults: { ease: "linear" },
+      })
+      .fromTo(
+        "#about-container",
+        {
+          translateZ: 400,
+          rotateZ: 0,
+          rotateX: 0,
+          rotateY: 0,
+        },
+        {
+          translateZ: 0,
+          duration: animationTimelineAboutCards.duration() + 1.2,
+        }
+      );
+
+    window.addEventListener("aboutSectionScrollProgressEvent", (e) => {
+      const { progress } = (e as CustomEvent).detail;
+
+      animationTimelineAboutCards.progress(progress);
+      animationTimelineAboutContainer.progress(progress);
+    });
+  }
+</script>

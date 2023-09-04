@@ -8,9 +8,21 @@ import CheckIcon from "./icons/CheckIcon.astro";
 import CheckIconSolid from "./icons/CheckIconSolid.astro";
 
 import Item from "./Item.astro";
+
+// data-scroll
+//     data-scroll-offset="-100%,100%"
+//     data-scroll-event-progress="aboutSectionScrollProgressEvent"
 ---
 
-<Container fullHeight={true}>
+<Container
+  fullHeight={true}
+  attributes={{
+    "data-scroll": "",
+    "data-scroll-offset": "80%,110%",
+    "data-scroll-event-progress": "aboutSectionScrollProgressEvent",
+  }}
+  className="[perspective:2000px]"
+>
   <h2
     class="uppercase text-xs md:text-sm tracking-wider font-semibold px-6 pb-6 opacity-40 pt-24"
   >
@@ -24,44 +36,59 @@ import Item from "./Item.astro";
     tiền hoa hồng từ môi giới và đại lý.
   </p>
   <div
-    class="grid xl:grid-cols-6 xl:grid-rows-[minmax(0,1fr),7rem,minmax(0,1fr)] xl:gap-x-32 justify-items-center w-full mt-12 pb-6 mb-12 grid-cols-1 md:grid-cols-[1fr,.5rem,1fr] md:gap-y-6 xl:gap-y-0"
+    id="about-container"
+    class="grid xl:grid-cols-6 xl:grid-rows-[minmax(0,1fr),7rem,minmax(0,1fr)] xl:gap-x-32 justify-items-center w-full mt-12 pb-6 mb-12 grid-cols-1 md:grid-cols-[1fr,.5rem,1fr] md:gap-y-6 xl:gap-y-0 [perspective:1000px]"
   >
     <div
+      id="icon-1"
       class="xl:self-end xl:-mb-3.5 [grid-row:1/2] mt-10 md:[grid-row:1/3] md:[grid-column:3/4] xl:[grid-column:1/3] xl:[grid-row:1/2]"
     >
       <div class="w-24 h-24 xl:w-28 xl:h-28"><SaleIcon /></div>
     </div>
     <div
+      id="icon-2"
       class="xl:self-end xl:-mb-5 [grid-row:4/5] mt-10 md:[grid-column:1/2] md:[grid-row:3/5] xl:[grid-column:3/5] xl:[grid-row:1/2]"
     >
       <div class="w-24 h-24 xl:w-28 xl:h-28"><SearchIcon /></div>
     </div>
     <div
+      id="icon-3"
       class="xl:self-end xl:-mb-3.5 [grid-row:7/8] mt-10 md:[grid-column:3/4] md:[grid-row:5/7] xl:[grid-column:5/7] xl:[grid-row:1/2]"
     >
       <div class="w-24 h-24 xl:w-28 xl:h-28"><OwnerIcon /></div>
     </div>
 
     <div
-      class="xl:[grid-column:2/6] xl:[grid-row:2/3] xl:h-1 xl:w-full self-center xl:border-b-[--color-grey-light] xl:border-b-2 border-dotted hidden md:block md:[grid-column:2/3] md:[grid-row:2/6] md:border-r-[--color-grey-light] md:border-r-2 md:h-full md:w-0"
+      id="border"
+      class="xl:[grid-column:2/6] xl:[grid-row:2/3] xl:h-1 xl:w-[115%] self-center xl:border-b-[--color-grey-light] xl:border-b-2 border-dotted hidden md:block md:[grid-column:2/3] md:[grid-row:2/6] md:border-r-[--color-grey-light] md:border-r-2 md:h-full md:w-0 relative"
     >
+      <div
+        id="border-overlay"
+        class="w-full h-4 bg-white absolute -top-2 left-0"
+      >
+      </div>
     </div>
+
     <div
+      id="check-1"
       class="self-center xl:[grid-column:1/3] xl:[grid-row:2/3] hidden md:block md:[grid-row:1/3] md:[grid-column:2/3]"
     >
       <CheckIcon />
     </div>
     <div
+      id="check-2"
       class="self-center xl:[grid-column:3/5] xl:[grid-row:2/3] hidden md:block md:[grid-row:3/5] md:[grid-column:2/3]"
     >
       <CheckIconSolid />
     </div>
     <div
+      id="check-3"
       class="self-center xl:[grid-column:5/7] xl:[grid-row:2/3] hidden md:block md:[grid-row:5/7] md:[grid-column:2/3]"
     >
       <CheckIcon />
     </div>
     <div
+      id="item-1"
       class="[grid-row:3/4] mt-8 mb-12 md:[grid-row:1/3] md:translate-y-6 xl:[grid-row:3/4] xl:[grid-column:1/3] xl:translate-y-0 xl:mt-4"
     >
       <Item
@@ -71,6 +98,7 @@ import Item from "./Item.astro";
       />
     </div>
     <div
+      id="item-2"
       class="xl:col-span-2 [grid-row:6/7] mt-8 mb-12 md:[grid-row:3/5] md:translate-y-6 xl:translate-y-0 xl:mt-4"
     >
       <Item
@@ -80,6 +108,7 @@ import Item from "./Item.astro";
       />
     </div>
     <div
+      id="item-3"
       class="[grid-row:9/10] mt-8 mb-12 md:[grid-row:5/7] md:translate-y-8 xl:[grid-row:3/4] xl:[grid-column:5/7] xl:translate-y-0 xl:mt-4"
     >
       <Item

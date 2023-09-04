@@ -33,8 +33,6 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
 
 <!-- Hide and show animations of navigation bar in header, triggered by scroll -->
 <style is:global lang="sass">
-  header
-
   header[scroll-hide="true"]
     transform: translateY(-50px)
     opacity: 0
@@ -44,6 +42,23 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
     transform: translateY(0%)
     opacity: 1
     transition: transform .6s ease, opacity .4s .1s ease
+
+  #land-previews
+
+  #land-previews-title
+
+    // margin-bottom: -100px
+    // transform: translateY(50px)
+    // opacity: 0
+    // transition: transform .6s ease, opacity .4s ease
+
+  #land-previews-description
+    // margin-bottom: -100px
+
+  #land-previews-slides
+    // background: red
+    // transform: translateY(50px)
+    // background: red
 </style>
 
 <script>
@@ -69,6 +84,8 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
 
     const footer = document.querySelector("footer") as HTMLElement;
 
+    const windowHeight = window.innerHeight;
+
     function onScroll({ scroll, limit, velocity, direction, progress }) {
       // console.log(scroll, limit, velocity, direction, progress);
 
@@ -83,6 +100,8 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
 
         headerEl.setAttribute("scroll-hide", "false");
       }
+
+      // console.log(scroll, limit, velocity, direction, progress);
     }
 
     const locomotiveScroll = new LocomotiveScroll({
@@ -108,8 +127,341 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
     });
   }
 
-  window.addEventListener("scrollEvent", (e) => {
-    const { target, way, from } = e.detail;
-    console.log(`target: ${target}`, `way: ${way}`, `from: ${from}`);
+  import gsap from "gsap";
+
+  gsap.defaults({ lazy: false });
+
+  const timelineLandPreviews = gsap.timeline({ paused: true });
+
+  timelineLandPreviews.from("#land-previews-title", {
+    y: -120,
+    scale: 0.95,
+    // rotate: 90,
+    opacity: 0.65,
+    ease: "linear",
+  });
+
+  timelineLandPreviews.from("#land-previews-description", {
+    y: 10,
+    scale: 0.95,
+    // filter: "blur(2px)",
+    // scale: 0.95,
+    // rotate: 90,
+    opacity: 0,
+    ease: "linear",
+    delay: -0.1,
+  });
+
+  // tl.from("#land-previews-title", {
+  //   // y: 50,
+  //   rotate: 90,
+  //   opacity: 0.2,
+  //   ease: "linear",
+  //   duration: 1,
+  // });
+
+  window.addEventListener("landPreviewsScrollProgressEvent", (e) => {
+    const { target, progress } = (e as CustomEvent).detail;
+    // console.log(
+    //   `landPreviewsScrollProgressEvent: target: ${target}`,
+    //   `progress: ${progress}`
+    // );
+
+    timelineLandPreviews.progress(progress);
+  });
+
+  const timelineAboutSection = gsap.timeline({ paused: true });
+
+  // timelineAboutSection
+  //   .from("#icon-1", {
+  //     y: 50,
+  //     opacity: 0,
+  //     ease: "linear",
+  //   })
+  //   .from("#item-1", {
+  //     y: -50,
+  //     opacity: 0,
+  //     ease: "linear",
+  //     delay: 0.2,
+  //   })
+  //   .from("#check-1", {
+  //     scale: 0,
+  //     opacity: 0,
+  //     ease: "linear",
+  //     delay: 0.2,
+  //   })
+
+  //   .from("#icon-2", {
+  //     y: 50,
+  //     opacity: 0,
+  //     ease: "linear",
+  //   })
+  //   .from("#item-2", {
+  //     y: -50,
+  //     opacity: 0,
+  //     ease: "linear",
+  //     delay: 0.2,
+  //   })
+  //   .from("#check-2", {
+  //     scale: 0,
+  //     opacity: 0,
+  //     ease: "linear",
+  //     delay: 0.2,
+  //   })
+  //   .from("#icon-3", {
+  //     y: 50,
+  //     opacity: 0,
+  //     ease: "linear",
+  //   })
+  //   .from("#item-3", {
+  //     y: -50,
+  //     opacity: 0,
+  //     ease: "linear",
+  //     delay: 0.2,
+  //   })
+  //   .from("#check-3", {
+  //     scale: 0,
+  //     opacity: 0,
+  //     ease: "linear",
+  //     delay: 0.2,
+  //   });
+
+  // gsap.registerPlugin(ScrollTrigger);
+
+  let gsTimelineAboutSection = gsap
+    .timeline({
+      paused: true,
+      defaults: { ease: "easeOutQuart" },
+      // scrollTrigger: {
+      //   trigger: "#about-container",
+      //   scroller: ".main-content",
+      //   start: "top 80%",
+      //   end: "bottom 20%",
+      //   scrub: 1.2,
+      //   markers: true,
+      //   // scrub: true,
+      //   pin: true,
+      //   pinSpacing: false,
+      //   // toggleActions: "restart pause revers
+      // },
+    })
+    .from("#icon-1", {
+      translateZ: 500,
+      translateX: 250,
+      duration: 0.6,
+      opacity: 0,
+
+      // msScrollTranslation: 122,
+    })
+    .fromTo(
+      "#item-1",
+      { translateZ: 500, translateX: 250, opacity: 0 },
+      {
+        // perspective: 550,
+        translateZ: 0,
+        // translateY: 100,
+        translateX: 0,
+        // scale: 0.9,
+        // opacity: 0,
+        // visibility: "hidden",
+        duration: 0.6,
+        opacity: 1,
+        // delay: -0.3,
+        // delay: "<30",
+      },
+      "-=0.4"
+    )
+    .from(
+      "#check-1",
+      {
+        scale: 0.3,
+        opacity: 0,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.3)",
+      },
+      "-=0.2"
+    )
+    .fromTo(
+      "#border-overlay",
+      { scaleX: 1, transformOrigin: "right" },
+      {
+        scaleX: 0.5,
+        duration: 0.8,
+        ease: "easeOutQuart",
+        // delay: 0.2,
+        transformOrigin: "right",
+      },
+      "-=0.2"
+    )
+    .from(
+      "#icon-2",
+      {
+        translateZ: 500,
+        translateX: 0,
+        duration: 0.6,
+        // delay: 0.2,
+        opacity: 0,
+      },
+      "-=0.4"
+    )
+    .fromTo(
+      "#item-2",
+      { translateZ: 500, translateX: 250, opacity: 0 },
+      {
+        // perspective: 550,
+        translateZ: 0,
+        // translateY: 100,
+        translateX: 0,
+        // scale: 0.9,
+        // opacity: 0,
+        // visibility: "hidden",
+        duration: 0.6,
+        opacity: 1,
+        // delay: -0.3,
+        // delay: "<30",
+      },
+      "-=0.4"
+    )
+
+    .fromTo(
+      "#check-2",
+      {
+        scale: 0.3,
+        opacity: 0,
+        // autoAlpha: 0,
+        // duration: 0.8,
+        // ease: "elastic.out(1, 0.3)",
+      },
+      {
+        scale: 1,
+        opacity: 0.99,
+        // autoAlpha: 0.99,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.3)",
+      },
+      "-=0.2"
+    )
+    .to(
+      "#border-overlay",
+      // { scaleX: 0.5, transformOrigin: "right" },
+      {
+        scaleX: 0,
+        duration: 0.6,
+        ease: "easeOutQuart",
+        // delay: 0.2,
+        transformOrigin: "right",
+      },
+
+      "-=0.2"
+      // "+=0.2"
+    )
+    .from(
+      "#icon-3",
+      {
+        translateZ: 500,
+        translateX: 0,
+        duration: 0.6,
+        // delay: 0.2,
+        opacity: 0,
+      },
+      "-=0.4"
+    )
+    .fromTo(
+      "#item-3",
+      { translateZ: 500, translateX: 250, opacity: 0 },
+      {
+        // perspective: 550,
+        translateZ: 0,
+        // translateY: 100,
+        translateX: 0,
+        // scale: 0.9,
+        // opacity: 0,
+        // visibility: "hidden",
+        duration: 0.6,
+        opacity: 1,
+        // delay: -0.3,
+        // delay: "<30",
+      },
+      "-=0.4"
+    )
+    .from(
+      "#check-3",
+      {
+        scale: 0.3,
+        opacity: 0,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.3)",
+      },
+      "-=0.2"
+    );
+
+  let gsTimelineAboutContainer = gsap
+    .timeline({
+      paused: true,
+      defaults: { ease: "easeOutQuart" },
+    })
+    .fromTo(
+      "#about-container",
+      {
+        // backgroundColor: "red",
+        translateZ: 400,
+        rotateZ: 0,
+        rotateX: 0,
+        rotateY: 0,
+        // translateX: 250,
+        // duration: gsTimelineAboutSection.duration(),
+        // opacity: 0,
+      },
+      {
+        // backgroundColor: "red",
+        translateZ: 0,
+        // rotateZ: 0,
+        // rotateX: 0,
+        // rotateY: -0.01,
+        // translateX: 250,
+        duration: gsTimelineAboutSection.duration() + 1.2,
+        // opacity: 0,
+      }
+    );
+
+  let isPlayingAnimation = false;
+  let isPlayingAnimation2 = false;
+  window.addEventListener("aboutSectionScrollProgressEvent", (e) => {
+    const { target, progress } = (e as CustomEvent).detail;
+    console.log(
+      `aboutSectionScrollProgressEvent: target: ${target}`,
+      `progress: ${progress}`
+    );
+
+    // tl.progress(progress);
+    // timelineAboutSection.progress(progress);
+    if (progress >= 0.1 && !isPlayingAnimation) {
+      gsTimelineAboutSection.play();
+      isPlayingAnimation = true;
+
+      gsTimelineAboutContainer.play();
+
+      setTimeout(() => {
+        // gsTimelineAboutSection.pause();
+      }, 1200);
+    }
+
+    if (
+      progress >= 0.6 &&
+      !gsTimelineAboutSection.isActive() &&
+      !isPlayingAnimation2
+    ) {
+      gsTimelineAboutSection.play();
+      isPlayingAnimation2 = true;
+
+      setTimeout(() => {
+        // gsTimelineAboutSection.pause();
+      }, 200);
+    }
+
+    if (progress >= 0.7 && !gsTimelineAboutSection.isActive()) {
+      gsTimelineAboutSection.play();
+    }
+    // timelineAboutSection.play();
   });
 </script>

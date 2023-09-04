@@ -13,21 +13,35 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 <div
   id="land-previews"
   class="bg-gradient-to-t from-[--color-secondary-lighter] w-full py-20 md:py-0"
+  data-scroll
+  data-scroll-offset="-10%,100%"
+  data-scroll-event-progress="landPreviewsScrollProgressEvent"
 >
   <Container fullHeight={true}>
+    <!-- <div
+      class="relative w-full h-28 -z-10 flex flex-col items-center gap-4 bg-rose-100"
+    > -->
     <h2
-      class="capitalize text-xl md:text-2xl xl:text-4xl tracking-normal font-normal px-6 pb-2 md:pb-3"
+      id="land-previews-title"
+      class="capitalize text-xl md:text-2xl xl:text-4xl 2xl:text-5xl tracking-normal font-normal px-6 pb-2 md:pb-4 -z-10"
     >
       Dự án hiện tại
     </h2>
     <p
-      class="text-xs md:text-sm font-normal opacity-80 tracking-wide md:leading-relaxed max-w-[44ch] text-center"
+      id="land-previews-description"
+      class="text-xs md:text-sm font-normal opacity-80 tracking-wide md:leading-relaxed max-w-[44ch] text-center -z-10"
     >
       Công ty giới thiệu mấy dự án đất đang bán với tỷ giá và diện tích các loại
       đang bán.
     </p>
+    <!-- </div> -->
 
-    <div class="w-full mt-10 xl:mt-20 flex items-center md:gap-14 xl:gap-6">
+    <div
+      data-scroll
+      data-scroll-speed="0.2"
+      id="land-previews-slides"
+      class="w-full mt-10 xl:mt-12 flex items-center md:gap-14 xl:gap-6"
+    >
       <div
         class="swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-5 order-1 rounded-full hidden md:block hover:bg-[#40527311] tabbable"
         tabindex="0"

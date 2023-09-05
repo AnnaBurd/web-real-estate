@@ -4,8 +4,6 @@ import CallButton from "./CallButton.astro";
 import ButtonSmall from "../ui/buttons/ButtonSmall.astro";
 import NavigationItem from "./NavigationItem.astro";
 import NavigationDropdown from "./dropdown/NavigationDropdown.astro";
-import CallbackForm from "../modals/CallbackForm.astro";
-import Popup from "../../layouts/Popup.astro";
 
 interface Props {
   currentPage: string;
@@ -33,12 +31,14 @@ const navigationPages = [
 ];
 ---
 
-<header class="fixed top-0 left-0 z-50 w-full py-2 flex flex-row items-center">
-  <div class="px-4 md:px-8 lg:px-16 flex-1">
+<header
+  class="fixed top-0 left-0 z-50 w-full py-2 flex flex-row items-center overflow-hidden"
+>
+  <div class="px-4 md:px-8 lg:px-16 flex-1 loaded-hero-logo">
     <Logo companyTitle="VietLand" className="" />
   </div>
 
-  <ul class="xl:flex flex-wrap gap-x-2 hidden">
+  <ul class="loaded-hero-links xl:flex flex-wrap gap-x-2 hidden">
     {
       navigationPages.map((page) => (
         <NavigationItem href={page.href} isActive={page.href === currentPage}>
@@ -47,7 +47,9 @@ const navigationPages = [
       ))
     }
   </ul>
-  <div class="flex xl:px-16 flex-1 justify-end items-center">
+  <div
+    class="flex xl:px-16 flex-1 justify-end items-center loaded-hero-buttons"
+  >
     <div class="hidden xl:block">
       <ButtonSmall id="callback-form-btn">Liên hệ</ButtonSmall>
     </div>

@@ -1,7 +1,7 @@
 <button
   id="button-down"
   aria-label="Go down to the next section"
-  class="absolute bottom-10 right-0 mx-10 md:mx-16 cursor-pointer z-index-[500] bg-[--color-secondary-lighter] p-4 rounded-full hidden md:block hover:text-white tabbable"
+  class="loaded-hero-button absolute bottom-10 right-0 mx-10 md:mx-16 cursor-pointer z-index-[500] bg-[--color-secondary-lighter] p-4 rounded-full hidden md:block hover:text-white tabbable"
 >
   <div>
     <svg
@@ -23,8 +23,11 @@
 <!-- Button press effects (similar to the effects of the Button component) and hover effect -->
 <style>
   button {
-    transition: border-color 0.3s, background-color 0.3s,
-      transform ease-in 0.15s, box-shadow ease-in 0.25s;
+    transition:
+      border-color 0.3s,
+      background-color 0.3s,
+      transform ease-in 0.15s,
+      box-shadow ease-in 0.25s;
     transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   }
 

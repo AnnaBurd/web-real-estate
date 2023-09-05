@@ -6,6 +6,7 @@ import Navigation from "../components/navigation/Navigation.astro";
 import CallbackForm from "../components/modals/CallbackForm.astro";
 import Popup from "./Popup.astro";
 import Alert from "../components/ui/alerts/Alert.astro";
+import Preloading from "../components/loader/Preloading.astro";
 interface Props {
   title: string;
   currentPage: string;
@@ -14,7 +15,7 @@ interface Props {
 const { title, currentPage } = Astro.props;
 ---
 
-<!-- TODO: SEO optimization --><!DOCTYPE html>
+<!-- TODO: SEO optimization --><!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -38,7 +39,11 @@ const { title, currentPage } = Astro.props;
     <!-- <meta name="generator" content={Astro.generator} /> -->
     <title>{title}</title>
   </head>
-  <body class="font-signica text-[--color-text] w-full h-full relative">
+  <body
+    class="font-signica text-[--color-text] w-full h-full relative"
+    data-loaded="false"
+  >
+    <Preloading />
     <Navigation currentPage={currentPage} />
     <main
       class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"
@@ -173,3 +178,6 @@ const { title, currentPage } = Astro.props;
     @apply focus-visible:outline-none;
   }
 </style>
+
+<!-- Hide loading screen -->
+<script></script>

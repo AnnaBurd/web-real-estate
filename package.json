@@ -10,8 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^4.0.0",
-    "astro": "^2.10.9",
+    "@astrojs/tailwind": "^5.0.0",
+    "astro": "^3.0.8",
     "contentful": "^10.5.0",
     "gsap": "^3.12.2",
     "locomotive-scroll": "^5.0.0-beta.8",

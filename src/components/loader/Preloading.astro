@@ -116,9 +116,22 @@
       transform-origin: 50% 0
       animation: moveLogoOnFinish 1s cubic-bezier(0.7,0,0.3,1) forwards
 
+  :root
+    --logo-translate-x: calc(-50vw + 70px)
+    --logo-scale: 0.55
+
+  @media(min-width: 768px)
+    :root
+      --logo-translate-x: calc(-50vw + 60px)
+      --logo-scale: 0.45
+  @media(min-width: 1024px)
+    :root
+      --logo-translate-x: calc(-50vw + 100px)
+      --logo-scale: 0.35
+
   @keyframes moveLogoOnFinish
     to
-      transform: translate3d(-50vw,100%,0) translate3d(12vw,2.5vh,0) scale3d(0.25,0.25,1)
+      transform: translate3d(0, 100%,0) translate3d(var(--logo-translate-x),2.5vh,0) scale3d(var(--logo-scale),var(--logo-scale),1)
 
   // 3. Animate spinner out on loading end
   .loader-header[data-loaded="true"]

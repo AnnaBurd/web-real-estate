@@ -31,58 +31,24 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
   }
 </style>
 
-<!-- Hide and show animations of navigation bar in header, triggered by scroll -->
-<style is:global lang="sass">
-  header[scroll-hide="true"]
-    transform: translateY(-50px)
-    opacity: 0
-    transition: transform .6s ease, opacity .4s ease
-
-  header[scroll-hide="false"]
-    transform: translateY(0%)
-    opacity: 1
-    transition: transform .6s ease, opacity .4s .1s ease
-</style>
-
 <!-- Set up smooth scroll (locomotive scroll) -->
 <script>
+  // @ts-ignore - no types for beta version of locomotive 5 scroll yet, ignore ts error
   import LocomotiveScroll from "locomotive-scroll";
-  import isMobileDevice from "../scripts/isMobileDevice.js";
+  import isMobileDevice from "../scripts/isMobileDevice";
 
-  // Allow smooth scrolling only on desktop devices
+  // On desktop + tablet devices allow smooth scrolling
   if (!isMobileDevice()) {
-    // Callback control when to show and hide navigation bar in header
-    let isHeaderVisible = true;
-    const headerEl = document.querySelector("header") as HTMLElement;
-    const onScroll = ({
-      scroll,
-      direction,
-    }: {
-      scroll: number;
-      direction: number;
-    }) => {
-      if (isHeaderVisible && direction === 1 && scroll >= 201) {
-        isHeaderVisible = false;
-
-        headerEl.setAttribute("scroll-hide", "true");
-      }
-
-      if (!isHeaderVisible && direction === -1 && scroll <= 299) {
-        isHeaderVisible = true;
-
-        headerEl.setAttribute("scroll-hide", "false");
-      }
-    };
-
     // Initialize LocomotiveScroll library - smooth scrolling
     const mainContentContainer = document.querySelector(
       ".main-content"
     ) as HTMLElement;
+
     const locomotiveScroll = new LocomotiveScroll({
       lenisOptions: {
         wrapper: mainContentContainer, // Specify which element is scrollable
       },
-      scrollCallback: onScroll, // Callback function on scroll event (currently used to show and hide navigation bar in header, but any logic is possible)
+      // scrollCallback: onScroll, // Callback function on scroll event
     });
 
     // Scroll down to land previews section on button click
@@ -96,7 +62,7 @@ import LandPreviews from "../components/sections/land-previews/LandPreviews.astr
 
       locomotiveScroll.scrollTo(landPreviewsEl, {
         duration: 1.4 * (1 - deltaY / window.innerHeight),
-        easing: (t) => {
+        easing: (t: number) => {
           return 1 - Math.pow(1 - t, 4);
         },
       });

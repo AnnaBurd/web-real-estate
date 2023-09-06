@@ -12,7 +12,7 @@ const { className, fullHeight, attributes } = Astro.props;
   {...attributes}
   class={`max-w-screen-2xl w-full px-10 md:px-16 lg:px-32 min-[1700px]:px-0  xl:mx-auto ${
     fullHeight
-      ? "h-max md:[min-height:100vh] flex flex-col items-center justify-center py-12"
+      ? "h-max md:[min-height:100vh] flex flex-col items-center justify-center pt-12 pb-6"
       : ""
   } ${className ? className : ""}`}
 >

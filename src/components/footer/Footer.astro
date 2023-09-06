@@ -9,14 +9,17 @@ import SubscriptionForm from "./SubscriptionForm.astro";
 ---
 
 <footer class="w-full grid grid-cols-1 grid-rows-[1fr,min,min]">
-  <div class="bg-image w-full h-full [grid-row:1/2] [grid-column:1/2] z-0">
+  <div
+    class="bg-image-lazy w-full h-full [grid-row:1/2] [grid-column:1/2] z-0"
+    data-load="false"
+  >
   </div>
   <div
     class="w-full h-full bg-gradient-to-t from-[--color-secondary-darkest] to-[#405273DD] [grid-row:1/2] [grid-column:1/2] z-10"
   >
   </div>
   <Container
-    className="h-[20vh] md:h-[30vh] min-h-fit z-30 [grid-row:1/2] [grid-column:1/2] flex flex-col justify-center items-center my-16"
+    className="h-[16vh] md:h-[20vh] min-h-fit z-30 [grid-row:1/2] [grid-column:1/2] flex flex-col justify-center items-center my-16 md:my-12 2xl:my-14"
   >
     <h2
       class="md:text-xl xl:text-2xl tracking-normal font-light px-6 pb-3 pt-0 text-white max-w-[40ch] text-center !leading-relaxed"
@@ -80,7 +83,7 @@ import SubscriptionForm from "./SubscriptionForm.astro";
   // $img: "/img/footer.jpg?"
   $img: "https://images.ctfassets.net/2lc6rsj68vep/s1n2ZOawBGsBTzS7r1Hzb/2308aceb48c276fdc2d94a68d3c9e7c1/footer-min.jpg?q=100&fm=webp"
 
-  .bg-image
+  .bg-image-lazy[data-load="true"]
     background-size: cover
     width: 100%
     height: 100%
@@ -93,3 +96,28 @@ import SubscriptionForm from "./SubscriptionForm.astro";
     @media (min-width: 1280px)
       background-image: url($img + "&w=1600")
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lazyBackgrounds = [].slice.call(
+      document.querySelectorAll(".bg-image-lazy")
+    );
+
+    if ("IntersectionObserver" in window) {
+      let lazyBackgroundObverver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.setAttribute("data-load", "true");
+              lazyBackgroundObverver.unobserve(entry.target);
+            }
+          });
+        }
+      );
+
+      lazyBackgrounds.forEach((lazyBackground) => {
+        lazyBackgroundObverver.observe(lazyBackground);
+      });
+    }
+  });
+</script>

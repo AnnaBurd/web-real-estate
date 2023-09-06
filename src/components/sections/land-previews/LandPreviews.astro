@@ -12,7 +12,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 
 <div
   id="land-previews"
-  class="bg-gradient-to-t from-[--color-secondary-lighter] w-full py-20 md:py-0"
+  class="bg-gradient-to-t from-[--color-secondary-lighter] w-full py-4 md:py-0"
   data-scroll
   data-scroll-offset="-10%,100%"
   data-scroll-event-progress="landPreviewsScrollProgressEvent"
@@ -20,7 +20,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
   <Container fullHeight={true}>
     <h2
       id="land-previews-title"
-      class="capitalize text-xl md:text-2xl xl:text-4xl 2xl:text-5xl tracking-normal font-normal px-6 pb-2 md:pb-4 -z-10"
+      class="capitalize text-xl md:text-2xl portrait:md:text-4xl xl:text-4xl 2xl:text-5xl tracking-normal font-normal px-6 pb-2 md:pb-4 -z-10"
     >
       Dự án hiện tại
     </h2>
@@ -94,8 +94,11 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 <!-- Add press effects to swiper buttons (similar to the effects of the Button component) -->
 <style>
   .swiper-button {
-    transition: border-color 0.3s, background-color 0.3s,
-      transform ease-in 0.15s, box-shadow ease-in 0.25s;
+    transition:
+      border-color 0.3s,
+      background-color 0.3s,
+      transform ease-in 0.15s,
+      box-shadow ease-in 0.25s;
     transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   }
 

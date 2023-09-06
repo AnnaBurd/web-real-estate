@@ -64,6 +64,7 @@ const navigationPages = [
 
 <style>
   /* Prevent scrollbar from repositioning page content */
+  /* TODO: check if has effect */
   header {
     left: calc(100vw - 100%) !important;
     overflow-x: hidden !important;
@@ -82,4 +83,51 @@ const navigationPages = [
   callbackFormBtn.addEventListener("click", () => {
     callbackFormPopup.show();
   });
+</script>
+
+<!-- Hide and show navigation bar in header when scrolling past hero section -->
+<style is:global lang="sass">
+  header[scroll-hide="true"]
+    transform: translateY(-50px)
+    opacity: 0
+    transition: transform .6s ease, opacity .4s ease
+
+  header[scroll-hide="false"]
+    transform: translateY(0%)
+    opacity: 1
+    transition: transform .6s ease, opacity .4s .1s ease
+</style>
+
+<script>
+  import isMobileDevice from "../../scripts/isMobileDevice";
+
+  const headerEl = document.querySelector("header") as HTMLElement;
+  const rootContainer = document.querySelector(".main-content") as HTMLElement;
+
+  createObserver();
+
+  function createObserver() {
+    let observer;
+
+    const height = isMobileDevice() ? 30 : window.innerHeight * 0.27;
+
+    let options = {
+      root: rootContainer,
+      rootMargin: `${height.toFixed(0)}px`,
+      threshold: [0.99],
+    };
+
+    function handleIntersect(entries: any, observer: any) {
+      entries.forEach((entry: any) => {
+        if (entry.isIntersecting) {
+          headerEl.setAttribute("scroll-hide", "false");
+        } else {
+          headerEl.setAttribute("scroll-hide", "true");
+        }
+      });
+    }
+
+    observer = new IntersectionObserver(handleIntersect, options);
+    observer.observe(document.querySelector("#hero-section") as HTMLElement);
+  }
 </script>

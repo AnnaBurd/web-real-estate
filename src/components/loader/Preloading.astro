@@ -208,12 +208,12 @@ const progressEstimated = () => {
 
       document.body.setAttribute("data-loaded", "true");
 
-      // Clear loding-screen related styles
+      // Clear loding-screen related styles not to meddle with other animations
       setTimeout(() => {
         document.body.removeAttribute("data-loaded");
 
         spinnerContainer.style.visibility = "hidden";
-      }, 2000);
+      }, 1300);
 
       clearInterval(interval);
     }

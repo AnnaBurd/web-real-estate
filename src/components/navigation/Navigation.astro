@@ -103,6 +103,7 @@ const navigationPages = [
 
   const headerEl = document.querySelector("header") as HTMLElement;
   const rootContainer = document.querySelector(".main-content") as HTMLElement;
+  const menu = document.querySelector(".hamburger-menu")! as any;
 
   createObserver();
 
@@ -118,9 +119,20 @@ const navigationPages = [
     };
 
     function handleIntersect(entries: any, observer: any) {
-      entries.forEach((entry: any) => {
+      entries.forEach(async (entry: any) => {
         if (entry.isIntersecting) {
+          // Close menu if it was open
+          if (menu.isOpened()) {
+            await menu.hide();
+          }
+
           headerEl.setAttribute("scroll-hide", "false");
+
+          // Clear styles after animation (otherwise transform(0) meddles with layout)
+
+          setTimeout(() => {
+            headerEl.removeAttribute("scroll-hide");
+          }, 550);
         } else {
           headerEl.setAttribute("scroll-hide", "true");
         }

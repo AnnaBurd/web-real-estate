@@ -1,7 +1,11 @@
 ---
+
 ---
 
-<div class="hamburger-btn block select-none cursor-pointer relative">
+<div
+  class="hamburger-btn block select-none cursor-pointer relative"
+  data-open="false"
+>
   <span
     class="block w-10 h-1.5 mb-1.5 rounded-md bg-[--color-text] [transform-origin:0%_0%]"
   ></span>
@@ -19,26 +23,28 @@
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   }
 
-  .hamburger-btn--open {
+  .hamburger-btn[data-open="true"] {
     transform: translate(0.45rem, 0.1rem);
   }
 
   .hamburger-btn > span {
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+    transition:
+      transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      opacity 0.55s ease;
   }
 
-  .hamburger-btn--open > span:first-child {
+  .hamburger-btn[data-open="true"] > span:first-child {
     transform: rotate(45deg) translate(-3px, -1px);
     background-color: var(--color-secondary-darker);
   }
 
-  .hamburger-btn--open > span:nth-child(2) {
+  .hamburger-btn[data-open="true"] > span:nth-child(2) {
     transform: rotate(-0deg) scale(0.2, 0.2);
     opacity: 0;
   }
 
-  .hamburger-btn--open > span:last-child {
+  .hamburger-btn[data-open="true"] > span:last-child {
     transform: rotate(-45deg) translate(-1px, -1px);
     background-color: var(--color-secondary-darker);
   }
@@ -46,26 +52,16 @@
 
 <script>
   const hamburgerBtn = document.querySelector(".hamburger-btn")!;
-  const menu = document.querySelector(".hamburger-menu")!;
-
-  let isDropdownMenuOpen = false;
-
-  const toggleDropdownMenu = () => {
-    hamburgerBtn.classList.toggle("hamburger-btn--open");
-    menu.classList.toggle("hamburger-menu--closed");
-    isDropdownMenuOpen = !isDropdownMenuOpen;
-  };
+  const menu = document.querySelector(".hamburger-menu")! as any;
 
   const closeDropdownMenu = () => {
-    hamburgerBtn.classList.remove("hamburger-btn--open");
-    menu.classList.add("hamburger-menu--closed");
-    isDropdownMenuOpen = false;
+    menu.hide();
   };
 
   hamburgerBtn.addEventListener("click", () => {
-    toggleDropdownMenu();
+    menu.toggle();
 
-    if (isDropdownMenuOpen) {
+    if (menu.isOpened()) {
       document.addEventListener("scroll", closeDropdownMenu);
     } else {
       document.removeEventListener("scroll", closeDropdownMenu);
@@ -74,7 +70,7 @@
 
   document.addEventListener("click", (e) => {
     if (
-      isDropdownMenuOpen &&
+      menu.isOpened() &&
       !(e.target as Element).closest(".hamburger-btn") &&
       !(e.target as Element).closest(".hamburger-menu")
     ) {

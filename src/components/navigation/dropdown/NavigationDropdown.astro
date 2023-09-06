@@ -16,8 +16,9 @@ const { currentPage, pages } = Astro.props;
 ---
 
 <HamburgerButton />
-<ul
-  class="hamburger-menu hamburger-menu--closed fixed bg-white w-screen top-0 right-0 -z-10 pt-14 pb-1.5"
+<dropdown-menu
+  id="hamburger-menu"
+  class="hamburger-menu hamburger-menu--closed fixed bg-white w-screen top-0 right-0 -z-10 pt-14 pb-1.5 list-none"
 >
   {
     pages.map((page) => (
@@ -29,8 +30,9 @@ const { currentPage, pages } = Astro.props;
       </NavigationDropdownItem>
     ))
   }
-</ul>
+</dropdown-menu>
 
+<!-- Style menu in open and closed states, with transition in between -->
 <style>
   .hamburger-menu {
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
@@ -40,7 +42,49 @@ const { currentPage, pages } = Astro.props;
   .hamburger-menu--closed {
     visibility: hidden;
     transform: translateY(-100%);
-    transition: transform 0.3s cubic-bezier(0.77, 0.2, 0.05, 1),
+    transition:
+      transform 0.3s cubic-bezier(0.77, 0.2, 0.05, 1),
       visibility 0s 0.3s;
   }
 </style>
+
+<!-- Handle menu opening and closing -->
+<script>
+  class DropdownMenu extends HTMLElement {
+    private isOpen: boolean = false;
+    private button: HTMLElement;
+
+    constructor() {
+      super();
+
+      this.button = document.querySelector(".hamburger-btn") as HTMLElement;
+    }
+
+    async hide() {
+      if (!this.isOpen) return;
+
+      this.isOpen = false;
+      this.button.setAttribute("data-open", "false");
+      this.classList.add("hamburger-menu--closed");
+
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    }
+    open() {
+      if (this.isOpen) return;
+
+      this.isOpen = true;
+      this.button.setAttribute("data-open", "true");
+      this.classList.remove("hamburger-menu--closed");
+    }
+
+    toggle() {
+      this.isOpen ? this.hide() : this.open();
+    }
+
+    isOpened() {
+      return this.isOpen;
+    }
+  }
+
+  customElements.define("dropdown-menu", DropdownMenu);
+</script>

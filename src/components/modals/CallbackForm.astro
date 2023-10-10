@@ -1,18 +1,19 @@
 ---
 import PopupCloseBtn from "../../layouts/PopupCloseBtn.astro";
 import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
-import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
 ---
 
 <section
-  class="overflow-hidden rounded-md shadow-2xl md:grid md:grid-cols-3 bg-white max-w-2xl relative"
+  class="overflow-hidden rounded-md shadow-2xl md:grid md:grid-cols-3 bg-white max-w-2xl relative w-full"
 >
   <PopupCloseBtn />
-  <img
-    alt="Trainer"
-    src="/vectors/mail.svg"
-    class="h-32 w-full object-cover md:h-full"
-  />
+  <div class="h-32 w-[105%] md:h-full md:w-full">
+    <img
+      alt="Trainer"
+      src="/vectors/mail.svg"
+      class="h-full w-full object-cover object-[52%_20%] md:object-center"
+    />
+  </div>
 
   <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
     <h3
@@ -21,7 +22,8 @@ import ButtonDefault from "../ui/buttons/ButtonDefault.astro";
       Liên hệ với chúng tôi
     </h3>
     <p class="text-xs font-normal opacity-80 tracking-wide leading-snug mb-4">
-      Vui lòng để lại tin nhắn và chúng tôi sẽ gọi lại sớm <br /> trong vong 24 tieng.
+      Vui lòng để lại tin nhắn và chúng tôi sẽ gọi lại sớm <br /> trong vong 24
+      tieng.
       <p>
         <form
           name="callback-form"

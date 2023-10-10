@@ -13,6 +13,8 @@ interface Props {
 }
 
 const { title, currentPage } = Astro.props;
+
+const phoneNumber = "+84(09)0160-6982";
 ---
 
 <!-- TODO: SEO optimization --><!doctype html>
@@ -44,7 +46,7 @@ const { title, currentPage } = Astro.props;
     data-loaded="false"
   >
     <Preloading />
-    <Navigation currentPage={currentPage} />
+    <Navigation currentPage={currentPage} phone={phoneNumber} />
     <main
       class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"
     >

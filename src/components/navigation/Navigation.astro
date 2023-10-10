@@ -7,9 +7,10 @@ import NavigationDropdown from "./dropdown/NavigationDropdown.astro";
 
 interface Props {
   currentPage: string;
+  phone: string;
 }
 
-const { currentPage } = Astro.props;
+const { currentPage, phone } = Astro.props;
 
 const navigationPages = [
   {
@@ -18,15 +19,15 @@ const navigationPages = [
   },
   {
     title: "Tìm kiếm đất",
-    href: "/#",
+    href: "/tim-dat",
   },
   {
     title: "Xem trên bản đồ",
-    href: "/#",
+    href: "/xem-ban-do",
   },
   {
     title: "Thông tin liên lạc",
-    href: "/#",
+    href: "/thong-tin",
   },
 ];
 ---
@@ -53,11 +54,15 @@ const navigationPages = [
     <div class="hidden xl:block">
       <ButtonSmall id="callback-form-btn">Liên hệ</ButtonSmall>
     </div>
-    <div class="hidden sm:block"><CallButton phone="+84(09)0160-6982" /></div>
+    <div class="hidden sm:block"><CallButton phone={phone} /></div>
     <div
       class="xl:hidden flex flex-col items-center justify-center ml-4 mr-4 lg:mr-16 md:mr-8 relative"
     >
-      <NavigationDropdown currentPage={currentPage} pages={navigationPages} />
+      <NavigationDropdown
+        currentPage={currentPage}
+        pages={navigationPages}
+        phone={phone}
+      />
     </div>
   </div>
 </header>
@@ -75,14 +80,20 @@ const navigationPages = [
 <script>
   const callbackFormBtn = document.getElementById(
     "callback-form-btn"
-  ) as HTMLButtonElement;
+  ) as HTMLElement;
+
+  const callbackFormBtnSmall = document.getElementById(
+    "callback-form-btn-small"
+  ) as HTMLElement;
 
   // TODO: later research the correct way to do TS + web components + astro typing
   const callbackFormPopup: any = document.getElementById("callback-form-popup");
 
-  callbackFormBtn.addEventListener("click", () => {
-    callbackFormPopup.show();
-  });
+  [callbackFormBtn, callbackFormBtnSmall].forEach((btn) =>
+    btn.addEventListener("click", () => {
+      callbackFormPopup.show();
+    })
+  );
 </script>
 
 <!-- Hide and show navigation bar in header when scrolling past hero section -->

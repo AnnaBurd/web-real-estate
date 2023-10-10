@@ -69,6 +69,9 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 </div>
 
 <style is:global lang="sass">
+  .swiper-slide
+    a
+      @apply shadow-md
   /* Additional styles for swiper transitions */
   @media screen and (min-width: 768px)
     // Space for transform-y animation (otherwise the slide overflow will be cut off)
@@ -145,7 +148,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
 <script>
   // Import Swiper JS, its modules and styles
   import Swiper from "swiper";
-  import { Navigation, Keyboard } from "swiper/modules";
+  import { Navigation, Keyboard, Parallax } from "swiper/modules";
   import "swiper/css";
 
   // Workaround for swiper limitation of slides dissapearing in loop mode + centeredSlides when number of slides is less than slidesPerView * 2;
@@ -178,13 +181,14 @@ console.log("promoted lands component: 🎴", promotedLands.length);
   const initSwiper = () => {
     if (!hasInitSwiper && window.innerWidth >= mobileBreakpoint) {
       swiper = new Swiper(".swiper", {
-        modules: [Navigation, Keyboard],
+        modules: [Navigation, Keyboard, Parallax],
         direction: "horizontal",
         loop: true,
         // cssMode: true,
         speed: 1000,
         centeredSlides: true,
         slidesPerView: 1,
+        parallax: true,
         breakpoints: {
           1024: {
             slidesPerView: 2,

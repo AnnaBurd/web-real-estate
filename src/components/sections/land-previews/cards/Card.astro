@@ -27,14 +27,17 @@ const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}
     href={`/${land.slug}`}
     class="bg-white rounded-md overflow-hidden flex flex-col h-full max-w-md mx-auto md:max-w-lg tabbable"
   >
-    <div class="w-full h-48 md:h-56 xl:h-64 portrait:md:h-80 relative">
+    <div
+      class="w-[110%] h-48 md:h-56 xl:h-64 portrait:md:h-80 relative"
+      data-swiper-parallax="20"
+    >
       <img
         loading="lazy"
         alt={land.title}
         srcset={imgSrcSet}
         sizes={imgSizes}
         src={imgSrc}
-        class="w-full h-full object-cover object-center"
+        class="w-full h-full object-cover object-right"
       />
       {
         land.tag && (
@@ -49,7 +52,7 @@ const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}
     >
       <div>
         <span
-          class="text-base md:text-xl font-semibold tracking-tight leading-tight"
+          class="text-base md:text-xl font-semibold tracking-tight leading-tight block"
           >{land.title}</span
         >
         <address class="text-xs md:text-sm font-normal not-italic opacity-80">
@@ -57,7 +60,7 @@ const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}
         </address>
       </div>
 
-      <span class="block mt-6">
+      <span class="block mt-6" data-swiper-parallax="10">
         <span
           class="text-[--color-accent] text-base font-medium xl:font-normal xl:text-xl"
         >

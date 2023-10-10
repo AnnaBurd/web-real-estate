@@ -48,7 +48,6 @@ const { title, currentPage } = Astro.props;
     <main
       class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"
     >
-      <!-- <Navigation currentPage={currentPage} /> -->
       <slot />
       <Footer />
     </main>
@@ -178,6 +177,3 @@ const { title, currentPage } = Astro.props;
     @apply focus-visible:outline-none;
   }
 </style>
-
-<!-- Hide loading screen -->
-<script></script>

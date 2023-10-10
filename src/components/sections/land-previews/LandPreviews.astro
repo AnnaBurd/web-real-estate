@@ -79,16 +79,18 @@ console.log("promoted lands component: 🎴", promotedLands.length);
     // Not active slides (on the sides)
     .swiper-slide
       a
-        transform: scale(0.99) translateY(1px)
-        transition: transform 0.2s ease-in-out
-        box-shadow: 0 16px 20px -4px rgb(0 0 0 / 0.08), 0 6px 8px -4px rgb(0 0 0 / 0.07)
+        transform: scale(0.99) translateY(-2px)
+        transition: transform 0.6s ease-in-out, box-shadow .2s ease-in-out
+        @apply shadow-sm
+      a:hover
+        @apply shadow-md
 
     // Active slide (in the middle)
     .swiper-slide-active
       a
         transform: scale(1.01) translateY(0px)
-        transition: transform 0.4s ease-in-out
-        box-shadow: 0 20px 28px -2px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)
+        transition: transform 0.6s ease-in-out, box-shadow .2s ease-in-out
+        // box-shadow: 0 20px 28px -2px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)
 </style>
 
 <!-- Add press effects to swiper buttons (similar to the effects of the Button component) -->
@@ -180,7 +182,7 @@ console.log("promoted lands component: 🎴", promotedLands.length);
         direction: "horizontal",
         loop: true,
         // cssMode: true,
-        // speed: 800,
+        speed: 1000,
         centeredSlides: true,
         slidesPerView: 1,
         breakpoints: {

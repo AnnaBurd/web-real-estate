@@ -90,7 +90,13 @@ class ContentfulModel implements Model {
         const images = !item.fields.images
           ? []
           : (item.fields.images as any[]).map((entry) => {
-              return entry.fields.file.url as string;
+              return {
+                url: entry.fields.file.url as string,
+                originalSize: {
+                  width: entry.fields.file.details.image.width,
+                  height: entry.fields.file.details.image.height,
+                },
+              };
             });
 
         const videos = !item.fields.videos
@@ -138,6 +144,14 @@ class ContentfulModel implements Model {
       this.lands = lands;
 
       console.log("📖 ContentfulModel: data loaded successfully ");
+      console.log("lands:", this.lands[0].images);
+      // console.log(
+      //   entries,
+      //   "\n\n assets?",
+      //   entries.includes?.Asset,
+      //   "\n\n asdasd",
+      //   entries.items[0].fields.images[0].fields.file.details
+      // );
     } catch (error) {
       console.log("📖💥 ContentfulModel: error loading data: ", error);
     }

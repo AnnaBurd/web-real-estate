@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: remove unused fonts */
 @layer base {
   /* fonts can be downloaded here https://gwfh.mranftl.com/fonts/signika-negative?subsets=latin,latin-ext,vietnamese -> after dowloading put font files to the public/fonts folder */
   /* signika-negative-300 - latin_latin-ext_vietnamese */

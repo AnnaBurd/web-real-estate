@@ -24,12 +24,17 @@ const phoneNumber = "+84(09)0160-6982";
     <meta name="description" content="/TODO" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link
-      rel="preload"
-      as="image"
-      media="(min-width:1280px)"
-      imagesrcset="/img/main-hero_medium.jpg 1x, /img/main-hero_large.jpg 2x"
-    />
+    <!-- Preload images for main page -->
+    {
+      currentPage === "/" && (
+        <link
+          rel="preload"
+          as="image"
+          media="(min-width:1280px)"
+          imagesrcset="/img/main-hero_medium.jpg 1x, /img/main-hero_large.jpg 2x"
+        />
+      )
+    }
     <link
       rel="preload"
       href="/fonts/signika-negative-v20-latin_latin-ext_vietnamese-regular.woff2"
@@ -45,7 +50,8 @@ const phoneNumber = "+84(09)0160-6982";
     class="font-signica text-[--color-text] w-full h-full relative"
     data-loaded="false"
   >
-    <Preloading />
+    <!-- TODO: show preloading only once?  -->
+    {currentPage === "/" && <Preloading />}
     <Navigation currentPage={currentPage} phone={phoneNumber} />
     <main
       class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"

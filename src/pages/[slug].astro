@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Gallery from "../components/sections/gallery/Gallery.astro";
+
+import type { GetStaticPaths } from "astro";
+
+import dataModel from "../model/ContentfulModel";
+import type { Land } from "../model/Land";
+import Container from "../layouts/Container.astro";
+
+// Generate separate page for each of the land items
+export const getStaticPaths = (async () => {
+  const lands = await dataModel.getAllLands();
+
+  return lands.map((land) => ({
+    params: { slug: land.slug }, // slug is used as path in [slug].astro
+    props: { land: land }, // data to use for page generation
+  }));
+}) satisfies GetStaticPaths;
+
+let land: Land;
+land = Astro.props.land;
+---
+
+<Layout title={land.title || "Land"} currentPage={land.slug}>
+  <Container>
+    <Gallery
+      tag={land.tag}
+      media={land.images?.map((img, i) => ({
+        url: img.url,
+        size: img.originalSize,
+        title: `Photo ${i + 1} of ${land.title ? land.title : "land"}`,
+      })) || []}
+    />
+  </Container>
+</Layout>

@@ -1,0 +1,106 @@
+---
+import Badge from "../../ui/Badge.astro";
+
+type Media = {
+  title: string;
+  url: string;
+  size: { width: number; height: number };
+};
+
+interface Props {
+  media: Media[];
+  tag?: string;
+}
+
+const { media, tag } = Astro.props;
+---
+
+<div class="mt-16 lg:mt-20 pswp-gallery" id="photo-gallery">
+  <div
+    class="grid lg:grid-cols-2 lg:grid-rows-1 gap-4 min-h-[250px] max-h-[800px] h-[25vh] lg:h-[50vh]"
+  >
+    <!-- Photo card with large thumbnail -->
+    <a
+      class="rounded-xl overflow-hidden shadow-sm"
+      href={`${media[0]?.url}?fm=jpg&fl=progressive`}
+      data-pswp-width={media[0]?.size.width}
+      data-pswp-height={media[0]?.size.height}
+      data-cropped="true"
+      target="_blank"
+    >
+      <div class="w-full h-full relative">
+        <img
+          class="object-cover object-center w-full h-full"
+          src={`${media[0]?.url}?fm=jpg&fl=progressive&fit=fill `}
+          alt={media[0]?.title}
+        />
+        {
+          tag && (
+            <Badge className="absolute bottom-0 left-0 mb-3.5 ml-4 xl:ml-6 xl:mb-5">
+              {tag}
+            </Badge>
+          )
+        }
+      </div>
+    </a>
+
+    <div class="lg:grid grid-cols-2 grid-rows-2 gap-3 hidden">
+      <!-- Four photos with smaller thumbnails -->
+      {
+        [1, 2, 3, 4].map((i) => (
+          <a
+            class="rounded-xl overflow-hidden shadow-sm"
+            href={`${media[i]?.url}?fm=jpg&fl=progressive`}
+            data-pswp-width={media[i]?.size.width}
+            data-pswp-height={media[i]?.size.height}
+            data-cropped="true"
+            target="_blank"
+          >
+            <div class="w-full h-full">
+              <img
+                class="object-cover object-center w-full h-full"
+                src={`${media[i]?.url}?fm=jpg&fl=progressive&fit=fill&${
+                  media[i]?.size.width > media[i]?.size.height
+                    ? "h=400"
+                    : "w=600"
+                }`}
+                alt={media[i]?.title}
+              />
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <!-- Images without thumbnails -->
+  {
+    media
+      .filter((_, i) => i >= 5)
+      .map((item) => (
+        <a
+          data-pswp-src={`${item.url}?fm=jpg&fl=progressive`}
+          data-pswp-width={item.size.width}
+          data-pswp-height={item.size.height}
+          target="_blank"
+        />
+      ))
+  }
+
+  <!-- Videos without thumbnails -->
+</div>
+
+<div class="h-screen">123213123</div>
+
+<script>
+  console.log("ok gallery");
+
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import "photoswipe/style.css";
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: "#photo-gallery",
+    children: "a",
+    pswpModule: () => import("photoswipe"),
+  });
+  lightbox.init();
+</script>

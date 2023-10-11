@@ -11,7 +11,7 @@ interface Props {
 const { land, className, attributes } = Astro.props;
 
 // Prepare responsive image srcset and sizes
-const imgUrl = land.images ? land.images[0] : "/no-image.svg";
+const imgUrl = land.images ? land.images[0].url : "/vectors/no_image.svg";
 const apiQuery = "fm=jpg&fl=progressive&fit=fill";
 const imgSizes = "(max-width: 1024px) 500px, 350px";
 
@@ -27,17 +27,15 @@ const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}
     href={`/${land.slug}`}
     class="bg-white rounded-md overflow-hidden flex flex-col h-full max-w-md mx-auto md:max-w-lg tabbable"
   >
-    <div
-      class="w-[110%] h-48 md:h-56 xl:h-64 portrait:md:h-80 relative"
-      data-swiper-parallax="20"
-    >
+    <div class="w-[120%] h-48 md:h-56 xl:h-64 portrait:md:h-80 relative">
       <img
         loading="lazy"
         alt={land.title}
         srcset={imgSrcSet}
         sizes={imgSizes}
         src={imgSrc}
-        class="w-full h-full object-cover object-right"
+        data-swiper-parallax="10"
+        class="w-full h-full object-cover object-right -ml-[10%]"
       />
       {
         land.tag && (

@@ -9,7 +9,16 @@ type BulletPointsNode = {
 type LandLongDescriptionNode = ParagraphNode | BulletPointsNode;
 
 export type ImageAsset = {
+  kind: "image";
+  title: string;
   url: string;
+  originalSize: { width: number; height: number };
+};
+
+export type VideoAsset = {
+  kind: "video";
+  url: string;
+  thumbnail: string;
   originalSize: { width: number; height: number };
 };
 
@@ -29,6 +38,6 @@ export type Land = {
   price?: number;
   link?: string;
   images?: ImageAsset[];
-  videos?: string[];
+  videos?: VideoAsset[];
   suggestedLands?: string[];
 };

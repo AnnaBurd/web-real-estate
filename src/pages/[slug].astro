@@ -23,14 +23,11 @@ land = Astro.props.land;
 ---
 
 <Layout title={land.title || "Land"} currentPage={land.slug}>
-  <Container>
+  <Container className="mt-16 lg:mt-20 mb-6 lg:mb-10">
     <Gallery
       tag={land.tag}
-      media={land.images?.map((img, i) => ({
-        url: img.url,
-        size: img.originalSize,
-        title: `Photo ${i + 1} of ${land.title ? land.title : "land"}`,
-      })) || []}
+      images={land.images || []}
+      videos={land.videos || []}
     />
   </Container>
 </Layout>

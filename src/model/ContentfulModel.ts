@@ -10,7 +10,7 @@ const CONTENTFUL_SPACE_ID = import.meta.env.CONTENTFUL_SPACE_ID;
 const CONTENTFUL_ENVIRONMENT = import.meta.env.CONTENTFUL_ENVIRONMENT;
 const GEOAPIFY_KEY = import.meta.env.GEOAPIFY_KEY;
 
-import type { Land } from "./Land";
+import type { ImageAsset, Land, VideoAsset } from "./Land";
 import type { Model } from "./ModelInterface";
 
 class ContentfulModel implements Model {
@@ -87,10 +87,12 @@ class ContentfulModel implements Model {
             ]
           : undefined;
 
-        const images = !item.fields.images
+        const images: ImageAsset[] = !item.fields.images
           ? []
-          : (item.fields.images as any[]).map((entry) => {
+          : (item.fields.images as any[]).map((entry, i) => {
               return {
+                kind: "image",
+                title: `Photo ${i + 1} of ${title || "land"}`,
                 url: entry.fields.file.url as string,
                 originalSize: {
                   width: entry.fields.file.details.image.width,
@@ -99,10 +101,26 @@ class ContentfulModel implements Model {
               };
             });
 
-        const videos = !item.fields.videos
+        // console.log(entries);
+        // if (item.fields.videofiles) {
+        //   console.log(item.fields.videofiles[0].fields);
+        // }
+        // const videos = [];
+        // console.log("DECODING//");
+        const videos: VideoAsset[] = !item.fields.videofiles
           ? []
-          : (item.fields.videos as any[]).map((entry) => {
-              return entry.fields.file.url as string;
+          : (item.fields.videofiles as any[]).map((item) => {
+              // console.log("!!VIDEO ITEM 👤🤔💥", item.fields.video);
+              return {
+                kind: "video",
+                url: item.fields.video.fields.file.url,
+                thumbnail: item.fields.thumbnail.fields.file.url,
+                originalSize: {
+                  width: item.fields.thumbnail.fields.file.details.image.width,
+                  height:
+                    item.fields.thumbnail.fields.file.details.image.height,
+                },
+              };
             });
 
         const suggestedLands = !item.fields.suggestedLands
@@ -144,14 +162,8 @@ class ContentfulModel implements Model {
       this.lands = lands;
 
       console.log("📖 ContentfulModel: data loaded successfully ");
-      console.log("lands:", this.lands[0].images);
-      // console.log(
-      //   entries,
-      //   "\n\n assets?",
-      //   entries.includes?.Asset,
-      //   "\n\n asdasd",
-      //   entries.items[0].fields.images[0].fields.file.details
-      // );
+
+      // console.log(this.lands);
     } catch (error) {
       console.log("📖💥 ContentfulModel: error loading data: ", error);
     }

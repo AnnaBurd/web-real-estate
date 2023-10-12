@@ -1,106 +1,146 @@
 ---
+import type { ImageAsset, VideoAsset } from "../../../model/Land";
 import Badge from "../../ui/Badge.astro";
-
-type Media = {
-  title: string;
-  url: string;
-  size: { width: number; height: number };
-};
+import GalleryItem from "./GalleryItem.astro";
 
 interface Props {
-  media: Media[];
+  images: ImageAsset[];
+  videos: VideoAsset[];
   tag?: string;
 }
 
-const { media, tag } = Astro.props;
+const { images, videos, tag } = Astro.props;
+
+const mediaAssets = [...videos, ...images];
 ---
 
-<div class="mt-16 lg:mt-20 pswp-gallery" id="photo-gallery">
+<!-- Show video and photo cards of the land (videos come first) -->
+<div class="pswp-gallery" id="photo-gallery">
   <div
     class="grid lg:grid-cols-2 lg:grid-rows-1 gap-4 min-h-[250px] max-h-[800px] h-[25vh] lg:h-[50vh]"
   >
-    <!-- Photo card with large thumbnail -->
-    <a
-      class="rounded-xl overflow-hidden shadow-sm"
-      href={`${media[0]?.url}?fm=jpg&fl=progressive`}
-      data-pswp-width={media[0]?.size.width}
-      data-pswp-height={media[0]?.size.height}
-      data-cropped="true"
-      target="_blank"
-    >
-      <div class="w-full h-full relative">
-        <img
-          class="object-cover object-center w-full h-full"
-          src={`${media[0]?.url}?fm=jpg&fl=progressive&fit=fill `}
-          alt={media[0]?.title}
-        />
-        {
-          tag && (
+    <!-- Photo/Video card with large thumbnail -->
+    {
+      mediaAssets[0].kind === "image" && (
+        <GalleryItem
+          title={mediaAssets[0]?.title}
+          assetUrl={`${mediaAssets[0]?.url}?fm=jpg&fl=progressive`}
+          thumbnailUrl={`${mediaAssets[0]?.url}?fm=jpg&fl=progressive&fit=fill&w=900 `}
+          originalWidth={mediaAssets[0]?.originalSize.width}
+          originalHeight={mediaAssets[0]?.originalSize.height}
+        >
+          {tag && (
             <Badge className="absolute bottom-0 left-0 mb-3.5 ml-4 xl:ml-6 xl:mb-5">
               {tag}
             </Badge>
-          )
-        }
-      </div>
-    </a>
+          )}
+        </GalleryItem>
+      )
+    }
+    {
+      mediaAssets[0].kind === "video" && (
+        <GalleryItem
+          title={""}
+          assetUrl={`${mediaAssets[0]?.url}`}
+          thumbnailUrl={`${mediaAssets[0]?.thumbnail}?fm=jpg&fl=progressive&fit=fill&w=900 `}
+          originalWidth={mediaAssets[0]?.originalSize.width}
+          originalHeight={mediaAssets[0]?.originalSize.height}
+          containsVideo={true}
+        >
+          {tag && (
+            <Badge className="absolute bottom-0 left-0 mb-3.5 ml-4 xl:ml-6 xl:mb-5">
+              {tag}
+            </Badge>
+          )}
+        </GalleryItem>
+      )
+    }
 
+    <!-- Four photos/videos with smaller thumbnails -->
     <div class="lg:grid grid-cols-2 grid-rows-2 gap-3 hidden">
-      <!-- Four photos with smaller thumbnails -->
       {
-        [1, 2, 3, 4].map((i) => (
-          <a
-            class="rounded-xl overflow-hidden shadow-sm"
-            href={`${media[i]?.url}?fm=jpg&fl=progressive`}
-            data-pswp-width={media[i]?.size.width}
-            data-pswp-height={media[i]?.size.height}
-            data-cropped="true"
-            target="_blank"
-          >
-            <div class="w-full h-full">
-              <img
-                class="object-cover object-center w-full h-full"
-                src={`${media[i]?.url}?fm=jpg&fl=progressive&fit=fill&${
-                  media[i]?.size.width > media[i]?.size.height
+        [1, 2, 3, 4].map((i) => {
+          if (mediaAssets[i].kind === "image")
+            return (
+              <GalleryItem
+                title={(mediaAssets[i] as ImageAsset).title}
+                assetUrl={`${mediaAssets[i]?.url}?fm=jpg&fl=progressive`}
+                thumbnailUrl={`${
+                  mediaAssets[i]?.url
+                }?fm=jpg&fl=progressive&fit=fill&${
+                  mediaAssets[i]?.originalSize.width >
+                  mediaAssets[i]?.originalSize.height
                     ? "h=400"
                     : "w=600"
                 }`}
-                alt={media[i]?.title}
+                originalWidth={mediaAssets[i]?.originalSize.width}
+                originalHeight={mediaAssets[i]?.originalSize.height}
               />
-            </div>
-          </a>
-        ))
+            );
+
+          if (mediaAssets[i].kind === "video")
+            return (
+              <GalleryItem
+                title={""}
+                assetUrl={`${mediaAssets[i]?.url}`}
+                thumbnailUrl={`${
+                  (mediaAssets[i] as VideoAsset)?.thumbnail
+                }?fm=jpg&fl=progressive&fit=fill&${
+                  mediaAssets[i]?.originalSize.width >
+                  mediaAssets[i]?.originalSize.height
+                    ? "h=400"
+                    : "w=600"
+                }`}
+                originalWidth={mediaAssets[i]?.originalSize.width}
+                originalHeight={mediaAssets[i]?.originalSize.height}
+                containsVideo={true}
+              />
+            );
+        })
       }
     </div>
   </div>
-  <!-- Images without thumbnails -->
+
+  <!-- Rest gallery assets - without thumbnails (assumes only images, because it is not expected to have more than 5 videos per page) -->
   {
-    media
+    mediaAssets
       .filter((_, i) => i >= 5)
       .map((item) => (
-        <a
-          data-pswp-src={`${item.url}?fm=jpg&fl=progressive`}
-          data-pswp-width={item.size.width}
-          data-pswp-height={item.size.height}
-          target="_blank"
+        <GalleryItem
+          title={(item as ImageAsset).title}
+          assetUrl={`${item?.url}?fm=jpg&fl=progressive`}
+          originalWidth={item?.originalSize.width}
+          originalHeight={item?.originalSize.height}
         />
       ))
   }
-
-  <!-- Videos without thumbnails -->
 </div>
 
-<div class="h-screen">123213123</div>
-
+<!-- Client Js to instantiate photoswipe gallery -->
 <script>
-  console.log("ok gallery");
-
   import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import PhotoSwipeVideoPlugin from "./photoswipe-video-plugin.esm";
   import "photoswipe/style.css";
 
   const lightbox = new PhotoSwipeLightbox({
     gallery: "#photo-gallery",
     children: "a",
     pswpModule: () => import("photoswipe"),
+    paddingFn: (viewportSize, itemData, index) => {
+      return {
+        top: viewportSize.x < 600 ? 0 : 20,
+
+        bottom: viewportSize.x < 600 ? 0 : 30,
+
+        left: viewportSize.x < 600 ? 0 : 50,
+
+        right: viewportSize.x < 600 ? 0 : 50,
+      };
+    },
   });
+
+  // Register video plugin from photoswipe-video-plugin.esm.js file (* Video is not officially supported by photoswipe)
+  const videoPlugin = new PhotoSwipeVideoPlugin(lightbox, {});
+
   lightbox.init();
 </script>

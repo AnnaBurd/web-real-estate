@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Gallery from "../components/sections/gallery/Gallery.astro";
+import LandInfo from "../components/sections/land-info/LandInfo.astro";
 
 import type { GetStaticPaths } from "astro";
 
@@ -23,11 +24,14 @@ land = Astro.props.land;
 ---
 
 <Layout title={land.title || "Land"} currentPage={land.slug}>
-  <Container className="mt-16 lg:mt-20 mb-6 lg:mb-10">
+  <Container
+    className="pt-16 lg:pt-20 pb-6 lg:pb-10 bg-gradient-to-t lg:from-[--color-secondary-lighter] from-[#40527338]"
+  >
     <Gallery
       tag={land.tag}
       images={land.images || []}
       videos={land.videos || []}
     />
+    <LandInfo land={land} />
   </Container>
 </Layout>

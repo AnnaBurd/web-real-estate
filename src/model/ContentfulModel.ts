@@ -64,11 +64,15 @@ class ContentfulModel implements Model {
                   contentNode.nodeType === "paragraph" &&
                   contentNode.content[0].value
                 ) {
-                  return { paragraph: contentNode.content[0].value };
+                  return {
+                    paragraph: contentNode.content[0].value,
+                    kind: "paragraph",
+                  };
                 }
 
                 if (contentNode.nodeType === "unordered-list") {
                   return {
+                    kind: "bulletPoints",
                     bulletPoints: contentNode.content.map(
                       (li: any) => li.content[0].content[0].value
                     ),
@@ -156,7 +160,7 @@ class ContentfulModel implements Model {
       });
 
       // Contentful does not allow to store address, so use another API to get it from the coordinates
-      // await this.loadLandsAddresses(lands); // TODO: uncomment this line to enable fetching addresses
+      await this.loadLandsAddresses(lands); // TODO: uncomment this line to enable fetching addresses
 
       // Update the application data and state
       this.lands = lands;

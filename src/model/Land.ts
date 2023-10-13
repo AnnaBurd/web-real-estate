@@ -1,12 +1,14 @@
 type ParagraphNode = {
+  kind: "paragraph";
   paragraph: string;
 };
 
 type BulletPointsNode = {
+  kind: "bulletPoints";
   bulletPoints: string[];
 };
 
-type LandLongDescriptionNode = ParagraphNode | BulletPointsNode;
+export type DescriptionNode = ParagraphNode | BulletPointsNode;
 
 export type ImageAsset = {
   kind: "image";
@@ -29,7 +31,7 @@ export type Land = {
   promoted?: boolean;
   tag?: string;
   briefDescription?: string;
-  longDescription?: LandLongDescriptionNode[];
+  longDescription?: DescriptionNode[];
   coords?: [number, number];
   address?: string;
   area?: number;

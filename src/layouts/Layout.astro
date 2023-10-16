@@ -7,6 +7,7 @@ import CallbackForm from "../components/modals/CallbackForm.astro";
 import Popup from "./Popup.astro";
 import Alert from "../components/ui/alerts/Alert.astro";
 import Preloading from "../components/loader/Preloading.astro";
+
 interface Props {
   title: string;
   currentPage: string;
@@ -70,33 +71,8 @@ const phoneNumber = "+84(09)0160-6982";
   </body>
 </html>
 
+<!-- Basic styles setup -->
 <style is:global>
-  :root {
-    --color-accent: #82d4bb;
-    --color-accent-darker: #67cbad;
-    --color-accent-darkest: #5db79c;
-    --color-accent-lighter: #82d4bb55;
-    --color-accent-rgb: 130, 212, 187;
-    --color-accent-shadow: #256b5622;
-
-    --color-text: #3a5273;
-    --color-secondary: #607cb3;
-    --color-secondary-darker: #405273;
-    --color-secondary-darkest: #30394e;
-
-    --color-secondary-lighter: #f4f8ff;
-    --color-grey-light: #f6f9ff;
-    --color-gradient-start: #eef4ff;
-
-    --color-dark: #2d3549;
-
-    --color-error: #be185d;
-  }
-
-  html {
-    background-size: 224px;
-  }
-
   /* Remove blue highlight of clicked button in mobile Chrome browser */
   * {
     -webkit-tap-highlight-color: transparent;
@@ -109,64 +85,8 @@ const phoneNumber = "+84(09)0160-6982";
     overflow-x: hidden;
   }
 
-  /* Set up scroll snapping points */
-  /* Note: css scroll-snap works, but has different behaviour across browsers (Chrome-Firefox) and on mobile
-    As an alternative - > increase spaces between sections
-  */
-  /* html {
-    overflow-y: scroll;
-    scroll-snap-type: y proximity;
-    scroll-behavior: smooth;
-  }
-
-  body > section,
-  body > div {
-    scroll-snap-align: start;
-  }
-
-  body > footer {
-    scroll-snap-align: end;
-  } */
-
-  /* Prevent scrollbar from repositioning page content */
-  /* Note: can use css scrollbar-gutter:stable instead? */
-  /* html {
-    padding-left: calc(100vw - 100%) !important;
-    overflow-x: hidden !important;
-  } */
-
-  /* Style scrollbars */
-  /* Firefox */
-  html,
-  .main-content {
-    scrollbar-width: thin !important;
-    scrollbar-color: var(--color-text) var(--color-secondaty-lighter) !important;
-  }
-
-  /* Chrome */
-  /* Width */
-  html::-webkit-scrollbar,
-  .main-content::-webkit-scrollbar {
-    width: 5px !important;
-  }
-
-  /* Track */
-  html::-webkit-scrollbar-track,
-  .main-content::-webkit-scrollbar-track {
-    background: var(--color-secondaty-lighter);
-    /* border-radius: 10px; */
-  }
-  /* Handle */
-  html::-webkit-scrollbar-thumb,
-  .main-content::-webkit-scrollbar-thumb {
-    background: var(--color-text);
-    border-radius: 2px;
-  }
-
-  /* Handle on hover */
-  html::-webkit-scrollbar-thumb:hover,
-  .main-content::-webkit-scrollbar-thumb:hover {
-    background: var(--color-secondary);
+  html {
+    background-size: 224px;
   }
 
   /* Style text selection */

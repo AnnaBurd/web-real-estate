@@ -1,0 +1,41 @@
+/* Style scrollbars */
+
+/* Prevent scrollbar from repositioning page content */
+/* Note: can use css scrollbar-gutter:stable instead? */
+/* html {
+    padding-left: calc(100vw - 100%) !important;
+    overflow-x: hidden !important;
+  } */
+
+/* Firefox */
+html,
+.main-content {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--color-text) var(--color-secondaty-lighter) !important;
+}
+
+/* Chrome */
+/* Width */
+html::-webkit-scrollbar,
+.main-content::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+/* Track */
+html::-webkit-scrollbar-track,
+.main-content::-webkit-scrollbar-track {
+  background: var(--color-secondaty-lighter);
+  /* border-radius: 10px; */
+}
+/* Handle */
+html::-webkit-scrollbar-thumb,
+.main-content::-webkit-scrollbar-thumb {
+  background: var(--color-text);
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+html::-webkit-scrollbar-thumb:hover,
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}

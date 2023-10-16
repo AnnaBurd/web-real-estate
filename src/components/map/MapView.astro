@@ -1,0 +1,238 @@
+---
+type Props = {
+  title?: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+};
+
+const { coordinates, title } = Astro.props;
+---
+
+<!-- Create custom web component -->
+<map-view
+  data-lat={coordinates.lat}
+  data-lng={coordinates.lng}
+  data-title={title}></map-view>
+
+<!-- Override default styles of the Leaflet Map -->
+<style is:global lang="sass">
+  .leaflet-bottom // Move up bottom controls
+    top: max(10%, 6rem) // TODO: fix
+
+  .leaflet-control // Style zoom controls and btn
+    border: none !important
+    border-radius: .7rem !important
+    overflow: hidden
+    cursor: pointer !important
+    @apply shadow-sm #{!important}
+
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out,
+  .leaflet-control-button
+    background-color: #ffffff !important
+    display: flex !important
+    justify-content: center
+    align-items: center
+    &:hover
+      filter: brightness(0.9)
+
+  .leaflet-control-icon
+    svg
+      fill: var(--color-secondary-darker)
+
+  .map-marker-icon
+    fill: var(--color-secondary)
+</style>
+
+<!-- Switch styles between minimized and fullscreen mode -->
+<style lang="sass" is:global>
+  map-view
+    display: block
+    width: 100%
+    height: 100%
+
+    .leaflet-control-icon
+      .icon-full
+        display: none
+      .icon-small
+        display: block
+
+  map-view[fullscreen]
+    z-index: 1000
+    position: fixed !important
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+
+    .leaflet-top
+      right: 2vw
+      top: max(calc(50% - 10rem), 1.5rem)
+
+    .leaflet-bottom
+      right: 2vw
+      top: max(calc(50% - 3rem), 7rem)
+
+    .leaflet-control-button
+      background-color: var(--color-secondary) !important
+
+    .leaflet-control-icon
+      .icon-small
+        display: none
+      .icon-full
+        display: block
+        fill: white
+</style>
+
+<!-- Instantiate Leaflet Map using parameters from data attributes hidden in html -->
+<script>
+  import L from "leaflet";
+  import "leaflet/dist/leaflet.css";
+
+  const defaultLeafletMapOptions = {
+    attributionControl: false,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    minZoom: 6,
+    maxZoom: 18,
+  };
+
+  const defaultLeafletPopupOptions = {
+    autoClose: false,
+    closeOnClick: false,
+    closeOnEscapeKey: false,
+    closeButton: false,
+    autoPan: true,
+    riseOnHover: true,
+    className: "map-popup",
+  };
+
+  type LandLocation = {
+    title: string;
+    coordinates: {
+      lat: number;
+      lng: number;
+    };
+  };
+
+  class MapView extends HTMLElement {
+    #locations: LandLocation[] = []; // List of points on the map
+    #center: L.LatLngTuple = [0, 0]; // Center of the map
+    #leafletMap: L.Map | null = null; // Leaflet Map instance
+
+    constructor() {
+      super();
+
+      // 1. Get locations coordinates from data attributes in html markup
+      const lat = this.dataset.lat;
+      const lng = this.dataset.lng;
+      const title = this.dataset.title || "Land location";
+
+      if (lat && lng) {
+        this.#locations.push({
+          title,
+          coordinates: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lng),
+          },
+        });
+
+        this.#center = [parseFloat(lat), parseFloat(lng)];
+      }
+
+      // 2. Init Leaflet Map:
+      // Load and position map instance
+      this.#leafletMap = L.map(this, defaultLeafletMapOptions).setView(
+        this.#center,
+        14
+      );
+
+      // Load tiles from third-party api
+      L.tileLayer(
+        `https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=${
+          import.meta.env.PUBLIC_MAPTILES_KEY
+        }`
+      ).addTo(this.#leafletMap);
+
+      // Another tile option
+      // L.tileLayer(
+      //   `https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${
+      //     import.meta.env.PUBLIC_MAPTILES_KEY
+      //   }`
+      // ).addTo(this.#leafletMap);
+
+      // Add Zoom controls and replace default zoom icons
+      L.control.zoom({ position: "bottomright" }).addTo(this.#leafletMap);
+      const zoomInButton = document.querySelector(
+        ".leaflet-control-zoom-in"
+      ) as HTMLElement;
+      const zoomOutButton = document.querySelector(
+        ".leaflet-control-zoom-out"
+      ) as HTMLElement;
+      zoomInButton.innerHTML = `<span class="leaflet-control-icon"><svg xmlns="http://www.w3.org/2000/svg" height="19" viewBox="0 96 960 960" width="19"><path d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"/></svg></span>`;
+      zoomOutButton.innerHTML = `<span class="leaflet-control-icon"><svg xmlns="http://www.w3.org/2000/svg" height="19" viewBox="0 96 960 960" width="19"><path d="M200 616v-80h560v80H200Z"/></svg></svg></span>`;
+
+      // Add fullscreen button control
+      const handleFullscreenMap = () => {
+        this.toggleAttribute("fullscreen");
+        this.#leafletMap?.invalidateSize();
+      };
+
+      (L.Control as any).Button = L.Control.extend({
+        options: {
+          position: "topright",
+        },
+        onAdd: () => {
+          const container = L.DomUtil.create(
+            "div",
+            "leaflet-bar leaflet-control leaflet-control-custom"
+          );
+          let button = L.DomUtil.create(
+            "a",
+            "leaflet-control-button",
+            container
+          );
+
+          button.innerHTML = `<span class="leaflet-control-icon"><svg class="icon-small" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M120 936V696h80v104l124-124 56 56-124 124h104v80H120Zm516-460-56-56 124-124H600v-80h240v240h-80V352L636 476Z"/></svg><svg class="icon-full" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="m136 976-56-56 264-264H160v-80h320v320h-80V712L136 976Zm344-400V256h80v184l264-264 56 56-264 264h184v80H480Z"/></svg></span>`;
+
+          L.DomEvent.disableClickPropagation(button);
+          container.onclick = handleFullscreenMap;
+          return container;
+        },
+
+        onRemove: () => {},
+      });
+
+      new (L.Control as any).Button().addTo(this.#leafletMap);
+
+      // Add markers with land locations
+      if (this.#locations.length > 0) this.addMarker(this.#locations[0]);
+
+      console.log(this.#leafletMap);
+    }
+
+    addMarker(location: LandLocation) {
+      const leafletMarkerSvgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 map-marker-icon">
+  <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+</svg>
+`;
+
+      const markerIcon = L.divIcon({
+        className: "map-marker",
+        html: leafletMarkerSvgTemplate,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+      });
+
+      L.marker(location.coordinates, {
+        title: location.title,
+        icon: markerIcon,
+      }).addTo(this.#leafletMap!);
+    }
+  }
+
+  // Tell the browser to use MapView class for <map-view> elements.
+  customElements.define("map-view", MapView);
+</script>

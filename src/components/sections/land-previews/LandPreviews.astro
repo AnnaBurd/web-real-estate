@@ -2,36 +2,57 @@
 import Container from "../../../layouts/Container.astro";
 import Card from "./cards/Card.astro";
 
-import dataModel from "../../../model/ContentfulModel.js";
 import IconLeft from "./buttons/IconLeft.astro";
 import IconRight from "./buttons/IconRight.astro";
+import type { Land } from "../../../model/Land";
 
-const promotedLands = await dataModel.getPromotedLands();
-console.log("promoted lands component: 🎴", promotedLands.length);
+type Props = {
+  heading: string;
+  subheading?: string;
+  promotedLands: Land[];
+  scrollEffect?: boolean;
+  fullHeight?: boolean;
+  gradient?: boolean;
+};
+
+const {
+  heading,
+  subheading,
+  promotedLands,
+  scrollEffect,
+  fullHeight,
+  gradient,
+} = Astro.props;
 ---
 
 <!-- TODO fix heigh of cards uneven -->
 <div
   id="land-previews"
-  class="bg-gradient-to-t from-[--color-secondary-lighter] w-full py-4 md:py-0"
+  class={`${
+    gradient ? "bg-gradient-to-t from-[--color-secondary-lighter]" : ""
+  } w-full py-4 md:py-0`}
   data-scroll
   data-scroll-offset="-10%,100%"
   data-scroll-event-progress="landPreviewsScrollProgressEvent"
+  data-scroll-effect={scrollEffect ? true : false}
 >
-  <Container fullHeight={true}>
+  <Container fullHeight={fullHeight}>
     <h2
       id="land-previews-title"
-      class="capitalize text-xl md:text-2xl portrait:md:text-4xl xl:text-4xl 2xl:text-5xl tracking-normal font-normal px-6 pb-2 md:pb-4 -z-10"
+      class="capitalize text-xl md:text-2xl portrait:md:text-4xl xl:text-4xl 2xl:text-5xl tracking-normal font-normal pb-2 md:pb-4 -z-10"
     >
-      Dự án hiện tại
+      {heading}
     </h2>
-    <p
-      id="land-previews-description"
-      class="text-xs md:text-sm font-normal opacity-80 tracking-wide md:leading-relaxed max-w-[44ch] text-center -z-10"
-    >
-      Công ty giới thiệu mấy dự án đất đang bán với tỷ giá và diện tích các loại
-      đang bán.
-    </p>
+    {
+      subheading && (
+        <p
+          id="land-previews-description"
+          class="text-xs md:text-sm font-normal opacity-80 tracking-wide md:leading-relaxed max-w-[44ch] text-center -z-10"
+        >
+          {subheading}
+        </p>
+      )
+    }
 
     <div
       data-scroll
@@ -53,7 +74,11 @@ console.log("promoted lands component: 🎴", promotedLands.length);
         <div class="swiper-wrapper flex-col md:flex-row gap-8 md:gap-0">
           {
             promotedLands.map((land) => (
-              <Card land={land} className="swiper-slide " />
+              <Card
+                land={land}
+                className={`swiper-slide `}
+                attributes={{ border: true }}
+              />
             ))
           }
         </div>
@@ -119,7 +144,11 @@ console.log("promoted lands component: 🎴", promotedLands.length);
   import gsap from "gsap";
   import isMobileDevice from "../../../scripts/isMobileDevice";
 
-  if (!isMobileDevice()) {
+  if (
+    !isMobileDevice() &&
+    (document.querySelector("#land-previews") as HTMLDivElement).dataset
+      .scrollEffect === "true"
+  ) {
     const timelineLandPreviews = gsap.timeline({ paused: true });
 
     timelineLandPreviews.from("#land-previews-title", {

@@ -160,7 +160,7 @@ class ContentfulModel implements Model {
       });
 
       // Contentful does not allow to store address, so use another API to get it from the coordinates
-      await this.loadLandsAddresses(lands); // TODO: uncomment this line to enable fetching addresses
+      // await this.loadLandsAddresses(lands); // TODO: uncomment this line to enable fetching addresses
 
       // Update the application data and state
       this.lands = lands;
@@ -268,8 +268,9 @@ class ContentfulModel implements Model {
   async getLandBySlug(slug: string): Promise<Land> {
     throw new Error("Method not implemented.");
   }
-  async getLandsBySuggestedLands(suggestedLands: string[]): Promise<Land[]> {
-    throw new Error("Method not implemented.");
+  async getLandsBySlugs(slugs: string[]): Promise<Land[]> {
+    // Return the lands in order of the slugs array
+    return slugs.map((slug) => this.lands.find((land) => land.slug === slug)!);
   }
 }
 

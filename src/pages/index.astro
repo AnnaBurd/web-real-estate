@@ -4,11 +4,21 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/sections/hero/Hero.astro";
 import About from "../components/sections/about/About.astro";
 import LandPreviews from "../components/sections/land-previews/LandPreviews.astro";
+
+import dataModel from "../model/ContentfulModel.js";
+const promotedLands = await dataModel.getPromotedLands();
 ---
 
 <Layout title="Viet Land" currentPage="/">
   <Hero />
-  <LandPreviews />
+  <LandPreviews
+    promotedLands={promotedLands}
+    heading="Dự án hiện tại"
+    subheading="Công ty giới thiệu mấy dự án đất đang bán với tỷ giá và diện tích các loại đang bán."
+    scrollEffect={true}
+    fullHeight={true}
+    gradient={true}
+  />
   <About />
 </Layout>
 

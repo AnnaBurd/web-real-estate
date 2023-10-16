@@ -8,6 +8,7 @@ import type { GetStaticPaths } from "astro";
 import dataModel from "../model/ContentfulModel";
 import type { Land } from "../model/Land";
 import Container from "../layouts/Container.astro";
+import LandPreviews from "../components/sections/land-previews/LandPreviews.astro";
 
 // Generate separate page for each of the land items
 export const getStaticPaths = (async () => {
@@ -21,11 +22,15 @@ export const getStaticPaths = (async () => {
 
 let land: Land;
 land = Astro.props.land;
+
+const suggestedLands = land.suggestedLands
+  ? await dataModel.getLandsBySlugs(land.suggestedLands)
+  : [];
 ---
 
 <Layout title={land.title || "Land"} currentPage={land.slug}>
   <Container
-    className="pt-16 lg:pt-20 pb-6 lg:pb-10 bg-gradient-to-t lg:from-[--color-secondary-lighter] from-[#40527338]"
+    className="pt-16 lg:pt-20 pb-6 lg:pb-6 bg-gradient-to-t lg:from-[--color-secondary-lighter] from-[#40527338]"
   >
     <Gallery
       tag={land.tag}
@@ -34,4 +39,15 @@ land = Astro.props.land;
     />
     <LandInfo land={land} />
   </Container>
+
+  {
+    suggestedLands.length >= 3 && (
+      <LandPreviews
+        promotedLands={suggestedLands}
+        heading="Dự án tưởng tượng"
+        subheading="Công ty giới thiệu mấy dự án đất đang bán với tỷ giá và diện tích các loại đang bán."
+        fullHeight={true}
+      />
+    )
+  }
 </Layout>

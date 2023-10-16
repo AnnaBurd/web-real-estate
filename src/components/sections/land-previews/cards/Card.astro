@@ -54,7 +54,7 @@ const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}
           >{land.title}</span
         >
         <address class="text-xs md:text-sm font-normal not-italic opacity-80">
-          {land.address || land.briefDescription?.slice(0, 50)}
+          {land.briefDescription || land.address}
         </address>
       </div>
 
@@ -79,3 +79,10 @@ const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}
     </div>
   </a>
 </div>
+
+<!-- Render card border if border attribute is set up to true -->
+<style>
+  div[border="true"] a {
+    border: 1px solid var(--color-accent-lighter);
+  }
+</style>

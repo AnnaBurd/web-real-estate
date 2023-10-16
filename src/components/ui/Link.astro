@@ -1,0 +1,42 @@
+---
+type Props = {
+  href: string;
+  className?: string;
+};
+
+const { href, className } = Astro.props;
+---
+
+<div class={`relative ${className ? className : ""}`}>
+  <a
+    class="flex items-center gap-1.5 cursor-pointer font-semibold tracking-tight link link-underline link-underline-black justify-start w-fit pr-0.5"
+    href={href}
+    target="_blank"
+  >
+    <slot />
+  </a>
+</div>
+
+<style>
+  @media screen and (min-width: 1024px) {
+    .link-underline {
+      border-bottom-width: 0;
+      background-image: linear-gradient(transparent, transparent),
+        linear-gradient(#fff, #fff);
+      background-size: 0 2px;
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      transition: background-size 0.4s ease-in-out;
+    }
+
+    .link-underline-black {
+      background-image: linear-gradient(transparent, transparent),
+        linear-gradient(var(--color-accent), var(--color-accent));
+    }
+
+    .link-underline:hover {
+      background-size: 100% 2px;
+      background-position: 0 100%;
+    }
+  }
+</style>

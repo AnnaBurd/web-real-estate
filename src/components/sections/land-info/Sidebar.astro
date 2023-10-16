@@ -1,5 +1,6 @@
 ---
 import type { Land } from "../../../model/Land";
+import Link from "../../ui/Link.astro";
 
 interface Props {
   land: Land;
@@ -183,9 +184,12 @@ const { land } = Astro.props;
 
     {
       land.link && (
-        <a class="col-span-2  flex items-center gap-1.5 underline cursor-pointer">
-          <span class="font-semibold tracking-tight">Xem Sở Quy Hoạch </span>
-          <span class="w-4 h-4">
+        <Link
+          href={land.link}
+          className="col-span-2 underline lg:no-underline underline-offset-1"
+        >
+          Xem Sở Quy Hoạch{" "}
+          <span class="w-4 h-4 lg:hidden">
             <svg
               class="w-full h-full"
               width="24"
@@ -203,7 +207,7 @@ const { land } = Astro.props;
               />
             </svg>
           </span>
-        </a>
+        </Link>
       )
     }
   </div>

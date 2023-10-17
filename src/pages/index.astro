@@ -22,60 +22,27 @@ const promotedLands = await dataModel.getPromotedLands();
   <About />
 </Layout>
 
-<!-- Smooth scroll functionality - css classes requred by Lenis library -->
-<style is:global>
-  html.lenis {
-    height: auto !important;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain !important;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden !important;
-  }
-  .lenis.lenis-scrolling iframe {
-    pointer-events: none !important;
-  }
-</style>
-
-<!-- Set up smooth scroll (locomotive scroll) -->
+<!-- Move down to land previews on button click -->
 <script>
-  // @ts-ignore - no types for beta version of locomotive 5 scroll yet, ignore ts error
-  import LocomotiveScroll from "locomotive-scroll";
-  import isMobileDevice from "../scripts/isMobileDevice";
+  import initScroll from "../scripts/smoothScroll";
 
-  // On desktop + tablet devices allow smooth scrolling
-  if (!isMobileDevice()) {
-    // Initialize LocomotiveScroll library - smooth scrolling
-    const mainContentContainer = document.querySelector(
-      ".main-content"
-    ) as HTMLElement;
+  const smoothScroll = initScroll(); // Init or get existing instance of the scroll
 
-    const locomotiveScroll = new LocomotiveScroll({
-      lenisOptions: {
-        wrapper: mainContentContainer, // Specify which element is scrollable
+  const buttonDownEl = document.getElementById("button-down") as HTMLElement; // Get button element
+  const landPreviewsEl = document.getElementById(
+    "land-previews"
+  ) as HTMLElement; // Get destination element
+
+  // Scroll to destination, time of scroll is proportional to distance
+  buttonDownEl.addEventListener("click", () => {
+    const deltaY =
+      window.innerHeight - landPreviewsEl.getBoundingClientRect().top;
+
+    smoothScroll.scrollTo(landPreviewsEl, {
+      duration: 1.4 * (1 - deltaY / window.innerHeight),
+      easing: (t: number) => {
+        return 1 - Math.pow(1 - t, 4);
       },
-      // scrollCallback: onScroll, // Callback function on scroll event
     });
-
-    // Scroll down to land previews section on button click
-    const buttonDownEl = document.getElementById("button-down") as HTMLElement;
-    const landPreviewsEl = document.getElementById(
-      "land-previews"
-    ) as HTMLElement;
-    buttonDownEl.addEventListener("click", () => {
-      const deltaY =
-        window.innerHeight - landPreviewsEl.getBoundingClientRect().top;
-
-      locomotiveScroll.scrollTo(landPreviewsEl, {
-        duration: 1.4 * (1 - deltaY / window.innerHeight),
-        easing: (t: number) => {
-          return 1 - Math.pow(1 - t, 4);
-        },
-      });
-    });
-  }
+  });
 </script>

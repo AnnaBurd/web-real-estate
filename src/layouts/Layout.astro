@@ -105,3 +105,28 @@ const phoneNumber = "+84(09)0160-6982";
     @apply focus-visible:outline-none;
   }
 </style>
+
+<!-- Css classes requred by Lenis library - for smooth scroll functionality -->
+<style is:global>
+  html.lenis {
+    height: auto !important;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden !important;
+  }
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none !important;
+  }
+</style>
+
+<!-- Load smooth scroll (locomotive scroll + lenis) -->
+<script>
+  import initScroll from "../scripts/smoothScroll";
+  initScroll();
+</script>

@@ -10,19 +10,22 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^3.0.3",
     "@astrojs/tailwind": "^5.0.0",
-    "astro": "^3.2.3",
+    "@tailwindcss/forms": "^0.5.6",
+    "@types/leaflet": "^1.9.6",
+    "@types/react": "^18.2.29",
+    "@types/react-dom": "^18.2.14",
+    "astro": "^3.3.2",
     "contentful": "^10.5.0",
     "gsap": "^3.12.2",
     "leaflet": "^1.9.4",
     "locomotive-scroll": "^5.0.0-beta.8",
     "photoswipe": "^5.4.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.66.1",
     "swiper": "^10.2.0",
     "tailwindcss": "^3.3.3"
-  },
-  "devDependencies": {
-    "@tailwindcss/forms": "^0.5.6",
-    "@types/leaflet": "^1.9.6",
-    "sass": "^1.66.1"
   }
 }

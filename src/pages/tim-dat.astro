@@ -1,0 +1,15 @@
+---
+import Container from "../layouts/Container.astro";
+import Layout from "../layouts/Layout.astro";
+import LandSearch from "../components/sections/land-search/LandSearch.tsx";
+
+const title = "VietLand - thông tin liên lạc";
+---
+
+<Layout title={title} currentPage={"/thong-tin"}>
+  <Container className="h-screen">
+    123
+
+    <LandSearch client:load />
+  </Container>
+</Layout>

@@ -1,4 +1,5 @@
 ---
+import SocialIcons from "../components/footer/SocialIcons.astro";
 import Container from "../layouts/Container.astro";
 import Layout from "../layouts/Layout.astro";
 
@@ -76,66 +77,72 @@ const title = "VietLand - thông tin liên lạc";
     </p>
     <div class="grid grid-cols-2 grid-rows-2 gap-x-8 gap-y-4 mt-10">
       <div
-        class="bg-[#607cb327]
-      rounded-ss-[2rem] rounded-se-[7rem] rounded-es-[7rem] rounded-ee-[2rem] flex items-center justify-center flex-col p-6"
+        class="bg-[#607cb317]
+      rounded-ss-[2rem] rounded-se-[7rem] rounded-es-[7rem] rounded-ee-[2rem] flex items-center justify-center flex-col p-6 relative"
       >
-        <div class="w-32 h-32 rounded-[2rem] overflow-hidden">
+        <div class="w-36 h-36 rounded-[2.3rem] overflow-hidden">
           <img
             class="w-full h-full object-cover"
-            src="https://random.imagecdn.app/150/150"
+            src="https://ssg-web-app.netlify.app/images/agents/agent_1.jpg"
           />
         </div>
-        <span class="font-bold mt-2 text-lg">Name Second Name</span>
+        <span class="font-bold mt-2 text-lg">Phi Do Quan</span>
         <span class="uppercase text-xs font-semibold opacity-80 tracking-tight"
-          >Position</span
+          >Aại lý độc quyền</span
+        >
+        <span class="absolute bottom-1/2"
+          ><SocialIcons
+            className=""
+            phoneRef="+7-000-000-01-01"
+            facebookRef="#"
+            zaloRef="#"
+          /></span
+        >
+      </div>
+      <div
+        class="bg-[#607cb317] rounded-[2rem] flex items-center justify-center flex-col p-6"
+      >
+        <div class="w-36 h-36 rounded-[2.3rem] overflow-hidden">
+          <img
+            class="w-full h-full object-cover"
+            src="https://ssg-web-app.netlify.app/images/agents/agent_2.jpg"
+          />
+        </div>
+        <span class="font-bold mt-2 text-lg">Phi Do Quan</span>
+        <span class="uppercase text-xs font-semibold opacity-80 tracking-tight"
+          >Aại lý độc quyền</span
         >
         <span class="hidden hover:visible">+7 912 123 12323</span>
         <span class="hidden hover:visible">social icons</span>
       </div>
       <div
-        class="bg-[#607cb327] rounded-[2rem] flex items-center justify-center flex-col p-6"
+        class="bg-[#607cb317] rounded-se-[7rem] rounded-ss-[7rem] rounded-es-[2rem] rounded-ee-[2rem] flex items-center justify-center flex-col p-6"
       >
-        <div class="w-32 h-32 rounded-[2rem] overflow-hidden">
+        <div class="w-36 h-36 rounded-[2.3rem] overflow-hidden">
           <img
             class="w-full h-full object-cover"
-            src="https://random.imagecdn.app/150/150"
+            src="https://ssg-web-app.netlify.app/images/agents/agent_3.jpg"
           />
         </div>
-        <span class="font-bold mt-2 text-lg">Name Second Name</span>
+        <span class="font-bold mt-2 text-lg">Phi Do Quan</span>
         <span class="uppercase text-xs font-semibold opacity-80 tracking-tight"
-          >Position</span
+          >Aại lý độc quyền</span
         >
         <span class="hidden hover:visible">+7 912 123 12323</span>
         <span class="hidden hover:visible">social icons</span>
       </div>
       <div
-        class="bg-[#607cb327] rounded-se-[7rem] rounded-ss-[7rem] rounded-es-[2rem] rounded-ee-[2rem] flex items-center justify-center flex-col p-6"
+        class="bg-[#607cb317] rounded-ee-[7rem] rounded-es-[7rem] rounded-ss-[7rem] rounded-se-[2rem] flex items-center justify-center flex-col p-6"
       >
-        <div class="w-32 h-32 rounded-[2rem] overflow-hidden">
+        <div class="w-36 h-36 rounded-[2.3rem] overflow-hidden">
           <img
             class="w-full h-full object-cover"
-            src="https://random.imagecdn.app/150/150"
+            src="https://ssg-web-app.netlify.app/images/agents/agent_4.jpg"
           />
         </div>
-        <span class="font-bold mt-2 text-lg">Name Second Name</span>
+        <span class="font-bold mt-2 text-lg">Phi Do Quan</span>
         <span class="uppercase text-xs font-semibold opacity-80 tracking-tight"
-          >Position</span
-        >
-        <span class="hidden hover:visible">+7 912 123 12323</span>
-        <span class="hidden hover:visible">social icons</span>
-      </div>
-      <div
-        class="bg-[#607cb327] rounded-ee-[7rem] rounded-es-[7rem] rounded-ss-[7rem] rounded-se-[2rem] flex items-center justify-center flex-col p-6"
-      >
-        <div class="w-32 h-32 rounded-[2rem] overflow-hidden">
-          <img
-            class="w-full h-full object-cover"
-            src="https://random.imagecdn.app/150/150"
-          />
-        </div>
-        <span class="font-bold mt-2 text-lg">Name Second Name</span>
-        <span class="uppercase text-xs font-semibold opacity-80 tracking-tight"
-          >Position</span
+          >Dại lý độc quyền</span
         >
         <span class="hidden hover:visible">+7 912 123 12323</span>
         <span class="hidden hover:visible">social icons</span>
@@ -143,56 +150,70 @@ const title = "VietLand - thông tin liên lạc";
     </div>
   </Container>
 
-  <Container className="  bg-white pt-36 pb-32 cursor-default">
-    <div
-      class="grid grid-cols-3 gap-x-16 gap-y-2 justify-items-center relative"
-    >
-      <span
-        class="row-[1/-1] text-4xl font-semibold tracking- text-[--color-secondary-darker]"
-        >100</span
+  <Container
+    className="  bg-white pt-20 pb-32 cursor-default flex gap-10 justify-between items-center"
+  >
+    <div>
+      <h3
+        class="text-xl md:text-2xl portrait:md:text-4xl xl:text-4xl 2xl:text-5xl tracking-normal pb-2 md:pb-4 font-semibold !leading-snug"
       >
-      <span
-        class="text-base font-normal tracking-tight opacity-80 max-w-[30ch] text-center"
-        >Bất động sản đáng kinh ngạc được bán trong năm nay</span
+        Sự cam kết về chất lượng:<br /> Nâng tầm Khu Đất của Bạn
+      </h3>
+      <p
+        class="font-normal opacity-80 text-base tracking-normal -mt-2 max-w-prose"
       >
+        Lựa chọn đất đai của chúng tôi là sự đầu tư vào không gian và kỷ niệm
+        của bạn. Lựa chọn đất đai của chúng tôi là sự đầu tư vào không gian và
+        kỷ niệm của bạn.
+      </p>
+      <div class="grid grid-cols-2 gap-x-14 gap-y-6 mt-6 w-fit">
+        <div class="flex flex-col gap-0">
+          <span class="text-[2.8rem] font-semibold text-[--color-secondary]"
+            >5+</span
+          >
+          <span
+            class="text-base font-normal tracking-tight opacity-80 max-w-[30ch] -mt-1.5"
+            >Số năm hoạt động</span
+          >
+        </div>
 
-      <span
-        class="row-[1/-1] text-4xl font-semibold tracking- text-[--color-secondary-darker]"
-        >290</span
-      >
-      <span
-        class="text-base font-normal tracking-tight opacity-80 max-w-[30ch] text-center"
-        >Khách hàng hài lòng</span
-      >
+        <div class="flex flex-col gap-0">
+          <span class="text-[2.8rem] font-semibold text-[--color-secondary]"
+            >10+</span
+          >
+          <span
+            class="text-base font-normal tracking-tight opacity-80 max-w-[30ch] -mt-1.5"
+            >Địa điểm hoạt động</span
+          >
+        </div>
 
-      <span
-        class="row-[1/-1] text-4xl font-semibold tracking- text-[--color-accent-darkest]"
-        >12 203</span
-      >
-      <span
-        class="text-base font-normal tracking-tight opacity-80 max-w-[30ch] text-center"
-        >Sdf sf sdfbất động sản đáng kinh ngạc được bán trong năm nay</span
-      >
+        <div class="flex flex-col gap-0">
+          <span class="text-[2.8rem] font-semibold text-[--color-secondary]"
+            >100+</span
+          >
+          <span
+            class="text-base font-normal tracking-tight opacity-80 max-w-[30ch] -mt-1.5"
+            >Giao dịch thực hiện</span
+          >
+        </div>
 
-      <div
-        class="absolute -top-16 -left-40 -translate-y-1/3 opacity-20 max-h-96 max-w-96 min-h-[150px] min-w-[150px] w-[26rem]"
-      >
-        <svg
-          class="h-full w-full"
-          viewBox="0 0 272 269"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          stroke-width=".9"
-          stroke="var(--color-secondary)"
-        >
-          <path
-            d="M187.388 99.3464C206.083 126.548 217.205 155.134 220.091 179.344C222.98 203.581 217.609 223.288 203.529 232.965C189.448 242.643 169.125 240.595 147.534 229.211C125.965 217.841 103.264 197.214 84.5688 170.012C65.8735 142.81 54.7521 114.225 51.8659 90.0141C48.9766 65.7773 54.3475 46.0703 68.428 36.393C82.5086 26.7157 102.831 28.7638 124.423 40.147C145.991 51.5178 168.693 72.1446 187.388 99.3464Z"
-          ></path>
-          <path
-            d="M163.329 190.746C133.663 205.216 103.747 211.99 79.376 211.265C54.9783 210.541 36.2816 202.316 28.7919 186.96C21.3021 171.603 26.3317 151.806 40.7812 132.135C55.2151 112.484 78.9708 93.0808 108.637 78.6116C138.304 64.1423 168.219 57.3683 192.59 58.0923C216.988 58.8172 235.685 67.042 243.174 82.3983C250.664 97.7545 245.634 117.551 231.185 137.223C216.751 156.874 192.995 176.277 163.329 190.746Z"
-          ></path>
-        </svg>
+        <div class="flex flex-col gap-0">
+          <span class="text-[2.8rem] font-semibold text-[--color-secondary]"
+            >600+</span
+          >
+          <span
+            class="text-base font-normal tracking-tight opacity-80 max-w-[30ch] -mt-1.5"
+            >Khách hàng hài lòng
+          </span>
+        </div>
       </div>
+    </div>
+    <div class="relative w-1/3">
+      <img
+        src="/img/img-temp-1.jpg"
+        alt=""
+        class="w-full h-full object-cover min-w-[300px] min-h-[65vh] object-left rounded-xl"
+      />
     </div>
   </Container>
 </Layout>

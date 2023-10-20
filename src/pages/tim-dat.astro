@@ -3,13 +3,28 @@ import Container from "../layouts/Container.astro";
 import Layout from "../layouts/Layout.astro";
 import LandSearch from "../components/sections/land-search/LandSearch.tsx";
 
+import dataModel from "../model/ContentfulModel";
+import MapView from "../components/map/MapView.astro";
+
+// Load all (there will be 20 lands and max so no need for pagination) lands data to pre-render listing of lands
+const lands = await dataModel.getAllLands();
+
 const title = "VietLand - thông tin liên lạc";
 ---
 
 <Layout title={title} currentPage={"/thong-tin"}>
-  <Container className="h-screen">
-    123
-
-    <LandSearch client:load />
-  </Container>
+  <div class="pt-28 pb-12 h-screen bg-blue-300 flex">
+    <LandSearch client:load preloadedLands={lands}>
+      <div class="w-[37vw] flex-shrink-0">
+        <div
+          class="bg-white shadow-sm overflow-hidden h-[100vh] w-[37vw] absolute top-0 right-0"
+        >
+          <MapView
+            coordinates={{ lat: lands[0].coords![0], lng: lands[0].coords![1] }}
+            title={`Vị trí của ${lands[0].title}`}
+          />
+        </div>
+      </div>
+    </LandSearch>
+  </div>
 </Layout>

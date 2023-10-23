@@ -1,4 +1,6 @@
 ---
+import "./ButtonClickAnimation.sass";
+
 interface Props {
   hiddenText: string;
   onClick?: string;
@@ -15,7 +17,7 @@ if (type) attributes.type = type;
 
 <button
   {...attributes}
-  class=`button button--winona bg-[--color-accent] hover:bg-[--color-accent-darker] p-0 text-xs md:text-sm text-center text-white text-opacity-90 hover:text-opacity-100 font-semibold tracking-widest rounded-full uppercase relative overflow-hidden min-w-[130px] md:min-w-[150px] tabbable ${
+  class=`button-click-animation button button--winona bg-[--color-accent] hover:bg-[--color-accent-darker] p-0 text-xs md:text-sm text-center text-white text-opacity-90 hover:text-opacity-100 font-semibold tracking-widest rounded-full uppercase relative overflow-hidden min-w-[130px] md:min-w-[150px] tabbable ${
     className ? className : ""
   }`
   data-text={hiddenText}
@@ -30,11 +32,6 @@ if (type) attributes.type = type;
   }
 
   /* Winona */
-  .button--winona:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 15px var(--color-accent-shadow);
-  }
-
   .button--winona::after,
   .button--winona > span {
     padding: 1em 1.5em;
@@ -46,12 +43,6 @@ if (type) attributes.type = type;
   }
 
   @media screen and (min-width: 768px) {
-    .button--winona {
-      transition: border-color 0.3s, background-color 0.3s,
-        transform ease-in 0.15s, box-shadow ease-in 0.25s;
-      transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-    }
-
     .button--winona::after {
       content: attr(data-text);
       position: absolute;
@@ -66,8 +57,12 @@ if (type) attributes.type = type;
 
     .button--winona::after,
     .button--winona > span {
-      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-      transition: transform 0.3s, opacity 0.3s;
+      -webkit-transition:
+        -webkit-transform 0.3s,
+        opacity 0.3s;
+      transition:
+        transform 0.3s,
+        opacity 0.3s;
       -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
       transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
     }

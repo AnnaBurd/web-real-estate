@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import SearchResults from "./SearchResults";
 import type { Land } from "../../../model/Land";
-import SearchFilter from "./SearchFilters";
+import SearchFilter from "./search-filters/SearchFilters";
 
 interface Props {
   preloadedLands: Land[];

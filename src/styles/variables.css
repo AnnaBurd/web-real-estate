@@ -8,12 +8,15 @@
 
   --color-text: #3a5273;
   --color-secondary: #607cb3;
+  --color-secondary-transparent: #607cb377;
+  --color-secondary-transparent-lighter: #607cb315;
   --color-secondary-darker: #405273;
   --color-secondary-darkest: #30394e;
 
   --color-secondary-lighter: #f4f8ff;
   --color-grey-light: #f6f9ff;
   --color-gradient-start: #eef4ff;
+  --color-grey-medium: #ced5e191;
 
   --color-dark: #2d3549;
 

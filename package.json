@@ -16,6 +16,7 @@
     "@types/leaflet": "^1.9.6",
     "@types/react": "^18.2.29",
     "@types/react-dom": "^18.2.14",
+    "@types/svelte-range-slider-pips": "^2.0.2",
     "astro": "^3.3.2",
     "contentful": "^10.5.0",
     "gsap": "^3.12.2",
@@ -25,6 +26,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.66.1",
+    "svelte-range-slider-pips": "^2.2.3",
     "swiper": "^10.2.0",
     "tailwindcss": "^3.3.3"
   }

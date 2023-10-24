@@ -39,7 +39,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, children }) => {
         <SearchFilter />
       </div>
       <div
-        className="flex-1 overflow-y-scroll "
+        className="flex-1 overflow-y-scroll  p-10 "
         id="scrollable-test"
         data-lenis-prevent
       >

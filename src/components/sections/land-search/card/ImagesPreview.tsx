@@ -25,7 +25,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="group h-40 flex flex-col gap-1 select-none">
+    <div className="group h-full flex flex-col gap-1 select-none">
       <Swiper
         className="w-full  rounded-lg overflow-hidden swiper-slide-main relative "
         modules={[FreeMode, Navigation, A11y, Thumbs]}

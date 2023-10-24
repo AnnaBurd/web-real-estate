@@ -1,19 +1,21 @@
 import type { Land } from "../../../model/Land";
-import Card from "./Card";
+import Card from "./card/Card";
 
 interface Props {
   lands: Land[];
 }
 
 const SearchResults: React.FC<Props> = ({ lands }) => {
+  if (lands.length === 0)
+    return <div>todo: text and btn link to reset filter</div>;
+
   return (
-    <div className="">
+    <div>
       {lands.map((land) => (
         <Card key={land.slug} land={land} />
       ))}
     </div>
   );
-  return lands.map((land) => <Card key={land.slug} land={land} />);
 };
 
 export default SearchResults;

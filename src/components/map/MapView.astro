@@ -4,19 +4,28 @@ import type { LandLocation } from "./MapView.astro.0.mts";
 type Props = {
   title?: string;
   locations: LandLocation[];
+  fullHeight?: boolean;
 };
 
-const { locations, title } = Astro.props;
+const { locations, title, fullHeight } = Astro.props;
 ---
 
 <!-- Create custom web component -->
-<map-view data-locations={JSON.stringify(locations)} data-title={title}
-></map-view>
+<map-view
+  data-locations={JSON.stringify(locations)}
+  data-title={title}
+  fullheight={fullHeight}></map-view>
 
 <!-- Override default styles of the Leaflet Map -->
 <style is:global lang="sass">
   .leaflet-bottom // Move up bottom controls
-    top: max(10%, 6rem) // TODO: fix
+    top: max(calc(50% - 30px), 60px)
+
+  map-view[fullheight="true"] // Adjust controls position
+    .leaflet-top
+      top: max(calc(50% - 10rem), 3rem)
+    .leaflet-bottom
+      top: max(calc(50% - 30px), 60px)
 
   .leaflet-control // Style zoom controls and btn
     border: none !important
@@ -43,6 +52,8 @@ const { locations, title } = Astro.props;
     fill: var(--color-secondary)
 </style>
 
+<style></style>
+
 <!-- Switch styles between minimized and fullscreen mode -->
 <style lang="sass" is:global>
   map-view
@@ -64,13 +75,16 @@ const { locations, title } = Astro.props;
     width: 100vw
     height: 100vh
 
+    // Adjust controls position in fullscreen mode
+    // TODO: check on mobile
     .leaflet-top
-      right: 2vw
-      top: max(calc(50% - 10rem), 1.5rem)
+      right: 5px // Compensate for the scrollbar space
+      top: max(calc(50% - 10rem), 3rem)
 
+    // TODO: check on mobile
     .leaflet-bottom
-      right: 2vw
-      top: max(calc(50% - 3rem), 7rem)
+      right: 5px // Compensate for the scrollbar space
+      top: max(calc(50% - 30px), 60px)
 
     .leaflet-control-button
       background-color: var(--color-secondary) !important
@@ -118,6 +132,7 @@ const { locations, title } = Astro.props;
     #locations: LandLocation[] = []; // List of points on the map
     #center: L.LatLngTuple = [0, 0]; // Center of the map
     #leafletMap: L.Map | null = null; // Leaflet Map instance
+    #leafletMarkers: L.Marker[] = []; // Leaflet Markers instances
 
     constructor() {
       super();
@@ -198,7 +213,9 @@ const { locations, title } = Astro.props;
       new (L.Control as any).Button().addTo(this.#leafletMap);
 
       // Add markers with land locations
-      this.#locations.forEach((location) => this.addMarker(location));
+      // this.#locations.forEach((location) => this.addMarker(location)); // TODO:
+
+      // this.#locations.forEach((location) => this.addPopupMarker(location));
 
       // Fit map to markers bounds
       if (this.#locations.length > 1) {
@@ -207,6 +224,14 @@ const { locations, title } = Astro.props;
         );
         this.#leafletMap.fitBounds(bounds);
       }
+
+      // setTimeout(() => {
+      //   this.removePopupMarker(this.#locations[0].title);
+      //   this.removePopupMarkers([
+      //     this.#locations[1].title,
+      //     this.#locations[2].title,
+      //   ]);
+      // }, 2000);
     }
 
     updateCenterPointValue() {
@@ -241,6 +266,60 @@ const { locations, title } = Astro.props;
         title: location.title,
         icon: markerIcon,
       }).addTo(this.#leafletMap!);
+    }
+
+    addPopupMarker(location: LandLocation) {
+      const svgIconTemplate = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 map-marker-icon">
+  <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+</svg>
+`;
+
+      const markerIcon = L.divIcon({
+        className: "map-marker",
+        html: svgIconTemplate,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+      });
+
+      const marker = L.marker(location.coordinates, {
+        title: location.title,
+        icon: markerIcon,
+      }).addTo(this.#leafletMap!);
+
+      const popup = L.popup(defaultLeafletPopupOptions).setContent(
+        `<h3 class="text-xs font-semibold mb-10">${location.title}</h3>`
+      );
+
+      marker.bindPopup(popup);
+
+      // console.log("added marker", marker);
+
+      this.#leafletMarkers.push(marker);
+
+      // console.log("markers", this.#leafletMarkers);
+    }
+
+    removePopupMarker(markerTitle: string) {
+      const markerIndex = this.#leafletMarkers.findIndex(
+        (marker) => marker.options.title === markerTitle
+      );
+
+      if (markerIndex !== -1) {
+        this.#leafletMarkers[markerIndex].remove();
+        this.#leafletMarkers.splice(markerIndex, 1);
+      }
+    }
+
+    removePopupMarkers(markerTitles: string[]) {
+      markerTitles.forEach((title) => this.removePopupMarker(title));
+    }
+
+    rerenderPopupMarkers(locations: LandLocation[]) {
+      this.#leafletMarkers.forEach((marker) => marker.remove());
+
+      this.#leafletMarkers = [];
+
+      locations.forEach((location) => this.addPopupMarker(location));
     }
   }
 

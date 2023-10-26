@@ -6,7 +6,7 @@ import SearchFilter, {
 } from "./search-filters/SearchFilters";
 
 import "./LandSearch.sass";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   preloadedLands: Land[];
@@ -73,6 +73,9 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
     window.history.replaceState({}, "", newURL);
 
     setFilterIteration((prev) => prev + 1);
+
+    // Update the map state -> render new markers and remove old ones
+    const map: any = document.querySelector("map-view");
   };
 
   //   // window.addEventListener('popstate', () => {
@@ -100,6 +103,52 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
       (land) =>
         land.area && land.area >= sizeRange[0] && land.area <= sizeRange[1]
     );
+
+  console.log("Filtered lands:", filteredLands.length);
+  console.log("Rerender map");
+
+  const map: any = document.querySelector("map-view");
+  map.rerenderPopupMarkers(
+    filteredLands
+      .filter((land) => land.coords)
+      .map((land) => ({
+        title: land.title,
+        coordinates: { lat: land.coords[0], lng: land.coords[1] },
+      }))
+  );
+
+  // useEffect(() => {
+  //   console.log("Map update");
+
+  //   const map: any = document.querySelector("map-view");
+
+  //   console.log(map);
+
+  //   // map.addPopupMarker({
+  //   //   title: "test",
+  //   //   coordinates: {
+  //   //     lat: preloadedLands[0].coords[0],
+  //   //     lng: preloadedLands[0].coords[1],
+  //   //   },
+  //   // });
+
+  //   filteredLands
+  //     .filter((land) => land.coords)
+  //     .forEach((land) => {
+  //       map.addPopupMarker({
+  //         title: land.title,
+  //         coordinates: {
+  //           lat: land.coords[0],
+  //           lng: land.coords[1],
+  //         },
+  //       });
+  //     });
+
+  //   // map.removePopupMarker(preloadedLands[5].title);
+  //   // map.removePopupMarker(preloadedLands[6].title);
+  //   // map.removePopupMarker(preloadedLands[4].title);
+  //   // map.removePopupMarker(preloadedLands[3].title);
+  // }, []);
 
   return (
     <>

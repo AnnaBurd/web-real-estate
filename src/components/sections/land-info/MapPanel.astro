@@ -13,7 +13,15 @@ const { land } = Astro.props;
   class="bg-white rounded-xl shadow-sm h-[30vh] min-h-[200px] max-h-[600px] overflow-hidden"
 >
   <MapView
-    coordinates={{ lat: land.coords![0], lng: land.coords![1] }}
+    locations={[
+      {
+        title: `Vị trí của ${land.title || "Đất trống"}`,
+        coordinates: {
+          lat: land.coords ? land.coords[0] : 0,
+          lng: land.coords ? land.coords[1] : 0,
+        },
+      },
+    ]}
     title={`Vị trí của ${land.title}`}
   />
 </div>

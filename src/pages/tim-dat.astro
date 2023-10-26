@@ -29,8 +29,15 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
 
     <div class="bg-white shadow-sm overflow-hidden h-screen w-[37vw]">
       <MapView
-        coordinates={{ lat: lands[0].coords![0], lng: lands[0].coords![1] }}
-        title={`Vị trí của ${lands[0].title}`}
+        locations={lands
+          .filter((land) => land.coords)
+          .map((land) => ({
+            title: land.title || "Đất trống",
+            coordinates: {
+              lat: land.coords ? land.coords[0] : 0,
+              lng: land.coords ? land.coords[1] : 0,
+            },
+          }))}
       />
     </div>
   </div>

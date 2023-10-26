@@ -5,26 +5,53 @@ import SelectionInput from "./SelectionInput";
 
 import "../../../ui/buttons/ButtonClickAnimation.sass";
 
+export interface FilterFunc {
+  (
+    priceRange: number[],
+    sizeRange: number[],
+    filterOptions: LandTypeOption[]
+  ): void;
+}
+
 interface Props {
-  // Define props here
+  maxPrice: number;
+  initialPriceRange?: number[];
+  maxSize: number;
+  initialSizeRange?: number[];
+  onSubmit: FilterFunc;
 }
 
 const landTypesOptions = ["Khuyến khích", "Yêu thích"] as const;
 export type LandTypeOption = (typeof landTypesOptions)[number];
 
-const SearchFilters: React.FC<Props> = (props) => {
-  const [sizeRange, setSizeRange] = useState<number[]>([0, 1000]);
-  const [priceRange, setPriceRange] = useState<number[]>([0, 25]);
+const SearchFilters: React.FC<Props> = ({
+  maxPrice,
+  initialPriceRange,
+  maxSize,
+  initialSizeRange,
+  onSubmit,
+}) => {
+  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>(
+    initialPriceRange || [0, maxPrice]
+  );
+  const [selectedSizeRange, setSelectedSizeRange] = useState<number[]>(
+    initialSizeRange || [0, maxSize]
+  );
   const [filterByType, setFilterByType] = useState<LandTypeOption[]>([]);
 
-  const handleReset = () => {
-    setSizeRange([0, 1000]);
-    setPriceRange([0, 25]);
+  const handleFiltersSubmit = () => {
+    onSubmit(selectedPriceRange, selectedSizeRange, filterByType);
+  };
+
+  const handleFiltersReset = () => {
+    setSelectedPriceRange([0, maxPrice]);
+    setSelectedSizeRange([0, maxSize]);
     setFilterByType([]);
+    onSubmit([0, maxPrice], [0, maxSize], []);
   };
 
   return (
-    <div className="border w-full h-full  pl-10 pr-6">
+    <div className="w-full h-full  pl-10 pr-6 pt-6">
       <span className="font-semibold mb-4 block text-base opacity-50">
         Bộ lọc:
       </span>
@@ -56,10 +83,10 @@ const SearchFilters: React.FC<Props> = (props) => {
 
         <RangeInput
           id={"priceRange"}
-          values={priceRange}
-          onUpdateValues={(values) => setPriceRange(values)}
+          values={selectedPriceRange}
+          onUpdateValues={(values) => setSelectedPriceRange(values)}
           options={{
-            max: 25,
+            max: maxPrice,
             min: 0,
             step: 0.1,
           }}
@@ -72,10 +99,10 @@ const SearchFilters: React.FC<Props> = (props) => {
 
         <RangeInput
           id={"sizeRange"}
-          values={sizeRange}
-          onUpdateValues={(values) => setSizeRange(values)}
+          values={selectedSizeRange}
+          onUpdateValues={(values) => setSelectedSizeRange(values)}
           options={{
-            max: 1000,
+            max: maxSize,
             min: 0,
             step: 100,
           }}
@@ -84,6 +111,7 @@ const SearchFilters: React.FC<Props> = (props) => {
 
       <button
         type="submit"
+        onClick={handleFiltersSubmit}
         className="button-click-animation border-2 border-solid w-full block px-8 py-2 rounded-lg text-sm text-center font-medium cursor-pointer bg-[--color-secondary] text-white tracking-wide border-[--color-secondary] hover:opacity-90   transition duration-300 ease-in-out"
       >
         Apply
@@ -91,7 +119,7 @@ const SearchFilters: React.FC<Props> = (props) => {
       <div className="flex justify-center mt-1">
         <button
           className="button-click-animation block px-3 py-1.5 text-sm text-center font-medium cursor-pointer text-[--color-secondary] hover:text-[--color-secondary-darker] transition duration-300 ease-in-out"
-          onClick={handleReset}
+          onClick={handleFiltersReset}
         >
           Reset
         </button>

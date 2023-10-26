@@ -42,7 +42,8 @@ const SearchResults: React.FC<Props> = ({ lands }) => {
     <>
       <div className=" flex items-center justify-between mb-3  text-base font-normal">
         <div>
-          <strong className="font-semibold">557 lo đất</strong> dang bán
+          <strong className="font-semibold">{lands.length} lo đất</strong> dang
+          bán dat dieu kien...
         </div>
         <div className=" select-none text-sm">
           Sắp xếp theo:{" "}

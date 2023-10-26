@@ -50,7 +50,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
           </SwiperSlide>
         ))}
 
-        <div className="absolute top-0 left-1  h-full  z-10 flex flex-column items-center cursor-default opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-0 left-1  h-full  z-10 flex flex-column items-center cursor-default opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-300">
           <button
             className=" button-click-animation swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-2.5 rounded-full hidden md:block tabbable z-10  opacity-50 hover:opacity-100 disabled:opacity-20"
             disabled={activeIndex === 0}
@@ -72,7 +72,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
           </button>
         </div>
 
-        <div className="absolute top-0 right-1  h-full  z-10 flex flex-column items-center cursor-default opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-0 right-1  h-full  z-10 flex flex-column items-center cursor-default opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-300">
           <button
             className=" button-click-animation swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-2.5 rounded-full hidden md:block  tabbable z-10  opacity-50 hover:opacity-100 disabled:opacity-20"
             disabled={activeIndex === images.length - 1}
@@ -95,7 +95,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
         </div>
       </Swiper>
       <Swiper
-        className="w-full h-12 flex-grow-0 flex-shrink-0 swiper-slide-thumbs"
+        className="w-full h-12 flex-grow-0 flex-shrink-0 swiper-slide-thumbs mb-1"
         modules={[FreeMode, Navigation, Thumbs]}
         watchSlidesProgress={true}
         onSwiper={setThumbsSwiper}

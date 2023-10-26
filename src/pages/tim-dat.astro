@@ -1,30 +1,37 @@
 ---
-import Container from "../layouts/Container.astro";
 import Layout from "../layouts/Layout.astro";
 import LandSearch from "../components/sections/land-search/LandSearch.tsx";
 
 import dataModel from "../model/ContentfulModel";
 import MapView from "../components/map/MapView.astro";
 
-// Load all (there will be 20 lands and max so no need for pagination) lands data to pre-render listing of lands
+// Load all (there will be 20 lands at max so no need for pagination) lands data
 const lands = await dataModel.getAllLands();
 
-const title = "VietLand - thông tin liên lạc";
+const maxLandPrice = Math.max(...lands.map((land) => land.price!));
+const maxLandSize = Math.max(...lands.map((land) => land.area!));
+
+const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
 ---
 
-<Layout title={title} currentPage={"/thong-tin"}>
-  <div class="pt-28 pb-12 h-screen bg-blue-300 flex">
-    <LandSearch client:load preloadedLands={lands}>
-      <div class="w-[37vw] flex-shrink-0">
-        <div
-          class="bg-white shadow-sm overflow-hidden h-[100vh] w-[37vw] absolute top-0 right-0"
-        >
-          <MapView
-            coordinates={{ lat: lands[0].coords![0], lng: lands[0].coords![1] }}
-            title={`Vị trí của ${lands[0].title}`}
-          />
-        </div>
-      </div>
-    </LandSearch>
+<Layout title={title} currentPage={"/tim-dat"}>
+  <div class="flex">
+    <div
+      class="pt-14 pb-6 h-screen bg-gradient-to-t from-[--color-secondary-lighter] flex flex-1"
+    >
+      <LandSearch
+        client:only="react"
+        preloadedLands={lands}
+        maxPrice={maxLandPrice}
+        maxSize={maxLandSize}
+      />
+    </div>
+
+    <div class="bg-white shadow-sm overflow-hidden h-screen w-[37vw]">
+      <MapView
+        coordinates={{ lat: lands[0].coords![0], lng: lands[0].coords![1] }}
+        title={`Vị trí của ${lands[0].title}`}
+      />
+    </div>
   </div>
 </Layout>

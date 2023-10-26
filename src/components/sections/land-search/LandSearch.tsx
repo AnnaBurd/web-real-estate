@@ -117,6 +117,8 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
       }))
   );
 
+  map.fitMapToMarkers();
+
   // useEffect(() => {
   //   console.log("Map update");
 

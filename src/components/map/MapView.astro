@@ -234,6 +234,15 @@ const { locations, title, fullHeight } = Astro.props;
       // }, 2000);
     }
 
+    fitMapToMarkers() {
+      if (this.#leafletMarkers.length > 1) {
+        const bounds = L.latLngBounds(
+          this.#leafletMarkers.map((marker) => marker.getLatLng())
+        );
+        this.#leafletMap?.fitBounds(bounds);
+      }
+    }
+
     updateCenterPointValue() {
       const averageLat =
         this.#locations.reduce(
@@ -320,6 +329,22 @@ const { locations, title, fullHeight } = Astro.props;
       this.#leafletMarkers = [];
 
       locations.forEach((location) => this.addPopupMarker(location));
+    }
+
+    focusOnMarker(markerTitle: string) {
+      console.log("focusOnMarker", markerTitle);
+
+      const markerIndex = this.#leafletMarkers.findIndex(
+        (marker) => marker.options.title === markerTitle
+      );
+
+      if (markerIndex !== -1) {
+        this.#leafletMarkers.forEach((marker) => marker.closePopup());
+
+        this.#leafletMarkers[markerIndex].openPopup();
+
+        this.#leafletMap?.panTo(this.#leafletMarkers[markerIndex].getLatLng());
+      }
     }
   }
 

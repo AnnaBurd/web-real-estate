@@ -14,6 +14,16 @@ const Card: React.FC<Props> = ({ land }) => {
       </div>
 
       <LandDescription land={land} />
+
+      <button
+        onClick={() => {
+          const map: any = document.querySelector("map-view");
+
+          map.focusOnMarker(land.title);
+        }}
+      >
+        focuse on map
+      </button>
     </div>
   );
 };

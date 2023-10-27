@@ -58,8 +58,8 @@ const Dropdown: React.FC<Props> = ({
 
       <div
         ref={dropdownRef}
-        className={`absolute right-0 z-10 mt-1.5 w-36 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
-          isOpen ? "opacity-100" : "opacity-0"
+        className={`absolute right-0 mt-1.5 w-36 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
+          isOpen ? "opacity-100 z-10" : "opacity-0 -z-10"
         }`}
         role="menu"
         aria-orientation="vertical"

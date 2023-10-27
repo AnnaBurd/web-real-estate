@@ -6,13 +6,13 @@ import SearchFilter, {
 } from "./search-filters/SearchFilters";
 
 import "./LandSearch.sass";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import { FavouritesContext } from "./favourites/FavouritesContext";
 
 interface Props {
   preloadedLands: Land[];
   maxPrice: number;
   maxSize: number;
-  children?: React.ReactNode;
 }
 
 const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
@@ -73,15 +73,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
     window.history.replaceState({}, "", newURL);
 
     setFilterIteration((prev) => prev + 1);
-
-    // Update the map state -> render new markers and remove old ones
-    const map: any = document.querySelector("map-view");
   };
-
-  //   // window.addEventListener('popstate', () => {
-  //   //   // Handle URL changes here
-  //   // });
-  // }
 
   const { priceRange, sizeRange, filterByType } = readFiltersFromURL();
 
@@ -91,6 +83,8 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
     sizeRange,
     filterByType
   );
+
+  const { isFavourite } = useContext(FavouritesContext);
 
   const filteredLands = preloadedLands
     .filter(
@@ -102,7 +96,25 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
     .filter(
       (land) =>
         land.area && land.area >= sizeRange[0] && land.area <= sizeRange[1]
-    );
+    )
+    .filter((land) => {
+      console.log("Filtering land ", land.slug, isFavourite(land.slug));
+
+      if (filterByType.length === 0) return true;
+
+      let isPassing = true;
+      if (filterByType.includes("Khuyến khích"))
+        isPassing = land.promoted || false;
+
+      console.log("Khuyến khích ", land.promoted, isPassing);
+
+      if (filterByType.includes("Yêu thích"))
+        isPassing = isPassing && isFavourite(land.slug);
+
+      console.log("Yêu thích ", land.slug, isFavourite(land.slug));
+
+      return isPassing;
+    });
 
   console.log("Filtered lands:", filteredLands.length);
   console.log("Rerender map");
@@ -113,7 +125,9 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
       .filter((land) => land.coords)
       .map((land) => ({
         title: land.title,
-        coordinates: { lat: land.coords[0], lng: land.coords[1] },
+        coordinates: land.coords
+          ? { lat: land.coords[0], lng: land.coords[1] }
+          : { lat: 0, lng: 0 },
       }))
   );
 
@@ -161,6 +175,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
           maxSize={maxSizeAdjusted}
           initialSizeRange={sizeRange}
           onSubmit={handleFiltersSubmit}
+          initialFilterByType={filterByType}
         />
       </div>
       <div className="p-4 pr-2 mr-2.5 flex-1 pb-10">

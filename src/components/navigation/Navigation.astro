@@ -118,8 +118,6 @@ const navigationPages = [
   const rootContainer = document.querySelector(".main-content") as HTMLElement;
   const dropdown = document.querySelector(".hamburger-menu")! as any;
 
-  createObserver();
-
   function createObserver() {
     let observer;
 
@@ -154,5 +152,8 @@ const navigationPages = [
 
     observer = new IntersectionObserver(handleIntersect, options);
     observer.observe(document.querySelector("section") as HTMLElement);
+    // TODO: fix
   }
+
+  // createObserver();
 </script>

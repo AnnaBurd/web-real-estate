@@ -18,6 +18,7 @@ interface Props {
   initialPriceRange?: number[];
   maxSize: number;
   initialSizeRange?: number[];
+  initialFilterByType?: LandTypeOption[];
   onSubmit: FilterFunc;
 }
 
@@ -29,6 +30,7 @@ const SearchFilters: React.FC<Props> = ({
   initialPriceRange,
   maxSize,
   initialSizeRange,
+  initialFilterByType,
   onSubmit,
 }) => {
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>(
@@ -37,7 +39,9 @@ const SearchFilters: React.FC<Props> = ({
   const [selectedSizeRange, setSelectedSizeRange] = useState<number[]>(
     initialSizeRange || [0, maxSize]
   );
-  const [filterByType, setFilterByType] = useState<LandTypeOption[]>([]);
+  const [filterByType, setFilterByType] = useState<LandTypeOption[]>(
+    initialFilterByType || []
+  );
 
   const handleFiltersSubmit = () => {
     onSubmit(selectedPriceRange, selectedSizeRange, filterByType);
@@ -51,7 +55,7 @@ const SearchFilters: React.FC<Props> = ({
   };
 
   return (
-    <div className="w-full h-full  pl-10 pr-6 pt-6">
+    <div className="w-full h-full  pl-10 pr-6 pt-6 cursor-default">
       <span className="font-semibold mb-4 block text-base opacity-50">
         Bộ lọc:
       </span>
@@ -65,8 +69,6 @@ const SearchFilters: React.FC<Props> = ({
           options={landTypesOptions}
           selectedOptions={filterByType}
           onUpdateSelection={(toggledOption) => {
-            console.log("new", toggledOption);
-
             setFilterByType((prev) => {
               if (prev.includes(toggledOption)) {
                 return prev.filter((option) => option !== toggledOption);

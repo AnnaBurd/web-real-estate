@@ -18,7 +18,7 @@ const FavouriteBtn: React.FC<Props> = ({ id }) => {
   return (
     <button
       onClick={onClick}
-      className="like-button relative w-10 h-10 rounded-lg bg-[#607cb320] flex justify-center items-center "
+      className="like-button relative w-10 h-10 rounded-lg bg-[#607cb320] flex justify-center items-center button-click-animation"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

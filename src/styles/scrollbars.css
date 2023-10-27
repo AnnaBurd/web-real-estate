@@ -1,17 +1,18 @@
 /* Style scrollbars */
 
+/* TODO: remove unused code */
 /* Prevent scrollbar from repositioning page content */
 /* Note: can use css scrollbar-gutter:stable instead? */
 /* html {
-    padding-left: calc(100vw - 100%) !important;
-    overflow-x: hidden !important;
-  } */
+  padding-left: calc(100vw - 100%) !important;
+  overflow-x: hidden !important;
+} */
 
 /* Firefox */
 html,
 .main-content {
   scrollbar-width: thin !important;
-  scrollbar-color: var(--color-text) var(--color-secondaty-lighter) !important;
+  scrollbar-color: var(--color-text) var(--color-secondary-lighter) !important;
 }
 
 /* Chrome */
@@ -24,7 +25,7 @@ html::-webkit-scrollbar,
 /* Track */
 html::-webkit-scrollbar-track,
 .main-content::-webkit-scrollbar-track {
-  background: var(--color-secondaty-lighter);
+  background: var(--color-secondary-lighter);
   /* border-radius: 10px; */
 }
 /* Handle */

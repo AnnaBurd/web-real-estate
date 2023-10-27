@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import LandSearch from "../components/sections/land-search/LandSearch.tsx";
 
 import dataModel from "../model/ContentfulModel";
 import MapView from "../components/map/MapView.astro";
+import LandSearchApp from "../components/sections/land-search/LandSearchApp";
 
 // Load all (there will be 20 lands at max so no need for pagination) lands data
 const lands = await dataModel.getAllLands();
@@ -19,7 +19,7 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
     <div
       class="pt-14 pb-6 h-screen bg-gradient-to-t from-[--color-secondary-lighter] flex flex-1"
     >
-      <LandSearch
+      <LandSearchApp
         client:only="react"
         preloadedLands={lands}
         maxPrice={maxLandPrice}
@@ -27,7 +27,7 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
       />
     </div>
 
-    <div class="bg-white shadow-sm overflow-hidden h-screen w-[37vw]">
+    <div class="bg-white shadow-sm h-screen w-[37vw] overflow-hidden">
       <MapView
         locations={lands
           .filter((land) => land.coords)

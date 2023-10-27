@@ -13,7 +13,7 @@ const SelectionInput: React.FC<Props> = ({
   onUpdateSelection,
 }) => {
   return (
-    <div className="w-full flex flex-col gap-2.5">
+    <div className="w-full flex flex-col gap-2.5 select-none">
       {options.map((option) => (
         <SelectionInputOption
           key={option}

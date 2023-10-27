@@ -146,7 +146,7 @@ const {
 
   if (
     !isMobileDevice() &&
-    (document.querySelector("#land-previews") as HTMLDivElement).dataset
+    (document.querySelector("#land-previews") as HTMLDivElement)?.dataset
       .scrollEffect === "true"
   ) {
     const timelineLandPreviews = gsap.timeline({ paused: true });
@@ -184,8 +184,8 @@ const {
   // Workaround for swiper limitation of slides dissapearing in loop mode + centeredSlides when number of slides is less than slidesPerView * 2;
   // Ref. official docs: https://swiperjs.com/migration-guide-v9#loop-mode
   // Temporary solution - compare number of slides with required slides per view and duplicate slides if there is not enough slides
-  let totalSlides = (document.querySelector(".swiper") as HTMLDivElement)
-    ?.dataset.slides;
+  let totalSlides = ((document.querySelector(".swiper") as HTMLDivElement)
+    ?.dataset.slides || 0) as number;
   const viewportWidth = window.innerWidth;
   const expectedNumberOfSlides =
     viewportWidth >= 1536
@@ -196,7 +196,7 @@ const {
       ? 2 * 2 + 1
       : 0;
 
-  if (((totalSlides || 0) as number) < expectedNumberOfSlides) {
+  if (totalSlides < expectedNumberOfSlides && totalSlides > 0) {
     const slidesContainer = document.querySelector(".swiper-wrapper")!;
     const slidesHTML = slidesContainer.innerHTML;
 

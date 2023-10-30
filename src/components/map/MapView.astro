@@ -346,6 +346,10 @@ const { locations, title, fullHeight } = Astro.props;
         this.#leafletMap?.panTo(this.#leafletMarkers[markerIndex].getLatLng());
       }
     }
+
+    resizeHandler() {
+      this.#leafletMap?.invalidateSize();
+    }
   }
 
   // Tell the browser to use MapView class for <map-view> elements.

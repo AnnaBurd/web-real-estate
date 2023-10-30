@@ -27,7 +27,10 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
       />
     </div>
 
-    <div class="bg-white shadow-sm h-screen w-[37vw] overflow-hidden">
+    <div
+      class="bg-white shadow-sm h-screen w-[37vw] overflow-hidden"
+      id="resize-container"
+    >
       <MapView
         locations={lands
           .filter((land) => land.coords)
@@ -43,3 +46,58 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
     </div>
   </div>
 </Layout>
+
+<script>
+  let resizeHandle: HTMLElement | null;
+  let resizeContainer: HTMLElement | null;
+  let mapContainer: HTMLElement | null;
+  const position = {
+    startX: 0,
+    startY: 0,
+  };
+
+  setTimeout(() => {
+    resizeHandle = document.querySelector("#resize-handle");
+    resizeContainer = document.querySelector("#resize-container");
+    mapContainer = document.querySelector("map-view");
+
+    if (resizeHandle) {
+      resizeHandle.addEventListener("mousedown", handleStartDragging);
+    }
+
+    console.log("🤔", resizeHandle, resizeContainer);
+  }, 1500);
+
+  const handleStartDragging = (e: MouseEvent) => {
+    e.preventDefault();
+
+    console.log("dragMouseDownHandler", e);
+
+    position.startX = e.clientX;
+    position.startY = e.clientY;
+
+    document.addEventListener("mousemove", handleDragging);
+    document.addEventListener("mouseup", handleEndOfDragging);
+  };
+
+  const handleDragging = (e: MouseEvent) => {
+    console.log("handleDragging", e);
+    e.preventDefault();
+
+    const deltaX = position.startX - e.clientX;
+    const deltaY = position.startY - e.clientY;
+
+    position.startX = e.clientX;
+    position.startY = e.clientY;
+
+    resizeContainer!.style.width = `${resizeContainer!.offsetWidth + deltaX}px`;
+    (mapContainer as any).resizeHandler();
+  };
+
+  const handleEndOfDragging = (e: MouseEvent) => {
+    console.log("handleEndOfDragging", e);
+
+    document.removeEventListener("mousemove", handleDragging);
+    document.removeEventListener("mouseup", handleEndOfDragging);
+  };
+</script>

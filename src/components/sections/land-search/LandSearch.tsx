@@ -16,7 +16,7 @@ interface Props {
 }
 
 const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
-  console.log("Preloaded lands:", preloadedLands.length, maxPrice, maxSize);
+  // console.log("Preloaded lands:", preloadedLands.length, maxPrice, maxSize);
 
   const maxPriceAdjusted = Math.ceil((maxPrice / 1_000_000_000 + 1) / 10) * 10; // Price in dong -> price in ty (billion) dong, rounded up to nearest 10's
 
@@ -77,12 +77,12 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
 
   const { priceRange, sizeRange, filterByType } = readFiltersFromURL();
 
-  console.log(
-    "Got filters to actually use:",
-    priceRange,
-    sizeRange,
-    filterByType
-  );
+  // console.log(
+  //   "Got filters to actually use:",
+  //   priceRange,
+  //   sizeRange,
+  //   filterByType
+  // );
 
   const { isFavourite } = useContext(FavouritesContext);
 
@@ -98,7 +98,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
         land.area && land.area >= sizeRange[0] && land.area <= sizeRange[1]
     )
     .filter((land) => {
-      console.log("Filtering land ", land.slug, isFavourite(land.slug));
+      // console.log("Filtering land ", land.slug, isFavourite(land.slug));
 
       if (filterByType.length === 0) return true;
 
@@ -106,12 +106,12 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
       if (filterByType.includes("Khuyến khích"))
         isPassing = land.promoted || false;
 
-      console.log("Khuyến khích ", land.promoted, isPassing);
+      // console.log("Khuyến khích ", land.promoted, isPassing);
 
       if (filterByType.includes("Yêu thích"))
         isPassing = isPassing && isFavourite(land.slug);
 
-      console.log("Yêu thích ", land.slug, isFavourite(land.slug));
+      // console.log("Yêu thích ", land.slug, isFavourite(land.slug));
 
       return isPassing;
     });
@@ -178,8 +178,12 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
           initialFilterByType={filterByType}
         />
       </div>
-      <div className="p-4 pr-2 mr-2.5 flex-1 pb-10">
+      <div className="p-4 pr-2  flex-1 pb-10 relative">
         <SearchResults lands={filteredLands} />
+        <div
+          className="h-full w-4 bg-red-300 absolute mt-14 top-0 right-0 opacity-50  cursor-[url(/vectors/cursor-col-resize.svg)_10_0,col-resize] z-10"
+          id="resize-handle"
+        ></div>
       </div>
     </>
   );

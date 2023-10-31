@@ -92,7 +92,7 @@ const { currentPage, pages, phone } = Astro.props;
 
 <!-- Handle menu opening and closing -->
 <script>
-  class DropdownMenu extends HTMLElement {
+  export class DropdownMenu extends HTMLElement {
     private isOpen: boolean = false;
     private button: HTMLElement;
 

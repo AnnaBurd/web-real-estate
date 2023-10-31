@@ -102,7 +102,7 @@ const { id } = Astro.props;
 
 <!-- Handle popup opening and closing functionality (reusable web component) -->
 <script>
-  class PopUp extends HTMLElement {
+  export class PopUp extends HTMLElement {
     private isOpen: boolean = false;
     private parentEl: HTMLElement;
     private headerEl: HTMLElement;

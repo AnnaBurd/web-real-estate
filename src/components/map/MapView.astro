@@ -50,6 +50,21 @@ const { locations, title, fullHeight } = Astro.props;
 
   .map-marker-icon
     fill: var(--color-secondary)
+
+  .leaflet-popup-content-wrapper
+    margin: 0 !important
+    box-shadow: 0 0 0 0 !important
+    font-family: Signika Negative, Open Sans, sans-serif
+
+  .leaflet-popup-content
+    margin: 0 !important
+    width: fit-content !important
+
+  .leaflet-popup-tip
+    width: 14px !important
+    height: 14px !important
+    border-radius: 3px
+    transform: rotate(45deg) skew(4deg, 4deg) !important
 </style>
 
 <style></style>
@@ -101,6 +116,9 @@ const { locations, title, fullHeight } = Astro.props;
 <script>
   import L from "leaflet";
   import "leaflet/dist/leaflet.css";
+
+  import { getPopupMarkup } from "./PopupTemplate.ts";
+  import type { Land } from "../../model/Land";
 
   const defaultLeafletMapOptions = {
     attributionControl: false,
@@ -225,13 +243,10 @@ const { locations, title, fullHeight } = Astro.props;
         this.#leafletMap.fitBounds(bounds);
       }
 
-      // setTimeout(() => {
-      //   this.removePopupMarker(this.#locations[0].title);
-      //   this.removePopupMarkers([
-      //     this.#locations[1].title,
-      //     this.#locations[2].title,
-      //   ]);
-      // }, 2000);
+      // In not fullheight mode, show only one marker (used on land preview page)
+      if (!this.hasAttribute("fullheight")) {
+        this.addMarker(this.#locations[0]);
+      }
     }
 
     fitMapToMarkers() {
@@ -277,7 +292,7 @@ const { locations, title, fullHeight } = Astro.props;
       }).addTo(this.#leafletMap!);
     }
 
-    addPopupMarker(location: LandLocation) {
+    addPopupMarker(land: Land) {
       const svgIconTemplate = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 map-marker-icon">
   <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
 </svg>
@@ -290,22 +305,24 @@ const { locations, title, fullHeight } = Astro.props;
         iconAnchor: [16, 32],
       });
 
-      const marker = L.marker(location.coordinates, {
-        title: location.title,
-        icon: markerIcon,
-      }).addTo(this.#leafletMap!);
+      const marker = L.marker(
+        land.coords
+          ? { lat: land.coords[0], lng: land.coords[1] }
+          : { lat: 0, lng: 0 },
+        {
+          title: land.title,
+          icon: markerIcon,
+        }
+      ).addTo(this.#leafletMap!);
 
-      const popup = L.popup(defaultLeafletPopupOptions).setContent(
-        `<h3 class="text-xs font-semibold mb-10">${location.title}</h3>`
-      );
+      const popup = L.popup({
+        ...defaultLeafletPopupOptions,
+        offset: [0, -22],
+      }).setContent(getPopupMarkup(land));
 
       marker.bindPopup(popup);
 
-      // console.log("added marker", marker);
-
       this.#leafletMarkers.push(marker);
-
-      // console.log("markers", this.#leafletMarkers);
     }
 
     removePopupMarker(markerTitle: string) {
@@ -323,12 +340,22 @@ const { locations, title, fullHeight } = Astro.props;
       markerTitles.forEach((title) => this.removePopupMarker(title));
     }
 
-    rerenderPopupMarkers(locations: LandLocation[]) {
+    showPopupMarker(title: string) {
+      const markerIndex = this.#leafletMarkers.findIndex(
+        (marker) => marker.options.title === title
+      );
+
+      if (markerIndex !== -1) {
+        this.#leafletMarkers[markerIndex].openPopup();
+      }
+    }
+
+    rerenderPopupMarkers(lands: Land[]) {
       this.#leafletMarkers.forEach((marker) => marker.remove());
 
       this.#leafletMarkers = [];
 
-      locations.forEach((location) => this.addPopupMarker(location));
+      lands.forEach((land) => this.addPopupMarker(land));
     }
 
     focusOnMarker(markerTitle: string) {

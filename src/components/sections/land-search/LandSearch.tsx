@@ -6,7 +6,7 @@ import SearchFilter, {
 } from "./search-filters/SearchFilters";
 
 import "./LandSearch.sass";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FavouritesContext } from "./favourites/FavouritesContext";
 
 interface Props {
@@ -121,17 +121,22 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
 
   const map: any = document.querySelector("map-view");
   map.rerenderPopupMarkers(
-    filteredLands
-      .filter((land) => land.coords)
-      .map((land) => ({
-        title: land.title,
-        coordinates: land.coords
-          ? { lat: land.coords[0], lng: land.coords[1] }
-          : { lat: 0, lng: 0 },
-      }))
+    filteredLands.filter((land) => land.coords)
+    // .map((land) => ({
+    //   title: land.title,
+    //   coordinates: land.coords
+    //     ? { lat: land.coords[0], lng: land.coords[1] }
+    //     : { lat: 0, lng: 0 },
+    // }))
   );
 
   map.fitMapToMarkers();
+
+  // Show first marker
+
+  useEffect(() => {
+    map.showPopupMarker(filteredLands[0].title);
+  }, []);
 
   // useEffect(() => {
   //   console.log("Map update");
@@ -181,7 +186,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
       <div className="p-4 pr-2  flex-1 pb-10 relative">
         <SearchResults lands={filteredLands} />
         <div
-          className="h-full w-4 bg-red-300 absolute mt-14 top-0 right-0 opacity-50  cursor-[url(/vectors/cursor-col-resize.svg)_10_0,col-resize] z-10"
+          className="h-full w-1.5  absolute mt-14 top-0 right-0 opacity-50  cursor-col-resize z-10"
           id="resize-handle"
         ></div>
       </div>

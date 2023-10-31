@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import dataModel from "../model/ContentfulModel";
 import MapView from "../components/map/MapView.astro";
 import LandSearchApp from "../components/sections/land-search/LandSearchApp";
+import Popup from "../components/map/PopupTemplate.astro";
 
 // Load all (there will be 20 lands at max so no need for pagination) lands data
 const lands = await dataModel.getAllLands();

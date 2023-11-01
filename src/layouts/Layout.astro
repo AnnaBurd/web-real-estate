@@ -9,13 +9,11 @@ import Alert from "../components/ui/alerts/Alert.astro";
 import Preloading from "../components/loader/Preloading.astro";
 
 interface Props {
-  title: string;
-  currentPage: string;
+  pageTitle: string;
 }
 
-const { title, currentPage } = Astro.props;
-
-const phoneNumber = "+84(09)0160-6982";
+const { pageTitle } = Astro.props;
+const currentPage = Astro.url.pathname;
 ---
 
 <!-- TODO: SEO optimization --><!doctype html>
@@ -45,7 +43,7 @@ const phoneNumber = "+84(09)0160-6982";
     />
 
     <!-- <meta name="generator" content={Astro.generator} /> -->
-    <title>{title}</title>
+    <title>{pageTitle}</title>
   </head>
   <body
     class="font-signica text-[--color-text] w-full h-full relative"
@@ -53,7 +51,7 @@ const phoneNumber = "+84(09)0160-6982";
   >
     <!-- TODO: show preloading only once?  -->
     {currentPage === "/" && <Preloading />}
-    <Navigation currentPage={currentPage} phone={phoneNumber} />
+    <Navigation />
     <main
       class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"
     >

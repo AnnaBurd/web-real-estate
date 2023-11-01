@@ -5,12 +5,9 @@ import ButtonSmall from "../ui/buttons/ButtonSmall.astro";
 import NavigationItem from "./NavigationItem.astro";
 import NavigationDropdown from "./dropdown/NavigationDropdown.astro";
 
-interface Props {
-  currentPage: string;
-  phone: string;
-}
+import { COMPANY_PHONE_NUMBER } from "../../scripts/constants";
 
-const { currentPage, phone } = Astro.props;
+interface Props {}
 
 const navigationPages = [
   {
@@ -26,6 +23,9 @@ const navigationPages = [
     href: "/thong-tin",
   },
 ];
+
+const currentPage = Astro.url.pathname;
+const phone = COMPANY_PHONE_NUMBER;
 ---
 
 <header

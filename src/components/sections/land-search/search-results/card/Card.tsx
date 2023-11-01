@@ -1,5 +1,5 @@
-import type { Land } from "../../../../model/Land";
-import FavouriteBtn from "../favourites/FavouriteBtn";
+import type { Land } from "../../../../../model/Land";
+import FavouriteBtn from "../../favourites/FavouriteBtn";
 import ImagesPreview from "./ImagesPreview";
 import LandDescription from "./LandDescription";
 import ShowOnMapBtn from "./ShowOnMapBtn";

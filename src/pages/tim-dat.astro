@@ -1,21 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-import dataModel from "../model/ContentfulModel";
 import MapView from "../components/map/MapView.astro";
 import LandSearchApp from "../components/sections/land-search/LandSearchApp";
-import Popup from "../components/map/PopupTemplate.astro";
 
-// Load all (there will be 20 lands at max so no need for pagination) lands data
+import dataModel from "../model/ContentfulModel";
+
+// Load all lands data (there will be 20 lands at max so no need for pagination)
 const lands = await dataModel.getAllLands();
 
+// Calculate max price and size to configure search filter limits
 const maxLandPrice = Math.max(...lands.map((land) => land.price!));
 const maxLandSize = Math.max(...lands.map((land) => land.area!));
 
 const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
 ---
 
-<Layout title={title} currentPage={"/tim-dat"}>
+<Layout pageTitle={title}>
   <div class="flex" data-scroll-hide-section>
     <div
       class="pt-14 pb-6 h-screen bg-gradient-to-t from-[--color-secondary-lighter] flex flex-1"
@@ -30,7 +30,7 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
 
     <div
       class="bg-white shadow-sm h-screen w-[37vw] overflow-hidden"
-      id="resize-container"
+      id="resizable-map-wrapper"
     >
       <MapView
         locations={lands
@@ -47,58 +47,3 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
     </div>
   </div>
 </Layout>
-
-<script>
-  let resizeHandle: HTMLElement | null;
-  let resizeContainer: HTMLElement | null;
-  let mapContainer: HTMLElement | null;
-  const position = {
-    startX: 0,
-    startY: 0,
-  };
-
-  setTimeout(() => {
-    resizeHandle = document.querySelector("#resize-handle");
-    resizeContainer = document.querySelector("#resize-container");
-    mapContainer = document.querySelector("map-view");
-
-    if (resizeHandle) {
-      resizeHandle.addEventListener("mousedown", handleStartDragging);
-    }
-
-    console.log("🤔", resizeHandle, resizeContainer);
-  }, 1500);
-
-  const handleStartDragging = (e: MouseEvent) => {
-    e.preventDefault();
-
-    console.log("dragMouseDownHandler", e);
-
-    position.startX = e.clientX;
-    position.startY = e.clientY;
-
-    document.addEventListener("mousemove", handleDragging);
-    document.addEventListener("mouseup", handleEndOfDragging);
-  };
-
-  const handleDragging = (e: MouseEvent) => {
-    console.log("handleDragging", e);
-    e.preventDefault();
-
-    const deltaX = position.startX - e.clientX;
-    const deltaY = position.startY - e.clientY;
-
-    position.startX = e.clientX;
-    position.startY = e.clientY;
-
-    resizeContainer!.style.width = `${resizeContainer!.offsetWidth + deltaX}px`;
-    (mapContainer as any).resizeHandler();
-  };
-
-  const handleEndOfDragging = (e: MouseEvent) => {
-    console.log("handleEndOfDragging", e);
-
-    document.removeEventListener("mousemove", handleDragging);
-    document.removeEventListener("mouseup", handleEndOfDragging);
-  };
-</script>

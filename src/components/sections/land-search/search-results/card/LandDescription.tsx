@@ -1,4 +1,4 @@
-import type { Land } from "../../../../model/Land";
+import type { Land } from "../../../../../model/Land";
 
 interface Props {
   land: Land;

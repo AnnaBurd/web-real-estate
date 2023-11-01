@@ -3,12 +3,16 @@ import { createContext, useState, type ReactNode, useEffect } from "react";
 type FavouritesContextType = {
   favourites: string[];
   handleToggleFavourite: (id: string) => void;
+  registerToggleCallback: (cb: () => void) => void;
   isFavourite: (id: string) => boolean;
 };
+
+let callbackOnFavouriteToggle = () => {}; // Callback to be called when favourites change, to trigger conditional re-rendering
 
 export const FavouritesContext = createContext<FavouritesContextType>({
   favourites: [],
   handleToggleFavourite: () => {},
+  registerToggleCallback: (cb: () => void) => {},
   isFavourite: () => false,
 });
 
@@ -27,6 +31,13 @@ export const FavouritesContextProvider: React.FC<{ children: ReactNode }> = ({
     } else {
       setFavourites((prev) => [...prev, id]);
     }
+
+    // Call toggle callback
+    callbackOnFavouriteToggle();
+  };
+
+  const registerToggleCallback = (cb: () => void) => {
+    callbackOnFavouriteToggle = cb;
   };
 
   // Update local storage when favourites change (* do not update directly in handleToggleFavourite for performance reasons, TODO: test performance and compare *)
@@ -40,6 +51,7 @@ export const FavouritesContextProvider: React.FC<{ children: ReactNode }> = ({
         favourites,
         handleToggleFavourite,
         isFavourite,
+        registerToggleCallback,
       }}
     >
       {children}

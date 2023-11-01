@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import RangeInput from "./RangeInput";
 import SelectionInput from "./SelectionInput";
@@ -20,6 +20,7 @@ interface Props {
   initialSizeRange?: number[];
   initialFilterByType?: LandTypeOption[];
   onSubmit: FilterFunc;
+  resetIteration: number;
 }
 
 const landTypesOptions = ["Khuyến khích", "Yêu thích"] as const;
@@ -32,6 +33,7 @@ const SearchFilters: React.FC<Props> = ({
   initialSizeRange,
   initialFilterByType,
   onSubmit,
+  resetIteration,
 }) => {
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>(
     initialPriceRange || [0, maxPrice]
@@ -53,6 +55,13 @@ const SearchFilters: React.FC<Props> = ({
     setFilterByType([]);
     onSubmit([0, maxPrice], [0, maxSize], []);
   };
+
+  // Reset filters -> this is basically a hack to reset filters from child components, should be refactored (store filters state higher in the tree)!!!
+  useEffect(() => {
+    if (resetIteration > 0) {
+      handleFiltersReset();
+    }
+  }, [resetIteration]);
 
   return (
     <div className="w-full h-full  pl-10 pr-6 pt-6 cursor-default">

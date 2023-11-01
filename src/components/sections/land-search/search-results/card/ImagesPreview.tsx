@@ -1,11 +1,11 @@
-import type { ImageAsset } from "../../../../model/Land";
+import type { ImageAsset } from "../../../../../model/Land";
 
 import type { Swiper as TSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, A11y, Thumbs } from "swiper/modules";
 
 import "swiper/css";
-import "../../../ui/buttons/ButtonClickAnimation.sass";
+import "../../../../ui/buttons/ButtonClickAnimation.sass";
 // import "swiper/css/free-mode";
 // import "swiper/css/navigation";
 // import "swiper/css/thumbs";

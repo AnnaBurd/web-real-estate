@@ -1,3 +1,5 @@
+import type { MapView } from "../../../../map/MapView";
+
 interface Props {
   id: string;
   className?: string;
@@ -5,9 +7,9 @@ interface Props {
 
 const ShowOnMapBtn: React.FC<Props> = ({ id, className }) => {
   const onClick = () => {
-    const map: any = document.querySelector("map-view");
+    const map: MapView = document.querySelector("map-view")!;
 
-    map.focusOnMarker(id);
+    map.focusOnPopupMarker(id);
   };
 
   return (

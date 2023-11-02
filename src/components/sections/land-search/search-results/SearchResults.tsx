@@ -3,10 +3,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import type { Land } from "../../../../model/Land";
 import Card from "./card/Card";
 import Dropdown from "../../../ui/Dropdown";
+
 import type { MapView } from "../../../map/MapView";
 
 import "./SearchResults.sass";
 import { FavouritesContext } from "../favourites/FavouritesContext";
+import EmptySearch from "./empty-search/EmptySearch";
 
 interface Props {
   lands: Land[];
@@ -74,7 +76,6 @@ const SearchResults: React.FC<Props> = ({
 
   // Focus map on the first item from the search results
   useEffect(() => {
-    console.log("focusing on first item", sortedLands.length);
     if (sortedLands.length > 0)
       mapViewRef.current?.focusOnPopupMarker(sortedLands[0].title!);
   }, [mapUpdateIteration, sortOption]);
@@ -119,12 +120,7 @@ const SearchResults: React.FC<Props> = ({
         ))}
 
         {sortedLands.length === 0 && (
-          <div className="h-full flex flex-col items-center justify-center select-none">
-            <span>
-              Không tìm thấy kết quả phù hợp. Bạn có muốn
-              <button onClick={onResetSearch}>đặt lại bộ lọc?</button>
-            </span>
-          </div>
+          <EmptySearch onResetSearch={onResetSearch} />
         )}
       </div>
     </>

@@ -1,18 +1,23 @@
 import { createContext, useState, type ReactNode, useEffect } from "react";
 
+type OnFavouriteToggleCallback = (
+  landTitle: string,
+  isFavourite: boolean
+) => void;
+
 type FavouritesContextType = {
   favourites: string[];
   handleToggleFavourite: (id: string) => void;
-  registerToggleCallback: (cb: () => void) => void;
+  registerToggleCallback: (cb: OnFavouriteToggleCallback) => void;
   isFavourite: (id: string) => boolean;
 };
 
-let callbackOnFavouriteToggle = () => {}; // Callback to be called when favourites change, to trigger conditional re-rendering
+let callbackOnFavouriteToggle: OnFavouriteToggleCallback = () => {}; // Callback to be called when favourites change, to trigger conditional re-rendering
 
 export const FavouritesContext = createContext<FavouritesContextType>({
   favourites: [],
   handleToggleFavourite: () => {},
-  registerToggleCallback: (cb: () => void) => {},
+  registerToggleCallback: () => {},
   isFavourite: () => false,
 });
 
@@ -28,15 +33,14 @@ export const FavouritesContextProvider: React.FC<{ children: ReactNode }> = ({
   const handleToggleFavourite = (id: string) => {
     if (isFavourite(id)) {
       setFavourites((prev) => prev.filter((item: string) => item !== id));
+      callbackOnFavouriteToggle(id, false);
     } else {
       setFavourites((prev) => [...prev, id]);
+      callbackOnFavouriteToggle(id, true);
     }
-
-    // Call toggle callback
-    callbackOnFavouriteToggle();
   };
 
-  const registerToggleCallback = (cb: () => void) => {
+  const registerToggleCallback = (cb: OnFavouriteToggleCallback) => {
     callbackOnFavouriteToggle = cb;
   };
 

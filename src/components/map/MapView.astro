@@ -69,6 +69,14 @@ const { locations, title, fullHeight } = Astro.props;
     height: 14px !important
     border-radius: 3px
     transform: rotate(45deg) skew(4deg, 4deg) !important // Skew makes the tip look like a diamond
+
+  .map-marker-icon
+    &:hover
+      filter: brightness(0.9)
+
+  .fav-marker-icon
+    .map-marker-icon
+      fill: var(--color-like)
 </style>
 
 <!-- Switch styles between minimized and fullscreen map mode -->
@@ -233,13 +241,37 @@ const { locations, title, fullHeight } = Astro.props;
       }
     }
 
-    renderPopupMarkers(lands: Land[]) {
-      // Remove previous markers
-      this.leafletMarkers.forEach((marker) => marker.remove());
-      this.leafletMarkers.clear();
+    renderPopupMarkers(lands: Land[], favourites?: string[]) {
+      // // Remove previous markers
+      // this.leafletMarkers.forEach((marker) => marker.remove());
+      // this.leafletMarkers.clear();
 
-      // Add new markers
-      lands.forEach((land) => this.addPopupMarker(land));
+      // // Add new markers
+      // lands.forEach((land) => this.addPopupMarker(land));
+
+      // Add missing markers
+      lands.forEach((land) => {
+        if (!this.leafletMarkers.has(land.title!)) {
+          this.addPopupMarker(land);
+        }
+      });
+
+      // Remove markers that are not used anymore
+      this.leafletMarkers.forEach((marker, title) => {
+        if (!lands.find((land) => land.title === title)) {
+          marker.remove();
+          this.leafletMarkers.delete(title);
+        }
+      });
+
+      // Highlight favorite markers
+      this.leafletMarkers.forEach((marker) => {
+        if (favourites?.includes(marker.options.title!)) {
+          L.DomUtil.addClass((marker as any)._icon, "fav-marker-icon");
+        } else {
+          L.DomUtil.removeClass((marker as any)._icon, "fav-marker-icon");
+        }
+      });
 
       // Fit map to markers bounds
       this.fitMapBoundsToMarkers();

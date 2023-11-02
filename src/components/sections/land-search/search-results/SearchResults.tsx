@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import type { Land } from "../../../../model/Land";
 import Card from "./card/Card";
@@ -6,10 +6,12 @@ import Dropdown from "../../../ui/Dropdown";
 import type { MapView } from "../../../map/MapView";
 
 import "./SearchResults.sass";
+import { FavouritesContext } from "../favourites/FavouritesContext";
 
 interface Props {
   lands: Land[];
   mapUpdateIteration: number;
+
   onResetSearch: () => void;
 }
 
@@ -47,22 +49,49 @@ const SearchResults: React.FC<Props> = ({
   // Reference to map-view element (used to show search results on map)
   const mapViewRef = useRef<MapView | null>(null);
 
-  const rerenderMapMarkers = (lands: Land[]) => {
-    mapViewRef.current?.renderPopupMarkers(lands.filter((land) => land.coords));
-
-    if (lands.length > 0)
-      mapViewRef.current?.showPopupOnMarker(lands[0].title!);
-  };
-
   // Get reference to map-view element (used to show location markers)
   useEffect(() => {
     mapViewRef.current = document.querySelector("map-view") as MapView;
   }, []);
 
+  const {
+    isFavourite: isFavouriteLand,
+    registerToggleCallback: registerFavouriteToggleCallback,
+  } = useContext(FavouritesContext);
+
   // Update map each time sort order or sort results change
+  const rerenderMapMarkers = (lands: Land[]) => {
+    const favourites = sortedLands
+      .filter((land) => isFavouriteLand(land.slug!))
+      .map((land) => land.title!);
+
+    mapViewRef.current?.renderPopupMarkers(
+      lands.filter((land) => land.coords),
+      favourites
+    );
+  };
+  rerenderMapMarkers(sortedLands);
+
+  // Focus map on the first item from the search results
   useEffect(() => {
-    rerenderMapMarkers(sortedLands);
+    console.log("focusing on first item", sortedLands.length);
+    if (sortedLands.length > 0)
+      mapViewRef.current?.focusOnPopupMarker(sortedLands[0].title!);
   }, [mapUpdateIteration, sortOption]);
+
+  // Show popup marker when a land is added to favourites
+  useEffect(() => {
+    registerFavouriteToggleCallback(
+      (landSlug: string, isFavourite: boolean) => {
+        if (isFavourite) {
+          const title =
+            lands.find((land) => land.slug === landSlug)?.title || "Dat nen";
+
+          mapViewRef.current?.focusOnPopupMarker(title);
+        }
+      }
+    );
+  }, [mapUpdateIteration]);
 
   return (
     <>
@@ -92,8 +121,8 @@ const SearchResults: React.FC<Props> = ({
         {sortedLands.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center select-none">
             <span>
-              What a pity! Không tìm thấy kết quả nào phù hợp, ban co muon{" "}
-              <button onClick={onResetSearch}>try again?</button>
+              Không tìm thấy kết quả phù hợp. Bạn có muốn
+              <button onClick={onResetSearch}>đặt lại bộ lọc?</button>
             </span>
           </div>
         )}

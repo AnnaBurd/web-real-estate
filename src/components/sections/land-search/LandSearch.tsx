@@ -51,10 +51,7 @@ const getFilteredLands = (
 };
 
 const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
-  const {
-    isFavourite: isFavouriteLand,
-    registerToggleCallback: registerFavouriteToggleCallback,
-  } = useContext(FavouritesContext);
+  const { isFavourite: isFavouriteLand } = useContext(FavouritesContext);
 
   const [filterUpdateIteration, setFilterUpdateIteration] = useState(0);
   const [resetIteration, setResetIteration] = useState(0); // Used to reset filters from child components
@@ -97,15 +94,6 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
     // Trigger component re-render on search filters update as if the state has changed
     setFilterUpdateIteration((prev) => prev + 1);
   };
-
-  // Trigger re-render when favourite lands are selected and the list of favourites changes (e.g. when a land is removed from favourites)
-  useEffect(() => {
-    registerFavouriteToggleCallback(() => {
-      if (typeFilters.includes("Yêu thích")) {
-        setFilterUpdateIteration((prev) => prev + 1);
-      }
-    });
-  }, [filterUpdateIteration]);
 
   return (
     <>

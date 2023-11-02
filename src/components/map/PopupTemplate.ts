@@ -1,4 +1,5 @@
 import type { Land } from "../../model/Land";
+import { generateImageSrc } from "../../scripts/imageSrcHelper";
 
 const popupTemplate = `<a
 href=%LAND_URL%
@@ -37,12 +38,7 @@ export const getPopupMarkup = (land: Land) => {
   return popupTemplate
     .replaceAll("%LAND_URL%", land.slug)
     .replaceAll("%LAND_TITLE%", land.title || "Đất nền")
-    .replaceAll(
-      "%LAND_IMAGE_SRC%",
-      land.images
-        ? `${land.images[0].url}?fm=jpg&fl=progressive&fit=fill&w=400&h=300`
-        : "/vectors/no_image.svg"
-    )
+    .replaceAll("%LAND_IMAGE_SRC%", generateImageSrc(land.images?.[0].url))
     .replaceAll("%LAND_PRICE%", (land?.price || 0) / 1000000000 + "")
     .replaceAll(
       "%LAND_AREA%",

@@ -1,5 +1,9 @@
 ---
 import type { Land } from "../../../../model/Land";
+import {
+  generateImageSrc,
+  generateImageSrcset,
+} from "../../../../scripts/imageSrcHelper";
 import Badge from "../../../ui/Badge.astro";
 
 interface Props {
@@ -11,12 +15,9 @@ interface Props {
 const { land, className, attributes } = Astro.props;
 
 // Prepare responsive image srcset and sizes
-const imgUrl = land.images ? land.images[0].url : "/vectors/no_image.svg";
-const apiQuery = "fm=jpg&fl=progressive&fit=fill";
-const imgSizes = "(max-width: 1024px) 500px, 350px";
-
-const imgSrc = `${imgUrl}?${apiQuery}&w=800&h=500`;
-const imgSrcSet = `${imgUrl}?${apiQuery}&w=200&h=150 200w, ${imgUrl}?${apiQuery}&w=400&h=300 400w, ${imgUrl}?${apiQuery}&w=800&h=500 800w`;
+const imgSrc = generateImageSrc(land.images?.[0].url, 800, 500);
+const imgSizes = "(max-width: 1024px) 500px, 350px"; // tells browser what img sizes are expected at different breakpoints
+const imgSrcSet = generateImageSrcset(land.images?.[0].url, [200, 400, 800]); // comma separated list of image urls with different sizes => size can be x2 of the browser size for retina displays
 ---
 
 <div

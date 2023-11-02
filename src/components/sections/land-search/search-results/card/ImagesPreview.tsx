@@ -1,9 +1,8 @@
-import type { ImageAsset } from "../../../../../model/Land";
+import { useState } from "react";
 
 import type { Swiper as TSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, A11y, Thumbs } from "swiper/modules";
-
 import "swiper/css";
 import "../../../../ui/buttons/ButtonClickAnimation.sass";
 // import "swiper/css/free-mode";
@@ -11,9 +10,8 @@ import "../../../../ui/buttons/ButtonClickAnimation.sass";
 // import "swiper/css/thumbs";
 // import "swiper/css/a11y";
 
-// import "./ImagesPreview.sass";
-
-import { useState } from "react";
+import type { ImageAsset } from "../../../../../model/Land";
+import { generateImageSrc } from "../../../../../scripts/imageSrcHelper";
 
 interface Props {
   images: ImageAsset[];
@@ -43,7 +41,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
           <SwiperSlide key={index} className="">
             <img
               className="w-full h-full object-cover"
-              src={`${img.url}?fm=jpg&fl=progressive&fit=fill&w=400&h=300`}
+              src={generateImageSrc(img.url)}
               alt={img.title}
               loading="lazy"
             />
@@ -148,7 +146,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
           >
             <img
               className="w-full h-full object-cover rounded-md"
-              src={`${img.url}?fm=jpg&fl=progressive&fit=fill&w=100&h=70`}
+              src={generateImageSrc(img.url, 100, 70)}
               alt={img.title}
               loading="lazy"
             />

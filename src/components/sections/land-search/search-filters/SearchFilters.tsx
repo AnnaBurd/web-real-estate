@@ -50,10 +50,14 @@ const SearchFilters: React.FC<Props> = ({
   };
 
   const handleFiltersReset = () => {
-    setSelectedPriceRange([0, maxPrice]);
-    setSelectedSizeRange([0, maxSize]);
-    setFilterByType([]);
     onSubmit([0, maxPrice], [0, maxSize], []);
+
+    // Timeout is needed to fix a bug when the slider jumps to the right after reset
+    setTimeout(() => {
+      setSelectedPriceRange([0, maxPrice]);
+      setSelectedSizeRange([0, maxSize]);
+      setFilterByType([]);
+    }, 100);
   };
 
   // Reset filters -> this is basically a hack to reset filters from child components, should be refactored (store filters state higher in the tree)!!!

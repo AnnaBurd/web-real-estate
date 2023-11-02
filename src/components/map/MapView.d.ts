@@ -6,7 +6,7 @@ export interface MapView extends HTMLElement {
   removePopupMarkers: (titles: string[]) => void;
 
   showPopupOnMarker: (title: string) => void;
-  focusOnPopupMarker: (title: string) => void;
+  focusOnPopupMarker: (title: string, closeOthers?: boolean) => void;
 
   renderPopupMarkers: (lands: Land[], favouriteLands?: string[]) => void;
   renderOnResize: () => void;

@@ -54,6 +54,12 @@ const SearchResults: React.FC<Props> = ({
   // Get reference to map-view element (used to show location markers)
   useEffect(() => {
     mapViewRef.current = document.querySelector("map-view") as MapView;
+
+    // First render of map-view element
+    rerenderMapMarkers(sortedLands);
+
+    if (sortedLands.length > 0)
+      mapViewRef.current?.focusOnPopupMarker(sortedLands[0].title!);
   }, []);
 
   const {
@@ -88,7 +94,7 @@ const SearchResults: React.FC<Props> = ({
           const title =
             lands.find((land) => land.slug === landSlug)?.title || "Dat nen";
 
-          mapViewRef.current?.focusOnPopupMarker(title);
+          mapViewRef.current?.focusOnPopupMarker(title, false);
         }
       }
     );

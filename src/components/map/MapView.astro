@@ -70,7 +70,9 @@ const { locations, title, fullHeight } = Astro.props;
     border-radius: 3px
     transform: rotate(45deg) skew(4deg, 4deg) !important // Skew makes the tip look like a diamond
 
+  // Sprinkle popup markers with animations
   .map-marker-icon
+    transition: all 0.3s ease-in-out
     &:hover
       filter: brightness(0.9)
 
@@ -229,29 +231,30 @@ const { locations, title, fullHeight } = Astro.props;
       marker?.openPopup();
     }
 
-    focusOnPopupMarker(markerTitle: string) {
+    focusOnPopupMarker(markerTitle: string, closeOthers = true) {
       const marker = this.leafletMarkers.get(markerTitle);
 
-      if (marker) {
-        this.leafletMarkers.forEach((marker) => marker.closePopup());
+      if (!marker) return;
 
-        marker.openPopup();
+      if (closeOthers)
+        this.leafletMarkers.forEach((marker) => {
+          if (marker.options.title !== markerTitle) {
+            marker.closePopup();
+          } else {
+            marker.openPopup();
+          }
+        });
 
-        this.leafletMap?.panTo(marker.getLatLng());
-      }
+      if (!closeOthers) marker.openPopup();
     }
 
     renderPopupMarkers(lands: Land[], favourites?: string[]) {
-      // // Remove previous markers
-      // this.leafletMarkers.forEach((marker) => marker.remove());
-      // this.leafletMarkers.clear();
-
-      // // Add new markers
-      // lands.forEach((land) => this.addPopupMarker(land));
+      let hasUpdatedMarkers = false;
 
       // Add missing markers
       lands.forEach((land) => {
         if (!this.leafletMarkers.has(land.title!)) {
+          hasUpdatedMarkers = true;
           this.addPopupMarker(land);
         }
       });
@@ -259,8 +262,8 @@ const { locations, title, fullHeight } = Astro.props;
       // Remove markers that are not used anymore
       this.leafletMarkers.forEach((marker, title) => {
         if (!lands.find((land) => land.title === title)) {
-          marker.remove();
-          this.leafletMarkers.delete(title);
+          hasUpdatedMarkers = true;
+          this.removePopupMarker(title);
         }
       });
 
@@ -273,8 +276,8 @@ const { locations, title, fullHeight } = Astro.props;
         }
       });
 
-      // Fit map to markers bounds
-      this.fitMapBoundsToMarkers();
+      // Fit markers into map bounds
+      if (hasUpdatedMarkers) this.fitMapBoundsToMarkers();
     }
 
     renderOnResize() {
@@ -289,7 +292,7 @@ const { locations, title, fullHeight } = Astro.props;
         Array.from(this.leafletMarkers, ([_, marker]) => marker.getLatLng())
       );
 
-      this.leafletMap?.fitBounds(newBounds);
+      this.leafletMap?.fitBounds(newBounds, { padding: [70, 70] });
     }
 
     private recalculateCenterPointValue() {

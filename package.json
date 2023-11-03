@@ -30,5 +30,10 @@
     "svelte-range-slider-pips": "^2.2.3",
     "swiper": "^10.2.0",
     "tailwindcss": "^3.3.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "prettier-plugin-astro": "^0.12.1",
+    "prettier-plugin-tailwindcss": "^0.5.6"
   }
 }

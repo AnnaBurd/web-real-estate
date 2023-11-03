@@ -32,17 +32,17 @@ const Dropdown: React.FC<Props> = ({
   });
 
   return (
-    <div className="relative inline-block">
+    <div className="relative z-50 inline-block">
       <div>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex w-full justify-center items-center gap-x-1.5 button-click-animation border-2 border-solid px-2 py-1 rounded-lg text-sm  font-medium cursor-pointer  hover:border-[--color-secondary] hover:bg-[--color-secondary-transparent-lighter] hover:text-[--color-secondary-darker] transition duration-300 ease-in-out z-10"
+          className=" button-click-animation z-10 inline-flex w-full cursor-pointer items-center justify-center gap-x-1.5 rounded-lg border-2 border-solid  px-2 py-1  text-sm font-medium transition duration-300 ease-in-out hover:border-[--color-secondary] hover:bg-[--color-secondary-transparent-lighter] hover:text-[--color-secondary-darker]"
           id="menu-button"
           aria-expanded="true"
           aria-haspopup="true"
         >
-          <span className="@lg/search-results:hidden text-[--color-secondary]">
+          <span className="text-[--color-secondary] @lg/search-results:hidden">
             {children}
           </span>
           <span className="hidden @lg/search-results:block">
@@ -66,7 +66,9 @@ const Dropdown: React.FC<Props> = ({
       <div
         ref={dropdownRef}
         className={`absolute right-0 mt-1.5 w-36 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
-          isOpen ? "opacity-100 z-10" : "opacity-0 -z-10"
+          isOpen
+            ? "visible scale-100 opacity-100 transition duration-100 ease-out"
+            : "invisible scale-95 opacity-0 ease-in [transition:visibility_0s_0.2s,all_0.075s]"
         }`}
         role="menu"
         aria-orientation="vertical"
@@ -82,7 +84,7 @@ const Dropdown: React.FC<Props> = ({
               }}
               key={option}
               href="#"
-              className={` block px-4 py-2 text-sm  hover:bg-[--color-secondary-transparent-lighter] hover:text-[--color-secondary-darker] transition duration-300 ease-in-out ${
+              className={` block px-4 py-2 text-sm  transition duration-300 ease-in-out hover:bg-[--color-secondary-transparent-lighter] hover:text-[--color-secondary-darker] ${
                 index === selectedOption
                   ? "bg-[--color-secondary-transparent-lighter] text-[--color-secondary-darker]"
                   : ""

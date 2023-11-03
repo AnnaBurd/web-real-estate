@@ -29,13 +29,15 @@ const phone = COMPANY_PHONE_NUMBER;
 ---
 
 <header
-  class="fixed top-0 left-0 z-50 w-full py-2 flex flex-row items-center overflow-hidden"
+  class={`fixed left-0 top-0 z-50 flex w-full flex-row items-center overflow-hidden py-2 ${
+    currentPage === "/tim-dat" ? "" : ""
+  }`}
 >
-  <div class="px-4 md:px-8 lg:px-16 flex-1 loaded-hero-logo">
+  <div class="loaded-hero-logo flex-1 px-4 md:px-8 lg:px-16">
     <Logo companyTitle="VietLand" className="" />
   </div>
 
-  <ul class="loaded-hero-links xl:flex flex-wrap gap-x-2 hidden">
+  <ul class="loaded-hero-links hidden flex-wrap gap-x-2 xl:flex">
     {
       navigationPages.map((page) => (
         <NavigationItem href={page.href} isActive={page.href === currentPage}>
@@ -45,14 +47,14 @@ const phone = COMPANY_PHONE_NUMBER;
     }
   </ul>
   <div
-    class="flex xl:px-16 flex-1 justify-end items-center loaded-hero-buttons"
+    class="loaded-hero-buttons flex flex-1 items-center justify-end xl:px-16"
   >
     <div class="hidden xl:block">
       <ButtonSmall id="callback-form-btn">Liên hệ</ButtonSmall>
     </div>
     <div class="hidden sm:block"><CallButton phone={phone} /></div>
     <div
-      class="xl:hidden flex flex-col items-center justify-center ml-4 mr-4 lg:mr-16 md:mr-8 relative"
+      class="relative ml-4 mr-4 flex flex-col items-center justify-center md:mr-8 lg:mr-16 xl:hidden"
     >
       <NavigationDropdown
         currentPage={currentPage}
@@ -77,21 +79,21 @@ const phone = COMPANY_PHONE_NUMBER;
   import type { PopUp } from "../../layouts/Popup.astro.0.mts";
 
   const callbackFormBtn = document.getElementById(
-    "callback-form-btn"
+    "callback-form-btn",
   ) as HTMLElement;
 
   const callbackFormBtnSmall = document.getElementById(
-    "callback-form-btn-small"
+    "callback-form-btn-small",
   ) as HTMLElement;
 
   const callbackFormPopup = document.getElementById(
-    "callback-form-popup"
+    "callback-form-popup",
   ) as PopUp;
 
   [callbackFormBtn, callbackFormBtnSmall].forEach((btn) =>
     btn.addEventListener("click", () => {
       callbackFormPopup.show();
-    })
+    }),
   );
 </script>
 
@@ -117,7 +119,7 @@ const phone = COMPANY_PHONE_NUMBER;
     navigatioElement: HTMLElement,
     navigationDropdownElement: DropdownMenu,
     scrolledElement: HTMLElement,
-    contentRootElement: HTMLElement
+    contentRootElement: HTMLElement,
   ) => {
     // Calculate height margins for intersection observer
     const heightMargin = isMobileDevice() ? 30 : window.innerHeight * 0.27;
@@ -169,15 +171,16 @@ const phone = COMPANY_PHONE_NUMBER;
   const dropdown: DropdownMenu | null =
     document.querySelector(".hamburger-menu");
   const scrollHideSectionEl: HTMLElement | null = document.querySelector(
-    "[data-scroll-hide-section]"
+    "[data-scroll-hide-section]",
   );
 
   // If all elements are present, start observing
-  if (scrollHideSectionEl && headerEl && rootContainer && dropdown)
-    observeScrollAndToggleNavigation(
-      headerEl,
-      dropdown,
-      scrollHideSectionEl,
-      rootContainer
-    );
+  // TODO: uncomment
+  // if (scrollHideSectionEl && headerEl && rootContainer && dropdown)
+  //   observeScrollAndToggleNavigation(
+  //     headerEl,
+  //     dropdown,
+  //     scrollHideSectionEl,
+  //     rootContainer
+  //   );
 </script>

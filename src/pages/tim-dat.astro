@@ -16,9 +16,9 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
 ---
 
 <Layout pageTitle={title}>
-  <div class="flex" data-scroll-hide-section>
+  <div class="flex" data-scroll-hide-section id="#dynamic-lands-search">
     <div
-      class="pt-14 pb-6 h-screen bg-gradient-to-t from-[--color-secondary-lighter] flex flex-1"
+      class="flex flex-1 flex-col bg-gradient-to-t from-[--color-secondary-lighter] pb-6 pt-10 md:flex-row lg:h-screen"
     >
       <LandSearchApp
         client:only="react"
@@ -29,7 +29,7 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
     </div>
 
     <div
-      class="bg-white shadow-sm h-screen w-[37vw] overflow-hidden hidden lg:block"
+      class="hidden h-screen w-[37vw] overflow-hidden bg-white shadow-sm lg:block"
       id="resizable-map-wrapper"
     >
       <MapView

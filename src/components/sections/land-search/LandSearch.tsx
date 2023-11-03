@@ -24,7 +24,7 @@ const getFilteredLands = (
   priceRange: number[],
   sizeRange: number[],
   typeFilters: LandTypeOption[],
-  isFavouriteLand: (slug: string) => boolean
+  isFavouriteLand: (slug: string) => boolean,
 ) => {
   return (
     lands
@@ -33,17 +33,17 @@ const getFilteredLands = (
         (land) =>
           land.price &&
           land.price >= priceRange[0] * 1_000_000_000 &&
-          land.price <= priceRange[1] * 1_000_000_000
+          land.price <= priceRange[1] * 1_000_000_000,
       )
       // Lands in size range
       .filter(
         (land) =>
-          land.area && land.area >= sizeRange[0] && land.area <= sizeRange[1]
+          land.area && land.area >= sizeRange[0] && land.area <= sizeRange[1],
       )
       // Favorite lands
       .filter(
         (land) =>
-          !typeFilters.includes("Yêu thích") || isFavouriteLand(land.slug)
+          !typeFilters.includes("Yêu thích") || isFavouriteLand(land.slug),
       )
       // Promoted lands
       .filter((land) => !typeFilters.includes("Khuyến khích") || land.promoted)
@@ -77,18 +77,18 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
     priceRange,
     sizeRange,
     typeFilters,
-    isFavouriteLand
+    isFavouriteLand,
   );
 
   const handleFiltersSubmit: FilterFunc = (
     selectedPriceRange,
     selectedSizeRange,
-    selectedFilterByType
+    selectedFilterByType,
   ) => {
     saveSearchFiltersToUrl(
       selectedPriceRange,
       selectedSizeRange,
-      selectedFilterByType
+      selectedFilterByType,
     );
 
     // Trigger component re-render on search filters update as if the state has changed
@@ -97,30 +97,23 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
 
   return (
     <>
-      <div className="w-50">
-        <SearchFilter
-          maxPrice={maxPriceAdjusted}
-          initialPriceRange={priceRange}
-          maxSize={maxSizeAdjusted}
-          initialSizeRange={sizeRange}
-          initialFilterByType={typeFilters}
-          onSubmit={handleFiltersSubmit}
-          resetIteration={resetIteration}
-        />
-      </div>
-      <div className="p-4 pr-2  flex-1 pb-10 relative min-w-[20rem] @container/search-results">
-        <SearchResults
-          lands={filteredLands}
-          mapUpdateIteration={filterUpdateIteration}
-          onResetSearch={() => {
-            setResetIteration((prev) => prev + 1);
-          }}
-        />
-        <div
-          className="h-full w-1.5 absolute mt-14 top-0 right-0 opacity-50  cursor-col-resize z-10 hidden lg:block "
-          id="resize-handle"
-        ></div>
-      </div>
+      <SearchFilter
+        maxPrice={maxPriceAdjusted}
+        initialPriceRange={priceRange}
+        maxSize={maxSizeAdjusted}
+        initialSizeRange={sizeRange}
+        initialFilterByType={typeFilters}
+        onSubmit={handleFiltersSubmit}
+        resetIteration={resetIteration}
+      />
+
+      <SearchResults
+        lands={filteredLands}
+        mapUpdateIteration={filterUpdateIteration}
+        onResetSearch={() => {
+          setResetIteration((prev) => prev + 1);
+        }}
+      />
     </>
   );
 };

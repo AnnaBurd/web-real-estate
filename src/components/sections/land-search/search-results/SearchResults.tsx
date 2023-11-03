@@ -10,6 +10,8 @@ import "./SearchResults.sass";
 import { FavouritesContext } from "../favourites/FavouritesContext";
 import EmptySearch from "./empty-search/EmptySearch";
 import SortIcon from "./SortIcon";
+import ViewSwitch from "./ViewSwitch";
+import FilterIcon from "../search-filters/FilterIcon";
 
 interface Props {
   lands: Land[];
@@ -76,7 +78,7 @@ const SearchResults: React.FC<Props> = ({
 
     mapViewRef.current?.renderPopupMarkers(
       lands.filter((land) => land.coords),
-      favourites
+      favourites,
     );
   };
   rerenderMapMarkers(sortedLands);
@@ -97,18 +99,32 @@ const SearchResults: React.FC<Props> = ({
 
           mapViewRef.current?.focusOnPopupMarker(title, false);
         }
-      }
+      },
     );
   }, [mapUpdateIteration]);
 
   return (
-    <>
-      <div className=" flex items-center justify-between mb-3  text-base font-normal cursor-default">
-        <div>
+    <div className="relative min-w-[20rem]  flex-1  p-4 pb-10 pr-2 @container/search-results">
+      <div className=" mb-3 grid cursor-default grid-cols-2 items-center gap-0.5 text-base font-normal ">
+        <div className="hidden">
           Hiện có{" "}
           <strong className="font-semibold">{lands.length} lô đất</strong> bán
         </div>
-        <div className=" select-none text-sm flex items-center">
+
+        <ViewSwitch />
+
+        <div className=" flex select-none items-center place-self-end text-sm">
+          <button
+            onClick={() => {
+              console.log("bo lock open");
+
+              // setIsOpen(!isOpen);
+            }}
+            className="button-click-animation z-40 inline-flex h-fit w-fit cursor-pointer items-center justify-center gap-x-1.5 place-self-end rounded-lg  border-2 border-solid  px-2 py-1 text-sm font-medium text-[--color-secondary] transition duration-300 ease-in-out hover:border-[--color-secondary] hover:bg-[--color-secondary-transparent-lighter] hover:text-[--color-secondary-darker] md:hidden"
+          >
+            <span className="text-[--color-text]">Bộ lọc</span>
+            <FilterIcon />
+          </button>
           <span className="hidden pr-0.5 @2xl/search-results:inline-block">
             Sắp xếp theo:
           </span>
@@ -121,8 +137,9 @@ const SearchResults: React.FC<Props> = ({
           </Dropdown>
         </div>
       </div>
+
       <div
-        className="h-full overflow-y-scroll  pr-3 pb-10"
+        className="pb-10 pr-3   lg:h-full  lg:overflow-y-scroll"
         id="scrollable-lands-container"
         data-lenis-prevent
       >
@@ -134,7 +151,11 @@ const SearchResults: React.FC<Props> = ({
           <EmptySearch onResetSearch={onResetSearch} />
         )}
       </div>
-    </>
+      <div
+        className="  absolute right-0 top-0 z-10 mt-14 hidden h-full  w-1.5 cursor-col-resize opacity-50 lg:block "
+        id="resize-handle"
+      ></div>
+    </div>
   );
 };
 

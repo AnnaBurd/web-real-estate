@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react";
+import { useEffect, useRef, type FC } from "react";
 import type { Land } from "../../../model/Land";
 import { FavouritesContextProvider } from "./favourites/FavouritesContext";
 import LandSearch from "./LandSearch";

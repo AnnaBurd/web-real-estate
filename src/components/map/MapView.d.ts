@@ -11,3 +11,11 @@ export interface MapView extends HTMLElement {
   renderPopupMarkers: (lands: Land[], favouriteLands?: string[]) => void;
   renderOnResize: () => void;
 }
+
+export type LandLocation = {
+  title: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+};

@@ -1,7 +1,7 @@
 import type { Land } from "../../model/Land";
 import { generateImageSrc } from "../../scripts/imageSrcHelper";
 
-const popupTemplate = `<a
+const popupTemplate = /*html*/ `<a
 href=%LAND_URL%
 target="_blank"
 rel="noopener noreferrer"
@@ -30,7 +30,6 @@ class="bg-white rounded-xl overflow-hidden flex flex-col h-fit w-44 min-w-max md
   <span class="bg-[--color-text] w-[1px] h-5 xl:h-5 inline-block -mb-1 ml-1 mr-1.5 opacity-20"></span>
   <span class="opacity-90 tracking-tighter text-xs">
     %LAND_AREA% m<sup>2</sup></span>
-
 </div>
 </a>`;
 

@@ -108,7 +108,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
           resetIteration={resetIteration}
         />
       </div>
-      <div className="p-4 pr-2  flex-1 pb-10 relative">
+      <div className="p-4 pr-2  flex-1 pb-10 relative min-w-[20rem] @container/search-results">
         <SearchResults
           lands={filteredLands}
           mapUpdateIteration={filterUpdateIteration}
@@ -117,7 +117,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
           }}
         />
         <div
-          className="h-full w-1.5 absolute mt-14 top-0 right-0 opacity-50  cursor-col-resize z-10"
+          className="h-full w-1.5 absolute mt-14 top-0 right-0 opacity-50  cursor-col-resize z-10 hidden lg:block "
           id="resize-handle"
         ></div>
       </div>

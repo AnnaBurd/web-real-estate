@@ -9,6 +9,7 @@ import type { MapView } from "../../../map/MapView";
 import "./SearchResults.sass";
 import { FavouritesContext } from "../favourites/FavouritesContext";
 import EmptySearch from "./empty-search/EmptySearch";
+import SortIcon from "./SortIcon";
 
 interface Props {
   lands: Land[];
@@ -107,13 +108,17 @@ const SearchResults: React.FC<Props> = ({
           Hiện có{" "}
           <strong className="font-semibold">{lands.length} lô đất</strong> bán
         </div>
-        <div className=" select-none text-sm">
-          Sắp xếp theo:{" "}
+        <div className=" select-none text-sm flex items-center">
+          <span className="hidden pr-0.5 @2xl/search-results:inline-block">
+            Sắp xếp theo:
+          </span>
           <Dropdown
             options={SORT_OPTIONS}
             selectedOption={sortOption}
             onUpdateSelection={(option) => setSortOption(option)}
-          />
+          >
+            <SortIcon />
+          </Dropdown>
         </div>
       </div>
       <div

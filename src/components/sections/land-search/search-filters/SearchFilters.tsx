@@ -68,7 +68,7 @@ const SearchFilters: React.FC<Props> = ({
   }, [resetIteration]);
 
   return (
-    <div className="w-full h-full  pl-10 pr-6 pt-6 cursor-default">
+    <div className="w-full h-full  pl-10 pr-6 pt-6 cursor-default hidden md:block">
       <span className="font-semibold mb-4 block text-base opacity-50">
         Bộ lọc:
       </span>

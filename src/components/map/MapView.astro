@@ -1,5 +1,5 @@
 ---
-import type { LandLocation } from "./MapView.astro.0.mts";
+import type { LandLocation } from "./MapView";
 
 type Props = {
   title?: string;
@@ -130,17 +130,10 @@ const { locations, title, fullHeight } = Astro.props;
   import "leaflet/dist/leaflet.css";
 
   import type { MapView as MapViewI } from "./MapView.ts";
+  import type { LandLocation } from "./MapView";
   import type { Land } from "../../model/Land";
   import { getPopupMarkup } from "./PopupTemplate.ts";
   import { getMarkerIcon } from "./MarkerTemplate";
-
-  export type LandLocation = {
-    title: string;
-    coordinates: {
-      lat: number;
-      lng: number;
-    };
-  };
 
   const defaultLeafletMapOptions = {
     attributionControl: false,

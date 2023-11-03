@@ -4,12 +4,14 @@ interface Props {
   options: string[];
   selectedOption: number;
   onUpdateSelection: (option: number) => void;
+  children?: React.ReactNode;
 }
 
 const Dropdown: React.FC<Props> = ({
   options,
   selectedOption,
   onUpdateSelection,
+  children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -30,7 +32,7 @@ const Dropdown: React.FC<Props> = ({
   });
 
   return (
-    <div className="relative inline-block ">
+    <div className="relative inline-block">
       <div>
         <button
           type="button"
@@ -40,7 +42,12 @@ const Dropdown: React.FC<Props> = ({
           aria-expanded="true"
           aria-haspopup="true"
         >
-          {selectedOption === -1 ? "Mặc định" : options[selectedOption]}
+          <span className="@lg/search-results:hidden text-[--color-secondary]">
+            {children}
+          </span>
+          <span className="hidden @lg/search-results:block">
+            {selectedOption === -1 ? "Mặc định" : options[selectedOption]}
+          </span>
           <svg
             className="-mr-1 h-5 w-5 "
             viewBox="0 0 20 20"

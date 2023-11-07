@@ -10,20 +10,20 @@ interface Props {
 
 const Card: React.FC<Props> = ({ land }) => {
   return (
-    <div className="bg-white shadow-sm hover:shadow-md  rounded-lg grid grid-cols-2  gap-2 place-items-stretch place-content-stretch mb-4 transition duration-300 overflow-hidden relative">
-      <div className=" w-full h-full">
-        <ImagesPreview images={land.images || []} />
-      </div>
+    <div className="@container/land-card">
+      <div className="relative mb-4 grid  grid-cols-1 place-content-stretch place-items-stretch  gap-2 overflow-hidden rounded-lg bg-white shadow-sm transition duration-300 hover:shadow-md @sm/land-card:bg-red-500 @7xl/land-card:grid-cols-2">
+        <ImagesPreview images={land.images || []} url={land.slug} />
 
-      <LandDescription land={land} />
+        <LandDescription land={land} />
 
-      <div className="absolute top-2 right-2 group">
-        <FavouriteBtn id={land.slug} />
+        <div className="group absolute right-2 top-2">
+          <FavouriteBtn id={land.slug} />
 
-        <ShowOnMapBtn
-          id={land.title!}
-          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        />
+          <ShowOnMapBtn
+            id={land.title!}
+            className="opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-lg:hidden"
+          />
+        </div>
       </div>
     </div>
   );

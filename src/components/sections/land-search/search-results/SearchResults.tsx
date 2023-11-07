@@ -120,7 +120,7 @@ const SearchResults: React.FC<Props> = ({
   }, [mapUpdateIteration]);
 
   return (
-    <div className=" relative  z-10  min-w-[20rem]   pl-4 pr-2 pt-4  @container/search-results md:flex-1 md:max-lg:self-start">
+    <div className=" relative  z-10  min-w-[20rem]   pl-4 pr-2 pt-4  @container/search-results md:flex-1 md:max-lg:self-start lg:overflow-hidden">
       <div className=" mb-3 grid cursor-default grid-cols-2 items-center gap-0.5 text-base font-normal">
         <div className="hidden lg:inline-block">
           Hiện có{" "}
@@ -157,7 +157,7 @@ const SearchResults: React.FC<Props> = ({
       </div>
 
       <div
-        className={`pr-3 lg:h-full lg:overflow-y-scroll lg:pb-48 ${
+        className={`bg-orange-300 @lg/search-results:bg-red-300 lg:h-full lg:overflow-y-scroll lg:pb-48 lg:pr-2 ${
           isMapShown ? "max-lg:hidden" : ""
         }`}
         id="scrollable-lands-container"

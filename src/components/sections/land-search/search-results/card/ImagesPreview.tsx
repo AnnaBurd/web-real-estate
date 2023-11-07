@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import type { Swiper as TSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, A11y, Thumbs } from "swiper/modules";
+import { Navigation, A11y, Thumbs } from "swiper/modules";
 import "swiper/css";
 import "../../../../ui/buttons/ButtonClickAnimation.sass";
 // import "swiper/css/free-mode";
@@ -15,42 +15,44 @@ import { generateImageSrc } from "../../../../../scripts/imageSrcHelper";
 
 interface Props {
   images: ImageAsset[];
+  url?: string;
 }
 
-const ImagesPreview: React.FC<Props> = ({ images }) => {
+const ImagesPreview: React.FC<Props> = ({ images, url }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<TSwiper | null>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="group h-full flex flex-col gap-1 select-none">
+    <div className="group flex h-full w-full select-none flex-col gap-1">
       <Swiper
-        className="w-full  rounded-lg overflow-hidden swiper-slide-main relative "
-        modules={[FreeMode, Navigation, A11y, Thumbs]}
+        className="swiper-slide-main  relative w-full overflow-hidden rounded-lg "
+        modules={[Navigation, A11y, Thumbs]}
         slidesPerView={1}
         centeredSlides={true}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
-        freeMode={true}
+        freeMode={false}
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         thumbs={{ swiper: thumbsSwiper }}
       >
         {images.map((img, index) => (
-          <SwiperSlide key={index} className="">
+          <SwiperSlide key={index} className="relative">
             <img
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
               src={generateImageSrc(img.url)}
               alt={img.title}
               loading="lazy"
             />
+            {url && <a className="absolute inset-0  md:hidden" href={url} />}
           </SwiperSlide>
         ))}
 
-        <div className="absolute top-0 left-1  h-full  z-10 flex flex-column items-center cursor-default opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-300">
+        <div className="flex-column absolute left-1  top-0  z-10 flex h-full cursor-default items-center opacity-0 transition-opacity delay-300 duration-300 group-hover:opacity-100">
           <button
-            className=" button-click-animation swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-2.5 rounded-full hidden md:block tabbable z-10  opacity-50 hover:opacity-100 disabled:opacity-20"
+            className=" button-click-animation swiper-button swiper-button-prev tabbable z-10 hidden cursor-pointer rounded-full bg-[--color-secondary-lighter] p-2.5 opacity-50  hover:opacity-100 disabled:opacity-20 md:block"
             disabled={activeIndex === 0}
           >
             <svg
@@ -59,7 +61,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
               viewBox="0 0 24 24"
               strokeWidth="4"
               stroke="currentColor"
-              className="w-3 h-3"
+              className="h-3 w-3"
             >
               <path
                 strokeLinecap="round"
@@ -70,9 +72,9 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
           </button>
         </div>
 
-        <div className="absolute top-0 right-1  h-full  z-10 flex flex-column items-center cursor-default opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-300">
+        <div className="flex-column absolute right-1  top-0  z-10 flex h-full cursor-default items-center opacity-0 transition-opacity delay-300 duration-300 group-hover:opacity-100">
           <button
-            className=" button-click-animation swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-2.5 rounded-full hidden md:block  tabbable z-10  opacity-50 hover:opacity-100 disabled:opacity-20"
+            className=" button-click-animation swiper-button swiper-button-next tabbable z-10 hidden cursor-pointer rounded-full bg-[--color-secondary-lighter]  p-2.5 opacity-50  hover:opacity-100 disabled:opacity-20 md:block"
             disabled={activeIndex === images.length - 1}
           >
             <svg
@@ -81,7 +83,7 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
               viewBox="0 0 24 24"
               strokeWidth="4"
               stroke="currentColor"
-              className="w-3 h-3"
+              className="h-3 w-3"
             >
               <path
                 strokeLinecap="round"
@@ -93,8 +95,8 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
         </div>
       </Swiper>
       <Swiper
-        className="w-full h-12 flex-grow-0 flex-shrink-0 swiper-slide-thumbs mb-1"
-        modules={[FreeMode, Navigation, Thumbs]}
+        className="swiper-slide-thumbs mb-1 h-12 w-full flex-shrink-0 flex-grow-0"
+        modules={[Navigation, Thumbs]}
         watchSlidesProgress={true}
         onSwiper={setThumbsSwiper}
         slidesPerView={4}
@@ -138,14 +140,14 @@ const ImagesPreview: React.FC<Props> = ({ images }) => {
         {images.map((img, index) => (
           <SwiperSlide
             key={index}
-            className={`cursor-pointer rounded-lg overflow-hidden p-[.1rem] border-[.15rem] ${
+            className={`cursor-pointer overflow-hidden rounded-lg border-[.15rem] p-[.1rem] ${
               activeIndex === index
                 ? "opacity-1  border-[--color-secondary]"
-                : "opacity-90 border border-transparent hover:opacity-100"
+                : "border border-transparent opacity-90 hover:opacity-100"
             }`}
           >
             <img
-              className="w-full h-full object-cover rounded-md"
+              className="h-full w-full rounded-md object-cover"
               src={generateImageSrc(img.url, 100, 70)}
               alt={img.title}
               loading="lazy"

@@ -18,13 +18,13 @@ const FavouriteBtn: React.FC<Props> = ({ id }) => {
   return (
     <button
       onClick={onClick}
-      className="like-button relative w-10 h-10 rounded-lg bg-[#607cb320] flex justify-center items-center button-click-animation z-20"
+      className="like-button button-click-animation relative z-20 flex h-10 w-10 items-center justify-center rounded-lg bg-[#607cb320]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className={`w-6 h-6 bouncy-animation is-liked z-10 text-white ${
+        className={`bouncy-animation is-liked z-10 h-6 w-6 text-white ${
           isActive ? "block" : "hidden"
         }`}
       >
@@ -37,7 +37,7 @@ const FavouriteBtn: React.FC<Props> = ({ id }) => {
         viewBox="0 0 24 24"
         strokeWidth={2}
         stroke="currentColor"
-        className={`w-6 h-6 bouncy-animation not-liked z-10 text-white ${
+        className={`bouncy-animation not-liked z-10 h-6 w-6 text-white ${
           isActive ? "hidden" : "block"
         }`}
       >
@@ -49,7 +49,7 @@ const FavouriteBtn: React.FC<Props> = ({ id }) => {
       </svg>
 
       <span
-        className={`like-overlay block absolute inset-0 bg-[--color-like] rounded-lg transition-all duration-[400ms] z-0 ${
+        className={`like-overlay absolute inset-0 z-0 block rounded-lg bg-[--color-like] transition-all duration-[400ms] ${
           isActive ? "scale-1" : "scale-0"
         }`}
       ></span>

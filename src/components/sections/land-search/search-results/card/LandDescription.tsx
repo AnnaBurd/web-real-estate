@@ -7,35 +7,20 @@ interface Props {
 const LandDescription: React.FC<Props> = ({ land }) => {
   return (
     <a className="h-full" href={land.slug}>
-      <div className="py-1.5 pl-2 pr-14 w-full h-full   relative">
-        <span className="text-base md:text-lg font-semibold tracking-tight leading-tight block">
+      <div className="relative h-full w-full py-1.5 pl-2   pr-14">
+        <span className="mb-0.5 block text-lg font-semibold leading-tight tracking-tight">
           {land.title}
         </span>
-        <p className="text-xs md:text-sm font-normal not-italic opacity-80">
+        <p className="text-sm font-normal not-italic opacity-80">
           {land.briefDescription || land.address}
         </p>
 
-        <span className="block mt-0 absolute bottom-2 right-2">
-          <span className="text-[--color-accent] text-sm font-medium xl:font-normal xl:text-base">
-            <span className="text-base md:text-xl xl:text-2xl font-normal md:font-light tracking-tighter leading-tight">
-              {(land?.price || 0) / 1000000000}
-            </span>{" "}
-            tỷ
-          </span>
-          {land?.area && (
-            <span className="opacity-90 tracking-tighter text-xs">
-              <span className=" bg-[--color-text] w-[1px] h-5 xl:h-5 inline-block -mb-1 ml-1 mr-1.5 opacity-20" />
-              {land.area.toLocaleString().replace(/,/g, " ")} m<sup>2</sup>
-            </span>
-          )}
-        </span>
-
-        <div className="grid grid-cols-[auto_1fr] gap-x-1 gap-y-2 text-xs opacity-90 items-center mt-3.5 mb-10">
+        <div className="mb-12 mt-3.5 grid grid-cols-[auto_1fr] items-center gap-x-1 gap-y-2 text-sm opacity-90">
           {land.address && (
             <>
-              <div className="w-3.5 h-3.5">
+              <div className="h-3.5 w-3.5">
                 <svg
-                  className="w-full h-full"
+                  className="h-full w-full"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -52,7 +37,7 @@ const LandDescription: React.FC<Props> = ({ land }) => {
                 </svg>
               </div>
               <div className="leading-tight">
-                <span className="tracking-normal hidden">Địa chỉ: </span>
+                <span className="hidden tracking-normal">Địa chỉ: </span>
                 <span className="font-semibold tracking-tight ">
                   {land.address}
                 </span>
@@ -62,9 +47,9 @@ const LandDescription: React.FC<Props> = ({ land }) => {
 
           {land.area ? (
             <>
-              <div className="w-3.5 h-3.5">
+              <div className="h-3.5 w-3.5">
                 <svg
-                  className="w-full h-full"
+                  className="h-full w-full"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -81,7 +66,7 @@ const LandDescription: React.FC<Props> = ({ land }) => {
                 </svg>
               </div>
               <div>
-                <span className="tracking-normal hidden">Diện tích: </span>
+                <span className="hidden tracking-normal">Diện tích: </span>
                 <span className="font-semibold tracking-tight">
                   {land.area}&nbsp;m<sup>2</sup>
                 </span>
@@ -93,12 +78,12 @@ const LandDescription: React.FC<Props> = ({ land }) => {
 
           {land.papers && (
             <>
-              <div className="w-3.5 h-3.5">
+              <div className="h-3.5 w-3.5">
                 <svg
                   fill="none"
                   height="24"
                   viewBox="0 0 24 24"
-                  className="w-full h-full"
+                  className="h-full w-full"
                   width="24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -112,7 +97,7 @@ const LandDescription: React.FC<Props> = ({ land }) => {
                 </svg>
               </div>
               <div>
-                <span className="tracking-normal hidden">
+                <span className="hidden tracking-normal">
                   Giấy tờ pháp lý:{" "}
                 </span>
                 <span className="font-semibold tracking-tight">
@@ -124,9 +109,9 @@ const LandDescription: React.FC<Props> = ({ land }) => {
 
           {land.price ? (
             <>
-              <div className="w-3.5 h-3.5">
+              <div className="h-3.5 w-3.5">
                 <svg
-                  className="w-full h-full"
+                  className="h-full w-full"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -143,7 +128,7 @@ const LandDescription: React.FC<Props> = ({ land }) => {
                 </svg>
               </div>
               <div className="">
-                <span className="tracking-normal hidden">Giá: </span>
+                <span className="hidden tracking-normal">Giá: </span>
                 <span className="font-semibold tracking-tight  ">
                   {(land?.price || 0) / 1000000000}&nbsp;tỷ đồng{" "}
                   {land.area && (
@@ -157,6 +142,25 @@ const LandDescription: React.FC<Props> = ({ land }) => {
             </>
           ) : (
             ""
+          )}
+        </div>
+
+        <div className="absolute bottom-2 right-2 mt-0 block">
+          <span className="text-4xl font-light  leading-tight tracking-tighter text-[--color-accent] ">
+            {(land?.price || 0) / 1000000000}
+          </span>
+          <span className="text-lg font-medium text-[--color-accent] ">
+            {" "}
+            tỷ{" "}
+          </span>
+
+          {land?.area && (
+            <>
+              <span className="-mb-1 ml-1 mr-1.5 inline-block h-5 w-[1px] bg-[--color-text] opacity-20 xl:h-5"></span>
+              <span className="text-sm tracking-tighter opacity-90">
+                {land.area.toLocaleString().replace(/,/g, " ")} m<sup>2</sup>
+              </span>
+            </>
           )}
         </div>
       </div>

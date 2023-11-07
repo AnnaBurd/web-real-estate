@@ -15,7 +15,7 @@ const ShowOnMapBtn: React.FC<Props> = ({ id, className }) => {
   return (
     <button
       onClick={onClick}
-      className={`relative w-10 h-10 rounded-lg bg-[#607cb320] flex justify-center items-center button-click-animation mt-1 ${
+      className={`button-click-animation relative mt-1  flex  h-10 w-10 items-center justify-center rounded-lg bg-[#607cb320] ${
         className ? className : ""
       }`}
     >
@@ -25,7 +25,7 @@ const ShowOnMapBtn: React.FC<Props> = ({ id, className }) => {
         viewBox="0 0 24 24"
         strokeWidth={2}
         stroke="currentColor"
-        className="w-6 h-6 bouncy-animation not-liked z-10 text-white"
+        className="bouncy-animation not-liked z-10 h-6 w-6 text-white"
       >
         <path
           strokeLinecap="round"

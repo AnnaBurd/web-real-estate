@@ -95,6 +95,9 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
     setFilterUpdateIteration((prev) => prev + 1);
   };
 
+  // Handle opening and closing of search filters on mobile devices
+  const [isSearchFiltersOpen, setIsSearchFiltersOpen] = useState(false);
+
   return (
     <>
       <SearchFilter
@@ -105,6 +108,8 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
         initialFilterByType={typeFilters}
         onSubmit={handleFiltersSubmit}
         resetIteration={resetIteration}
+        isOpen={isSearchFiltersOpen}
+        onClose={() => setIsSearchFiltersOpen(false)}
       />
 
       <SearchResults
@@ -113,6 +118,7 @@ const LandSearch: React.FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {
         onResetSearch={() => {
           setResetIteration((prev) => prev + 1);
         }}
+        onOpenFilters={() => setIsSearchFiltersOpen(true)}
       />
     </>
   );

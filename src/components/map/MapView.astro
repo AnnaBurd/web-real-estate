@@ -27,7 +27,7 @@ const { locations, title, fullHeight } = Astro.props;
     .leaflet-top
       top: max(calc(50% - 10rem), 3rem)
     .leaflet-bottom
-      top: max(calc(50% - 30px), 60px)
+      top: max(calc(50% - 30px), 6rem)
 
   // Override default styles of the Leaflet Controls
   .leaflet-control // Style zoom controls and btn
@@ -369,6 +369,18 @@ const { locations, title, fullHeight } = Astro.props;
       // Fullscreen button
       const handleFullscreenToggle = () => {
         this.toggleAttribute("fullscreen");
+
+        // adjust z-index of the map wrapper to make it appear on top of other elements
+        const mapWrapper = document.querySelector(
+          "#resizable-map-wrapper",
+        ) as HTMLElement | null;
+
+        if (mapWrapper) {
+          mapWrapper.style.zIndex = this.hasAttribute("fullscreen")
+            ? "1000"
+            : "0";
+        }
+
         this.leafletMap?.invalidateSize();
       };
 

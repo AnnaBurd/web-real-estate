@@ -1,16 +1,20 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 
-type Props = {};
+type Props = {
+  isChecked: boolean;
+  onToggle: () => void;
+  className?: string;
+};
 
-const ViewSwitch: FC<Props> = ({}) => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+const ViewSwitch: FC<Props> = ({ isChecked, onToggle, className }) => {
+  const handleCheckboxChange = onToggle;
 
   return (
-    <div className="flex items-center gap-1 text-sm">
+    <div
+      className={`flex items-center gap-1 text-sm ${
+        className ? className : ""
+      }`}
+    >
       <span>Danh sách</span>
       <label className="flex cursor-pointer select-none items-center">
         <div className="relative">

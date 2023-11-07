@@ -282,7 +282,7 @@ const { locations, title, fullHeight } = Astro.props;
       if (this.leafletMarkers.size === 0) return;
 
       const newBounds = L.latLngBounds(
-        Array.from(this.leafletMarkers, ([_, marker]) => marker.getLatLng())
+        Array.from(this.leafletMarkers, ([_, marker]) => marker.getLatLng()),
       );
 
       this.leafletMap?.fitBounds(newBounds, { padding: [70, 70] });
@@ -292,12 +292,12 @@ const { locations, title, fullHeight } = Astro.props;
       const averageLat =
         this.locations.reduce(
           (acc, location) => acc + location.coordinates.lat,
-          0
+          0,
         ) / this.locations.length;
       const averageLng =
         this.locations.reduce(
           (acc, location) => acc + location.coordinates.lng,
-          0
+          0,
         ) / this.locations.length;
 
       this.center = [averageLat, averageLng];
@@ -316,13 +316,13 @@ const { locations, title, fullHeight } = Astro.props;
     private initLeafletInstance() {
       const map = L.map(this, defaultLeafletMapOptions).setView(
         this.center,
-        14
+        14,
       );
 
       // Fit map to locations bounds
       if (this.locations.length > 1) {
         const bounds = L.latLngBounds(
-          this.locations.map((location) => location.coordinates)
+          this.locations.map((location) => location.coordinates),
         );
         map.fitBounds(bounds);
       }
@@ -331,7 +331,7 @@ const { locations, title, fullHeight } = Astro.props;
       L.tileLayer(
         `https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=${
           import.meta.env.PUBLIC_MAPTILES_KEY
-        }`
+        }`,
       ).addTo(map);
 
       // TODO: / Another tile option -> fallback if maptiler is down
@@ -340,6 +340,9 @@ const { locations, title, fullHeight } = Astro.props;
       //     import.meta.env.PUBLIC_MAPTILES_KEY
       //   }`
       // ).addTo(this.leafletMap);
+
+      // Disable map focus on click
+      map.getContainer().focus = () => {};
 
       this.leafletMap = map;
     }
@@ -350,14 +353,14 @@ const { locations, title, fullHeight } = Astro.props;
 
       // Replace default zoom icons
       const zoomInButton: HTMLElement | null = document.querySelector(
-        ".leaflet-control-zoom-in"
+        ".leaflet-control-zoom-in",
       );
 
       if (zoomInButton)
         zoomInButton.innerHTML = `<span class="leaflet-control-icon"><svg xmlns="http://www.w3.org/2000/svg" height="19" viewBox="0 96 960 960" width="19"><path d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"/></svg></span>`;
 
       const zoomOutButton: HTMLElement | null = document.querySelector(
-        ".leaflet-control-zoom-out"
+        ".leaflet-control-zoom-out",
       );
 
       if (zoomOutButton)
@@ -376,12 +379,12 @@ const { locations, title, fullHeight } = Astro.props;
         onAdd: () => {
           const container = L.DomUtil.create(
             "div",
-            "leaflet-bar leaflet-control leaflet-control-custom"
+            "leaflet-bar leaflet-control leaflet-control-custom",
           );
           let button = L.DomUtil.create(
             "a",
             "leaflet-control-button",
-            container
+            container,
           );
 
           button.innerHTML = `<span class="leaflet-control-icon"><svg class="icon-small" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M120 936V696h80v104l124-124 56 56-124 124h104v80H120Zm516-460-56-56 124-124H600v-80h240v240h-80V352L636 476Z"/></svg><svg class="icon-full" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="m136 976-56-56 264-264H160v-80h320v320h-80V712L136 976Zm344-400V256h80v184l264-264 56 56-264 264h184v80H480Z"/></svg></span>`;

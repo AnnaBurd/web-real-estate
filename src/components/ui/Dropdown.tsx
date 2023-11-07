@@ -5,6 +5,7 @@ interface Props {
   selectedOption: number;
   onUpdateSelection: (option: number) => void;
   children?: React.ReactNode;
+  className?: string;
 }
 
 const Dropdown: React.FC<Props> = ({
@@ -12,6 +13,7 @@ const Dropdown: React.FC<Props> = ({
   selectedOption,
   onUpdateSelection,
   children,
+  className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -32,7 +34,9 @@ const Dropdown: React.FC<Props> = ({
   });
 
   return (
-    <div className="relative z-50 inline-block">
+    <div
+      className={` relative z-50 inline-block ${className ? className : ""}`}
+    >
       <div>
         <button
           type="button"

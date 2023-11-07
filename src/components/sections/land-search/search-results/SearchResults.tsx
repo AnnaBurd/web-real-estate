@@ -125,13 +125,15 @@ const SearchResults: React.FC<Props> = ({
             <span className="text-[--color-text]">Bộ lọc</span>
             <FilterIcon />
           </button>
-          <span className="hidden pr-0.5 @2xl/search-results:inline-block">
+
+          <span className="hidden  @2xl/search-results:inline-block">
             Sắp xếp theo:
           </span>
           <Dropdown
             options={SORT_OPTIONS}
             selectedOption={sortOption}
             onUpdateSelection={(option) => setSortOption(option)}
+            className="pl-0.5"
           >
             <SortIcon />
           </Dropdown>
@@ -139,7 +141,7 @@ const SearchResults: React.FC<Props> = ({
       </div>
 
       <div
-        className="pb-10 pr-3   lg:h-full  lg:overflow-y-scroll"
+        className="pb-10 pr-3   max-lg:hidden  lg:h-full lg:overflow-y-scroll"
         id="scrollable-lands-container"
         data-lenis-prevent
       >

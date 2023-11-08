@@ -120,8 +120,8 @@ const SearchResults: React.FC<Props> = ({
   }, [mapUpdateIteration]);
 
   return (
-    <div className=" relative  z-10  min-w-[20rem]   pl-4 pr-2 pt-4  @container/search-results md:flex-1 md:max-lg:self-start lg:overflow-hidden">
-      <div className=" mb-3 grid cursor-default grid-cols-2 items-center gap-0.5 text-base font-normal">
+    <div className=" relative  z-10  min-w-[20rem]   pl-4 pr-2 pt-4  @container/search-results md:flex-1 md:max-lg:self-start lg:overflow-hidden ">
+      <div className=" mb-3 grid cursor-default grid-cols-2 items-center gap-0.5 text-base font-normal lg:pl-1.5">
         <div className="hidden lg:inline-block">
           Hiện có{" "}
           <strong className="font-semibold">{lands.length} lô đất</strong> bán
@@ -157,7 +157,7 @@ const SearchResults: React.FC<Props> = ({
       </div>
 
       <div
-        className={`bg-orange-300 @lg/search-results:bg-red-300 lg:h-full lg:overflow-y-scroll lg:pb-48 lg:pr-2 ${
+        className={` mb-4 grid gap-4  @[44.5rem]/search-results:grid-cols-[2fr,1fr]  @[44.5rem]/search-results:items-stretch  @[60rem]/search-results:grid-cols-2  lg:h-full lg:overflow-y-scroll lg:pb-48 lg:pl-2 lg:pr-2 @[44.5rem]/search-results:[&>*:nth-child(3n+2)]:row-span-2 @[60rem]/search-results:[&>*:nth-child(3n+2)]:row-span-1 ${
           isMapShown ? "max-lg:hidden" : ""
         }`}
         id="scrollable-lands-container"
@@ -167,8 +167,17 @@ const SearchResults: React.FC<Props> = ({
           <Card key={land.slug} land={land} />
         ))}
 
+        {/* In a 1row-1row-2row grid layout fill the empty space in the end when number of cards is not divisible by 3 */}
+        {sortedLands.length > 0 && ~~(sortedLands.length / 3) === 2 && (
+          <Card
+            key={"last-card"}
+            land={sortedLands[0]}
+            className="hidden @[44.5rem]/search-results:block @[60rem]/search-results:hidden"
+          />
+        )}
+
         {sortedLands.length === 0 && (
-          <EmptySearch onResetSearch={onResetSearch} />
+          <EmptySearch onResetSearch={onResetSearch} className="col-span-2" />
         )}
       </div>
       <div

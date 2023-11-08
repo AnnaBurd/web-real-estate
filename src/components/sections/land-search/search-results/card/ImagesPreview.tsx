@@ -24,9 +24,9 @@ const ImagesPreview: React.FC<Props> = ({ images, url }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="group flex h-full w-full select-none flex-col gap-1">
+    <div className="group mb-0.5 grid min-h-[18rem] select-none grid-cols-1 grid-rows-[75%_25%] items-stretch justify-items-stretch gap-0.5">
       <Swiper
-        className="swiper-slide-main  relative w-full overflow-hidden rounded-lg "
+        className="swiper-slide-main   relative  w-full overflow-hidden rounded-lg"
         modules={[Navigation, A11y, Thumbs]}
         slidesPerView={1}
         centeredSlides={true}
@@ -41,7 +41,7 @@ const ImagesPreview: React.FC<Props> = ({ images, url }) => {
         {images.map((img, index) => (
           <SwiperSlide key={index} className="relative">
             <img
-              className="h-full w-full object-cover"
+              className=" h-full w-full object-cover"
               src={generateImageSrc(img.url)}
               alt={img.title}
               loading="lazy"
@@ -95,7 +95,7 @@ const ImagesPreview: React.FC<Props> = ({ images, url }) => {
         </div>
       </Swiper>
       <Swiper
-        className="swiper-slide-thumbs mb-1 h-12 w-full flex-shrink-0 flex-grow-0"
+        className="swiper-slide-thumbs h-full w-full "
         modules={[Navigation, Thumbs]}
         watchSlidesProgress={true}
         onSwiper={setThumbsSwiper}
@@ -104,43 +104,32 @@ const ImagesPreview: React.FC<Props> = ({ images, url }) => {
         centeredSlides={true}
         centerInsufficientSlides={true}
         centeredSlidesBounds={true}
-        // breakpoints={{
-        //   "@0.00": {
-        //     slidesPerView: 1,
-        //     spaceBetween: 10,
-        //   },
-        //   "@0.75": {
-        //     slidesPerView: 2,
-        //     spaceBetween: 20,
-        //   },
-        //   "@1.00": {
-        //     slidesPerView: 3,
-        //     spaceBetween: 40,
-        //   },
-        //   "@1.50": {
-        //     slidesPerView: 4,
-        //     spaceBetween: 50,
-        //   },
-        // }}
-        // breakpoints={{
-        //   640: {
-        //     slidesPerView: 2,
-        //     spaceBetween: 20,
-        //   },
-        //   768: {
-        //     slidesPerView: 4,
-        //     spaceBetween: 40,
-        //   },
-        //   1024: {
-        //     slidesPerView: 5,
-        //     spaceBetween: 50,
-        //   },
-        // }}
+        // TODO: adjust breakpoints
+        breakpoints={{
+          0: {
+            slidesPerView: 4,
+          },
+          450: {
+            slidesPerView: 5,
+          },
+          477: {
+            slidesPerView: 3,
+          },
+          700: {
+            slidesPerView: 4,
+          },
+          950: {
+            slidesPerView: 5,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
       >
         {images.map((img, index) => (
           <SwiperSlide
             key={index}
-            className={`cursor-pointer overflow-hidden rounded-lg border-[.15rem] p-[.1rem] ${
+            className={`box-border cursor-pointer overflow-hidden rounded-lg border-[.15rem] p-[.1rem] ${
               activeIndex === index
                 ? "opacity-1  border-[--color-secondary]"
                 : "border border-transparent opacity-90 hover:opacity-100"

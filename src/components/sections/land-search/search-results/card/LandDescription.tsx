@@ -6,7 +6,7 @@ interface Props {
 
 const LandDescription: React.FC<Props> = ({ land }) => {
   return (
-    <a className="h-full" href={land.slug}>
+    <a className="h-full px-1.5 @md/land-card:px-0" href={land.slug}>
       <div className="relative h-full w-full py-1.5 pl-2   pr-14">
         <span className="mb-0.5 block text-lg font-semibold leading-tight tracking-tight">
           {land.title}

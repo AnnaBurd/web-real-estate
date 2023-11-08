@@ -4,7 +4,6 @@ import RangeInput from "./RangeInput";
 import SelectionInput from "./SelectionInput";
 
 import "../../../ui/buttons/ButtonClickAnimation.sass";
-import FilterIcon from "./FilterIcon";
 
 export interface FilterFunc {
   (
@@ -96,7 +95,7 @@ const SearchFilters: React.FC<Props> = ({
       }}
     >
       <div
-        className="z-50  w-full cursor-default max-md:mx-auto max-md:max-w-lg  max-md:rounded-lg max-md:bg-white  max-md:px-8 max-md:py-6 max-md:shadow-lg max-md:ring-1 max-md:ring-black max-md:ring-opacity-5 max-md:focus:outline-none md:sticky md:top-2 md:block md:translate-x-0 md:pl-10 md:pr-6 md:pt-6 lg:static"
+        className="z-50 w-full cursor-default  max-md:mx-auto max-md:max-w-lg  max-md:rounded-lg max-md:bg-white  max-md:px-8 max-md:py-6 max-md:shadow-lg max-md:ring-1 max-md:ring-black max-md:ring-opacity-5 max-md:focus:outline-none md:sticky md:top-4 md:block md:translate-x-0 md:pl-10 md:pr-6 md:pt-[1.2rem] lg:static lg:pt-[1.2rem]"
         id="search-filters"
       >
         <span className="mb-4 block text-base font-semibold opacity-50">

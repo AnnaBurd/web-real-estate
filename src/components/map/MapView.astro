@@ -368,19 +368,47 @@ const { locations, title, fullHeight } = Astro.props;
 
       // Fullscreen button
       const handleFullscreenToggle = () => {
-        this.toggleAttribute("fullscreen");
+        // Query if the map is in fullscreen mode or not (based on the attribute)
+        const isFullscreen = this.hasAttribute("fullscreen");
 
-        // adjust z-index of the map wrapper to make it appear on top of other elements
+        // Query the elements that change between fullscreen and minimized mode
         const mapWrapper = document.querySelector(
           "#resizable-map-wrapper",
         ) as HTMLElement | null;
 
-        if (mapWrapper) {
-          mapWrapper.style.zIndex = this.hasAttribute("fullscreen")
-            ? "1000"
-            : "0";
+        const scrollableElements = [
+          document.querySelector(".main-content"),
+          document.querySelector("#scrollable-lands-container"),
+        ];
+
+        // Switch between fullscreen and minimized mode
+        if (isFullscreen) {
+          // Allow scroll
+          scrollableElements.forEach((element) => {
+            if (element) (element as HTMLElement).style.overflow = "auto";
+          });
+
+          // Reset z-index
+          if (mapWrapper) mapWrapper.style.zIndex = "0";
+
+          // Remove fullscreen attribute -> css will handle the rest
+          this.removeAttribute("fullscreen");
         }
 
+        if (!isFullscreen) {
+          // Add fullscreen attribute -> css will handle the rest
+          this.setAttribute("fullscreen", "");
+
+          // Set z-index to prevent map from being covered by other elements
+          if (mapWrapper) mapWrapper.style.zIndex = "1000";
+
+          // Prevent scroll
+          scrollableElements.forEach((element) => {
+            if (element) (element as HTMLElement).style.overflow = "hidden";
+          });
+        }
+
+        // Recalculate map size
         this.leafletMap?.invalidateSize();
       };
 

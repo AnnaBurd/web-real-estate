@@ -46,14 +46,14 @@ const currentPage = Astro.url.pathname;
     <title>{pageTitle}</title>
   </head>
   <body
-    class="font-signica text-[--color-text] w-full h-full relative"
+    class="relative h-full w-full font-signica text-[--color-text]"
     data-loaded="false"
   >
     <!-- TODO: show preloading only once?  -->
     {currentPage === "/" && <Preloading />}
     <Navigation />
     <main
-      class="main-content w-full h-full bg-white overflow-y-scroll relative overflow-x-hidden"
+      class="main-content relative h-full w-full overflow-x-hidden overflow-y-scroll bg-white"
     >
       <slot />
       <Footer />
@@ -126,5 +126,8 @@ const currentPage = Astro.url.pathname;
 <!-- Load smooth scroll (locomotive scroll + lenis) -->
 <script>
   import initScroll from "../scripts/smoothScroll";
-  initScroll();
+
+  // Do not initialize smooth scroll on page with dynamically generated content (e.g. search results)
+  const hasDynamicContent = !!document.querySelector("#dynamic-lands-search");
+  if (!hasDynamicContent) initScroll();
 </script>

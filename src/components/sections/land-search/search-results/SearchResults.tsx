@@ -157,7 +157,7 @@ const SearchResults: React.FC<Props> = ({
       </div>
 
       <div
-        className={` mb-4 grid gap-4  @[44.5rem]/search-results:grid-cols-[2fr,1fr]  @[44.5rem]/search-results:items-stretch  @[60rem]/search-results:grid-cols-2  lg:h-full lg:overflow-y-scroll lg:pb-48 lg:pl-2 lg:pr-2 @[44.5rem]/search-results:[&>*:nth-child(3n+2)]:row-span-2 @[60rem]/search-results:[&>*:nth-child(3n+2)]:row-span-1 ${
+        className={` mb-4 grid gap-4 @[44.5rem]/search-results:grid-cols-[2fr,1fr]  @[44.5rem]/search-results:items-stretch  @[60rem]/search-results:grid-cols-2 lg:h-full lg:overflow-y-scroll lg:pb-48 lg:pl-2 lg:pr-2 @[44.5rem]/search-results:[&>*:nth-child(3n+2)]:row-span-2 @[60rem]/search-results:[&>*:nth-child(3n+2)]:row-span-1 ${
           isMapShown ? "max-lg:hidden" : ""
         }`}
         id="scrollable-lands-container"

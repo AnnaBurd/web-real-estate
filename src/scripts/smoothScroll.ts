@@ -12,6 +12,10 @@ const initSmoothScroll = () => {
   // Do not initialize smooth scroll on mobile devices (scroll is handled natively for better performance)
   if (isMobileDevice()) return null;
 
+  // Do not initialize smooth scroll on page with dynamically generated content (e.g. search results)
+  const hasDynamicContent = !!document.querySelector("#dynamic-lands-search");
+  if (hasDynamicContent) return null;
+
   const mainContentContainer = document.querySelector(
     ".main-content",
   ) as HTMLElement;

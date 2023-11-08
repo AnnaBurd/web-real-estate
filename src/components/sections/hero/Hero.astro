@@ -2,29 +2,30 @@
 import HeroImage from "./HeroImage.astro";
 import Container from "../../../layouts/Container.astro";
 import ButtonAnimated from "../../ui/buttons/ButtonAnimated.astro";
-import DownButton from "./DownButton.astro";
+
+import ScrollButton from "../../ui/buttons/ScrollButton.astro";
 ---
 
 <section
   id="hero-section"
-  class="w-full h-full overflow-hidden relative cursor-default"
+  class="relative h-full w-full cursor-default overflow-hidden"
   data-scroll-hide-section
 >
   <HeroImage />
-  <div class="w-full h-full flex justify-center flex-col z-30 relative">
+  <div class="relative z-30 flex h-full w-full flex-col justify-center">
     <Container>
       <div
-        class="loaded-hero-heading mb-[12vh] sm:mb-[10vh] md:mb-[10vh] lg:mb-[12vh] max-w-lg"
+        class="loaded-hero-heading mb-[12vh] max-w-lg sm:mb-[10vh] md:mb-[10vh] lg:mb-[12vh]"
         data-scroll
         data-scroll-speed="-.3"
       >
         <h1
-          class="text-4xl md:text-5xl 2xl:text-6xl font-normal tracking-wide leading-[1.2] mb-3.5 md:mb-7 w-full"
+          class="mb-3.5 w-full text-4xl font-normal leading-[1.2] tracking-wide md:mb-7 md:text-5xl 2xl:text-6xl"
         >
           Nơi Hạnh Phúc <br />Ngập Tràn
         </h1>
         <p
-          class="text-sm md:text-base font-normal text-opacity-90 w-[85%] tracking-normal leading-relaxed"
+          class="w-[85%] text-sm font-normal leading-relaxed tracking-normal text-opacity-90 md:text-base"
         >
           Nơi nụ cười nở, hạnh phúc tươi sáng. Nơi nụ cười nở, hạnh phúc tươi
           sáng. Nơi nụ cười nở, hạnh phúc tươi sáng.
@@ -39,6 +40,12 @@ import DownButton from "./DownButton.astro";
         </div>
       </div>
     </Container>
-    <DownButton />
+
+    <ScrollButton
+      id="scroll-btn"
+      ariaLabel="Go down to the land previews"
+      destinationElementId="land-previews"
+      className="loaded-hero-button "
+    />
   </div>
 </section>

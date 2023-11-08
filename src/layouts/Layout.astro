@@ -127,7 +127,5 @@ const currentPage = Astro.url.pathname;
 <script>
   import initScroll from "../scripts/smoothScroll";
 
-  // Do not initialize smooth scroll on page with dynamically generated content (e.g. search results)
-  const hasDynamicContent = !!document.querySelector("#dynamic-lands-search");
-  if (!hasDynamicContent) initScroll();
+  initScroll();
 </script>

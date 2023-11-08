@@ -21,28 +21,3 @@ const promotedLands = await dataModel.getPromotedLands();
   />
   <About />
 </Layout>
-
-<!-- Move down to land previews on button click -->
-<script>
-  import initScroll from "../scripts/smoothScroll";
-
-  const smoothScroll = initScroll(); // Init or get existing instance of the scroll
-
-  const buttonDownEl = document.getElementById("button-down") as HTMLElement; // Get button element
-  const landPreviewsEl = document.getElementById(
-    "land-previews"
-  ) as HTMLElement; // Get destination element
-
-  // Scroll to destination, time of scroll is proportional to distance
-  buttonDownEl.addEventListener("click", () => {
-    const deltaY =
-      window.innerHeight - landPreviewsEl.getBoundingClientRect().top;
-
-    smoothScroll.scrollTo(landPreviewsEl, {
-      duration: 1.4 * (1 - deltaY / window.innerHeight),
-      easing: (t: number) => {
-        return 1 - Math.pow(1 - t, 4);
-      },
-    });
-  });
-</script>

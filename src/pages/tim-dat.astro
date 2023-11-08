@@ -4,6 +4,7 @@ import MapView from "../components/map/MapView.astro";
 import LandSearchApp from "../components/sections/land-search/LandSearchApp";
 
 import dataModel from "../model/ContentfulModel";
+import ScrollButton from "../components/ui/buttons/ScrollButton.astro";
 
 // Load all lands data (there will be 20 lands at max so no need for pagination)
 const lands = await dataModel.getAllLands();
@@ -22,7 +23,7 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
     id="dynamic-lands-search"
   >
     <div
-      class="4xl:bg-[--color-secondary-lighter] flex flex-1 flex-col bg-gradient-to-t from-[--color-secondary-lighter] pt-10 md:flex-row lg:h-screen"
+      class="flex flex-1 flex-col bg-gradient-to-t from-[--color-secondary-lighter] pt-10 md:flex-row lg:h-screen"
     >
       <LandSearchApp
         client:only="react"
@@ -30,6 +31,18 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
         maxPrice={maxLandPrice}
         maxSize={maxLandSize}
       />
+
+      <div
+        class="scroll-btn-wrapper z-50 opacity-0 transition-opacity duration-1000 md:hidden"
+      >
+        <ScrollButton
+          id="scroll-btn"
+          ariaLabel="Go up to the beginning"
+          direction="up"
+          destinationElementId="dynamic-lands-search"
+          className="  !fixed bottom-4  "
+        />
+      </div>
     </div>
 
     <div
@@ -51,3 +64,53 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
     </div>
   </div>
 </Layout>
+
+<!-- Hide and reveal scroll button -->
+<script>
+  import isMobileDevice from "../scripts/isMobileDevice";
+
+  let isVisibleScrollBtn = false; // Keep state to follow scroll direction
+
+  const revealScrollBtnOnScrollDown = () => {
+    const scrollBtn = document.getElementById("scroll-btn");
+    const scrollBtnWrapper = document.querySelector(".scroll-btn-wrapper");
+
+    const firstResultsCard = document.querySelector(".land-card:first-child");
+    const nthResultsCard = document.querySelector(".land-card:nth-child(4)");
+
+    if (!(scrollBtn && scrollBtnWrapper && firstResultsCard && nthResultsCard))
+      return; //
+
+    const scrollBtnObserver = new IntersectionObserver(
+      ([entry]) => {
+        console.log(
+          "entry",
+          entry,
+          entry.target === firstResultsCard ? " first" : "nth",
+        );
+
+        if (entry.target === nthResultsCard && !isVisibleScrollBtn) {
+          isVisibleScrollBtn = true;
+          scrollBtnWrapper.classList.remove("opacity-0");
+          scrollBtnWrapper.classList.add("opacity-100");
+        }
+
+        if (entry.target === firstResultsCard && isVisibleScrollBtn) {
+          isVisibleScrollBtn = false;
+          scrollBtnWrapper.classList.remove("opacity-100");
+          scrollBtnWrapper.classList.add("opacity-0");
+        }
+      },
+      {
+        threshold: [0.5],
+      },
+    );
+
+    scrollBtnObserver.observe(firstResultsCard);
+    scrollBtnObserver.observe(nthResultsCard);
+  };
+
+  setTimeout(() => {
+    if (isMobileDevice()) revealScrollBtnOnScrollDown();
+  }, 3000); // Handle later
+</script>

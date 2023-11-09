@@ -1,0 +1,46 @@
+---
+import SocialIcons from "../../footer/SocialIcons.astro";
+
+type Props = {
+  name: string;
+  title: string;
+  image: string;
+  className?: string;
+  contacts: {
+    phone?: string;
+    facebook?: string;
+    zalo?: string;
+  };
+};
+
+const {
+  name,
+  title,
+  image,
+  contacts: { phone, facebook, zalo },
+  className,
+} = Astro.props;
+---
+
+<div
+  class={`relative
+flex flex-col items-center justify-center rounded-[2rem] bg-[#607cb317] p-6 ${
+    className ? className : ""
+  }`}
+>
+  <div class="h-36 w-36 overflow-hidden rounded-[2.3rem]">
+    <img class="h-full w-full object-cover" src={image} />
+  </div>
+  <span class="mt-2 text-lg font-bold">{name}</span>
+  <span class="text-xs font-semibold uppercase tracking-tight opacity-80"
+    >{title}</span
+  >
+  <span class="absolute bottom-1/2"
+    ><SocialIcons
+      className=""
+      phoneRef={phone}
+      facebookRef={facebook}
+      zaloRef={zalo}
+    /></span
+  >
+</div>

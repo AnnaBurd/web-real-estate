@@ -1,0 +1,68 @@
+---
+import Container from "../../../layouts/Container.astro";
+import AgentCard from "./AgentCard.astro";
+
+const agents = [
+  {
+    name: "Phi Do Quan",
+    title: "Aại lý độc quyền",
+    image: "https://ssg-web-app.netlify.app/images/agents/agent_1.jpg",
+    contacts: {
+      phone: "+7 912 123 12323",
+      facebook: "#",
+      zalo: "#",
+    },
+  },
+  {
+    name: "John Doe",
+    title: "Real Estate Agent",
+    image: "https://dummyimage.com/600x400/000/fff",
+    contacts: {
+      phone: "+7 912 123 12323",
+      facebook: "#",
+      zalo: "#",
+    },
+  },
+  {
+    name: "Jane Smith",
+    title: "Real Estate Agent",
+    image: "https://dummyimage.com/600x400/000/fff",
+    contacts: {
+      phone: "+7 912 123 12323",
+      facebook: "#",
+      zalo: "#",
+    },
+  },
+];
+---
+
+<Container
+  className="  cursor-default bg-[--color-secondary-lighter] pb-12 pt-16 xl:pt-36"
+>
+  <h2
+    class="pb-2 text-center text-3xl font-semibold capitalize leading-tight tracking-normal"
+  >
+    Các đại lý
+  </h2>
+  <p
+    class="mx-auto max-w-[50ch] text-center text-sm font-normal leading-4 tracking-normal opacity-80 [text-wrap:balance]"
+  >
+    Giới thiệu đội ngũ tài năng của chúng tôi gồm các chuyên gia tận tâm
+  </p>
+  <div class="mt-10 grid grid-rows-2 gap-5 sm:grid-cols-12 sm:gap-8">
+    <!-- {agents.map((agent) => )} -->
+
+    <AgentCard
+      {...agents[0]}
+      className="col-span-12 rounded-es-[7rem] rounded-se-[7rem] sm:col-span-6 "
+    />
+    <AgentCard
+      {...agents[1]}
+      className="col-span-12  rounded-se-[7rem] rounded-ss-[7rem] sm:col-span-6"
+    />
+    <AgentCard
+      {...agents[2]}
+      className="col-span-12  rounded-ee-[7rem] rounded-es-[7rem]  rounded-ss-[7rem] sm:col-span-6 sm:col-start-4"
+    />
+  </div>
+</Container>

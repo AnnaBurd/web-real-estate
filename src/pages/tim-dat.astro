@@ -70,47 +70,61 @@ const title = "VietLand - tìm mảnh đất tốt đẹp nhất";
   import isMobileDevice from "../scripts/isMobileDevice";
 
   let isVisibleScrollBtn = false; // Keep state to follow scroll direction
+  let isThrottling = false;
 
-  const revealScrollBtnOnScrollDown = () => {
-    const scrollBtn = document.getElementById("scroll-btn");
-    const scrollBtnWrapper = document.querySelector(".scroll-btn-wrapper");
+  let scrollBtnWrapper: HTMLElement | null;
+  let scrollSection: HTMLElement | null;
 
-    const firstResultsCard = document.querySelector(".land-card:first-child");
-    const nthResultsCard = document.querySelector(".land-card:nth-child(4)");
+  const queryHTMLElements = () => {
+    scrollBtnWrapper = document.querySelector(".scroll-btn-wrapper");
+    scrollSection = document.querySelector(".main-content");
+  };
 
-    if (!(scrollBtn && scrollBtnWrapper && firstResultsCard && nthResultsCard))
-      return; //
+  const setScrollBtnVisibility = (
+    btnWrapper: HTMLElement,
+    isVisible: boolean,
+  ) => {
+    if (isVisibleScrollBtn === isVisible) return; // No need to change visibility
 
-    const scrollBtnObserver = new IntersectionObserver(
-      ([entry]) => {
-        console.log(
-          "entry",
-          entry,
-          entry.target === firstResultsCard ? " first" : "nth",
-        );
+    btnWrapper.classList.toggle("opacity-0");
+    btnWrapper.classList.toggle("opacity-100");
 
-        if (entry.target === nthResultsCard && !isVisibleScrollBtn) {
-          isVisibleScrollBtn = true;
-          scrollBtnWrapper.classList.remove("opacity-0");
-          scrollBtnWrapper.classList.add("opacity-100");
-        }
+    isVisibleScrollBtn = isVisible;
+  };
 
-        if (entry.target === firstResultsCard && isVisibleScrollBtn) {
-          isVisibleScrollBtn = false;
-          scrollBtnWrapper.classList.remove("opacity-100");
-          scrollBtnWrapper.classList.add("opacity-0");
-        }
-      },
-      {
-        threshold: [0.5],
-      },
-    );
+  const revealScrollBtnOnScrollDown = (btnWrapper: HTMLElement) => {
+    // Throttle scroll event handling to avoid performance issues
+    if (isThrottling) return;
 
-    scrollBtnObserver.observe(firstResultsCard);
-    scrollBtnObserver.observe(nthResultsCard);
+    setTimeout(() => {
+      isThrottling = false;
+    }, 500); // Check scroll position with at least 500ms interval
+
+    isThrottling = true;
+
+    // Hide scroll button when scrolling up, and show when scrolling down past 1200px
+    const scrollPosition = scrollSection!.scrollTop;
+    // Use timeout to avoid scroll event handling delays
+    setTimeout(() => {
+      if (scrollPosition > 1200) {
+        setScrollBtnVisibility(btnWrapper, true);
+      } else {
+        setScrollBtnVisibility(btnWrapper, false);
+      }
+    }, 0);
   };
 
   setTimeout(() => {
-    if (isMobileDevice()) revealScrollBtnOnScrollDown();
-  }, 3000); // Handle later
+    queryHTMLElements();
+
+    if (!scrollBtnWrapper || !scrollSection || !isMobileDevice()) return;
+
+    scrollSection.addEventListener(
+      "scroll",
+      () => {
+        revealScrollBtnOnScrollDown(scrollBtnWrapper!);
+      },
+      { passive: true },
+    );
+  }, 3000); // Query elements and set up event listener later, after loading page and react app
 </script>

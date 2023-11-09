@@ -8,13 +8,13 @@ interface Props {
 const EmptySearch: React.FC<Props> = ({ onResetSearch, className }) => {
   return (
     <div
-      className={`flex h-full select-none flex-col items-center justify-center gap-3.5 pb-20 text-center ${
+      className={`flex h-full min-h-[65vh] select-none flex-col items-center justify-center gap-3.5  text-center ${
         className ? className : ""
       }`}
     >
       <EmptySearchIcon />
 
-      <span>
+      <span className="lg:mb-10">
         Không tìm thấy kết quả phù hợp. <br />
         Bạn có muốn{" "}
         <button

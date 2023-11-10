@@ -33,14 +33,16 @@ class="bg-white rounded-xl overflow-hidden flex flex-col h-fit w-44 min-w-max md
 </div>
 </a>`;
 
+const origin = window.location.origin;
+
 export const getPopupMarkup = (land: Land) => {
   return popupTemplate
-    .replaceAll("%LAND_URL%", land.slug)
+    .replaceAll("%LAND_URL%", origin + "/" + land.slug)
     .replaceAll("%LAND_TITLE%", land.title || "Đất nền")
     .replaceAll("%LAND_IMAGE_SRC%", generateImageSrc(land.images?.[0].url))
     .replaceAll("%LAND_PRICE%", (land?.price || 0) / 1000000000 + "")
     .replaceAll(
       "%LAND_AREA%",
-      land.area?.toLocaleString().replace(/,/g, " ") || ""
+      land.area?.toLocaleString().replace(/,/g, " ") || "",
     );
 };

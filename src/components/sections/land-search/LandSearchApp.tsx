@@ -3,6 +3,7 @@ import type { Land } from "../../../model/Land";
 import { FavouritesContextProvider } from "./favourites/FavouritesContext";
 import LandSearch from "./LandSearch";
 import listenForHorizontalResize from "./search-results/horizontalResizeListener";
+import { fadeIn } from "../../loader/loading-page-transitions/transitions";
 
 interface Props {
   preloadedLands: Land[];
@@ -12,6 +13,8 @@ interface Props {
 
 const onLandSearchAppMount = () => {
   listenForHorizontalResize();
+
+  fadeIn();
 };
 
 const LandSearchApp: FC<Props> = ({ preloadedLands, maxPrice, maxSize }) => {

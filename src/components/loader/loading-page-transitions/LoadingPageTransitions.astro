@@ -1,0 +1,19 @@
+---
+const currentPath = Astro.url.pathname;
+console.log("current path", currentPath);
+---
+
+{ currentPath !== "/" && <style>
+  body {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>}
+
+<script>
+  import { fadeIn, fadeOut } from "./transitions";
+
+  if (location.pathname !== "/tim-dat" && location.pathname !== "/")
+    window.onload = fadeIn;
+  window.onbeforeunload = fadeOut;
+</script>

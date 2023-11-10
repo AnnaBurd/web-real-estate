@@ -7,6 +7,7 @@ import CallbackForm from "../components/modals/CallbackForm.astro";
 import Popup from "./Popup.astro";
 import Alert from "../components/ui/alerts/Alert.astro";
 import Preloading from "../components/loader/Preloading.astro";
+import LoadingPageTransitions from "../components/loader/loading-page-transitions/LoadingPageTransitions.astro";
 
 interface Props {
   pageTitle: string;
@@ -17,7 +18,7 @@ const currentPage = Astro.url.pathname;
 ---
 
 <!-- TODO: SEO optimization --><!doctype html>
-<html lang="en">
+<html lang="en" class="bg-[--color-secondary-lighter]">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="/TODO" />
@@ -45,6 +46,9 @@ const currentPage = Astro.url.pathname;
     <!-- <meta name="generator" content={Astro.generator} /> -->
     <title>{pageTitle}</title>
   </head>
+
+  <LoadingPageTransitions />
+
   <body
     class="relative h-full w-full font-signica text-[--color-text]"
     data-loaded="false"
@@ -67,65 +71,65 @@ const currentPage = Astro.url.pathname;
     </Alert>
     <Alert id="error-alert" type="error" title="Error">Error message</Alert>
   </body>
+
+  <!-- Basic styles setup -->
+  <style is:global>
+    /* Remove blue highlight of clicked button in mobile Chrome browser */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Set up page height for better mobile height support */
+    html,
+    body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    html {
+      background-size: 224px;
+    }
+
+    /* Style text selection */
+    ::selection {
+      background-color: rgba(var(--color-accent-rgb), 0.7);
+      /* border-radius: 100%; */
+      /* color: white; */
+    }
+
+    /* Style focus outline */
+    .tabbable {
+      @apply focus-visible:ring-2;
+      @apply focus-visible:ring-offset-2;
+      @apply focus-visible:ring-[#607cb3];
+      @apply focus-visible:border-[#607cb344];
+      @apply focus-visible:outline-none;
+    }
+  </style>
+
+  <!-- Css classes requred by Lenis library - for smooth scroll functionality -->
+  <style is:global>
+    html.lenis {
+      height: auto !important;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain !important;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden !important;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none !important;
+    }
+  </style>
+
+  <!-- Load smooth scroll (locomotive scroll + lenis) -->
+  <script>
+    import initScroll from "../scripts/smoothScroll";
+
+    initScroll();
+  </script>
 </html>
-
-<!-- Basic styles setup -->
-<style is:global>
-  /* Remove blue highlight of clicked button in mobile Chrome browser */
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* Set up page height for better mobile height support */
-  html,
-  body {
-    height: 100%;
-    overflow-x: hidden;
-  }
-
-  html {
-    background-size: 224px;
-  }
-
-  /* Style text selection */
-  ::selection {
-    background-color: rgba(var(--color-accent-rgb), 0.7);
-    /* border-radius: 100%; */
-    /* color: white; */
-  }
-
-  /* Style focus outline */
-  .tabbable {
-    @apply focus-visible:ring-2;
-    @apply focus-visible:ring-offset-2;
-    @apply focus-visible:ring-[#607cb3];
-    @apply focus-visible:border-[#607cb344];
-    @apply focus-visible:outline-none;
-  }
-</style>
-
-<!-- Css classes requred by Lenis library - for smooth scroll functionality -->
-<style is:global>
-  html.lenis {
-    height: auto !important;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain !important;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden !important;
-  }
-  .lenis.lenis-scrolling iframe {
-    pointer-events: none !important;
-  }
-</style>
-
-<!-- Load smooth scroll (locomotive scroll + lenis) -->
-<script>
-  import initScroll from "../scripts/smoothScroll";
-
-  initScroll();
-</script>

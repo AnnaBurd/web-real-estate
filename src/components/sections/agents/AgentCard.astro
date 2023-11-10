@@ -1,11 +1,12 @@
 ---
-import SocialIcons from "../../footer/SocialIcons.astro";
+import SocialIcons from "../../ui/social-icons/SocialIcons.astro";
 
 type Props = {
   name: string;
   title: string;
   image: string;
   className?: string;
+  positionClassName?: string;
   contacts: {
     phone?: string;
     facebook?: string;
@@ -19,28 +20,39 @@ const {
   image,
   contacts: { phone, facebook, zalo },
   className,
+  positionClassName,
 } = Astro.props;
 ---
 
-<div
-  class={`relative
-flex flex-col items-center justify-center rounded-[2rem] bg-[#607cb317] p-6 ${
-    className ? className : ""
-  }`}
->
-  <div class="h-36 w-36 overflow-hidden rounded-[2.3rem]">
-    <img class="h-full w-full object-cover" src={image} />
+<div class={`relative    ${positionClassName ? positionClassName : ""} `}>
+  <div
+    class={`peer group flex h-full w-full flex-col items-center justify-center  rounded-[2rem] p-6 pb-7   bg-[#607cb317] border-[2px] hover:border-[--color-secondary] hover:shadow-xl transition-all duration-300 max-md:border-[--color-secondary] z-10 relative ${
+      className ? className : ""
+    }`}
+  >
+    <div class="h-36 w-36 overflow-hidden rounded-[2.3rem] lg:h-40
+     lg:w-40">
+      <img class="h-full w-full object-cover" src={image} />
+    </div>
+    <span class="mt-2 text-lg font-bold">{name}</span>
+    <span class="text-xs font-semibold uppercase tracking-tight opacity-80"
+      >{title}</span
+    >
+    <span
+      class="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 translate-y-[125%] cursor-default rounded-3xl bg-[--color-secondary] px-2.5 py-1 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-1/2 group-hover:opacity-100 max-md:translate-y-1/2 max-md:opacity-100"
+      ><SocialIcons
+        className="duration-30 h-8 w-8 opacity-80  md:hover:opacity-60"
+        contacts={{
+          phoneRef: phone,
+          facebookRef: facebook,
+          zaloRef: zalo,
+        }}
+      /></span
+    >
   </div>
-  <span class="mt-2 text-lg font-bold">{name}</span>
-  <span class="text-xs font-semibold uppercase tracking-tight opacity-80"
-    >{title}</span
-  >
-  <span class="absolute bottom-1/2"
-    ><SocialIcons
-      className=""
-      phoneRef={phone}
-      facebookRef={facebook}
-      zaloRef={zalo}
-    /></span
-  >
+
+  <!-- Overlay to fix hover animation hitbox -->
+  <span
+    class="max-md:display-none absolute bottom-0 left-0 z-30 h-20 w-full translate-y-full select-none peer-hover:z-0"
+  ></span>
 </div>

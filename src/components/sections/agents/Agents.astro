@@ -9,8 +9,8 @@ const agents = [
     image: "https://ssg-web-app.netlify.app/images/agents/agent_1.jpg",
     contacts: {
       phone: "+7 912 123 12323",
-      facebook: "#",
-      zalo: "#",
+      facebook: "https://www.facebook.com/ann.gilmore.75436/",
+      zalo: "#??",
     },
   },
   {
@@ -49,20 +49,23 @@ const agents = [
   >
     Giới thiệu đội ngũ tài năng của chúng tôi gồm các chuyên gia tận tâm
   </p>
-  <div class="mt-10 grid grid-rows-2 gap-5 sm:grid-cols-12 sm:gap-8">
+  <div class="mt-10 grid grid-rows-2 gap-8 sm:grid-cols-12 xl:gap-7">
     <!-- {agents.map((agent) => )} -->
 
     <AgentCard
       {...agents[0]}
-      className="col-span-12 rounded-es-[7rem] rounded-se-[7rem] sm:col-span-6 "
+      positionClassName="col-span-12 sm:col-span-6 z-0"
+      className=" rounded-es-[7rem] rounded-se-[7rem] "
     />
     <AgentCard
       {...agents[1]}
-      className="col-span-12  rounded-se-[7rem] rounded-ss-[7rem] sm:col-span-6"
+      positionClassName="col-span-12 sm:col-span-6 z-10"
+      className=" rounded-se-[7rem] rounded-ss-[7rem] "
     />
     <AgentCard
       {...agents[2]}
-      className="col-span-12  rounded-ee-[7rem] rounded-es-[7rem]  rounded-ss-[7rem] sm:col-span-6 sm:col-start-4"
+      positionClassName="col-span-12 sm:col-span-6 sm:col-start-4 z-20"
+      className="rounded-ee-[7rem] rounded-es-[7rem] rounded-ss-[7rem] "
     />
   </div>
 </Container>

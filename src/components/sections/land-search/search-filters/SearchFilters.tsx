@@ -124,7 +124,7 @@ const SearchFilters: React.FC<Props> = ({
 
         <div className="mb-6">
           <span className="mb-4 block text-base font-semibold">
-            Giá, tỷ dong
+            Giá, tỷ đồng
           </span>
 
           <RangeInput

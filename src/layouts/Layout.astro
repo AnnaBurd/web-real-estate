@@ -47,14 +47,15 @@ const currentPage = Astro.url.pathname;
     <title>{pageTitle}</title>
   </head>
 
-  <LoadingPageTransitions />
-
   <body
     class="relative h-full w-full font-signica text-[--color-text]"
     data-loaded="false"
   >
     <!-- TODO: show preloading only once?  -->
     {currentPage === "/" && <Preloading />}
+
+    <LoadingPageTransitions />
+
     <Navigation />
     <main
       class="main-content relative h-full w-full overflow-x-hidden overflow-y-scroll bg-white"

@@ -3,17 +3,17 @@
 ---
 
 <div
-  class="hamburger-btn block select-none cursor-pointer relative"
+  class="hamburger-btn relative block cursor-pointer select-none"
   data-open="false"
 >
   <span
-    class="block w-10 h-1.5 mb-1.5 rounded-md bg-[--color-text] [transform-origin:0%_0%]"
+    class="mb-1.5 block h-1.5 w-10 rounded-md bg-[--color-text] [transform-origin:0%_0%]"
   ></span>
   <span
-    class="block w-10 h-1.5 mb-1.5 rounded-md bg-[--color-text] [transform-origin:.375rem_0]"
+    class="mb-1.5 block h-1.5 w-10 rounded-md bg-[--color-text] [transform-origin:.375rem_0]"
   ></span>
   <span
-    class="block w-10 h-1.5 mb-1.5 rounded-md bg-[--color-text] [transform-origin:0%_100%]"
+    class="mb-1.5 block h-1.5 w-10 rounded-md bg-[--color-text] [transform-origin:0%_100%]"
   ></span>
 </div>
 
@@ -51,8 +51,10 @@
 </style>
 
 <script>
+  import type { DropdownMenu } from "./NavigationDropdown";
+
   const hamburgerBtn = document.querySelector(".hamburger-btn")!;
-  const menu = document.querySelector(".hamburger-menu")! as any;
+  const menu = document.querySelector(".hamburger-menu")! as DropdownMenu;
 
   const closeDropdownMenu = () => {
     menu.hide();
@@ -61,7 +63,7 @@
   hamburgerBtn.addEventListener("click", () => {
     menu.toggle();
 
-    if (menu.isOpened()) {
+    if (menu.isOpen()) {
       document.addEventListener("scroll", closeDropdownMenu);
     } else {
       document.removeEventListener("scroll", closeDropdownMenu);
@@ -70,7 +72,7 @@
 
   document.addEventListener("click", (e) => {
     if (
-      menu.isOpened() &&
+      menu.isOpen() &&
       !(e.target as Element).closest(".hamburger-btn") &&
       !(e.target as Element).closest(".hamburger-menu")
     ) {

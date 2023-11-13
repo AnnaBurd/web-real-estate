@@ -87,77 +87,62 @@ const phone = COMPANY_PHONE_NUMBER;
     transition: transform .6s ease, opacity .4s .1s ease
 </style>
 
-<!-- Hide and show navigation bar in header when scrolling past first (hero) section (client js) -->
+<!-- Hide and show navigation bar in header when scrolling past first x pixels (js) -->
 <script>
-  import type { DropdownMenu } from "./dropdown/NavigationDropdown.astro.0.mts";
-  import isMobileDevice from "../../scripts/isMobileDevice";
+  import type { DropdownMenu } from "./dropdown/NavigationDropdown";
 
-  const observeScrollAndToggleNavigation = (
-    navigatioElement: HTMLElement,
-    navigationDropdownElement: DropdownMenu,
-    scrolledElement: HTMLElement,
-    contentRootElement: HTMLElement,
-  ) => {
-    // Calculate height margins for intersection observer
-    const heightMargin = isMobileDevice() ? 30 : window.innerHeight * 0.27;
+  // Query relevant HTML elements
+  const navigationEl = document.querySelector("header") as HTMLElement;
+  const navigationDropdownEl = document.querySelector(
+    ".hamburger-menu",
+  ) as DropdownMenu;
+  const scrollSection = document.querySelector(".main-content") as HTMLElement;
 
-    const observerThreshhold = +(
-      scrolledElement.getAttribute("data-scroll-hide-section") || 0.99
-    );
+  // Keep track of scroll position
+  let isVisibleNavigationEl = true;
+  const visibilityThresholdY = 300;
 
-    const showNavigation = async () => {
-      // Check if dropdown menu is open and close it before futher animations
-      if (navigationDropdownElement.isOpened())
-        await navigationDropdownElement.hide();
+  // Handle revealing of the navigation bar
+  const showNavigationBar = async () => {
+    // Check if dropdown menu is open and close it before futher animations
+    if (navigationDropdownEl.isOpen()) await navigationDropdownEl.hide();
 
-      // Trigger show animation, as defined in css
-      navigatioElement.setAttribute("scroll-hide", "false");
+    // Trigger show animation, as defined in css
+    navigationEl.setAttribute("scroll-hide", "false");
 
-      // Clear applyed styles after animation (otherwise transform(0) meddles with layout)
-      setTimeout(() => {
-        navigatioElement.removeAttribute("scroll-hide");
-      }, 550);
-    };
-
-    const hideNavigation = () => {
-      // Trigger hide animation, as defined in css
-      navigatioElement.setAttribute("scroll-hide", "true");
-    };
-
-    const handleIntersect: IntersectionObserverCallback = (entries) => {
-      entries.forEach(async (entry) => {
-        if (entry.isIntersecting) {
-          showNavigation();
-        } else {
-          hideNavigation();
-        }
-      });
-    };
-
-    new IntersectionObserver(handleIntersect, {
-      root: contentRootElement,
-      rootMargin: `${heightMargin.toFixed(0)}px`,
-      threshold: [observerThreshhold],
-    }).observe(scrolledElement);
+    // Clear applyed styles after animation (otherwise transform(0) meddles with layout)
+    setTimeout(() => {
+      navigationEl.removeAttribute("scroll-hide");
+    }, 550);
   };
 
-  // Query relevant html elements
-  const headerEl: HTMLElement | null = document.querySelector("header");
-  const rootContainer: HTMLElement | null =
-    document.querySelector(".main-content");
-  const dropdown: DropdownMenu | null =
-    document.querySelector(".hamburger-menu");
-  const scrollHideSectionEl: HTMLElement | null = document.querySelector(
-    "[data-scroll-hide-section]",
-  );
+  // Handle hiding of navigation bar
+  const hideNavigationBar = () => {
+    // Trigger hide animation, as defined in css
+    navigationEl.setAttribute("scroll-hide", "true");
+  };
 
-  // If all elements are present, start observing
-  // TODO: uncomment
-  // if (scrollHideSectionEl && headerEl && rootContainer && dropdown)
-  //   observeScrollAndToggleNavigation(
-  //     headerEl,
-  //     dropdown,
-  //     scrollHideSectionEl,
-  //     rootContainer
-  //   );
+  const handleScrollEvent = () => {
+    const currentScrollPosition = scrollSection.scrollTop;
+
+    console.log("currentScrollPosition", currentScrollPosition);
+
+    if (currentScrollPosition > visibilityThresholdY && isVisibleNavigationEl) {
+      hideNavigationBar();
+      isVisibleNavigationEl = false;
+    }
+
+    if (
+      currentScrollPosition < visibilityThresholdY &&
+      !isVisibleNavigationEl
+    ) {
+      showNavigationBar();
+      isVisibleNavigationEl = true;
+    }
+  };
+  scrollSection.addEventListener("scroll", handleScrollEvent, {
+    passive: true,
+  });
+
+  // TODO: check performance and, if needed, apply throttling (interval proportional to distance from threshhold point)/ intersection observer to remove/add event listeners
 </script>

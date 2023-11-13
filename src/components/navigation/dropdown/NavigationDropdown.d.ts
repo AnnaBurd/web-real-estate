@@ -1,5 +1,5 @@
 export interface DropdownMenu extends HTMLElement {
-  hide(): void;
+  hide(): Promise<void>;
   open(): void;
   toggle(): void;
   isOpen(): boolean;

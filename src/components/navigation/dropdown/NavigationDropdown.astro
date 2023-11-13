@@ -20,7 +20,7 @@ const { currentPage, pages, phone } = Astro.props;
 
 <dropdown-menu
   id="hamburger-menu"
-  class="hamburger-menu hamburger-menu--closed fixed bg-white w-screen top-0 right-0 -z-10 pt-14 pb-1.5 list-none"
+  class="hamburger-menu hamburger-menu--closed fixed right-0 top-0 -z-10 w-screen list-none bg-white pb-1.5 pt-14"
 >
   <!-- Navigation links -->
   {
@@ -38,7 +38,7 @@ const { currentPage, pages, phone } = Astro.props;
   <li class="w-full px-2 py-1">
     <button
       id="callback-form-btn-small"
-      class="block uppercase text-sm tracking-tight font-semibold px-4 py-4 text-opacity-80 rounded-lg w-full hover:bg-[--color-accent] hover:text-white transition-colors duration-200 xl:hidden text-left"
+      class="block w-full rounded-lg px-4 py-4 text-left text-sm font-semibold uppercase tracking-tight text-opacity-80 transition-colors duration-200 hover:bg-[--color-accent] hover:text-white xl:hidden"
       >Liên hệ</button
     >
   </li>
@@ -47,13 +47,13 @@ const { currentPage, pages, phone } = Astro.props;
   <li class="w-full px-2 py-1">
     <button
       onclick=`location.href='tel:${phone}'`
-      class="flex flex-row items-center gap-x-1 uppercase text-base tracking-normal font-semibold px-4 py-4 text-opacity-80 rounded-lg w-full hover:bg-[--color-accent] hover:text-white transition-colors duration-200 xl:hidden sm:hidden"
+      class="flex w-full flex-row items-center gap-x-1 rounded-lg px-4 py-4 text-base font-semibold uppercase tracking-normal text-opacity-80 transition-colors duration-200 hover:bg-[--color-accent] hover:text-white sm:hidden xl:hidden"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        class="w-6 h-6"
+        class="h-6 w-6"
       >
         <path
           fill-rule="evenodd"
@@ -92,8 +92,8 @@ const { currentPage, pages, phone } = Astro.props;
 
 <!-- Handle menu opening and closing -->
 <script>
-  export class DropdownMenu extends HTMLElement {
-    private isOpen: boolean = false;
+  export class DropdownMenu extends HTMLElement implements DropdownMenu {
+    private _isOpen: boolean = false;
     private button: HTMLElement;
 
     constructor() {
@@ -103,28 +103,28 @@ const { currentPage, pages, phone } = Astro.props;
     }
 
     async hide() {
-      if (!this.isOpen) return;
+      if (!this._isOpen) return;
 
-      this.isOpen = false;
+      this._isOpen = false;
       this.button.setAttribute("data-open", "false");
       this.classList.add("hamburger-menu--closed");
 
       await new Promise((resolve) => setTimeout(resolve, 200));
     }
     open() {
-      if (this.isOpen) return;
+      if (this._isOpen) return;
 
-      this.isOpen = true;
+      this._isOpen = true;
       this.button.setAttribute("data-open", "true");
       this.classList.remove("hamburger-menu--closed");
     }
 
     toggle() {
-      this.isOpen ? this.hide() : this.open();
+      this._isOpen ? this.hide() : this.open();
     }
 
-    isOpened() {
-      return this.isOpen;
+    isOpen() {
+      return this._isOpen;
     }
   }
 

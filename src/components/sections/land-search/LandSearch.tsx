@@ -6,12 +6,12 @@ import SearchFilter, {
   type LandTypeOption,
 } from "./search-filters/SearchFilters";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FavouritesContext } from "./favourites/FavouritesContext";
 import {
   getCurrentSearchFilters,
   saveSearchFiltersToUrl,
-} from "./searhQueryHelpers";
+} from "./searhQueryStateManager";
 
 interface Props {
   preloadedLands: Land[];

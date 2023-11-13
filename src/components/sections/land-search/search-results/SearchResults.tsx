@@ -12,6 +12,14 @@ import EmptySearch from "./empty-search/EmptySearch";
 import SortIcon from "./SortIcon";
 import ViewSwitch from "./ViewSwitch";
 import FilterIcon from "../search-filters/FilterIcon";
+import {
+  type SortOption,
+  SORT_OPTIONS,
+  saveSortOptionToUrl,
+  getCurrentSortOption,
+  getCurrentViewType,
+  saveViewTypeToUrl,
+} from "../searhQueryStateManager";
 
 interface Props {
   lands: Land[];
@@ -20,16 +28,6 @@ interface Props {
   onResetSearch: () => void;
   onOpenFilters: () => void;
 }
-
-export const SORT_OPTIONS = [
-  "Mới thêm trước",
-  "Rẻ nhất trước",
-  "Đắt nhất trước",
-  "Nhỏ nhất trước",
-  "Lớn nhất trước",
-] as const;
-
-export type SortOption = (typeof SORT_OPTIONS)[number];
 
 const sortLands = (lands: Land[], sortOption: SortOption | null) => {
   if (!sortOption || sortOption === "Mới thêm trước") return lands;
@@ -55,7 +53,7 @@ const SearchResults: React.FC<Props> = ({
   onResetSearch,
   onOpenFilters,
 }) => {
-  const [isMapShown, setIsMapShown] = useState(false); // Show list view by default on small screens, but allow to switch to map view
+  const [isMapShown, setIsMapShown] = useState(getCurrentViewType() === "map"); // Show list view by default on small screens, but allow to switch to map view
   const handleViewSwitchToggle = () => {
     // Toggle list visibility
     setIsMapShown((prev) => !prev);
@@ -63,9 +61,21 @@ const SearchResults: React.FC<Props> = ({
     // Toggle map visibility
     mapViewWrapperRef.current?.classList.toggle("max-lg:invisible");
     mapViewWrapperRef.current?.classList.toggle("max-lg:opacity-0");
+
+    // Update url query params to reflect the new view type
+    saveViewTypeToUrl(isMapShown ? "list" : "map");
   };
 
-  const [sortOption, setSortOption] = useState<SortOption | null>(null); // By default show newly added lands first
+  const [sortOption, setSortOption] = useState<SortOption | null>(
+    getCurrentSortOption(),
+  ); // By default show newly added lands first
+
+  const handleSortOptionChange = (option: SortOption | null) => {
+    setSortOption(option);
+
+    // Update url query params to reflect the new sort option
+    if (option) saveSortOptionToUrl(option);
+  };
 
   const sortedLands = sortLands(lands, sortOption);
 
@@ -85,6 +95,14 @@ const SearchResults: React.FC<Props> = ({
 
     if (sortedLands.length > 0)
       mapViewRef.current?.focusOnPopupMarker(sortedLands[0].title!);
+
+    // Sync map-view element visibility with the current view type (relevant for mobile devices)
+
+    if (isMapShown) {
+      // Toggle map visibility
+      mapViewWrapperRef.current?.classList.toggle("max-lg:invisible");
+      mapViewWrapperRef.current?.classList.toggle("max-lg:opacity-0");
+    }
   }, []);
 
   const {
@@ -154,7 +172,7 @@ const SearchResults: React.FC<Props> = ({
           <Dropdown
             options={SORT_OPTIONS}
             selectedOption={sortOption}
-            onUpdateSelection={(option) => setSortOption(option)}
+            onUpdateSelection={handleSortOptionChange}
             className="pl-0.5"
           >
             <SortIcon />

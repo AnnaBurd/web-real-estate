@@ -1,20 +1,20 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 
-interface Props {
-  options: string[];
-  selectedOption: number;
-  onUpdateSelection: (option: number) => void;
+interface Props<T> {
+  options: readonly T[];
+  selectedOption: T;
+  onUpdateSelection: (option: T) => void;
   children?: React.ReactNode;
   className?: string;
 }
 
-const Dropdown: React.FC<Props> = ({
+function Dropdown<T extends ReactNode>({
   options,
   selectedOption,
   onUpdateSelection,
   children,
   className,
-}) => {
+}: Props<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +50,7 @@ const Dropdown: React.FC<Props> = ({
             {children}
           </span>
           <span className="hidden @lg/search-results:block">
-            {selectedOption === -1 ? "Mặc định" : options[selectedOption]}
+            {!selectedOption ? "Mặc định" : selectedOption}
           </span>
           <svg
             className="-mr-1 h-5 w-5 "
@@ -84,9 +84,9 @@ const Dropdown: React.FC<Props> = ({
             <a
               onClick={() => {
                 setIsOpen(false);
-                onUpdateSelection(index);
+                onUpdateSelection(option);
               }}
-              key={option}
+              key={index}
               href="#"
               className={` block px-4 py-2 text-sm  transition duration-300 ease-in-out hover:bg-[--color-secondary-transparent-lighter] hover:text-[--color-secondary-darker] ${
                 index === selectedOption
@@ -104,6 +104,6 @@ const Dropdown: React.FC<Props> = ({
       </div>
     </div>
   );
-};
+}
 
 export default Dropdown;

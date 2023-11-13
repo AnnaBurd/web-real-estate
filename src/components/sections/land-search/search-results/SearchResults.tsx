@@ -21,24 +21,30 @@ interface Props {
   onOpenFilters: () => void;
 }
 
-const SORT_OPTIONS = [
+export const SORT_OPTIONS = [
   "Mới thêm trước",
   "Rẻ nhất trước",
   "Đắt nhất trước",
   "Nhỏ nhất trước",
   "Lớn nhất trước",
-];
+] as const;
 
-const sortLands = (lands: Land[], sortOption: number) => {
-  if (sortOption <= 0) return lands;
+export type SortOption = (typeof SORT_OPTIONS)[number];
 
-  if (sortOption === 1) return lands.toSorted((a, b) => a.price! - b.price!);
+const sortLands = (lands: Land[], sortOption: SortOption | null) => {
+  if (!sortOption || sortOption === "Mới thêm trước") return lands;
 
-  if (sortOption === 2) return lands.toSorted((a, b) => b.price! - a.price!);
+  if (sortOption === "Rẻ nhất trước")
+    return lands.toSorted((a, b) => a.price! - b.price!);
 
-  if (sortOption === 3) return lands.toSorted((a, b) => a.area! - b.area!);
+  if (sortOption === "Đắt nhất trước")
+    return lands.toSorted((a, b) => b.price! - a.price!);
 
-  if (sortOption === 4) return lands.toSorted((a, b) => b.area! - a.area!);
+  if (sortOption === "Nhỏ nhất trước")
+    return lands.toSorted((a, b) => a.area! - b.area!);
+
+  if (sortOption === "Lớn nhất trước")
+    return lands.toSorted((a, b) => b.area! - a.area!);
 
   return lands;
 };
@@ -59,7 +65,7 @@ const SearchResults: React.FC<Props> = ({
     mapViewWrapperRef.current?.classList.toggle("max-lg:opacity-0");
   };
 
-  const [sortOption, setSortOption] = useState(0); // By default show newly added lands first
+  const [sortOption, setSortOption] = useState<SortOption | null>(null); // By default show newly added lands first
 
   const sortedLands = sortLands(lands, sortOption);
 

@@ -26,9 +26,9 @@ const imgSrcSet = generateImageSrcset(land.images?.[0].url, [200, 400, 800]); //
 >
   <a
     href={`/${land.slug}`}
-    class="bg-white rounded-md overflow-hidden flex flex-col h-full max-w-md mx-auto md:max-w-lg tabbable"
+    class="tabbable mx-auto flex h-full max-w-md select-none flex-col overflow-hidden rounded-md bg-white md:max-w-lg"
   >
-    <div class="w-[120%] h-48 md:h-56 xl:h-64 portrait:md:h-80 relative">
+    <div class="relative h-48 w-[120%] md:h-56 xl:h-64 portrait:md:h-80">
       <img
         loading="lazy"
         alt={land.title}
@@ -36,7 +36,7 @@ const imgSrcSet = generateImageSrcset(land.images?.[0].url, [200, 400, 800]); //
         sizes={imgSizes}
         src={imgSrc}
         data-swiper-parallax="10"
-        class="w-full h-full object-cover object-right -ml-[10%]"
+        class="-ml-[10%] h-full w-full object-cover object-right"
       />
       {
         land.tag && (
@@ -47,31 +47,31 @@ const imgSrcSet = generateImageSrcset(land.images?.[0].url, [200, 400, 800]); //
       }
     </div>
     <div
-      class="py-4 px-4 xl:py-6 xl:px-6 w-full flex flex-col self-stretch flex-1 justify-between"
+      class="flex w-full flex-1 flex-col justify-between self-stretch px-4 py-4 xl:px-6 xl:py-6"
     >
       <div>
         <span
-          class="text-base md:text-xl font-semibold tracking-tight leading-tight block"
+          class="block text-base font-semibold leading-tight tracking-tight md:text-xl"
           >{land.title}</span
         >
-        <p class="text-xs md:text-sm font-normal not-italic opacity-80">
+        <p class="text-xs font-normal not-italic opacity-80 md:text-sm">
           {land.briefDescription || land.address}
         </p>
       </div>
 
-      <span class="block mt-6" data-swiper-parallax="10">
+      <span class="mt-6 block" data-swiper-parallax="10">
         <span
-          class="text-[--color-accent] text-base font-medium xl:font-normal xl:text-xl"
+          class="text-base font-medium text-[--color-accent] xl:text-xl xl:font-normal"
         >
           <span
-            class="text-2xl md:text-3xl xl:text-4xl font-normal md:font-light tracking-tighter leading-tight"
+            class="text-2xl font-normal leading-tight tracking-tighter md:text-3xl md:font-light xl:text-4xl"
             >{(land?.price || 0) / 1000000000}
           </span> tỷ
         </span>
         {
           land?.area && (
-            <span class="opacity-90 tracking-tighter text-sm">
-              <span class=" bg-[--color-text] w-[1px] h-5 xl:h-7 inline-block -mb-1 ml-1 mr-1.5 opacity-20" />
+            <span class="text-sm tracking-tighter opacity-90">
+              <span class=" -mb-1 ml-1 mr-1.5 inline-block h-5 w-[1px] bg-[--color-text] opacity-20 xl:h-7" />
               {land.area.toLocaleString().replace(/,/g, " ")} m&sup2
             </span>
           )

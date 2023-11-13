@@ -30,7 +30,7 @@ const suggestedLands = land.suggestedLands
 
 <Layout pageTitle={land.title || "Land"}>
   <Container
-    className="pt-16 lg:pt-20 pb-6 lg:pb-6 bg-gradient-to-t lg:from-[--color-secondary-lighter] from-[#40527338]"
+    className="bg-gradient-to-t from-[#40527338] pb-6 pt-16 lg:from-[--color-secondary-lighter] lg:pb-6 lg:pt-20"
   >
     <Gallery
       tag={land.tag}
@@ -41,7 +41,7 @@ const suggestedLands = land.suggestedLands
   </Container>
 
   {
-    suggestedLands.length >= 3 && (
+    suggestedLands.length > 0 && (
       <LandPreviews
         promotedLands={suggestedLands}
         heading="Dự án tưởng tượng"

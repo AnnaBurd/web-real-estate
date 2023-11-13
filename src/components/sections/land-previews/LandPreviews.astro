@@ -25,7 +25,7 @@ const {
 } = Astro.props;
 ---
 
-<!-- TODO fix heigh of cards uneven -->
+<!-- TODO: fix heigh of cards uneven -->
 <div
   id="land-previews"
   class={`${
@@ -39,7 +39,7 @@ const {
   <Container fullHeight={fullHeight}>
     <h2
       id="land-previews-title"
-      class="capitalize text-xl md:text-2xl portrait:md:text-4xl xl:text-4xl 2xl:text-5xl tracking-normal font-normal pb-2 md:pb-4 -z-10"
+      class="-z-10 pb-2 text-xl font-normal capitalize tracking-normal md:pb-4 md:text-2xl xl:text-4xl 2xl:text-5xl portrait:md:text-4xl"
     >
       {heading}
     </h2>
@@ -47,7 +47,7 @@ const {
       subheading && (
         <p
           id="land-previews-description"
-          class="text-xs md:text-sm font-normal opacity-80 tracking-wide md:leading-relaxed max-w-[44ch] text-center -z-10"
+          class="-z-10 max-w-[44ch] text-center text-xs font-normal tracking-wide opacity-80 md:text-sm md:leading-relaxed"
         >
           {subheading}
         </p>
@@ -58,20 +58,19 @@ const {
       data-scroll
       data-scroll-speed={scrollEffect ? ".2" : "0"}
       id="land-previews-slides"
-      class="w-full mt-10 xl:mt-12 flex items-center md:gap-14 xl:gap-6"
+      class="mt-10 flex w-full items-center md:gap-14 xl:mt-12 xl:gap-6"
     >
       <div
-        class="swiper-button cursor-pointer swiper-button-prev bg-[--color-secondary-lighter] p-5 order-1 rounded-full hidden md:block hover:bg-[#40527311] tabbable"
+        class="swiper-button swiper-button-prev tabbable order-1 hidden cursor-pointer rounded-full bg-[--color-secondary-lighter] p-5 hover:bg-[#40527311] md:block"
         tabindex="0"
       >
         <IconLeft />
       </div>
 
       <div
-        class="swiper rounded-md md:px-.5 order-2 w-full overflow-visible md:overflow-hidden"
-        data-slides={promotedLands.length}
+        class="swiper md:px-.5 order-2 w-full overflow-visible rounded-md md:overflow-hidden"
       >
-        <div class="swiper-wrapper flex-col md:flex-row gap-8 md:gap-0">
+        <div class="swiper-wrapper flex-col gap-8 md:flex-row md:gap-0">
           {
             promotedLands.map((land) => (
               <Card
@@ -85,7 +84,7 @@ const {
       </div>
 
       <div
-        class="swiper-button cursor-pointer swiper-button-next bg-[--color-secondary-lighter] p-5 order-3 rounded-full hidden md:block hover:bg-[#40527311] tabbable"
+        class="swiper-button swiper-button-next tabbable order-3 hidden cursor-pointer rounded-full bg-[--color-secondary-lighter] p-5 hover:bg-[#40527311] md:block"
         tabindex="0"
       >
         <IconRight />
@@ -180,56 +179,80 @@ const {
   import Swiper from "swiper";
   import { Navigation, Keyboard, Parallax } from "swiper/modules";
   import "swiper/css";
+  import isMobileDevice from "../../../scripts/isMobileDevice";
+
+  const slidesPerViewBreakpoints = {
+    1024: {
+      slidesPerView: 2,
+    },
+    1280: {
+      slidesPerView: 3,
+    },
+    1536: {
+      slidesPerView: 4,
+    },
+  };
 
   // Workaround for swiper limitation of slides dissapearing in loop mode + centeredSlides when number of slides is less than slidesPerView * 2;
   // Ref. official docs: https://swiperjs.com/migration-guide-v9#loop-mode
   // Temporary solution - compare number of slides with required slides per view and duplicate slides if there is not enough slides
-  let totalSlides = ((document.querySelector(".swiper") as HTMLDivElement)
-    ?.dataset.slides || 0) as number;
-  const viewportWidth = window.innerWidth;
-  const expectedNumberOfSlides =
-    viewportWidth >= 1536
-      ? 4 * 2 + 1
-      : viewportWidth >= 1280
-      ? 3 * 2 + 1
-      : viewportWidth >= 1024
-      ? 2 * 2 + 1
-      : 0;
+  const fixLackOfSlidesForSwiperLoopAnimation = () => {
+    const swiperWrapperEl = document.querySelector(
+      ".swiper-wrapper",
+    ) as HTMLElement;
 
-  if (totalSlides < expectedNumberOfSlides && totalSlides > 0) {
-    const slidesContainer = document.querySelector(".swiper-wrapper")!;
-    const slidesHTML = slidesContainer.innerHTML;
+    // Get number of existing slides
+    const numberOfSlides =
+      swiperWrapperEl?.querySelectorAll(".swiper-slide")?.length;
 
-    slidesContainer?.insertAdjacentHTML("beforeend", slidesHTML);
-  }
+    // Calculate the minimum number of slides required for the swiper loop animation to work
+    const viewportWidth = window.innerWidth;
+
+    let visibleSlidesPerPage = 0;
+
+    for (const [bp, { slidesPerView }] of Object.entries(
+      slidesPerViewBreakpoints,
+    )) {
+      if (viewportWidth >= +bp) {
+        visibleSlidesPerPage = slidesPerView;
+      }
+    }
+
+    const requiredMinNumberOfSlides = visibleSlidesPerPage * 2 + 1;
+
+    // Duplicate slides if there are enough slides for loop, but not enough for the loop animation
+    const hasEnoughSlidesForLoop = numberOfSlides > visibleSlidesPerPage;
+    const hasEnoughSlidesForLoopAnimation =
+      numberOfSlides >= requiredMinNumberOfSlides;
+
+    if (hasEnoughSlidesForLoop && !hasEnoughSlidesForLoopAnimation) {
+      swiperWrapperEl?.insertAdjacentHTML(
+        "beforeend",
+        swiperWrapperEl.innerHTML,
+      );
+    }
+
+    return hasEnoughSlidesForLoop;
+  };
+
+  const canAnimateLoop = fixLackOfSlidesForSwiperLoopAnimation();
 
   // Init swiper on desktop and destroy on mobile (breakpoint is 768px - same as tailwind's md breakpoint)
   let hasInitSwiper = false;
   let swiper: Swiper;
-  const mobileBreakpoint = 768;
 
-  const initSwiper = () => {
-    if (!hasInitSwiper && window.innerWidth >= mobileBreakpoint) {
+  const initSwiper = (canAnimateLoop: boolean) => {
+    if (!hasInitSwiper && !isMobileDevice()) {
       swiper = new Swiper(".swiper", {
         modules: [Navigation, Keyboard, Parallax],
         direction: "horizontal",
-        loop: true,
+        loop: canAnimateLoop,
         // cssMode: true,
         speed: 1000,
-        centeredSlides: true,
+        centeredSlides: canAnimateLoop,
         slidesPerView: 1,
         parallax: true,
-        breakpoints: {
-          1024: {
-            slidesPerView: 2,
-          },
-          1280: {
-            slidesPerView: 3,
-          },
-          1536: {
-            slidesPerView: 4,
-          },
-        },
+        breakpoints: slidesPerViewBreakpoints,
         keyboard: {
           enabled: true,
           onlyInViewport: true,
@@ -243,12 +266,14 @@ const {
       hasInitSwiper = true;
     }
 
-    if (hasInitSwiper && window.innerWidth < mobileBreakpoint) {
+    if (hasInitSwiper && isMobileDevice()) {
       swiper.destroy();
       hasInitSwiper = false;
     }
   };
 
-  initSwiper();
-  window.addEventListener("resize", initSwiper);
+  initSwiper(canAnimateLoop);
+  window.addEventListener("resize", () =>
+    initSwiper(fixLackOfSlidesForSwiperLoopAnimation()),
+  );
 </script>

@@ -8,7 +8,7 @@ const { id } = Astro.props;
 
 <pop-up
   id={id}
-  class="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center px-10 md:px-16 lg:px-32 min-[1700px]:px-0 xl:mx-auto bg-gradient-to-tr from-[--color-grey-light] to-[#72B3E3]"
+  class="fixed left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-gradient-to-tr from-[--color-grey-light] to-[#72B3E3] px-10 md:px-16 lg:px-32 xl:mx-auto min-[1700px]:px-0"
   open="false"
 >
   <slot />
@@ -102,7 +102,9 @@ const { id } = Astro.props;
 
 <!-- Handle popup opening and closing functionality (reusable web component) -->
 <script>
-  export class PopUp extends HTMLElement {
+  import type { Popup } from "./Popup";
+
+  export class PopUp extends HTMLElement implements Popup {
     private isOpen: boolean = false;
     private parentEl: HTMLElement;
     private headerEl: HTMLElement;

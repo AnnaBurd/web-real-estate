@@ -3,9 +3,9 @@ import Container from "../../layouts/Container.astro";
 import LogoSmall from "../logo/LogoSmall.astro";
 import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
 import ColumnHeader from "./ColumnHeader.astro";
-import Link from "./Link.astro";
 import SocialIcons from "../ui/social-icons/SocialIcons.astro";
 import SubscriptionForm from "./SubscriptionForm.astro";
+import Item from "./Item.astro";
 ---
 
 <footer class="grid w-full grid-cols-1 grid-rows-[1fr,min,min]">
@@ -37,18 +37,26 @@ import SubscriptionForm from "./SubscriptionForm.astro";
       className="grid grid-cols-1 gap-2 pb-16 md:grid-cols-2 lg:grid-cols-3 "
     >
       <ColumnHeader text="Công ty" />
-      <Link href="#">Thông tin</Link>
-      <Link href="#" className="md:[grid-column:1/2] md:[grid-row:3/4]">
+      <Item type="link" href="/thong-tin">Thông tin</Item>
+      <Item
+        type="button"
+        id="callback-form-footer-btn"
+        className="md:[grid-column:1/2] md:[grid-row:3/4]"
+      >
         Liên hệ
-      </Link>
+      </Item>
       <ColumnHeader
         text="đầu tư"
         className="md:[grid-column:2/3] md:[grid-row:1/2]"
       />
-      <Link href="#">Tìm kiếm đất</Link>
-      <Link href="#" className="lg:[grid-column:2/3] lg:[grid-row:3/4]">
+      <Item type="link" href="/tim-dat">Tìm kiếm đất</Item>
+      <Item
+        type="link"
+        href="/tim-dat?viewType=map"
+        className="lg:[grid-column:2/3] lg:[grid-row:3/4]"
+      >
         Xem đất trên bản đồ
-      </Link>
+      </Item>
       <ColumnHeader
         text="Nhận ưu đãi mới qua email"
         className="mb-1.5 mt-4 md:mb-0 md:mt-0 lg:mb-1.5 lg:[grid-column:3/4] lg:[grid-row:1/2]"

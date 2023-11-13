@@ -1,10 +1,10 @@
 ---
-import PopupCloseBtn from "../../layouts/PopupCloseBtn.astro";
+import PopupCloseBtn from "./PopupCloseBtn.astro";
 import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
 ---
 
 <section
-  class="overflow-hidden rounded-md shadow-2xl md:grid md:grid-cols-3 bg-white max-w-2xl relative w-full"
+  class="relative w-full max-w-2xl overflow-hidden rounded-md bg-white shadow-2xl md:grid md:grid-cols-3"
 >
   <PopupCloseBtn />
   <div class="h-32 w-[105%] md:h-full md:w-full">
@@ -17,11 +17,11 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
 
   <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
     <h3
-      class="text-base md:text-lg xl:text-2xl tracking-normal font-normal mb-1"
+      class="mb-1 text-base font-normal tracking-normal md:text-lg xl:text-2xl"
     >
       Liên hệ với chúng tôi
     </h3>
-    <p class="text-xs font-normal opacity-80 tracking-wide leading-snug mb-4">
+    <p class="mb-4 text-xs font-normal leading-snug tracking-wide opacity-80">
       Vui lòng để lại tin nhắn và chúng tôi sẽ gọi lại sớm <br /> trong vong 24
       tieng.
       <p>
@@ -35,7 +35,7 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
           <div>
             <label class="sr-only" for="name">Tên</label>
             <input
-              class="w-full rounded-md border-[#607cb344] py-2.5 px-3 text-sm focus:ring-2 focus:ring-offset-2 focus:ring-[#607cb3] focus:border-[#607cb344]"
+              class="w-full rounded-md border-[#607cb344] px-3 py-2.5 text-sm focus:border-[#607cb344] focus:ring-2 focus:ring-[#607cb3] focus:ring-offset-2"
               placeholder="Tên"
               type="text"
               id="name"
@@ -47,7 +47,7 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
           <div>
             <label class="sr-only" for="phone">Số điện thoại</label>
             <input
-              class="w-full rounded-md border-[#607cb344] py-2.5 px-3 text-sm focus:ring-2 focus:ring-offset-2 focus:ring-[#607cb3] focus:border-[#607cb344]"
+              class="w-full rounded-md border-[#607cb344] px-3 py-2.5 text-sm focus:border-[#607cb344] focus:ring-2 focus:ring-[#607cb3] focus:ring-offset-2"
               placeholder="Số điện thoại"
               type="tel"
               name="phone"
@@ -60,7 +60,7 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
             <label class="sr-only" for="message">Thông tin</label>
 
             <textarea
-              class="w-full rounded-md border-[#607cb344] py-2.5 px-3 text-sm focus:ring-2 focus:ring-offset-2 focus:ring-[#607cb3] focus:border-[#607cb344]"
+              class="w-full rounded-md border-[#607cb344] px-3 py-2.5 text-sm focus:border-[#607cb344] focus:ring-2 focus:ring-[#607cb3] focus:ring-offset-2"
               placeholder="Thông tin"
               rows="6"
               name="message"
@@ -71,7 +71,7 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
             <ButtonAnimated
               type="submit"
               hiddenText={"Gửi thông tin"}
-              className=" !tracking-wide button-smaller rounded-md"
+              className=" button-smaller rounded-md !tracking-wide"
             >
               Gửi thông tin
             </ButtonAnimated>
@@ -85,14 +85,14 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
 <!-- Callback form functionality - validate data and send to the netlify backend -->
 <script>
   const callbackFormEl = document.getElementById(
-    "callback-form"
+    "callback-form",
   ) as HTMLFormElement;
 
   const successAlertEl = document.querySelector("#success-alert") as any;
   const errorAlertEl = document.querySelector("#error-alert") as any;
 
   const formContainerPopupEl = document.querySelector(
-    "#callback-form-popup"
+    "#callback-form-popup",
   ) as any;
 
   callbackFormEl.addEventListener("submit", async (e) => {
@@ -101,13 +101,13 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
 
     // Read values from input fields
     const nameInputEl = callbackFormEl.querySelector(
-      "#name"
+      "#name",
     ) as HTMLInputElement;
     const phoneInputEl = callbackFormEl.querySelector(
-      "#phone"
+      "#phone",
     ) as HTMLInputElement;
     const messageInputEl = callbackFormEl.querySelector(
-      "#message"
+      "#message",
     ) as HTMLInputElement;
 
     const name = nameInputEl.value?.trim().slice(0, 50);
@@ -128,10 +128,10 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
     formData.set("message", message);
 
     const btnElement = callbackFormEl.querySelector(
-      "button[type=submit]"
+      "button[type=submit]",
     ) as HTMLButtonElement;
     const btnElementTextContainer = btnElement.querySelector(
-      "span"
+      "span",
     ) as HTMLSpanElement;
 
     try {
@@ -154,7 +154,7 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
       setTimeout(() => {
         successAlertEl.show(
           "Gửi tin nhắn thành công",
-          "Chúng tôi rất mong nhận được hồi âm từ bạn va se goi lai cho ban som nhe."
+          "Chúng tôi rất mong nhận được hồi âm từ bạn va se goi lai cho ban som nhe.",
         );
       }, delay);
 
@@ -172,11 +172,35 @@ import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
         console.log("Error submitting email to subscription form", error);
       errorAlertEl.show(
         "Gửi tin nhắn không thành công",
-        "Rất tiếc, lỗi đã xảy ra, vui lòng thử lại sau."
+        "Rất tiếc, lỗi đã xảy ra, vui lòng thử lại sau.",
       );
 
       btnElement.innerText = "Gửi thông tin";
       btnElement.disabled = false;
     }
   });
+</script>
+
+<!-- Open callback form with buttons -->
+<script>
+  import type { Popup } from "./Popup";
+
+  const callbackFormPopup = document.getElementById(
+    "callback-form-popup",
+  ) as Popup;
+
+  // Query elements that open the callback form
+  const openBtns: (HTMLElement | null)[] = [];
+
+  openBtns.push(document.getElementById("callback-form-btn"));
+  openBtns.push(document.getElementById("callback-form-btn-small"));
+  openBtns.push(document.getElementById("callback-form-footer-btn"));
+
+  openBtns
+    .filter((el) => el !== null)
+    .forEach((btn) =>
+      btn!.addEventListener("click", () => {
+        callbackFormPopup.show();
+      }),
+    );
 </script>

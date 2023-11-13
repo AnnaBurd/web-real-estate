@@ -15,13 +15,9 @@ const mediaAssets = [...videos, ...images];
 ---
 
 <!-- Show video and photo cards of the land (videos come first) -->
-<section
-  class="pswp-gallery"
-  id="photo-gallery"
-  data-scroll-hide-section="0.76"
->
+<section class="pswp-gallery" id="photo-gallery">
   <div
-    class="grid lg:grid-cols-2 lg:grid-rows-1 gap-4 min-h-[250px] max-h-[800px] h-[25vh] lg:h-[50vh]"
+    class="grid h-[25vh] max-h-[800px] min-h-[250px] gap-4 lg:h-[50vh] lg:grid-cols-2 lg:grid-rows-1"
   >
     <!-- Photo/Video card with large thumbnail -->
     {
@@ -61,7 +57,7 @@ const mediaAssets = [...videos, ...images];
     }
 
     <!-- Four photos/videos with smaller thumbnails -->
-    <div class="lg:grid grid-cols-2 grid-rows-2 gap-3 hidden">
+    <div class="hidden grid-cols-2 grid-rows-2 gap-3 lg:grid">
       {
         [1, 2, 3, 4].map((i) => {
           if (mediaAssets[i].kind === "image")

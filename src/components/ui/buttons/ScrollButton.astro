@@ -1,0 +1,121 @@
+---
+type Props = {
+  id: string;
+  destinationElementId: string;
+  direction?: "up" | "down";
+  ariaLabel?: string;
+  className?: string;
+};
+
+const { id, destinationElementId, ariaLabel, className, direction } =
+  Astro.props;
+---
+
+<button
+  id={id}
+  aria-label={ariaLabel || "Go down to the next section"}
+  data-destination-id={destinationElementId}
+  class={` z-index-[500] tabbable absolute bottom-10 right-0 mx-3 cursor-pointer  rounded-full bg-[--color-secondary-lighter] p-4 hover:text-white md:mx-16 ${
+    className ? className : ""
+  }`}
+>
+  <div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      class={`h-5 w-5 ${direction === "up" ? "transform rotate-180" : ""}`}
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"></path>
+    </svg>
+  </div>
+</button>
+
+<!-- Button press effects (similar to the effects of the Button component) and hover effect -->
+<style>
+  button {
+    transition:
+      border-color 0.3s,
+      background-color 0.3s,
+      transform ease-in 0.15s,
+      box-shadow ease-in 0.25s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+
+  button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 15px var(--color-accent-darkest);
+  }
+
+  button::after {
+    content: "";
+    position: absolute;
+    width: 3.3rem;
+    height: 3.3rem;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0) scale(0);
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+  }
+
+  button:hover::after {
+    z-index: 500;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+    transition: transform 0.45s cubic-bezier(0.6, 0.01, 0, 1.38);
+  }
+
+  button > div {
+    position: relative;
+    z-index: 502;
+  }
+</style>
+
+<!-- Handle Scroll Button clich -> scroll to the destination id -->
+<script>
+  import initScroll from "../../../scripts/smoothScroll";
+
+  const initScrollButton = () => {
+    const scrollBtnEl = document.querySelector(`#scroll-btn`);
+
+    if (!scrollBtnEl) return;
+
+    const destinationId = (scrollBtnEl as HTMLElement)?.dataset?.destinationId;
+
+    if (!destinationId) return;
+
+    const destinationEl = document.getElementById(destinationId);
+
+    if (!destinationEl) return;
+
+    const smoothScroll = initScroll(); // Get or init existing instance of the smooth scroll, if returns null, then use the default scroll
+
+    const handleScrollBtnClick = () => {
+      if (smoothScroll) {
+        const deltaY =
+          window.innerHeight - destinationEl.getBoundingClientRect().top;
+
+        smoothScroll.scrollTo(destinationEl, {
+          duration: 1.4 * (1 - deltaY / window.innerHeight),
+          easing: (t: number) => {
+            return 1 - Math.pow(1 - t, 4);
+          },
+        });
+      }
+
+      if (!smoothScroll) {
+        destinationEl.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    scrollBtnEl.addEventListener("click", handleScrollBtnClick);
+  };
+
+  initScrollButton();
+</script>

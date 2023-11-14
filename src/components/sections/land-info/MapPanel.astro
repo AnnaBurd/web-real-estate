@@ -1,0 +1,27 @@
+---
+import MapView from "../../map/MapView.astro";
+import type { Land } from "../../../model/Land";
+
+interface Props {
+  land: Land;
+}
+
+const { land } = Astro.props;
+---
+
+<div
+  class="bg-white rounded-xl shadow-sm h-[30vh] min-h-[200px] max-h-[600px] overflow-hidden"
+>
+  <MapView
+    locations={[
+      {
+        title: `Vị trí của ${land.title || "Đất trống"}`,
+        coordinates: {
+          lat: land.coords ? land.coords[0] : 0,
+          lng: land.coords ? land.coords[1] : 0,
+        },
+      },
+    ]}
+    title={`Vị trí của ${land.title}`}
+  />
+</div>

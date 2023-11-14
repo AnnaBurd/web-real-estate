@@ -1,0 +1,47 @@
+---
+import ButtonAnimated from "../components/ui/buttons/ButtonAnimated.astro";
+import Container from "../layouts/Container.astro";
+import Layout from "../layouts/Layout.astro";
+
+const title = "VietLand - thông tin liên lạc";
+---
+
+<Layout pageTitle={title}>
+  <Container
+    fullHeight={true}
+    className="!h-screen bg-[--color-secondary-lighter]"
+  >
+    <div
+      class="grid h-full w-full grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-1 md:items-center md:gap-28"
+    >
+      <div
+        class="h-full min-h-[12rem] w-full min-w-[12rem] md:order-1 md:mb-10"
+      >
+        <img class="object-fit h-full w-full" src="/vectors/error.svg" />
+      </div>
+
+      <div class="mx-auto w-fit">
+        <h1
+          class="mb-2 max-w-[30ch] text-xl font-bold leading-tight [text-wrap:balanced]"
+        >
+          Đã xảy ra lỗi
+        </h1>
+        <p class="mb-1 text-base opacity-80 [text-wrap:balanced]">
+          Có vẻ như bạn đã tìm thấy cánh cửa dẫn đến hư vô tuyệt vời. Xin lỗi vì
+          điều đó!
+        </p>
+        <p class="mb-5 text-base opacity-80 [text-wrap:balanced]">
+          Vui lòng truy cập trang chủ của chúng tôi để đến nơi bạn cần đến.
+        </p>
+        <div class="">
+          <ButtonAnimated
+            hiddenText="về trang chủ"
+            onClick="location.href = '/'"
+          >
+            Đưa tôi tơi đo!
+          </ButtonAnimated>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Layout>

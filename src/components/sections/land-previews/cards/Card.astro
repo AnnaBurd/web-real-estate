@@ -1,0 +1,89 @@
+---
+import type { Land } from "../../../../model/Land";
+import {
+  generateImageSrc,
+  generateImageSrcset,
+} from "../../../../scripts/imageSrcHelper";
+import Badge from "../../../ui/Badge.astro";
+
+interface Props {
+  land: Land;
+  className?: string;
+  attributes?: any;
+}
+
+const { land, className, attributes } = Astro.props;
+
+// Prepare responsive image srcset and sizes
+const imgSrc = generateImageSrc(land.images?.[0].url, 800, 500);
+const imgSizes = "(max-width: 1024px) 500px, 350px"; // tells browser what img sizes are expected at different breakpoints
+const imgSrcSet = generateImageSrcset(land.images?.[0].url, [200, 400, 800]); // comma separated list of image urls with different sizes => size can be x2 of the browser size for retina displays
+---
+
+<div
+  {...attributes}
+  class=` md:px-6 md:pb-10 xl:px-3 h-auto ${className ? className : ""} overflow-visible`
+>
+  <a
+    href={`/${land.slug}`}
+    class="tabbable mx-auto flex h-full max-w-md select-none flex-col overflow-hidden rounded-md bg-white md:max-w-lg"
+  >
+    <div class="relative h-48 w-[120%] md:h-56 xl:h-64 portrait:md:h-80">
+      <img
+        loading="lazy"
+        alt={land.title}
+        srcset={imgSrcSet}
+        sizes={imgSizes}
+        src={imgSrc}
+        data-swiper-parallax="10"
+        class="-ml-[10%] h-full w-full object-cover object-right"
+      />
+      {
+        land.tag && (
+          <Badge className="absolute bottom-0 left-0 mb-3.5 ml-4 xl:ml-6 xl:mb-5">
+            {land.tag}
+          </Badge>
+        )
+      }
+    </div>
+    <div
+      class="flex w-full flex-1 flex-col justify-between self-stretch px-4 py-4 xl:px-6 xl:py-6"
+    >
+      <div>
+        <span
+          class="block text-base font-semibold leading-tight tracking-tight md:text-xl"
+          >{land.title}</span
+        >
+        <p class="text-xs font-normal not-italic opacity-80 md:text-sm">
+          {land.briefDescription || land.address}
+        </p>
+      </div>
+
+      <span class="mt-6 block" data-swiper-parallax="10">
+        <span
+          class="text-base font-medium text-[--color-accent] xl:text-xl xl:font-normal"
+        >
+          <span
+            class="text-2xl font-normal leading-tight tracking-tighter md:text-3xl md:font-light xl:text-4xl"
+            >{(land?.price || 0) / 1000000000}
+          </span> tỷ
+        </span>
+        {
+          land?.area && (
+            <span class="text-sm tracking-tighter opacity-90">
+              <span class=" -mb-1 ml-1 mr-1.5 inline-block h-5 w-[1px] bg-[--color-text] opacity-20 xl:h-7" />
+              {land.area.toLocaleString().replace(/,/g, " ")} m&sup2
+            </span>
+          )
+        }
+      </span>
+    </div>
+  </a>
+</div>
+
+<!-- Render card border if border attribute is set up to true -->
+<style>
+  div[border="true"] a {
+    border: 1px solid var(--color-accent-lighter);
+  }
+</style>

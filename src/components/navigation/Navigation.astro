@@ -1,0 +1,148 @@
+---
+import Logo from "../logo/Logo.astro";
+import CallButton from "./CallButton.astro";
+import ButtonSmall from "../ui/buttons/ButtonSmall.astro";
+import NavigationItem from "./NavigationItem.astro";
+import NavigationDropdown from "./dropdown/NavigationDropdown.astro";
+
+import { COMPANY_PHONE_NUMBER } from "../../scripts/constants";
+
+interface Props {}
+
+const navigationPages = [
+  {
+    title: "Trang chủ",
+    href: "/",
+  },
+  {
+    title: "Tìm kiếm đất",
+    href: "/tim-dat",
+  },
+  {
+    title: "Về chúng tôi",
+    href: "/thong-tin",
+  },
+];
+
+const currentPage = Astro.url.pathname;
+const phone = COMPANY_PHONE_NUMBER;
+---
+
+<header
+  class={`fixed left-0 top-0 z-50 flex w-full flex-row items-center overflow-hidden py-2 ${
+    currentPage === "/tim-dat" ? "" : ""
+  }`}
+>
+  <div class="loaded-hero-logo flex-1 px-4 md:px-8 lg:px-16">
+    <Logo companyTitle="VietLand" className="" />
+  </div>
+
+  <ul class="loaded-hero-links hidden flex-wrap gap-x-2 xl:flex">
+    {
+      navigationPages.map((page) => (
+        <NavigationItem href={page.href} isActive={page.href === currentPage}>
+          {page.title}
+        </NavigationItem>
+      ))
+    }
+  </ul>
+  <div
+    class="loaded-hero-buttons flex flex-1 items-center justify-end xl:px-16"
+  >
+    <div class="hidden xl:block">
+      <ButtonSmall id="callback-form-btn">Liên hệ</ButtonSmall>
+    </div>
+    <div class="hidden sm:block"><CallButton phone={phone} /></div>
+    <div
+      class="relative ml-4 mr-4 flex flex-col items-center justify-center md:mr-8 lg:mr-16 xl:hidden"
+    >
+      <NavigationDropdown
+        currentPage={currentPage}
+        pages={navigationPages}
+        phone={phone}
+      />
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Prevent scrollbar from repositioning page content */
+  /* TODO: check if has effect */
+  header {
+    left: calc(100vw - 100%) !important;
+    overflow-x: hidden !important;
+  }
+</style>
+
+<!-- Hide and show navigation bar in header when scrolling past hero section (css) -->
+<style is:global lang="sass">
+  header[scroll-hide="true"]
+    transform: translateY(-50px)
+    opacity: 0
+    transition: transform .6s ease, opacity .4s ease
+
+  header[scroll-hide="false"]
+    transform: translateY(0%)
+    opacity: 1
+    transition: transform .6s ease, opacity .4s .1s ease
+</style>
+
+<!-- Hide and show navigation bar in header when scrolling past first x pixels (js) -->
+<script>
+  import type { DropdownMenu } from "./dropdown/NavigationDropdown";
+
+  // Query relevant HTML elements
+  const navigationEl = document.querySelector("header") as HTMLElement;
+  const navigationDropdownEl = document.querySelector(
+    ".hamburger-menu",
+  ) as DropdownMenu;
+  const scrollSection = document.querySelector(".main-content") as HTMLElement;
+
+  // Keep track of scroll position
+  let isVisibleNavigationEl = true;
+  const visibilityThresholdY = 300;
+
+  // Handle revealing of the navigation bar
+  const showNavigationBar = async () => {
+    // Check if dropdown menu is open and close it before futher animations
+    if (navigationDropdownEl.isOpen()) await navigationDropdownEl.hide();
+
+    // Trigger show animation, as defined in css
+    navigationEl.setAttribute("scroll-hide", "false");
+
+    // Clear applyed styles after animation (otherwise transform(0) meddles with layout)
+    setTimeout(() => {
+      navigationEl.removeAttribute("scroll-hide");
+    }, 550);
+  };
+
+  // Handle hiding of navigation bar
+  const hideNavigationBar = () => {
+    // Trigger hide animation, as defined in css
+    navigationEl.setAttribute("scroll-hide", "true");
+  };
+
+  const handleScrollEvent = () => {
+    const currentScrollPosition = scrollSection.scrollTop;
+
+    console.log("currentScrollPosition", currentScrollPosition);
+
+    if (currentScrollPosition > visibilityThresholdY && isVisibleNavigationEl) {
+      hideNavigationBar();
+      isVisibleNavigationEl = false;
+    }
+
+    if (
+      currentScrollPosition < visibilityThresholdY &&
+      !isVisibleNavigationEl
+    ) {
+      showNavigationBar();
+      isVisibleNavigationEl = true;
+    }
+  };
+  scrollSection.addEventListener("scroll", handleScrollEvent, {
+    passive: true,
+  });
+
+  // TODO: check performance and, if needed, apply throttling (interval proportional to distance from threshhold point)/ intersection observer to remove/add event listeners
+</script>

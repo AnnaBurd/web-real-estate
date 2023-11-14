@@ -1,0 +1,57 @@
+@import url("./variables.css");
+@import url("./scrollbars.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TODO: remove unused fonts */
+/* Load local fonts */
+@layer base {
+  /* fonts can be downloaded here https://gwfh.mranftl.com/fonts/signika-negative?subsets=latin,latin-ext,vietnamese -> after dowloading put font files to the public/fonts folder */
+  /* signika-negative-300 - latin_latin-ext_vietnamese */
+  @font-face {
+    font-display: block; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Signika Negative";
+    font-style: normal;
+    font-weight: 300;
+    src: url("../fonts/signika-negative-v20-latin_latin-ext_vietnamese-300.woff2")
+      format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* signika-negative-regular - latin_latin-ext_vietnamese */
+  @font-face {
+    font-display: block; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Signika Negative";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/signika-negative-v20-latin_latin-ext_vietnamese-regular.woff2")
+      format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* signika-negative-500 - latin_latin-ext_vietnamese */
+  @font-face {
+    font-display: block; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Signika Negative";
+    font-style: normal;
+    font-weight: 500;
+    src: url("../fonts/signika-negative-v20-latin_latin-ext_vietnamese-500.woff2")
+      format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* signika-negative-600 - latin_latin-ext_vietnamese */
+  @font-face {
+    font-display: block; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Signika Negative";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../fonts/signika-negative-v20-latin_latin-ext_vietnamese-600.woff2")
+      format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* signika-negative-700 - latin_latin-ext_vietnamese */
+  @font-face {
+    font-display: block; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Signika Negative";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../fonts/signika-negative-v20-latin_latin-ext_vietnamese-700.woff2")
+      format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+}

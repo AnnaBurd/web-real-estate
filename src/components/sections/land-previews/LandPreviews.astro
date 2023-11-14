@@ -1,0 +1,279 @@
+---
+import Container from "../../../layouts/Container.astro";
+import Card from "./cards/Card.astro";
+
+import IconLeft from "./buttons/IconLeft.astro";
+import IconRight from "./buttons/IconRight.astro";
+import type { Land } from "../../../model/Land";
+
+type Props = {
+  heading: string;
+  subheading?: string;
+  promotedLands: Land[];
+  scrollEffect?: boolean;
+  fullHeight?: boolean;
+  gradient?: boolean;
+};
+
+const {
+  heading,
+  subheading,
+  promotedLands,
+  scrollEffect,
+  fullHeight,
+  gradient,
+} = Astro.props;
+---
+
+<!-- TODO: fix heigh of cards uneven -->
+<div
+  id="land-previews"
+  class={`${
+    gradient ? "bg-gradient-to-t from-[--color-secondary-lighter]" : ""
+  } w-full py-4 md:py-0`}
+  data-scroll
+  data-scroll-offset="-10%,100%"
+  data-scroll-event-progress="landPreviewsScrollProgressEvent"
+  data-scroll-effect={scrollEffect ? true : false}
+>
+  <Container fullHeight={fullHeight}>
+    <h2
+      id="land-previews-title"
+      class="-z-10 pb-2 text-xl font-normal capitalize tracking-normal md:pb-4 md:text-2xl xl:text-4xl 2xl:text-5xl portrait:md:text-4xl"
+    >
+      {heading}
+    </h2>
+    {
+      subheading && (
+        <p
+          id="land-previews-description"
+          class="-z-10 max-w-[44ch] text-center text-xs font-normal tracking-wide opacity-80 md:text-sm md:leading-relaxed"
+        >
+          {subheading}
+        </p>
+      )
+    }
+
+    <div
+      data-scroll
+      data-scroll-speed={scrollEffect ? ".2" : "0"}
+      id="land-previews-slides"
+      class="mt-10 flex w-full items-center md:gap-14 xl:mt-12 xl:gap-6"
+    >
+      <div
+        class="swiper-button swiper-button-prev tabbable order-1 hidden cursor-pointer rounded-full bg-[--color-secondary-lighter] p-5 hover:bg-[#40527311] md:block"
+        tabindex="0"
+      >
+        <IconLeft />
+      </div>
+
+      <div
+        class="swiper md:px-.5 order-2 w-full overflow-visible rounded-md md:overflow-hidden"
+      >
+        <div class="swiper-wrapper flex-col gap-8 md:flex-row md:gap-0">
+          {
+            promotedLands.map((land) => (
+              <Card
+                land={land}
+                className={`swiper-slide `}
+                attributes={{ border: true }}
+              />
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="swiper-button swiper-button-next tabbable order-3 hidden cursor-pointer rounded-full bg-[--color-secondary-lighter] p-5 hover:bg-[#40527311] md:block"
+        tabindex="0"
+      >
+        <IconRight />
+      </div>
+    </div>
+  </Container>
+</div>
+
+<style is:global lang="sass">
+  .swiper-slide
+    a
+      @apply shadow-md
+  /* Additional styles for swiper transitions */
+  @media screen and (min-width: 768px)
+    // Space for transform-y animation (otherwise the slide overflow will be cut off)
+    .swiper
+      padding-top: 20px !important
+      margin-top: -20px !important
+
+    // Not active slides (on the sides)
+    .swiper-slide
+      a
+        transform: scale(0.99) translateY(-2px)
+        transition: transform 0.6s ease-in-out, box-shadow .2s ease-in-out
+        @apply shadow-sm
+      a:hover
+        @apply shadow-md
+
+    // Active slide (in the middle)
+    .swiper-slide-active
+      a
+        transform: scale(1.01) translateY(0px)
+        transition: transform 0.6s ease-in-out, box-shadow .2s ease-in-out
+        // box-shadow: 0 20px 28px -2px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)
+</style>
+
+<!-- Add press effects to swiper buttons (similar to the effects of the Button component) -->
+<style>
+  .swiper-button {
+    transition:
+      border-color 0.3s,
+      background-color 0.3s,
+      transform ease-in 0.15s,
+      box-shadow ease-in 0.25s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+
+  .swiper-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 15px var(--color-accent-shadow);
+  }
+</style>
+
+<!-- On scroll animations of land previews section (animation of the heading text)  -->
+<script>
+  import gsap from "gsap";
+  import isMobileDevice from "../../../scripts/isMobileDevice";
+
+  if (
+    !isMobileDevice() &&
+    (document.querySelector("#land-previews") as HTMLDivElement)?.dataset
+      .scrollEffect === "true"
+  ) {
+    const timelineLandPreviews = gsap.timeline({ paused: true });
+
+    timelineLandPreviews.from("#land-previews-title", {
+      y: -120,
+      scale: 0.95,
+      opacity: 0.65,
+      ease: "linear",
+    });
+
+    timelineLandPreviews.from("#land-previews-description", {
+      y: 10,
+      scale: 0.95,
+      opacity: 0,
+      ease: "linear",
+      delay: -0.1,
+    });
+
+    window.addEventListener("landPreviewsScrollProgressEvent", (e) => {
+      const { progress } = (e as CustomEvent).detail;
+
+      timelineLandPreviews.progress(progress);
+    });
+  }
+</script>
+
+<!-- Handle swiper functionality -->
+<script>
+  // Import Swiper JS, its modules and styles
+  import Swiper from "swiper";
+  import { Navigation, Keyboard, Parallax } from "swiper/modules";
+  import "swiper/css";
+  import isMobileDevice from "../../../scripts/isMobileDevice";
+
+  const slidesPerViewBreakpoints = {
+    1024: {
+      slidesPerView: 2,
+    },
+    1280: {
+      slidesPerView: 3,
+    },
+    1536: {
+      slidesPerView: 4,
+    },
+  };
+
+  // Workaround for swiper limitation of slides dissapearing in loop mode + centeredSlides when number of slides is less than slidesPerView * 2;
+  // Ref. official docs: https://swiperjs.com/migration-guide-v9#loop-mode
+  // Temporary solution - compare number of slides with required slides per view and duplicate slides if there is not enough slides
+  const fixLackOfSlidesForSwiperLoopAnimation = () => {
+    const swiperWrapperEl = document.querySelector(
+      ".swiper-wrapper",
+    ) as HTMLElement;
+
+    // Get number of existing slides
+    const numberOfSlides =
+      swiperWrapperEl?.querySelectorAll(".swiper-slide")?.length;
+
+    // Calculate the minimum number of slides required for the swiper loop animation to work
+    const viewportWidth = window.innerWidth;
+
+    let visibleSlidesPerPage = 0;
+
+    for (const [bp, { slidesPerView }] of Object.entries(
+      slidesPerViewBreakpoints,
+    )) {
+      if (viewportWidth >= +bp) {
+        visibleSlidesPerPage = slidesPerView;
+      }
+    }
+
+    const requiredMinNumberOfSlides = visibleSlidesPerPage * 2 + 1;
+
+    // Duplicate slides if there are enough slides for loop, but not enough for the loop animation
+    const hasEnoughSlidesForLoop = numberOfSlides > visibleSlidesPerPage;
+    const hasEnoughSlidesForLoopAnimation =
+      numberOfSlides >= requiredMinNumberOfSlides;
+
+    if (hasEnoughSlidesForLoop && !hasEnoughSlidesForLoopAnimation) {
+      swiperWrapperEl?.insertAdjacentHTML(
+        "beforeend",
+        swiperWrapperEl.innerHTML,
+      );
+    }
+
+    return hasEnoughSlidesForLoop;
+  };
+
+  const canAnimateLoop = fixLackOfSlidesForSwiperLoopAnimation();
+
+  // Init swiper on desktop and destroy on mobile (breakpoint is 768px - same as tailwind's md breakpoint)
+  let hasInitSwiper = false;
+  let swiper: Swiper;
+
+  const initSwiper = (canAnimateLoop: boolean) => {
+    if (!hasInitSwiper && !isMobileDevice()) {
+      swiper = new Swiper(".swiper", {
+        modules: [Navigation, Keyboard, Parallax],
+        direction: "horizontal",
+        loop: canAnimateLoop,
+        // cssMode: true,
+        speed: 1000,
+        centeredSlides: canAnimateLoop,
+        slidesPerView: 1,
+        parallax: true,
+        breakpoints: slidesPerViewBreakpoints,
+        keyboard: {
+          enabled: true,
+          onlyInViewport: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+
+      hasInitSwiper = true;
+    }
+
+    if (hasInitSwiper && isMobileDevice()) {
+      swiper.destroy();
+      hasInitSwiper = false;
+    }
+  };
+
+  initSwiper(canAnimateLoop);
+  window.addEventListener("resize", () =>
+    initSwiper(fixLackOfSlidesForSwiperLoopAnimation()),
+  );
+</script>

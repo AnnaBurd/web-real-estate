@@ -1,0 +1,206 @@
+---
+import PopupCloseBtn from "./PopupCloseBtn.astro";
+import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
+---
+
+<section
+  class="relative w-full max-w-2xl overflow-hidden rounded-md bg-white shadow-2xl md:grid md:grid-cols-3"
+>
+  <PopupCloseBtn />
+  <div class="h-32 w-[105%] md:h-full md:w-full">
+    <img
+      alt="Trainer"
+      src="/vectors/mail.svg"
+      class="h-full w-full object-cover object-[52%_20%] md:object-center"
+    />
+  </div>
+
+  <div class="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
+    <h3
+      class="mb-1 text-base font-normal tracking-normal md:text-lg xl:text-2xl"
+    >
+      Liên hệ với chúng tôi
+    </h3>
+    <p class="mb-4 text-xs font-normal leading-snug tracking-wide opacity-80">
+      Vui lòng để lại tin nhắn và chúng tôi sẽ gọi lại sớm <br /> trong vong 24
+      tieng.
+      <p>
+        <form
+          name="callback-form"
+          method="post"
+          data-netlify="true"
+          id="callback-form"
+          class="space-y-3"
+        >
+          <div>
+            <label class="sr-only" for="name">Tên</label>
+            <input
+              class="w-full rounded-md border-[#607cb344] px-3 py-2.5 text-sm focus:border-[#607cb344] focus:ring-2 focus:ring-[#607cb3] focus:ring-offset-2"
+              placeholder="Tên"
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+            />
+          </div>
+
+          <div>
+            <label class="sr-only" for="phone">Số điện thoại</label>
+            <input
+              class="w-full rounded-md border-[#607cb344] px-3 py-2.5 text-sm focus:border-[#607cb344] focus:ring-2 focus:ring-[#607cb3] focus:ring-offset-2"
+              placeholder="Số điện thoại"
+              type="tel"
+              name="phone"
+              id="phone"
+              autocomplete="tel"
+            />
+          </div>
+
+          <div>
+            <label class="sr-only" for="message">Thông tin</label>
+
+            <textarea
+              class="w-full rounded-md border-[#607cb344] px-3 py-2.5 text-sm focus:border-[#607cb344] focus:ring-2 focus:ring-[#607cb3] focus:ring-offset-2"
+              placeholder="Thông tin"
+              rows="6"
+              name="message"
+              id="message"></textarea>
+          </div>
+
+          <div class="mt-4">
+            <ButtonAnimated
+              type="submit"
+              hiddenText={"Gửi thông tin"}
+              className=" button-smaller rounded-md !tracking-wide"
+            >
+              Gửi thông tin
+            </ButtonAnimated>
+          </div>
+        </form>
+      </p>
+    </p>
+  </div>
+</section>
+
+<!-- Callback form functionality - validate data and send to the netlify backend -->
+<script>
+  const callbackFormEl = document.getElementById(
+    "callback-form",
+  ) as HTMLFormElement;
+
+  const successAlertEl = document.querySelector("#success-alert") as any;
+  const errorAlertEl = document.querySelector("#error-alert") as any;
+
+  const formContainerPopupEl = document.querySelector(
+    "#callback-form-popup",
+  ) as any;
+
+  callbackFormEl.addEventListener("submit", async (e) => {
+    // Prevent default form submission
+    e.preventDefault();
+
+    // Read values from input fields
+    const nameInputEl = callbackFormEl.querySelector(
+      "#name",
+    ) as HTMLInputElement;
+    const phoneInputEl = callbackFormEl.querySelector(
+      "#phone",
+    ) as HTMLInputElement;
+    const messageInputEl = callbackFormEl.querySelector(
+      "#message",
+    ) as HTMLInputElement;
+
+    const name = nameInputEl.value?.trim().slice(0, 50);
+    const phone = phoneInputEl.value?.trim().slice(0, 20);
+    const message = messageInputEl.value?.trim().slice(0, 1000);
+
+    // Validate data - check if name and phone number are provided
+    const phoneRegex =
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+    if (!name) return nameInputEl.focus();
+    if (!phone || !phoneRegex.test(phone)) return phoneInputEl.focus();
+
+    // Create form data object and replace input values with the validated ones
+    const formData = new FormData(e.target as HTMLFormElement);
+    formData.set("name", name);
+    formData.set("phone", phone);
+    formData.set("message", message);
+
+    const btnElement = callbackFormEl.querySelector(
+      "button[type=submit]",
+    ) as HTMLButtonElement;
+    const btnElementTextContainer = btnElement.querySelector(
+      "span",
+    ) as HTMLSpanElement;
+
+    try {
+      // Send data to the netlify backend
+      const startTime = Date.now();
+      btnElementTextContainer.innerText = "Đang gửi ...";
+      btnElement.disabled = true;
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      if (!response.ok) throw new Error("Error sending data to backend.");
+
+      // Show success message with slight delay in case if network speed is too fast
+      const timeElapsed = Date.now() - startTime;
+      const delay = timeElapsed < 2000 ? 2000 - timeElapsed : 0;
+
+      setTimeout(() => {
+        successAlertEl.show(
+          "Gửi tin nhắn thành công",
+          "Chúng tôi rất mong nhận được hồi âm từ bạn va se goi lai cho ban som nhe.",
+        );
+      }, delay);
+
+      // Reset form
+      setTimeout(() => {
+        formContainerPopupEl.hide();
+        nameInputEl.value = "";
+        phoneInputEl.value = "";
+        messageInputEl.value = "";
+        btnElementTextContainer.innerText = "Gửi thông tin";
+        btnElement.disabled = false;
+      }, delay + 1000);
+    } catch (error) {
+      if (import.meta.env.MODE === "development")
+        console.log("Error submitting email to subscription form", error);
+      errorAlertEl.show(
+        "Gửi tin nhắn không thành công",
+        "Rất tiếc, lỗi đã xảy ra, vui lòng thử lại sau.",
+      );
+
+      btnElement.innerText = "Gửi thông tin";
+      btnElement.disabled = false;
+    }
+  });
+</script>
+
+<!-- Open callback form with buttons -->
+<script>
+  import type { Popup } from "./Popup";
+
+  const callbackFormPopup = document.getElementById(
+    "callback-form-popup",
+  ) as Popup;
+
+  // Query elements that open the callback form
+  const openBtns: (HTMLElement | null)[] = [];
+
+  openBtns.push(document.getElementById("callback-form-btn"));
+  openBtns.push(document.getElementById("callback-form-btn-small"));
+  openBtns.push(document.getElementById("callback-form-footer-btn"));
+
+  openBtns
+    .filter((el) => el !== null)
+    .forEach((btn) =>
+      btn!.addEventListener("click", () => {
+        callbackFormPopup.show();
+      }),
+    );
+</script>

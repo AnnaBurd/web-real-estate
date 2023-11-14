@@ -1,0 +1,159 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<form
+  name="subscription-form"
+  method="post"
+  data-netlify="true"
+  id="subscription-form"
+  class=` ${className? className : ''}`
+>
+  <div class="relative max-w-sm">
+    <input
+      placeholder="Địa chỉ email"
+      name="email"
+      id="email"
+      class="input bg-[--color-dark] rounded-full px-6 py-3 text-sm w-full text-[#ffffff99] transition-all duration-300 ease-in-out outline-none ring-2 ring-transparent focus:ring-[#ffffff99] focus:ring-opacity-50 tabbable"
+    />
+    <!-- <label for="email">Địa chỉ email</label> -->
+    <button
+      type="submit"
+      class="button absolute top-0 right-0 pr-4 h-full text-[var(--color-secondary)] hover:text-[var(--color-accent)] transition-all duration-300 ease-in-out tabbable rounded-full"
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
+      </svg>
+    </button>
+  </div>
+</form>
+
+<!-- Style form components (use css for advanced styles) -->
+<style>
+  /* Button on-click animation */
+  .button {
+    transition: color 0.3s, transform ease-in 0.15s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  }
+  .button:active {
+    transform: translateX(0.15rem);
+    color: var(--color-secondary) !important;
+  }
+
+  /* Placeholder text */
+  .input::placeholder {
+    color: var(--color-grey-light);
+    opacity: 0.1;
+  }
+</style>
+
+<!-- Form functionality: submit data to netlify backend 
+  (reference: https://docs.netlify.com/forms/setup) -->
+<script>
+  // Form elements reference
+  const formEl = document.getElementById(
+    "subscription-form"
+  ) as HTMLFormElement;
+  // Note: Netlify injects a hidden input field with name="form-name" and value="subscription-form" into the form, so can not use this name for other fields
+  const inputEl = formEl?.querySelector("#email") as HTMLInputElement;
+
+  const successAlertEl = document.querySelector("#success-alert") as any;
+  const errorAlertEl = document.querySelector("#error-alert") as any;
+
+  // Helper function to check if input is a valid email address
+  const validateInput = (value: string) => {
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    return re.test(String(value));
+  };
+
+  // Handle form submissions with netlify backend
+  const handleFormSubmit = async (e: SubmitEvent) => {
+    // Prevent default browser form submission behavior (do not redirect or refresh page)
+    e.preventDefault();
+
+    // Get input values
+    const formData = new FormData(e.target as HTMLFormElement);
+    const inputEmailValue = formData.get("email");
+
+    // Check if input is valid and focus input if not
+    if (!inputEmailValue || !validateInput(String(inputEmailValue))) {
+      inputEl.focus();
+
+      return;
+    }
+
+    // Send form data to netlify backend
+    try {
+      const startTime = Date.now();
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(), // Note: URLSearchParams and formData are not compatible in TS, ref: https://github.com/microsoft/TypeScript/issues/30584#issuecomment-890515551
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok.");
+
+      // Clear input
+      inputEl.value = "";
+
+      // Show success message with slight delay in case if network speed is too fast
+      const timeElapsed = Date.now() - startTime;
+      const delay = timeElapsed < 1000 ? 1000 - timeElapsed : 0;
+      setTimeout(() => {
+        successAlertEl.show(
+          "Đăng ký thành công",
+          "Cảm ơn bạn đã đăng ký, chúng tôi đã thêm bạn vào danh sách gửi thư của chúng tôi."
+        );
+      }, delay);
+    } catch (error) {
+      if (import.meta.env.MODE === "development")
+        console.log("Error submitting email to subscription form", error);
+
+      errorAlertEl.show(
+        "Đăng ký không thành công",
+        "Rất tiếc, đã xảy ra lỗi, vui lòng thử lại đăng ký sau."
+      );
+    }
+  };
+
+  // Listen to form submissions
+  formEl?.addEventListener("submit", handleFormSubmit);
+
+  // Listen to input changes and show error hint if input is incorrect (this is much easier with react!)
+  const showErrorHint = () => {
+    inputEl?.classList.add("!ring-pink-700");
+  };
+
+  const hideErrorHint = () => {
+    inputEl?.classList.remove("!ring-pink-700");
+  };
+
+  inputEl?.addEventListener("blur", hideErrorHint);
+
+  inputEl?.addEventListener("focus", () => {
+    if (inputEl.value !== "" && !validateInput(inputEl.value)) showErrorHint();
+  });
+
+  inputEl?.addEventListener("input", () => {
+    if (inputEl.value !== "" && !validateInput(inputEl.value)) {
+      showErrorHint();
+    } else {
+      hideErrorHint();
+    }
+  });
+</script>

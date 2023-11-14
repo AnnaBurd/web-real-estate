@@ -1,39 +1,136 @@
---- 
+---
+import "../styles/main.css";
+
+import Footer from "../components/footer/Footer.astro";
+import Navigation from "../components/navigation/Navigation.astro";
+import CallbackForm from "../components/modals/CallbackForm.astro";
+import Popup from "../components/modals/Popup.astro";
+import Alert from "../components/ui/alerts/Alert.astro";
+import Preloading from "../components/loader/Preloading.astro";
+import LoadingPageTransitions from "../components/loader/loading-page-transitions/LoadingPageTransitions.astro";
+
 interface Props {
-	title: string;
+  pageTitle: string;
 }
 
-const { title } = Astro.props;
+const { pageTitle } = Astro.props;
+const currentPage = Astro.url.pathname;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description">
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<!-- TODO: SEO optimization --><!doctype html>
+<html lang="en" class="bg-[--color-secondary-lighter]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="/TODO" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Preload images for main page -->
+    {
+      currentPage === "/" && (
+        <link
+          rel="preload"
+          as="image"
+          media="(min-width:1280px)"
+          imagesrcset="/img/main-hero_medium.jpg 1x, /img/main-hero_large.jpg 2x"
+        />
+      )
+    }
+    <link
+      rel="preload"
+      href="/fonts/signika-negative-v20-latin_latin-ext_vietnamese-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- <meta name="generator" content={Astro.generator} /> -->
+    <title>{pageTitle}</title>
+  </head>
+
+  <body
+    class="relative h-full w-full font-signica text-[--color-text]"
+    data-loaded="false"
+  >
+    <!-- TODO: show preloading only once?  -->
+    {currentPage === "/" && <Preloading />}
+
+    <LoadingPageTransitions />
+
+    <Navigation />
+    <main
+      class="main-content relative h-full w-full overflow-x-hidden overflow-y-scroll bg-white"
+    >
+      <slot />
+      <Footer />
+    </main>
+
+    <Popup id="callback-form-popup">
+      <CallbackForm />
+    </Popup>
+    <Alert id="success-alert" type="success" title="Success">
+      Success message
+    </Alert>
+    <Alert id="error-alert" type="error" title="Error">Error message</Alert>
+  </body>
+
+  <!-- Basic styles setup -->
+  <style is:global>
+    /* Remove blue highlight of clicked button in mobile Chrome browser */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Set up page height for better mobile height support */
+    html,
+    body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    html {
+      background-size: 224px;
+    }
+
+    /* Style text selection */
+    ::selection {
+      background-color: rgba(var(--color-accent-rgb), 0.7);
+      /* border-radius: 100%; */
+      /* color: white; */
+    }
+
+    /* Style focus outline */
+    .tabbable {
+      @apply focus-visible:ring-2;
+      @apply focus-visible:ring-offset-2;
+      @apply focus-visible:ring-[#607cb3];
+      @apply focus-visible:border-[#607cb344];
+      @apply focus-visible:outline-none;
+    }
+  </style>
+
+  <!-- Css classes requred by Lenis library - for smooth scroll functionality -->
+  <style is:global>
+    html.lenis {
+      height: auto !important;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain !important;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden !important;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none !important;
+    }
+  </style>
+
+  <!-- Load smooth scroll (locomotive scroll + lenis) -->
+  <script>
+    import initScroll from "../scripts/smoothScroll";
+
+    initScroll();
+  </script>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151A;
-		background-size: 224px;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-</style>

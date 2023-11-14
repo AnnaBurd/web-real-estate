@@ -1,0 +1,30 @@
+---
+interface Props {
+  textBehind: string;
+  title: string;
+  description: string;
+}
+
+const { textBehind, title, description } = Astro.props;
+---
+
+<div class="text-center cursor-default">
+  <div
+    class="grid grid-cols-1 grid-rows-1 justify-items-center place-items-center mb-4"
+  >
+    <span
+      class="text-8xl font-black text-[--color-grey-light] absolute [grid-column:1/2] [grid-row:1/2] pb-2 z-10 select-none"
+      >{textBehind}</span
+    >
+    <h3
+      class="uppercase tracking-wide md:tracking-normal font-semibold text-xs md:text-sm [grid-column:1/2] [grid-row:1/2] z-20"
+    >
+      {title}
+    </h3>
+  </div>
+  <p
+    class="text-xs md:text-sm font-normal opacity-90 tracking-normal leading-relaxed max-w-[38ch]"
+  >
+    {description}
+  </p>
+</div>

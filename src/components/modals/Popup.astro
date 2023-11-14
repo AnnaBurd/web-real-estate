@@ -1,0 +1,172 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<pop-up
+  id={id}
+  class="fixed left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-gradient-to-tr from-[--color-grey-light] to-[#72B3E3] px-10 md:px-16 lg:px-32 xl:mx-auto min-[1700px]:px-0"
+  open="false"
+>
+  <slot />
+</pop-up>
+
+<!-- Style popup open, closed states and transition -->
+<style lang="sass" is:global>
+  /* Container with page content */
+  // Default (before animations)
+  .main-content
+    position: relative
+    z-index: 5
+
+  // Visible
+  .main-content[hide="false"]
+    animation: slideDownLarge .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
+    height: 100%
+
+  // Moved over the top of the page
+  .main-content[hide="true"]
+    height: 100vh
+    animation: slideUpLarge .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
+
+  /* Popup container */
+  // Default (before animations)
+  pop-up
+    z-index: 0
+    // background-color: #405273CC
+
+  // Visible
+  pop-up[open="true"]
+    // background-color: var(--color-secondary)
+    // Modal within popup
+    & > *
+      animation: moveUp .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
+
+  // Hidden
+  pop-up[open="false"]
+    // Modal within popup
+    & > *
+      animation: moveDown .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
+
+  /* Fixed header outside of parent */
+  header[hide="true"]
+    animation: slideUpHeader .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
+
+  header[hide="false"]
+    animation: slideDownHeader .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards
+
+  /* Animations */
+  @keyframes slideUpLarge
+    0%
+      transform: translateY(0%)
+    100%
+      transform: translateY(-100%)
+
+  @keyframes slideDownLarge
+    0%
+      transform: translateY(-100%)
+    100%
+      transform: translateY(0%)
+
+  @keyframes slideUpHeader
+    0%
+      transform: translateY(0%)
+    50%
+      transform: translateY(-50vh)
+    100%
+      transform: translateY(-50vh)
+
+  @keyframes slideDownHeader
+    0%
+      transform: translateY(-50vh)
+    30%
+      transform: translateY(-50vh)
+    100%
+      transform: translateY(0%)
+
+  @keyframes moveUp
+    0%
+      transform: translateY(450px)
+    100%
+      transform: translateY(0)
+
+  @keyframes moveDown
+    0%
+      transform: translateY(0px)
+    100%
+      transform: translateY(450px)
+</style>
+
+<!-- Handle popup opening and closing functionality (reusable web component) -->
+<script>
+  import type { Popup } from "./Popup";
+
+  export class PopUp extends HTMLElement implements Popup {
+    private isOpen: boolean = false;
+    private parentEl: HTMLElement;
+    private headerEl: HTMLElement;
+
+    constructor() {
+      super();
+
+      this.parentEl = document.querySelector(".main-content") as HTMLElement;
+      this.headerEl = document.querySelector("header") as HTMLElement;
+
+      /* Set up close listeners */
+      // Close popup on overlay click
+      this.addEventListener("click", (event) => {
+        if (!this.isOpen) return;
+
+        if (event.target === this) {
+          this.hide();
+        }
+      });
+
+      // Close popup on escape key press
+      document.addEventListener("keydown", (event) => {
+        if (!this.isOpen) return;
+
+        if (event.key === "Escape") {
+          this.hide();
+        }
+      });
+
+      // Close popup on close button click
+      this.querySelector(".close-button")?.addEventListener("click", () => {
+        this.hide();
+      });
+    }
+
+    private updateHtmlAttributes() {
+      this.setAttribute("open", this.isOpen.toString());
+      this.parentEl.setAttribute("hide", this.isOpen.toString());
+      this.headerEl.setAttribute("hide", this.isOpen.toString());
+
+      // Clear attributes from header not to meddle with other animations
+      if (!this.isOpen)
+        setTimeout(() => {
+          this.headerEl.removeAttribute("hide");
+        }, 800);
+    }
+
+    // Public methods - can query pop-up element and call these methods from js / astro components
+    hide() {
+      if (!this.isOpen) return;
+
+      this.isOpen = false;
+      this.updateHtmlAttributes();
+    }
+
+    show() {
+      if (this.isOpen) return;
+
+      this.isOpen = true;
+      this.updateHtmlAttributes();
+    }
+  }
+
+  customElements.define("pop-up", PopUp);
+</script>

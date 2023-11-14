@@ -1,0 +1,146 @@
+---
+import type { ImageAsset, VideoAsset } from "../../../model/Land";
+import Badge from "../../ui/Badge.astro";
+import GalleryItem from "./GalleryItem.astro";
+
+interface Props {
+  images: ImageAsset[];
+  videos: VideoAsset[];
+  tag?: string;
+}
+
+const { images, videos, tag } = Astro.props;
+
+const mediaAssets = [...videos, ...images];
+---
+
+<!-- Show video and photo cards of the land (videos come first) -->
+<section class="pswp-gallery" id="photo-gallery">
+  <div
+    class="grid h-[25vh] max-h-[800px] min-h-[250px] gap-4 lg:h-[50vh] lg:grid-cols-2 lg:grid-rows-1"
+  >
+    <!-- Photo/Video card with large thumbnail -->
+    {
+      mediaAssets[0]?.kind === "image" && (
+        <GalleryItem
+          title={mediaAssets[0]?.title}
+          assetUrl={`${mediaAssets[0]?.url}?fm=jpg&fl=progressive`}
+          thumbnailUrl={`${mediaAssets[0]?.url}?fm=jpg&fl=progressive&fit=fill&w=900 `}
+          originalWidth={mediaAssets[0]?.originalSize.width}
+          originalHeight={mediaAssets[0]?.originalSize.height}
+        >
+          {tag && (
+            <Badge className="absolute bottom-0 left-0 mb-3.5 ml-4 xl:ml-6 xl:mb-5 font-bold  tracking-tight">
+              {tag}
+            </Badge>
+          )}
+        </GalleryItem>
+      )
+    }
+    {
+      mediaAssets[0]?.kind === "video" && (
+        <GalleryItem
+          title={""}
+          assetUrl={`${mediaAssets[0]?.url}`}
+          thumbnailUrl={`${mediaAssets[0]?.thumbnail}?fm=jpg&fl=progressive&fit=fill&w=900 `}
+          originalWidth={mediaAssets[0]?.originalSize.width}
+          originalHeight={mediaAssets[0]?.originalSize.height}
+          containsVideo={true}
+        >
+          {tag && (
+            <Badge className="absolute bottom-0 left-0 mb-3.5 ml-4 xl:ml-6 xl:mb-5 font-bold  tracking-tight">
+              {tag}
+            </Badge>
+          )}
+        </GalleryItem>
+      )
+    }
+
+    <!-- Four photos/videos with smaller thumbnails -->
+    <div class="hidden grid-cols-2 grid-rows-2 gap-3 lg:grid">
+      {
+        [1, 2, 3, 4].map((i) => {
+          if (mediaAssets[i]?.kind === "image")
+            return (
+              <GalleryItem
+                title={(mediaAssets[i] as ImageAsset).title}
+                assetUrl={`${mediaAssets[i]?.url}?fm=jpg&fl=progressive`}
+                thumbnailUrl={`${
+                  mediaAssets[i]?.url
+                }?fm=jpg&fl=progressive&fit=fill&${
+                  mediaAssets[i]?.originalSize.width >
+                  mediaAssets[i]?.originalSize.height
+                    ? "h=400"
+                    : "w=600"
+                }`}
+                originalWidth={mediaAssets[i]?.originalSize.width}
+                originalHeight={mediaAssets[i]?.originalSize.height}
+              />
+            );
+
+          if (mediaAssets[i]?.kind === "video")
+            return (
+              <GalleryItem
+                title={""}
+                assetUrl={`${mediaAssets[i]?.url}`}
+                thumbnailUrl={`${
+                  (mediaAssets[i] as VideoAsset)?.thumbnail
+                }?fm=jpg&fl=progressive&fit=fill&${
+                  mediaAssets[i]?.originalSize.width >
+                  mediaAssets[i]?.originalSize.height
+                    ? "h=400"
+                    : "w=600"
+                }`}
+                originalWidth={mediaAssets[i]?.originalSize.width}
+                originalHeight={mediaAssets[i]?.originalSize.height}
+                containsVideo={true}
+              />
+            );
+        })
+      }
+    </div>
+  </div>
+
+  <!-- Rest gallery assets - without thumbnails (assumes only images, because it is not expected to have more than 5 videos per page) -->
+  {
+    mediaAssets
+      .filter((_, i) => i >= 5)
+      .map((item) => (
+        <GalleryItem
+          title={(item as ImageAsset).title}
+          assetUrl={`${item?.url}?fm=jpg&fl=progressive`}
+          originalWidth={item?.originalSize.width}
+          originalHeight={item?.originalSize.height}
+        />
+      ))
+  }
+</section>
+
+<!-- Client Js to instantiate photoswipe gallery -->
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import PhotoSwipeVideoPlugin from "./photoswipe-video-plugin.esm";
+  import "photoswipe/style.css";
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: "#photo-gallery",
+    children: "a",
+    pswpModule: () => import("photoswipe"),
+    paddingFn: (viewportSize, itemData, index) => {
+      return {
+        top: viewportSize.x < 600 ? 0 : 20,
+
+        bottom: viewportSize.x < 600 ? 0 : 30,
+
+        left: viewportSize.x < 600 ? 0 : 50,
+
+        right: viewportSize.x < 600 ? 0 : 50,
+      };
+    },
+  });
+
+  // Register video plugin from photoswipe-video-plugin.esm.js file (* Video is not officially supported by photoswipe)
+  const videoPlugin = new PhotoSwipeVideoPlugin(lightbox, {});
+
+  lightbox.init();
+</script>

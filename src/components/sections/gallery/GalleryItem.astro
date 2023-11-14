@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  assetUrl: string;
+  thumbnailUrl?: string;
+  originalWidth: number;
+  originalHeight: number;
+  containsVideo?: boolean;
+}
+
+const {
+  assetUrl,
+  thumbnailUrl,
+  originalWidth,
+  originalHeight,
+  title,
+  containsVideo,
+} = Astro.props;
+---
+
+<!-- Gallery item with markdown and attributes according to photoswiper requirements -->
+<a
+  class="rounded-xl overflow-hidden shadow-sm"
+  href={assetUrl}
+  data-pswp-width={originalWidth}
+  data-pswp-height={originalHeight}
+  data-pswp-type={containsVideo ? "video" : "image"}
+  data-cropped="true"
+  target="_blank"
+>
+  {
+    thumbnailUrl && (
+      <div class="w-full h-full relative">
+        <img
+          class="object-cover object-center w-full h-full"
+          src={thumbnailUrl}
+          alt={title}
+        />
+        <slot />
+      </div>
+    )
+  }
+</a>

@@ -1,0 +1,39 @@
+---
+import Spinner from "./Spinner.astro";
+
+const currentPath = Astro.url.pathname;
+---
+
+<div
+  class={`flex justify-center items-center loading-screen pointer-events-none fixed left-0 top-0 z-[5000] h-full w-full bg-[--color-secondary-lighter]  transition-opacity duration-300 ease-in-out ${
+    currentPath === "/" ? " opacity-0" : "opacity-100"
+  }`}
+>
+  <div class="loading-screen-spinner">
+    <Spinner />
+  </div>
+</div>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .loading-screen-spinner {
+    animation: fadeIn 0.6s 0.6s ease-in-out both;
+  }
+</style>
+
+<script>
+  import { fadeIn, fadeOut } from "./transitions";
+
+  if (location.pathname !== "/tim-dat" && location.pathname !== "/")
+    window.onload = fadeIn;
+
+  window.addEventListener("pagehide", fadeOut);
+</script>

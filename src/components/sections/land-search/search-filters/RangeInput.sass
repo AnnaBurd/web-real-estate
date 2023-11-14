@@ -1,0 +1,44 @@
+// Override default style of RangeInput component
+#sizeRange,
+#priceRange
+
+    .rangeSlider
+        font-size: .9rem // Controls default sizes in em units
+        margin: .5rem
+        cursor: pointer
+
+    // Track (bar on sides of nubs)
+    .range
+        background: var(--color-grey-medium)
+        height: .25rem
+
+    // Track (bar in between nubs)
+    .rangeBar
+        height: .25rem
+        background: var(--color-secondary)
+
+    // Track (bar in between nubs when focused)
+    .rangeSlider.focus .rangeBar
+        background: var(--color-accent)
+
+    // Handles (knots)
+    .rangeHandle
+        translate: 0 -.1rem
+
+    .rangeNub
+        background: white
+        border-radius: 50%
+        border: 3px solid var(--color-secondary)
+
+    .rangeSlider.focus .rangeNub
+        border: 3px solid var(--color-accent)
+
+    // Floating value above handle
+    --range-handle-border: var(--color-accent)
+    .rangeFloat
+        border-radius: 2em
+        min-width: 2em
+        background: var(--color-secondary-transparent)
+
+    .rangeHandle.active .rangeFloat
+        background: var(--color-accent)

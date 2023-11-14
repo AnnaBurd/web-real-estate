@@ -1,0 +1,50 @@
+---
+import HeroImage from "./HeroImage.astro";
+import Container from "../../../layouts/Container.astro";
+import ButtonAnimated from "../../ui/buttons/ButtonAnimated.astro";
+
+import ScrollButton from "../../ui/buttons/ScrollButton.astro";
+---
+
+<section
+  id="hero-section"
+  class="relative h-full w-full cursor-default overflow-hidden"
+>
+  <HeroImage />
+  <div class="relative z-30 flex h-full w-full flex-col justify-center">
+    <Container>
+      <div
+        class="loaded-hero-heading mb-[12vh] max-w-lg sm:mb-[10vh] md:mb-[10vh] lg:mb-[12vh]"
+        data-scroll
+        data-scroll-speed="-.3"
+      >
+        <h1
+          class="mb-3.5 w-full text-4xl font-normal leading-[1.2] tracking-wide md:mb-7 md:text-5xl 2xl:text-6xl"
+        >
+          Nơi Hạnh Phúc <br />Ngập Tràn
+        </h1>
+        <p
+          class="w-[85%] text-sm font-normal leading-relaxed tracking-normal text-opacity-90 md:text-base"
+        >
+          Nơi nụ cười nở, hạnh phúc tươi sáng. Nơi nụ cười nở, hạnh phúc tươi
+          sáng. Nơi nụ cười nở, hạnh phúc tươi sáng.
+        </p>
+        <div class="mt-6">
+          <ButtonAnimated
+            hiddenText="xem đất"
+            onClick="location.href = '/tim-dat'"
+          >
+            Tìm hiểu
+          </ButtonAnimated>
+        </div>
+      </div>
+    </Container>
+
+    <ScrollButton
+      id="scroll-btn"
+      ariaLabel="Go down to the land previews"
+      destinationElementId="land-previews"
+      className="loaded-hero-button "
+    />
+  </div>
+</section>

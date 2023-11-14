@@ -1,0 +1,43 @@
+---
+type LinkProps = {
+  type: "link";
+  href: string;
+  className?: string;
+};
+
+type ButtonProps = {
+  type: "button";
+  id: string;
+  className?: string;
+};
+
+type Props = LinkProps | ButtonProps;
+
+const props = Astro.props;
+---
+
+{
+  props.type === "link" && (
+    <a
+      class={`lg:py-.5 justify-self-start py-2 pr-4 text-sm font-extralight text-white opacity-60 transition-opacity duration-150 hover:opacity-90 ${
+        props.className ? props.className : ""
+      } tabbable rounded-full`}
+      href={props.href}
+    >
+      <slot />
+    </a>
+  )
+}
+
+{
+  props.type === "button" && (
+    <button
+      class={`lg:py-.5 justify-self-start py-2 pr-4 text-sm font-extralight text-white opacity-60 transition-opacity duration-150 hover:opacity-90 ${
+        props.className ? props.className : ""
+      } tabbable rounded-full`}
+      id={props.id}
+    >
+      <slot />
+    </button>
+  )
+}

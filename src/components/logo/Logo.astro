@@ -1,0 +1,36 @@
+---
+interface Props {
+  companyTitle: string;
+  className?: string;
+}
+
+const { companyTitle, className } = Astro.props;
+---
+
+<a
+  href="/"
+  class=`flex items-center w-fit gap-x-1.5 ${className? className : ''} tabbable rounded-full`
+  ><div class="w-7 h-7">
+    <svg
+      width="230"
+      height="205"
+      viewBox="0 0 230 205"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-full h-full"
+    >
+      <path
+        d="M228 2H2.5L25.5 44H160L93.5 161L117.5 202.5L228 2Z"
+        fill="#3A5273"
+        stroke="#3A5273"
+        stroke-width="4"
+        stroke-linejoin="round"></path>
+      <path
+        d="M104 71.5H42L72.5 125.5L104 71.5Z"
+        fill="#82D4BB"
+        stroke="#82D4BB"
+        stroke-width="4"
+        stroke-linejoin="round"></path>
+    </svg>
+  </div><span class="text-xl tracking-wide font-medium">{companyTitle}</span></a
+>

@@ -1,0 +1,9 @@
+// Effects of button click
+@media screen and (min-width: 768px)
+.button-click-animation
+    transition: border-color 0.3s, background-color 0.3s, transform ease-in 0.15s, box-shadow ease-in 0.25s, opacity cubic-bezier(0.4, 0, 0.2, 1) .3s
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1)
+
+.button-click-animation:active
+    transform: scale(0.95)
+    box-shadow: 0 2px 15px var(--color-accent-shadow)

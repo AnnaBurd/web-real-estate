@@ -1,0 +1,26 @@
+---
+interface Props {
+  heading?: string;
+  description?: string;
+}
+
+const { heading, description } = Astro.props;
+---
+
+<div
+  class="cursor-default overflow-hidden rounded-xl bg-white px-6 py-6 shadow-sm lg:py-8"
+>
+  {
+    heading && (
+      <h1 class="mb-4 block text-xl font-semibold leading-tight tracking-tight md:text-2xl">
+        {heading}
+      </h1>
+    )
+  }
+
+  <div
+    class="text-sm font-normal not-italic leading-relaxed tracking-normal opacity-90 md:text-base"
+  >
+    <Fragment set:html={description} />
+  </div>
+</div>

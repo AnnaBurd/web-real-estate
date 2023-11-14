@@ -1,0 +1,16 @@
+---
+import AboutDescription from "../components/sections/about-description/AboutDescription.astro";
+import Agents from "../components/sections/agents/Agents.astro";
+import Layout from "../layouts/Layout.astro";
+
+const title = "VietLand - thông tin";
+---
+
+<Layout pageTitle={title}>
+  <AboutDescription />
+
+  <Agents />
+
+  <!-- Section with company stats (currently not relevant yet) -->
+  <!-- <AboutStats />  -->
+</Layout>

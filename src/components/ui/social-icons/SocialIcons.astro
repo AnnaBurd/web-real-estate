@@ -1,0 +1,62 @@
+---
+import Facebook from "./icons/Facebook.astro";
+import Zalo from "./icons/Zalo.astro";
+import Phone from "./icons/Phone.astro";
+
+interface Props {
+  className?: string;
+  positionClassName?: string;
+  contacts: {
+    facebookRef?: string;
+    zaloRef?: string;
+    phoneRef?: string;
+  };
+}
+
+const {
+  className,
+  positionClassName,
+  contacts: { facebookRef, zaloRef, phoneRef },
+} = Astro.props;
+
+const iconClassName =
+  "tabbable block rounded-full text-[--color-grey-light]  transition-opacity duration-150  " +
+  `${
+    className
+      ? className
+      : "h-7 w-7 opacity-20 hover:opacity-60 md:h-10 md:w-10 lg:h-9 lg:w-9"
+  }`;
+---
+
+<div
+  class=`flex items-center gap-1.5 ${positionClassName ? positionClassName : ""}`
+>
+  {
+    phoneRef && (
+      <button onclick={`location.href='tel:${phoneRef}'`} class={iconClassName}>
+        <Phone />
+      </button>
+    )
+  }
+
+  {
+    facebookRef && (
+      <a
+        href={facebookRef}
+        target="_blank"
+        rel="noopener"
+        class={iconClassName}
+      >
+        <Facebook />
+      </a>
+    )
+  }
+
+  {
+    zaloRef && (
+      <a href={zaloRef} target="_blank" rel="noopener" class={iconClassName}>
+        <Zalo />
+      </a>
+    )
+  }
+</div>

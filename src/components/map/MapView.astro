@@ -1,0 +1,452 @@
+---
+import type { LandLocation } from "./MapView";
+
+type Props = {
+  title?: string;
+  locations: LandLocation[];
+  fullHeight?: boolean;
+};
+
+// Pass pregenerated data to the map component
+const { locations, title, fullHeight } = Astro.props;
+---
+
+<!-- Use html markup for custom web component -->
+<map-view
+  data-locations={JSON.stringify(locations)}
+  data-title={title}
+  fullheight={fullHeight}></map-view>
+
+<!-- Override default styles of the Leaflet Map -->
+<style is:global lang="sass">
+  // Override default positions of the Leaflet controls
+  .leaflet-bottom // Move up bottom controls
+    top: max(calc(50% - 30px), 60px)
+
+  map-view[fullheight="true"] // Adjust controls position for fullheight mode
+    .leaflet-top
+      top: max(calc(50% - 10rem), 3rem)
+    .leaflet-bottom
+      top: max(calc(50% - 30px), 6rem)
+
+  // Override default styles of the Leaflet Controls
+  .leaflet-control // Style zoom controls and btn
+    border: none !important
+    border-radius: .7rem !important
+    overflow: hidden
+    cursor: pointer !important
+    @apply shadow-sm #{!important}
+
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out,
+  .leaflet-control-button
+    background-color: #ffffff !important
+    display: flex !important
+    justify-content: center
+    align-items: center
+    &:hover
+      filter: brightness(0.9)
+
+  .leaflet-control-icon
+    svg
+      fill: var(--color-secondary-darker)
+
+  .map-marker-icon
+    fill: var(--color-secondary)
+
+  // Override default styles of the Leaflet Popup
+  .leaflet-popup-content-wrapper
+    margin: 0 !important
+    box-shadow: 0 0 0 0 !important
+    font-family: Signika Negative, Open Sans, sans-serif
+
+  .leaflet-popup-content
+    margin: 0 !important
+    width: fit-content !important
+
+  .leaflet-popup-tip
+    width: 14px !important
+    height: 14px !important
+    border-radius: 3px
+    transform: rotate(45deg) skew(4deg, 4deg) !important // Skew makes the tip look like a diamond
+
+  // Sprinkle popup markers with animations
+  .map-marker-icon
+    transition: all 0.3s ease-in-out
+    &:hover
+      filter: brightness(0.9)
+
+  .fav-marker-icon
+    .map-marker-icon
+      fill: var(--color-like)
+</style>
+
+<!-- Switch styles between minimized and fullscreen map mode -->
+<style lang="sass" is:global>
+  map-view
+    display: block
+    width: 100%
+    height: 100%
+
+    .leaflet-control-icon
+      .icon-full
+        display: none
+      .icon-small
+        display: block
+
+  map-view[fullscreen]
+    z-index: 1000
+    position: fixed !important
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+
+    // Adjust controls position in fullscreen mode
+    // TODO: check on mobile
+    .leaflet-top
+      right: 5px // Compensate for the scrollbar space
+      top: max(calc(50% - 10rem), 3rem)
+
+    // TODO: check on mobile
+    .leaflet-bottom
+      right: 5px // Compensate for the scrollbar space
+      top: max(calc(50% - 30px), 60px)
+
+    .leaflet-control-button
+      background-color: var(--color-secondary) !important
+
+    .leaflet-control-icon
+      .icon-small
+        display: none
+      .icon-full
+        display: block
+        fill: white
+</style>
+
+<!-- JS: Instantiate Leaflet Map using parameters from data attributes hidden in html -->
+<script>
+  import L from "leaflet";
+  import "leaflet/dist/leaflet.css";
+
+  import type { MapView as MapViewI } from "./MapView.ts";
+  import type { LandLocation } from "./MapView";
+  import type { Land } from "../../model/Land";
+  import { getPopupMarkup } from "./PopupTemplate.ts";
+  import { getMarkerIcon } from "./MarkerTemplate";
+
+  const defaultLeafletMapOptions = {
+    attributionControl: false,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    minZoom: 6,
+    maxZoom: 18,
+  };
+
+  const defaultLeafletPopupOptions = {
+    autoClose: false,
+    closeOnClick: false,
+    closeOnEscapeKey: false,
+    closeButton: false,
+    autoPan: true,
+    riseOnHover: true,
+    className: "map-popup",
+  };
+
+  class MapView extends HTMLElement implements MapViewI {
+    private locations: LandLocation[] = []; // List of points on the map
+    private center: L.LatLngTuple = [0, 0]; // Center of the map
+    private leafletMap: L.Map | null = null; // Leaflet Map instance
+    private leafletMarkers = new Map<string, L.Marker>(); // Leaflet Markers instances
+
+    constructor() {
+      super();
+
+      // 1. Get locations coordinates from data attributes in html markup
+      this.readDataAttributes();
+
+      // 2. Init Leaflet Map
+      this.initLeafletInstance();
+
+      // 3. Add custom map controls (zoom in, zoom out, fullscreen)
+      this.initLeafletControls(this.leafletMap!);
+
+      // 4. Add markers to the map (* in fullheigh mode markers are added dynamically)
+      if (!this.hasAttribute("fullheight")) {
+        this.locations.forEach((location) => this.addMarker(location));
+      }
+    }
+
+    /* Public APIs for the map component: */
+    addMarker(location: LandLocation) {
+      L.marker(location.coordinates, {
+        title: location.title,
+        icon: getMarkerIcon(),
+      }).addTo(this.leafletMap!);
+    }
+
+    addPopupMarker(land: Land) {
+      const coords = land.coords
+        ? { lat: land.coords[0], lng: land.coords[1] }
+        : { lat: 0, lng: 0 };
+
+      const marker = L.marker(coords, {
+        title: land.title,
+        icon: getMarkerIcon(),
+      });
+
+      const popup = L.popup({
+        ...defaultLeafletPopupOptions,
+        offset: [0, -22],
+      }).setContent(getPopupMarkup(land));
+
+      marker.bindPopup(popup);
+
+      marker.addTo(this.leafletMap!);
+      this.leafletMarkers.set(land.title || "đất nền", marker);
+    }
+
+    removePopupMarker(markerTitle: string) {
+      const marker = this.leafletMarkers.get(markerTitle);
+
+      marker?.remove();
+
+      this.leafletMarkers.delete(markerTitle);
+    }
+
+    removePopupMarkers(markerTitles: string[]) {
+      markerTitles.forEach((title) => this.removePopupMarker(title));
+    }
+
+    showPopupOnMarker(title: string) {
+      const marker = this.leafletMarkers.get(title);
+
+      marker?.openPopup();
+    }
+
+    focusOnPopupMarker(markerTitle: string, closeOthers = true) {
+      const marker = this.leafletMarkers.get(markerTitle);
+
+      if (!marker) return;
+
+      if (closeOthers)
+        this.leafletMarkers.forEach((marker) => {
+          if (marker.options.title !== markerTitle) {
+            marker.closePopup();
+          } else {
+            marker.openPopup();
+          }
+        });
+
+      if (!closeOthers) marker.openPopup();
+    }
+
+    renderPopupMarkers(lands: Land[], favourites?: string[]) {
+      let hasUpdatedMarkers = false;
+
+      // Add missing markers
+      lands.forEach((land) => {
+        if (!this.leafletMarkers.has(land.title!)) {
+          hasUpdatedMarkers = true;
+          this.addPopupMarker(land);
+        }
+      });
+
+      // Remove markers that are not used anymore
+      this.leafletMarkers.forEach((marker, title) => {
+        if (!lands.find((land) => land.title === title)) {
+          hasUpdatedMarkers = true;
+          this.removePopupMarker(title);
+        }
+      });
+
+      // Highlight favorite markers
+      this.leafletMarkers.forEach((marker) => {
+        if (favourites?.includes(marker.options.title!)) {
+          L.DomUtil.addClass((marker as any)._icon, "fav-marker-icon");
+        } else {
+          L.DomUtil.removeClass((marker as any)._icon, "fav-marker-icon");
+        }
+      });
+
+      // Fit markers into map bounds
+      if (hasUpdatedMarkers) this.fitMapBoundsToMarkers();
+    }
+
+    renderOnResize() {
+      this.leafletMap?.invalidateSize();
+    }
+
+    /* Private methods used during map initialization and other helpers: */
+    private fitMapBoundsToMarkers() {
+      if (this.leafletMarkers.size === 0) return;
+
+      const newBounds = L.latLngBounds(
+        Array.from(this.leafletMarkers, ([_, marker]) => marker.getLatLng()),
+      );
+
+      this.leafletMap?.fitBounds(newBounds, { padding: [70, 70] });
+    }
+
+    private recalculateCenterPointValue() {
+      const averageLat =
+        this.locations.reduce(
+          (acc, location) => acc + location.coordinates.lat,
+          0,
+        ) / this.locations.length;
+      const averageLng =
+        this.locations.reduce(
+          (acc, location) => acc + location.coordinates.lng,
+          0,
+        ) / this.locations.length;
+
+      this.center = [averageLat, averageLng];
+    }
+
+    private readDataAttributes() {
+      const preloadedLocations = this.dataset.locations;
+
+      if (preloadedLocations) {
+        this.locations.push(...JSON.parse(preloadedLocations));
+
+        this.recalculateCenterPointValue();
+      }
+    }
+
+    private initLeafletInstance() {
+      const map = L.map(this, defaultLeafletMapOptions).setView(
+        this.center,
+        14,
+      );
+
+      // Fit map to locations bounds
+      if (this.locations.length > 1) {
+        const bounds = L.latLngBounds(
+          this.locations.map((location) => location.coordinates),
+        );
+        map.fitBounds(bounds);
+      }
+
+      // Load tiles from third-party api
+      L.tileLayer(
+        `https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${
+          import.meta.env.PUBLIC_MAPTILES_KEY
+        }`,
+      ).addTo(map);
+
+      // L.tileLayer(
+      //   `https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=${
+      //     import.meta.env.PUBLIC_MAPTILES_KEY
+      //   }`,
+      // ).addTo(map);
+
+      // TODO: / Another tile option -> fallback if maptiler is down
+      // L.tileLayer(
+      //   `https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${
+      //     import.meta.env.PUBLIC_MAPTILES_KEY
+      //   }`
+      // ).addTo(this.leafletMap);
+
+      // Disable map focus on click
+      map.getContainer().focus = () => {};
+
+      this.leafletMap = map;
+    }
+
+    private initLeafletControls(map: L.Map) {
+      // Zoom controls
+      L.control.zoom({ position: "bottomright" }).addTo(map);
+
+      // Replace default zoom icons
+      const zoomInButton: HTMLElement | null = document.querySelector(
+        ".leaflet-control-zoom-in",
+      );
+
+      if (zoomInButton)
+        zoomInButton.innerHTML = `<span class="leaflet-control-icon"><svg xmlns="http://www.w3.org/2000/svg" height="19" viewBox="0 96 960 960" width="19"><path d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"/></svg></span>`;
+
+      const zoomOutButton: HTMLElement | null = document.querySelector(
+        ".leaflet-control-zoom-out",
+      );
+
+      if (zoomOutButton)
+        zoomOutButton.innerHTML = `<span class="leaflet-control-icon"><svg xmlns="http://www.w3.org/2000/svg" height="19" viewBox="0 96 960 960" width="19"><path d="M200 616v-80h560v80H200Z"/></svg></svg></span>`;
+
+      // Fullscreen button
+      const handleFullscreenToggle = () => {
+        // Query if the map is in fullscreen mode or not (based on the attribute)
+        const isFullscreen = this.hasAttribute("fullscreen");
+
+        // Query the elements that change between fullscreen and minimized mode
+        const mapWrapper = document.querySelector(
+          "#resizable-map-wrapper",
+        ) as HTMLElement | null;
+
+        const scrollableElements = [
+          document.querySelector(".main-content"),
+          document.querySelector("#scrollable-lands-container"),
+        ];
+
+        // Switch between fullscreen and minimized mode
+        if (isFullscreen) {
+          // Allow scroll
+          scrollableElements.forEach((element) => {
+            if (element) (element as HTMLElement).style.overflow = "auto";
+          });
+
+          // Reset z-index
+          if (mapWrapper) mapWrapper.style.zIndex = "0";
+
+          // Remove fullscreen attribute -> css will handle the rest
+          this.removeAttribute("fullscreen");
+        }
+
+        if (!isFullscreen) {
+          // Add fullscreen attribute -> css will handle the rest
+          this.setAttribute("fullscreen", "");
+
+          // Set z-index to prevent map from being covered by other elements
+          if (mapWrapper) mapWrapper.style.zIndex = "1000";
+
+          // Prevent scroll
+          scrollableElements.forEach((element) => {
+            if (element) (element as HTMLElement).style.overflow = "hidden";
+          });
+        }
+
+        // Recalculate map size
+        this.leafletMap?.invalidateSize();
+      };
+
+      (L.Control as any).Button = L.Control.extend({
+        options: {
+          position: "topright",
+        },
+        onAdd: () => {
+          const container = L.DomUtil.create(
+            "div",
+            "leaflet-bar leaflet-control leaflet-control-custom",
+          );
+          let button = L.DomUtil.create(
+            "a",
+            "leaflet-control-button",
+            container,
+          );
+
+          button.innerHTML = `<span class="leaflet-control-icon"><svg class="icon-small" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M120 936V696h80v104l124-124 56 56-124 124h104v80H120Zm516-460-56-56 124-124H600v-80h240v240h-80V352L636 476Z"/></svg><svg class="icon-full" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="m136 976-56-56 264-264H160v-80h320v320h-80V712L136 976Zm344-400V256h80v184l264-264 56 56-264 264h184v80H480Z"/></svg></span>`;
+
+          L.DomEvent.disableClickPropagation(button);
+          container.onclick = handleFullscreenToggle;
+          return container;
+        },
+
+        onRemove: () => {},
+      });
+
+      new (L.Control as any).Button().addTo(this.leafletMap);
+    }
+  }
+
+  // Tell the browser to use MapView class for <map-view> elements.
+  customElements.define("map-view", MapView);
+</script>

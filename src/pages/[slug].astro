@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Gallery from "../components/sections/gallery/Gallery.astro";
+import LandInfo from "../components/sections/land-info/LandInfo.astro";
+
+import type { GetStaticPaths } from "astro";
+
+import dataModel from "../model/ContentfulModel";
+import type { Land } from "../model/Land";
+import Container from "../layouts/Container.astro";
+import LandPreviews from "../components/sections/land-previews/LandPreviews.astro";
+
+// Generate separate page for each of the land items
+export const getStaticPaths = (async () => {
+  const lands = await dataModel.getAllLands();
+
+  return lands.map((land) => ({
+    params: { slug: land.slug }, // slug is used as path in [slug].astro
+    props: { land: land }, // data to use for page generation
+  }));
+}) satisfies GetStaticPaths;
+
+let land: Land;
+land = Astro.props.land;
+
+const suggestedLands = land.suggestedLands
+  ? await dataModel.getLandsBySlugs(land.suggestedLands)
+  : [];
+---
+
+<Layout pageTitle={land.title || "Land"}>
+  <Container
+    className="bg-gradient-to-t from-[#40527338] pb-6 pt-16 lg:from-[--color-secondary-lighter] lg:pb-6 lg:pt-20"
+  >
+    <Gallery
+      tag={land.tag}
+      images={land.images || []}
+      videos={land.videos || []}
+    />
+    <LandInfo land={land} />
+  </Container>
+
+  {
+    suggestedLands.length > 0 && (
+      <LandPreviews
+        promotedLands={suggestedLands}
+        heading="Dự án tưởng tượng"
+        subheading="Công ty giới thiệu mấy dự án đất đang bán với tỷ giá và diện tích các loại đang bán."
+        fullHeight={true}
+      />
+    )
+  }
+</Layout>

@@ -1,0 +1,53 @@
+<div
+  class="w-full h-full absolute top-0 left-0 select-none overflow-hidden"
+  data-scroll
+  data-scroll-speed="-.2"
+>
+  <div class="bg-hero-image">
+    <!-- Image overlays -->
+    <div
+      class="w-full h-full bg-blue-400 absolute top-0 left-0 opacity-10 select-none"
+    >
+    </div>
+    <div
+      class="w-full h-full bg-white absolute top-0 left-0 opacity-30 md:opacity-10 select-none"
+    >
+    </div>
+  </div>
+</div>
+
+<!-- Position hero image on the page and apply responsive src loading -->
+<style lang="sass">
+  // Image src
+  $image--portrait: "https://images.ctfassets.net/2lc6rsj68vep/28nzwK95NUEfbQ0H6a6FTa/c1623d14157a04fc110fa465a75cab1c/main-hero__portrait-min.jpg?fm=jpg&fl=progressive" // contentful asset url
+
+  $image: "/img/main-hero" // public folder
+
+  //  Portrait mode (for mobile devices)
+  .bg-hero-image
+    background-size: cover
+    width: 100%
+    height: 100%
+    background-position: center bottom
+    background-image: url($image--portrait + "&w=768")
+
+  @media screen  and (-webkit-min-device-pixel-ratio: 2)
+    .bg-hero-image
+      background-image: url($image--portrait + "&w=1536")
+
+  // Landscape mode
+  @media (orientation: landscape) and (min-width: 768px)
+    .bg-hero-image
+      background-position: center center
+      width: 100%
+      height: 100%
+      background-image: url($image + "_small.jpg")
+
+  @media (orientation: landscape) and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), (orientation: landscape) and (min-width: 1280px)
+    .bg-hero-image
+      background-image: url($image + "_medium.jpg")
+
+  @media (orientation: landscape) and (min-width: 1280px) and (-webkit-min-device-pixel-ratio: 2) , (min-width: 1500px )
+    .bg-hero-image
+      background-image: url($image + "_large.jpg")
+</style>

@@ -1,0 +1,120 @@
+---
+import ErrorIcon from "./ErrorIcon.astro";
+import SuccessIcon from "./SuccessIcon.astro";
+
+interface Props {
+  id: string;
+  type?: "success" | "error";
+  title?: string;
+}
+
+const { id, type = "success", title } = Astro.props;
+---
+
+<alert-toast
+  id={id}
+  role="alert"
+  class={`${type}-alert rounded-md border  bg-white p-4 fixed bottom-10 right-0 mx-10 md:mx-16 transition-opacity duration-500 ease-in-out z-[500]`}
+  open="false"
+>
+  <div class="flex items-start gap-4">
+    <span>
+      {type === "success" && <SuccessIcon />}
+      {type === "error" && <ErrorIcon />}
+    </span>
+
+    <div class="flex-1">
+      {title && <strong class="block font-medium"> {title}</strong>}
+
+      <p class="mt-1 text-sm opacity-80">
+        <slot />
+      </p>
+    </div>
+
+    <button type="button" class="text-gray-500 transition hover:text-gray-600">
+      <span class="sr-only">Dismiss alert</span>
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-6 w-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+</alert-toast>
+
+<!-- Style alert in open, closed, success/error states and transition -->
+<style lang="sass" is:global>
+  alert-toast[open="false"]
+    visibility: hidden
+    opacity: 0
+    pointer-events: none
+
+  alert-toast[open="true"]
+    visibility: visible
+    opacity: 1
+    pointer-events: auto
+
+  .error-alert
+    border-color: var(--color-error)
+    & span
+      color: var(--color-error)
+
+  .success-alert
+    border-color: var(--color-accent)
+    & span
+      color: var(--color-accent)
+</style>
+
+<!-- Handle alert opening and closing functionality (reusable web component) -->
+<script>
+  class Alert extends HTMLElement {
+    private isOpen: boolean = false;
+    private closeTimer: number | null = null;
+
+    private titleContainerEl = this.querySelector("strong");
+    private messageContainerEl = this.querySelector("p")!;
+
+    constructor() {
+      super();
+
+      // Close alert on btn click
+      this.querySelector("button")?.addEventListener("click", () => {
+        this.hide();
+      });
+    }
+
+    show(title: string, message: string) {
+      if (this.isOpen) return; // Allow only one alert at a time
+
+      if (this.titleContainerEl) this.titleContainerEl.textContent = title;
+      this.messageContainerEl.textContent = message;
+
+      this.isOpen = true;
+      this.setAttribute("open", "true");
+
+      this.closeTimer = setTimeout(() => {
+        this.hide();
+      }, 5000);
+    }
+
+    hide() {
+      if (!this.isOpen) return;
+
+      this.isOpen = false;
+      this.setAttribute("open", "false");
+
+      if (this.closeTimer) clearTimeout(this.closeTimer!);
+    }
+  }
+
+  customElements.define("alert-toast", Alert);
+</script>

@@ -1,0 +1,22 @@
+---
+import MapPanel from "./MapPanel.astro";
+import Sidebar from "./Sidebar.astro";
+import DescriptionPanel from "./DescriptionPanel.astro";
+import type { Land } from "../../../model/Land";
+
+interface Props {
+  land: Land;
+}
+
+const { land } = Astro.props;
+---
+
+<div class="mt-6 grid gap-x-6 gap-y-4 lg:grid-cols-[1fr_auto]">
+  <DescriptionPanel
+    heading={land.title}
+    description={land.longDescriptionHtml}
+  />
+
+  <div class="row-span-2"><Sidebar land={land} /></div>
+  {land.coords && <MapPanel land={land} />}
+</div>

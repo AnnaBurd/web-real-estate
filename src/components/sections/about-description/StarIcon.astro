@@ -1,0 +1,26 @@
+---
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
+---
+
+<div class={` ${className ? className : ""}`}>
+  <svg
+    class="h-full w-full"
+    viewBox="0 0 168 169"
+    fill="none"
+    preserveAspectRatio="xMaxYMax meet"
+    xmlns="http://www.w3.org/2000/svg"
+    stroke-width=".6"
+    stroke="currentColor"
+  >
+    <path d="M84 0.5V168.5"></path>
+    <path d="M0 85L168 85"></path>
+    <path d="M42 12L126 157.492"></path>
+    <path d="M11.2539 42.7461L156.746 126.746"></path>
+    <path d="M11.2539 126.746L156.746 42.7461"></path>
+    <path d="M42 157.492L126 11.9999"></path>
+  </svg>
+</div>

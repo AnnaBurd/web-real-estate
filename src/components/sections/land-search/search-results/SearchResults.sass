@@ -1,0 +1,22 @@
+#scrollable-lands-container // Container with overflow-y: scroll
+
+    scrollbar-gutter: stable // Prevent resizing of container when scrollbar appears/disappears
+
+    // Style scrollbar for Chrome, Safari and Opera
+    &::-webkit-scrollbar
+        width: .35rem
+
+    &::-webkit-scrollbar-track
+        background: transparent
+
+    &::-webkit-scrollbar-thumb
+        background: var(--color-secondary)
+        border-radius: .6rem
+
+        &:hover
+            background: #7087b4
+
+    // Style scrollbar for Firefox
+    &
+        scrollbar-width: thin !important
+        scrollbar-color: var(--color-secondary) transparent !important

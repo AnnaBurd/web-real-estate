@@ -1,0 +1,82 @@
+---
+
+---
+
+<div
+  class="hamburger-btn relative block cursor-pointer select-none"
+  data-open="false"
+>
+  <span
+    class="mb-1.5 block h-1.5 w-10 rounded-md bg-[--color-text] [transform-origin:0%_0%]"
+  ></span>
+  <span
+    class="mb-1.5 block h-1.5 w-10 rounded-md bg-[--color-text] [transform-origin:.375rem_0]"
+  ></span>
+  <span
+    class="mb-1.5 block h-1.5 w-10 rounded-md bg-[--color-text] [transform-origin:0%_100%]"
+  ></span>
+</div>
+
+<style>
+  .hamburger-btn {
+    transform: translate(0rem, 0.1rem);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
+
+  .hamburger-btn[data-open="true"] {
+    transform: translate(0.45rem, 0.1rem);
+  }
+
+  .hamburger-btn > span {
+    transition:
+      transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      opacity 0.55s ease;
+  }
+
+  .hamburger-btn[data-open="true"] > span:first-child {
+    transform: rotate(45deg) translate(-3px, -1px);
+    background-color: var(--color-secondary-darker);
+  }
+
+  .hamburger-btn[data-open="true"] > span:nth-child(2) {
+    transform: rotate(-0deg) scale(0.2, 0.2);
+    opacity: 0;
+  }
+
+  .hamburger-btn[data-open="true"] > span:last-child {
+    transform: rotate(-45deg) translate(-1px, -1px);
+    background-color: var(--color-secondary-darker);
+  }
+</style>
+
+<script>
+  import type { DropdownMenu } from "./NavigationDropdown";
+
+  const hamburgerBtn = document.querySelector(".hamburger-btn")!;
+  const menu = document.querySelector(".hamburger-menu")! as DropdownMenu;
+
+  const closeDropdownMenu = () => {
+    menu.hide();
+  };
+
+  hamburgerBtn.addEventListener("click", () => {
+    menu.toggle();
+
+    if (menu.isOpen()) {
+      document.addEventListener("scroll", closeDropdownMenu);
+    } else {
+      document.removeEventListener("scroll", closeDropdownMenu);
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      menu.isOpen() &&
+      !(e.target as Element).closest(".hamburger-btn") &&
+      !(e.target as Element).closest(".hamburger-menu")
+    ) {
+      closeDropdownMenu();
+    }
+  });
+</script>

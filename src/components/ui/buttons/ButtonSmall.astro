@@ -1,0 +1,15 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const attributes = id ? { id } : {}; // optionally add id attribute
+---
+
+<button
+  {...attributes}
+  class="uppercase text-xs tracking-tight font-semibold px-2 mx-3 py-1.5 my-1.5 text-opacity-80 tabbable rounded-full hover:text-[--color-accent-darkest] duration-300 transition-colors"
+  ><slot /></button
+>

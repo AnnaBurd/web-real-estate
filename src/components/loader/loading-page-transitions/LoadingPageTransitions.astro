@@ -34,5 +34,6 @@ const currentPath = Astro.url.pathname;
 
   if (location.pathname !== "/tim-dat" && location.pathname !== "/")
     window.onload = fadeIn;
-  window.onbeforeunload = fadeOut;
+
+  window.addEventListener("pagehide", fadeOut);
 </script>

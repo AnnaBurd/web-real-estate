@@ -1,45 +1,26 @@
 ---
-import type { DescriptionNode } from "../../../model/Land";
-
 interface Props {
   heading?: string;
-  description?: DescriptionNode[];
+  description?: string;
 }
 
 const { heading, description } = Astro.props;
 ---
 
 <div
-  class="bg-white rounded-xl overflow-hidden shadow-sm px-6 lg:py-8 py-6 cursor-default"
+  class="cursor-default overflow-hidden rounded-xl bg-white px-6 py-6 shadow-sm lg:py-8"
 >
   {
     heading && (
-      <h1 class="text-xl md:text-2xl font-semibold tracking-tight leading-tight block mb-4">
+      <h1 class="mb-4 block text-xl font-semibold leading-tight tracking-tight md:text-2xl">
         {heading}
       </h1>
     )
   }
 
   <div
-    class="font-normal not-italic opacity-90 text-sm md:text-base tracking-normal leading-relaxed"
+    class="text-sm font-normal not-italic leading-relaxed tracking-normal opacity-90 md:text-base"
   >
-    {
-      description &&
-        description.map((item) => {
-          if (item.kind === "paragraph") {
-            return <p class=" mb-3">{item.paragraph}</p>;
-          }
-
-          if (item.kind === "bulletPoints") {
-            return (
-              <ul class="list-disc">
-                {item.bulletPoints.map((bulletPoint) => (
-                  <li class=" mb-3 ml-10 ">{bulletPoint}</li>
-                ))}
-              </ul>
-            );
-          }
-        })
-    }
+    <Fragment set:html={description} />
   </div>
 </div>

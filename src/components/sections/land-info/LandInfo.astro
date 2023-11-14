@@ -11,8 +11,11 @@ interface Props {
 const { land } = Astro.props;
 ---
 
-<div class="grid lg:grid-cols-[1fr_auto] gap-x-6 gap-y-4 mt-6">
-  <DescriptionPanel heading={land.title} description={land.longDescription} />
+<div class="mt-6 grid gap-x-6 gap-y-4 lg:grid-cols-[1fr_auto]">
+  <DescriptionPanel
+    heading={land.title}
+    description={land.longDescriptionHtml}
+  />
 
   <div class="row-span-2"><Sidebar land={land} /></div>
   {land.coords && <MapPanel land={land} />}

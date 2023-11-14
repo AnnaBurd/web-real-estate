@@ -21,7 +21,7 @@ const mediaAssets = [...videos, ...images];
   >
     <!-- Photo/Video card with large thumbnail -->
     {
-      mediaAssets[0].kind === "image" && (
+      mediaAssets[0]?.kind === "image" && (
         <GalleryItem
           title={mediaAssets[0]?.title}
           assetUrl={`${mediaAssets[0]?.url}?fm=jpg&fl=progressive`}
@@ -38,7 +38,7 @@ const mediaAssets = [...videos, ...images];
       )
     }
     {
-      mediaAssets[0].kind === "video" && (
+      mediaAssets[0]?.kind === "video" && (
         <GalleryItem
           title={""}
           assetUrl={`${mediaAssets[0]?.url}`}
@@ -60,7 +60,7 @@ const mediaAssets = [...videos, ...images];
     <div class="hidden grid-cols-2 grid-rows-2 gap-3 lg:grid">
       {
         [1, 2, 3, 4].map((i) => {
-          if (mediaAssets[i].kind === "image")
+          if (mediaAssets[i]?.kind === "image")
             return (
               <GalleryItem
                 title={(mediaAssets[i] as ImageAsset).title}
@@ -78,7 +78,7 @@ const mediaAssets = [...videos, ...images];
               />
             );
 
-          if (mediaAssets[i].kind === "video")
+          if (mediaAssets[i]?.kind === "video")
             return (
               <GalleryItem
                 title={""}

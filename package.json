@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/react": "^3.0.3",
     "@astrojs/tailwind": "^5.0.0",
+    "@contentful/rich-text-html-renderer": "^16.3.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.6",
     "@types/leaflet": "^1.9.6",
@@ -19,7 +20,7 @@
     "@types/react-dom": "^18.2.14",
     "@types/svelte-range-slider-pips": "^2.0.2",
     "astro": "^3.5.0",
-    "contentful": "^10.5.0",
+    "contentful": "^10.6.7",
     "gsap": "^3.12.2",
     "leaflet": "^1.9.4",
     "locomotive-scroll": "^5.0.0-beta.8",

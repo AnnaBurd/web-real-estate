@@ -1,15 +1,3 @@
-type ParagraphNode = {
-  kind: "paragraph";
-  paragraph: string;
-};
-
-type BulletPointsNode = {
-  kind: "bulletPoints";
-  bulletPoints: string[];
-};
-
-export type DescriptionNode = ParagraphNode | BulletPointsNode;
-
 export type ImageAsset = {
   kind: "image";
   title: string;
@@ -31,7 +19,7 @@ export type Land = {
   promoted?: boolean;
   tag?: string;
   briefDescription?: string;
-  longDescription?: DescriptionNode[];
+  longDescriptionHtml?: string;
   coords?: [number, number];
   address?: string;
   area?: number;

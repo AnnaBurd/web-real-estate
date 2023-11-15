@@ -1,24 +1,20 @@
 ---
+import type { Agent } from "../../../model/Agent";
 import SocialIcons from "../../ui/social-icons/SocialIcons.astro";
 
 type Props = {
-  name: string;
-  title: string;
-  image: string;
+  agent: Agent;
   className?: string;
   positionClassName?: string;
-  contacts: {
-    phone?: string;
-    facebook?: string;
-    zalo?: string;
-  };
 };
 
 const {
-  name,
-  title,
-  image,
-  contacts: { phone, facebook, zalo },
+  agent: {
+    name,
+    companyPosition,
+    photo,
+    contacts: { phone, facebook, zalo },
+  },
   className,
   positionClassName,
 } = Astro.props;
@@ -32,11 +28,11 @@ const {
   >
     <div class="h-36 w-36 overflow-hidden rounded-[2.3rem] lg:h-40
      lg:w-40">
-      <img class="h-full w-full object-cover" src={image} />
+      <img class="h-full w-full object-cover" src={photo} />
     </div>
     <span class="mt-2 text-lg font-bold">{name}</span>
     <span class="text-xs font-semibold uppercase tracking-tight opacity-80"
-      >{title}</span
+      >{companyPosition}</span
     >
     <span
       class="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 translate-y-[125%] cursor-default rounded-3xl bg-[--color-secondary] px-2.5 py-1 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-1/2 group-hover:opacity-100 max-md:translate-y-1/2 max-md:opacity-100"

@@ -31,3 +31,15 @@ export type LandContentfulSchema = {
     >;
   };
 };
+
+export type AgentContentfulSchema = {
+  contentTypeId: "agent";
+  fields: {
+    name: contentful.EntryFieldTypes.Text;
+    positionName: contentful.EntryFieldTypes.Text;
+    profilePhoto?: contentful.EntryFieldTypes.AssetLink;
+    phoneNumber?: contentful.EntryFieldTypes.Symbol;
+    facebookUrl?: contentful.EntryFieldTypes.Symbol;
+    zaloUrl?: contentful.EntryFieldTypes.Symbol;
+  };
+};

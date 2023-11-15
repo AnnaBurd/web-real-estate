@@ -13,9 +13,13 @@ const GEOAPIFY_KEY = import.meta.env.GEOAPIFY_KEY;
 
 import type { Land } from "./Land";
 import type { Model } from "./Model";
-import type { LandContentfulSchema } from "./ContentfulModelSchema";
-import { entryToLand } from "./ContentfulDataConverter";
+import type {
+  AgentContentfulSchema,
+  LandContentfulSchema,
+} from "./ContentfulModelSchema";
+import { entryToAgent, entryToLand } from "./ContentfulDataConverter";
 import { loadLandsAddresses } from "./ReverseGeocoder";
+import type { Agent } from "./Agent";
 
 class ContentfulModel implements Model {
   private lands: Land[] = [];
@@ -88,6 +92,16 @@ class ContentfulModel implements Model {
   async getLandsBySlugs(slugs: string[]): Promise<Land[]> {
     // Return the lands in order of the slugs array
     return slugs.map((slug) => this.lands.find((land) => land.slug === slug)!);
+  }
+
+  async getAllAgents(): Promise<Agent[]> {
+    // Fetch data from the Contentful API
+    const entries = await this.client.getEntries<AgentContentfulSchema>({
+      content_type: "agent",
+    });
+
+    // Transform into simpler form for futher usage
+    return entries.items.map(entryToAgent);
   }
 }
 

@@ -2,38 +2,9 @@
 import Container from "../../../layouts/Container.astro";
 import AgentCard from "./AgentCard.astro";
 
-const agents = [
-  {
-    name: "Phi Do Quan",
-    title: "Aại lý độc quyền",
-    image: "https://ssg-web-app.netlify.app/images/agents/agent_1.jpg",
-    contacts: {
-      phone: "+7 912 123 12323",
-      facebook: "https://www.facebook.com/ann.gilmore.75436/",
-      zalo: "#??",
-    },
-  },
-  {
-    name: "John Doe",
-    title: "Real Estate Agent",
-    image: "https://dummyimage.com/600x400/000/fff",
-    contacts: {
-      phone: "+7 912 123 12323",
-      facebook: "#",
-      zalo: "#",
-    },
-  },
-  {
-    name: "Jane Smith",
-    title: "Real Estate Agent",
-    image: "https://dummyimage.com/600x400/000/fff",
-    contacts: {
-      phone: "+7 912 123 12323",
-      facebook: "#",
-      zalo: "#",
-    },
-  },
-];
+import model from "../../../model/ContentfulModel";
+
+const agents = await model.getAllAgents();
 ---
 
 <Container
@@ -53,17 +24,17 @@ const agents = [
     <!-- {agents.map((agent) => )} -->
 
     <AgentCard
-      {...agents[0]}
+      agent={agents[0]}
       positionClassName="col-span-12 sm:col-span-6 z-0"
       className=" rounded-es-[7rem] rounded-se-[7rem] "
     />
     <AgentCard
-      {...agents[1]}
+      agent={agents[1]}
       positionClassName="col-span-12 sm:col-span-6 z-10"
       className=" rounded-se-[7rem] rounded-ss-[7rem] "
     />
     <AgentCard
-      {...agents[2]}
+      agent={agents[2]}
       positionClassName="col-span-12 sm:col-span-6 sm:col-start-4 z-20"
       className="rounded-ee-[7rem] rounded-es-[7rem] rounded-ss-[7rem] "
     />

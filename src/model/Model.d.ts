@@ -5,4 +5,6 @@ export interface Model {
   getPromotedLands(): Promise<Land[]>;
   getLandBySlug(slug: string): Promise<Land>;
   getLandsBySlugs(slugs: string[]): Promise<Land[]>;
+
+  getAllAgents(): Promise<Agent[]>;
 }

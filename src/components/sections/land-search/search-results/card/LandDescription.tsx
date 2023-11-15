@@ -1,4 +1,5 @@
 import type { Land } from "../../../../../model/Land";
+import { roundNumber } from "../../../../../scripts/utils";
 import { useOrigin } from "./useOrigin";
 
 interface Props {
@@ -139,8 +140,9 @@ const LandDescription: React.FC<Props> = ({ land }) => {
                   {(land?.price || 0) / 1000000000}&nbsp;tỷ đồng{" "}
                   {land.area && (
                     <span className="font-normal tracking-tight">
-                      ({(land.price / 1000000 / land.area).toFixed(1)}&nbsp;
-                      triều/m<sup>2</sup>)
+                      ({roundNumber(land.price / 1000000 / land.area, 2)}&nbsp;
+                      triều/m
+                      <sup>2</sup>)
                     </span>
                   )}
                 </span>

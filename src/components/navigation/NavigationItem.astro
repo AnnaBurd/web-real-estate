@@ -7,11 +7,10 @@ interface Props {
 const { href, isActive } = Astro.props;
 ---
 
-<!-- TODO: hover and active link effects (border underline or ..) -->
 <li>
   <a
     href={href}
-    class="uppercase text-xs tracking-tight font-semibold px-2 mx-4 py-1.5 my-1.5 text-opacity-80 tabbable rounded-full hover:text-[--color-accent-darkest] duration-300 transition-colors"
+    class="tabbable mx-4 my-1.5 rounded-full px-2 py-1.5 text-xs font-semibold uppercase tracking-tight text-opacity-80 transition-colors duration-300 hover:text-[--color-accent-darkest]"
   >
     <slot />
   </a>

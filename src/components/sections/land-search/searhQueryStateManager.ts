@@ -56,8 +56,6 @@ const setSearchQuery = ({
   // Get current query params
   const prevQueryParams = getSearchQueryParams();
 
-  console.log("prevQueryParams", prevQueryParams);
-
   // Combine new params with current query params
   const newQueryParams = {
     ...prevQueryParams,
@@ -67,8 +65,6 @@ const setSearchQuery = ({
     ...(sortBy && { sortBy }),
     ...(viewType && { viewType }),
   };
-
-  console.log("newQueryParams", newQueryParams);
 
   // Generate new query string
   let newURL = `${window.location.pathname}?`;

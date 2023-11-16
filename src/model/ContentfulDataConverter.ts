@@ -1,11 +1,13 @@
 import * as contentful from "contentful";
 import type {
+  AgentContentfulSchema,
   LandContentfulSchema,
   VideoAssetContentfulSchema,
 } from "./ContentfulModelSchema";
 import type { Land } from "./Land";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
+import type { Agent } from "./Agent";
 
 // Type guard to check if an asset is resolved (has all the data) or unresolved (only has the id) ** experimental, not tested **
 const isResolvedAsset = (
@@ -116,5 +118,24 @@ export const entryToLand = (
 
       return titleToSlug(landEntry.fields.title);
     }),
+  };
+};
+
+export const entryToAgent = (
+  entry: contentful.Entry<AgentContentfulSchema, undefined, string>,
+): Agent => {
+  if (entry.fields.profilePhoto && !isResolvedAsset(entry.fields.profilePhoto))
+    throw new Error("Photo is not resolved");
+
+  return {
+    name: entry.fields.name,
+    companyPosition: entry.fields.positionName,
+    photo:
+      entry.fields.profilePhoto?.fields.file?.url || "/vectors/no_image.svg",
+    contacts: {
+      phone: entry.fields.phoneNumber,
+      facebook: entry.fields.facebookUrl,
+      zalo: entry.fields.zaloUrl,
+    },
   };
 };

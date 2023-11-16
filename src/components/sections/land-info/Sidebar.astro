@@ -1,5 +1,6 @@
 ---
 import type { Land } from "../../../model/Land";
+import { roundNumber } from "../../../scripts/utils";
 import Link from "../../ui/Link.astro";
 
 interface Props {
@@ -10,21 +11,21 @@ const { land } = Astro.props;
 ---
 
 <div
-  class="lg:sticky lg:top-2 w-full lg:w-fit min-w-[10rem] lg:max-w-xs bg-white rounded-xl overflow-hidden shadow-sm px-6 lg:py-8 py-6 cursor-default"
+  class="w-full min-w-[10rem] cursor-default overflow-hidden rounded-xl bg-white px-6 py-6 shadow-sm lg:sticky lg:top-2 lg:w-fit lg:max-w-xs lg:py-8"
 >
-  <h3 class="text-base font-semibold tracking-normal mb-2.5">
+  <h3 class="mb-2.5 text-base font-semibold tracking-normal">
     Đặc điểm bất động sản:
   </h3>
 
   <div
-    class="grid grid-cols-[auto_1fr] gap-x-1 gap-y-2.5 text-sm opacity-90 items-center"
+    class="grid grid-cols-[auto_1fr] items-center gap-x-1 gap-y-2.5 text-sm opacity-90"
   >
     {
       land.address && (
         <>
-          <div class="w-4 h-4">
+          <div class="h-4 w-4">
             <svg
-              class="w-full h-full"
+              class="h-full w-full"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -51,9 +52,9 @@ const { land } = Astro.props;
     {
       land.area ? (
         <>
-          <div class="w-4 h-4">
+          <div class="h-4 w-4">
             <svg
-              class="w-full h-full"
+              class="h-full w-full"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -84,12 +85,12 @@ const { land } = Astro.props;
     {
       land.faceSideLength ? (
         <>
-          <div class="w-4 h-4">
+          <div class="h-4 w-4">
             <svg
               fill="none"
               height="24"
               viewBox="0 0 24 24"
-              class="w-full h-full"
+              class="h-full w-full"
               width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -117,12 +118,12 @@ const { land } = Astro.props;
     {
       land.papers && (
         <>
-          <div class="w-4 h-4">
+          <div class="h-4 w-4">
             <svg
               fill="none"
               height="24"
               viewBox="0 0 24 24"
-              class="w-full h-full"
+              class="h-full w-full"
               width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -146,9 +147,9 @@ const { land } = Astro.props;
     {
       land.price ? (
         <>
-          <div class="w-4 h-4">
+          <div class="h-4 w-4">
             <svg
-              class="w-full h-full"
+              class="h-full w-full"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -170,7 +171,7 @@ const { land } = Astro.props;
               {(land?.price || 0) / 1000000000}&nbsp;tỷ đồng
               {land.area && (
                 <span class="font-normal tracking-tight">
-                  ({(land.price / 1000000 / land.area).toFixed(1)}
+                  ({roundNumber(land.price / 1000000 / land.area, 2)}
                   triều/m&sup2)
                 </span>
               )}
@@ -189,9 +190,9 @@ const { land } = Astro.props;
           className="col-span-2 underline lg:no-underline underline-offset-1"
         >
           Xem Quy Hoạch{" "}
-          <span class="w-4 h-4 lg:hidden">
+          <span class="h-4 w-4 lg:hidden">
             <svg
-              class="w-full h-full"
+              class="h-full w-full"
               width="24"
               height="24"
               viewBox="0 0 24 24"

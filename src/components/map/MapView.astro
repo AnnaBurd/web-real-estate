@@ -327,25 +327,45 @@ const { locations, title, fullHeight } = Astro.props;
         map.fitBounds(bounds);
       }
 
-      // Load tiles from third-party api
+      // Load tiles from third-party api (uncomment preferable option)
+
+      // Google map -  Streets:
+      // L.tileLayer("http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}", {
+      //   maxZoom: 20,
+      //   subdomains: ["mt0", "mt1", "mt2", "mt3"],
+      // }).addTo(map);
+
+      // Google map - Hybrid
+      // L.tileLayer("http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}", {
+      //   maxZoom: 20,
+      //   subdomains: ["mt0", "mt1", "mt2", "mt3"],
+      // }).addTo(map);
+
+      // Google map - Satellite
+      // L.tileLayer("http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+      //   maxZoom: 20,
+      //   subdomains: ["mt0", "mt1", "mt2", "mt3"],
+      // }).addTo(map);
+
+      // Google map - Terrain
+      // L.tileLayer("http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}", {
+      //   maxZoom: 20,
+      //   subdomains: ["mt0", "mt1", "mt2", "mt3"],
+      // }).addTo(map);
+
+      // Maptiler - streets
       L.tileLayer(
         `https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${
           import.meta.env.PUBLIC_MAPTILES_KEY
         }`,
       ).addTo(map);
 
+      // Maptiler - topo
       // L.tileLayer(
       //   `https://api.maptiler.com/maps/topo-v2/{z}/{x}/{y}.png?key=${
       //     import.meta.env.PUBLIC_MAPTILES_KEY
       //   }`,
       // ).addTo(map);
-
-      // TODO: / Another tile option -> fallback if maptiler is down
-      // L.tileLayer(
-      //   `https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${
-      //     import.meta.env.PUBLIC_MAPTILES_KEY
-      //   }`
-      // ).addTo(this.leafletMap);
 
       // Disable map focus on click
       map.getContainer().focus = () => {};

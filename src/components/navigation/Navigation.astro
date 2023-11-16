@@ -6,34 +6,19 @@ import NavigationItem from "./NavigationItem.astro";
 import NavigationDropdown from "./dropdown/NavigationDropdown.astro";
 
 import { COMPANY_PHONE_NUMBER } from "../../scripts/constants";
-
-interface Props {}
-
-const navigationPages = [
-  {
-    title: "Trang chủ",
-    href: "/",
-  },
-  {
-    title: "Tìm kiếm đất",
-    href: "/tim-dat",
-  },
-  {
-    title: "Về chúng tôi",
-    href: "/thong-tin",
-  },
-];
+import { navigationPages } from "../../scripts/constants";
 
 const currentPage = Astro.url.pathname;
-const phone = COMPANY_PHONE_NUMBER;
 ---
 
 <header
-  class={`fixed left-0 top-0 z-50 flex w-full flex-row items-center overflow-hidden py-2 ${
-    currentPage === "/tim-dat" ? "" : ""
-  }`}
+  class="fixed left-0 top-0 z-50 flex w-full flex-row items-center overflow-hidden py-2"
 >
-  <div class="loaded-hero-logo flex-1 px-4 md:px-8 lg:px-16">
+  <div
+    class={`loaded-hero-logo flex-1 px-4 md:px-8  ${
+      currentPage === "/tim-dat" ? "lg:px-6" : "lg:px-16"
+    }`}
+  >
     <Logo companyTitle="VietLand" className="" />
   </div>
 
@@ -46,33 +31,31 @@ const phone = COMPANY_PHONE_NUMBER;
       ))
     }
   </ul>
+
   <div
-    class="loaded-hero-buttons flex flex-1 items-center justify-end xl:px-16"
+    class={`loaded-hero-buttons flex flex-1 items-center justify-end xl:px-16 ${
+      currentPage === "/tim-dat" ? "xl:px-6" : "xl:px-16"
+    }`}
   >
     <div class="hidden xl:block">
       <ButtonSmall id="callback-form-btn">Liên hệ</ButtonSmall>
     </div>
-    <div class="hidden sm:block"><CallButton phone={phone} /></div>
+    <div class="hidden sm:block">
+      <CallButton phone={COMPANY_PHONE_NUMBER} />
+    </div>
     <div
-      class="relative ml-4 mr-4 flex flex-col items-center justify-center md:mr-8 lg:mr-16 xl:hidden"
+      class={`relative ml-4 mr-4 flex flex-col items-center justify-center md:mr-8 lg:mr-16 xl:hidden ${
+        currentPage === "/tim-dat" ? "lg:mr-6" : "lg:mr-16 "
+      }`}
     >
       <NavigationDropdown
         currentPage={currentPage}
         pages={navigationPages}
-        phone={phone}
+        phone={COMPANY_PHONE_NUMBER}
       />
     </div>
   </div>
 </header>
-
-<style>
-  /* Prevent scrollbar from repositioning page content */
-  /* TODO: check if has effect */
-  header {
-    left: calc(100vw - 100%) !important;
-    overflow-x: hidden !important;
-  }
-</style>
 
 <!-- Hide and show navigation bar in header when scrolling past hero section (css) -->
 <style is:global lang="sass">
@@ -124,8 +107,6 @@ const phone = COMPANY_PHONE_NUMBER;
 
   const handleScrollEvent = () => {
     const currentScrollPosition = scrollSection.scrollTop;
-
-    console.log("currentScrollPosition", currentScrollPosition);
 
     if (currentScrollPosition > visibilityThresholdY && isVisibleNavigationEl) {
       hideNavigationBar();

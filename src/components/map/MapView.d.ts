@@ -1,5 +1,13 @@
 import type { Land } from "../../model/Land";
 
+export type LandLocation = {
+  title: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+};
+
 export interface MapView extends HTMLElement {
   addPopupMarker: (land: Land) => void;
   removePopupMarker: (title: string) => void;
@@ -11,11 +19,3 @@ export interface MapView extends HTMLElement {
   renderPopupMarkers: (lands: Land[], favouriteLands?: string[]) => void;
   renderOnResize: () => void;
 }
-
-export type LandLocation = {
-  title: string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-};

@@ -1,0 +1,19 @@
+---
+import Container from "../../layouts/Container.astro";
+import ButtonAnimated from "../ui/buttons/ButtonAnimated.astro";
+---
+
+<Container
+  className="z-30 my-16 flex h-[16vh] min-h-fit flex-col items-center justify-center [grid-column:1/2] [grid-row:1/2] md:my-12 md:h-[20vh] 2xl:my-14"
+>
+  <h2
+    class="max-w-[40ch] px-6 pb-3 pt-0 text-center font-light !leading-relaxed tracking-normal text-white md:text-xl xl:text-2xl"
+  >
+    VietLand đã đưa công nghệ và tính minh bạch vào bất động sản
+  </h2>
+  <div class="mt-4">
+    <ButtonAnimated hiddenText="xem đất" onClick="location.href = '/tim-dat'">
+      Tìm hiểu
+    </ButtonAnimated>
+  </div>
+</Container>

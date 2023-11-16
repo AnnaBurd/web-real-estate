@@ -37,12 +37,12 @@ class VideoContentSetup {
 
     lightbox.addFilter(
       "isKeepingPlaceholder",
-      this.isKeepingPlaceholder.bind(this)
+      this.isKeepingPlaceholder.bind(this),
     );
     lightbox.addFilter("isContentZoomable", this.isContentZoomable.bind(this));
     lightbox.addFilter(
       "useContentPlaceholder",
-      this.useContentPlaceholder.bind(this)
+      this.useContentPlaceholder.bind(this),
     );
 
     lightbox.addFilter("domItemData", (itemData, element, linkEl) => {
@@ -137,12 +137,6 @@ class VideoContentSetup {
   }
 
   isKeepingPlaceholder(isZoomable, content) {
-    // console.log(
-    //   `isKeepingPlaceholder(${isZoomable}, ${
-    //     isVideoContent(content) ? "video" : "-"
-    //   }) `,
-    //   content
-    // );
     if (isVideoContent(content)) {
       return false;
     }
@@ -157,10 +151,9 @@ class VideoContentSetup {
   }
 
   onContentActivate({ content }) {
-    // console.log("on content activate (content):", content);
     if (isVideoContent(content) && this.options.autoplay) {
       // Wait for opening animation to finish before playing video to prevent skipping frames
-      // console.log(content);
+
       setTimeout(() => {
         // Make sure slide is still active when starting playing
         if (content.slide.isActive) this.playVideo(content);
@@ -205,7 +198,7 @@ class VideoContentSetup {
       for (let key in this.options.videoAttributes) {
         content.element.setAttribute(
           key,
-          this.options.videoAttributes[key] || ""
+          this.options.videoAttributes[key] || "",
         );
       }
     }
@@ -261,15 +254,7 @@ class VideoContentSetup {
   }
 
   useContentPlaceholder(usePlaceholder, content) {
-    // console.log(
-    //   `useContentPlaceholder(${usePlaceholder}, ${
-    //     isVideoContent(content) ? "video" : "-"
-    //   }) `,
-    //   content,
-    //   usePlaceholder
-    // );
     if (isVideoContent(content)) {
-      // return false;
       return true;
     }
     return usePlaceholder;

@@ -1,0 +1,54 @@
+<!-- Background image container -->
+<div
+  class="bg-image-lazy z-0 h-full w-full [grid-column:1/2] [grid-row:1/2]"
+  data-load="false"
+>
+</div>
+<!-- Gradient overlay -->
+<div
+  class="z-10 h-full w-full bg-gradient-to-t from-[--color-secondary-darkest] to-[#405273DD] [grid-column:1/2] [grid-row:1/2]"
+>
+</div>
+
+<style lang="sass">
+  // $img: "/img/footer.jpg?"
+  $img: "https://images.ctfassets.net/2lc6rsj68vep/s1n2ZOawBGsBTzS7r1Hzb/2308aceb48c276fdc2d94a68d3c9e7c1/footer-min.jpg?q=100&fm=webp"
+
+  .bg-image-lazy[data-load="true"]
+    background-size: cover
+    width: 100%
+    height: 100%
+    background-position: center top
+    background-image: url($img + "&w=1200")
+    @media (min-width: 768px)
+      background-image: url($img + "&w=800")
+    @media (min-width: 1024px)
+      background-image: url($img + "&w=1200")
+    @media (min-width: 1280px)
+      background-image: url($img + "&w=1600")
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lazyBackgrounds = [].slice.call(
+      document.querySelectorAll(".bg-image-lazy"),
+    );
+
+    if ("IntersectionObserver" in window) {
+      let lazyBackgroundObverver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.setAttribute("data-load", "true");
+              lazyBackgroundObverver.unobserve(entry.target);
+            }
+          });
+        },
+      );
+
+      lazyBackgrounds.forEach((lazyBackground) => {
+        lazyBackgroundObverver.observe(lazyBackground);
+      });
+    }
+  });
+</script>

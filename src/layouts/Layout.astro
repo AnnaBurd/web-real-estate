@@ -6,8 +6,8 @@ import Navigation from "../components/navigation/Navigation.astro";
 import CallbackForm from "../components/modals/CallbackForm.astro";
 import Popup from "../components/modals/Popup.astro";
 import Alert from "../components/ui/alerts/Alert.astro";
-import Preloading from "../components/loader/Preloading.astro";
-import LoadingPageTransitions from "../components/loader/loading-page-transitions/LoadingPageTransitions.astro";
+import LoadingScreen from "../components/loading-page-animations/loading-screen/LoadingScreen.astro";
+import LoadingPageTransitions from "../components/loading-page-animations/loading-page-transitions/LoadingPageTransitions.astro";
 
 interface Props {
   pageTitle: string;
@@ -17,11 +17,12 @@ const { pageTitle } = Astro.props;
 const currentPage = Astro.url.pathname;
 ---
 
-<!-- TODO: SEO optimization --><!doctype html>
+<!doctype html>
 <html lang="en" class="bg-[--color-secondary-lighter]">
   <head>
     <meta charset="UTF-8" />
     <!-- TODO: update metadata + SEO -->
+    <!-- TODO: SEO optimization -->
     <meta
       name="description"
       content="Khám phá cơ hội đầu tư đất đai với chúng tôi. Đối tác đáng tin cậy cho những dự án bất động sản chiến lược. Mở khóa tiềm năng của các bất động sản giá trị và bắt đầu hành trình đầu tư của bạn ngay hôm nay."
@@ -65,7 +66,7 @@ const currentPage = Astro.url.pathname;
     data-loaded="false"
   >
     <!-- TODO: show preloading only once?  -->
-    {currentPage === "/" && <Preloading />}
+    {currentPage === "/" && <LoadingScreen />}
 
     <LoadingPageTransitions />
 

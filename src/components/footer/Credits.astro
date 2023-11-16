@@ -1,0 +1,21 @@
+---
+import Container from "../../layouts/Container.astro";
+import LogoSmall from "../logo/LogoSmall.astro";
+---
+
+<div class="bg-[--color-secondary-darkest]">
+  <Container>
+    <div class="h-[1px] w-full bg-white opacity-5"></div>
+  </Container>
+
+  <Container
+    className="flex flex-col items-center justify-between gap-4 py-6 md:flex-row"
+  >
+    <LogoSmall companyTitle="VietLand" />
+    <div
+      class="pointer-events-none text-xs font-extralight text-white opacity-20"
+    >
+      © 2022 - {new Date().getFullYear()} VietLand All Rights Reserved
+    </div>
+  </Container>
+</div>

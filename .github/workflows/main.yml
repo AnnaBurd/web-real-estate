@@ -1,0 +1,164 @@
+name: Lighthouse CI
+on:
+  pull_request:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository (${{ github.ref }} branch) has been cloned to the runner (${{ runner.os }}), triggeded by a ${{ github.event_name }} event."
+
+      - name: Add comment to PR
+        id: loading_lighthouse_comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: lighthouse
+          message: |
+            🚦 Running Lighthouse audit...
+
+      - name: Add comment to PR
+        id: loading_budget_comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: budget
+          message: |
+            ⏱ Running budget checks...
+
+      - name: Wait for the Netlify deploy preview to be ready
+        id: wait_for_netlify
+        uses: jakepartusch/wait-for-netlify-action@v1.4
+        with:
+          site_name: roaring-douhua-959988
+          max_timeout: 180
+
+      - name: Audit URLs using Lighthouse
+        id: lighthouse_audit
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            ${{ steps.wait_for_netlify.outputs.url }}
+            ${{ steps.wait_for_netlify.outputs.url }}en
+            ${{ steps.wait_for_netlify.outputs.url }}vi
+            ${{ steps.wait_for_netlify.outputs.url }}ru
+          budgetPath: ".github/lighthouse/budget.json" # test performance budgets https://web.dev/articles/use-lighthouse-for-performance-budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          runs: 2 # number of times to run Lighthouse
+
+      - name: Format lighthouse results
+        id: lighthouse_result
+        if: ${{ always() }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const links = ${{ steps.lighthouse_audit.outputs.links }};
+            const results = ${{ steps.lighthouse_audit.outputs.manifest }}.filter(result => result.isRepresentativeRun);
+
+            const score = res => res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴';
+
+            const excludeKeysFromSummary = ["pwa"];
+            const resultSummaryKeys = (summary) =>
+              Object.keys(summary).filter((key) => !excludeKeysFromSummary.includes(key));
+
+            const toTitleCase = (str) => {
+                return str.replace(/\w\S*/g, function (txt) {
+                  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
+              };
+
+            const tableHeader =
+              `| Preview URL and Report | ` +
+              resultSummaryKeys(results[0].summary)
+                .map((key) => ` ${key === "seo" ? key.toUpperCase() : toTitleCase(key)} |`)
+                .join("");
+
+            const tableDivider =
+                `| --- | ` +
+                resultSummaryKeys(results[0].summary)
+                  .map(() => ` --- |`)
+                  .join("");
+
+            const tableRows = results
+                  .map((result) => {
+                    const url = result.url;
+                    const summary = result.summary;
+                    return `| 🌎 [${url.replace(
+                      "${{ steps.wait_for_netlify.outputs.url }}",
+                      "/",
+                    )}](${url}) <br /> ⚡️ [Lighthouse report](${
+                      links[url]
+                    }) | ${resultSummaryKeys(summary)
+                      .map((key) => {
+                        const percentage = Math.round(summary[key] * 100);
+                        return ` ${score(percentage)} ${percentage} `;
+                      })
+                      .join("|")} |`;
+                  })
+                  .join("\n");
+
+
+
+            let output = '**Lighthouse Performance Results**\n\n';
+            output += tableHeader + '\n';
+            output += tableDivider + '\n';
+            output += tableRows + '\n';
+
+            core.setOutput("comment", output);
+
+      - name: Format budget result
+        id: budget_result
+        if: ${{ always() }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const assertions = ${{ steps.lighthouse_audit.outputs.assertionResults }};
+            if (!assertions.length) {
+              core.setOutput("comment", '✅ Budget met, nothing to see here');
+            } else {
+              const comment = assertions.map((result) => {
+                return `
+            ❌ **${result.auditProperty || ''}.${result.auditId}** failure on [${result.url}](${result.url})
+
+            *${result.auditTitle}* - [docs](${result.auditDocumentationLink})
+
+            | Actual | Expected |
+            | --- | --- |
+            | ${result.actual} | ${result.operator} ${result.expected} |
+            `;
+              }).join('---');
+
+              core.setOutput("comment", comment);
+            }
+
+      - name: Add Lighthouse results comment to PR
+        id: lighthouse_comment_to_pr
+        if: ${{ always() }}
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: lighthouse
+          message: |
+            ${{ steps.lighthouse_result.outputs.comment }}
+
+      - name: Add Budget results comment to PR
+        id: budget_comment_to_pr
+        if: ${{ always() }}
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: budget
+          message: |
+            ${{ steps.budget_result.outputs.comment }}

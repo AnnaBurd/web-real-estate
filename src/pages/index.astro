@@ -21,3 +21,89 @@ const promotedLands = await dataModel.getPromotedLands();
   />
   <About />
 </Layout>
+
+<!-- Script to help capture page preview video -->
+<script>
+  console.log("Capturing page preview video...");
+
+  import initScroll from "../scripts/smoothScroll";
+
+  function easeInOutExpo(x: number): number {
+    return x === 0
+      ? 0
+      : x === 1
+      ? 1
+      : x < 0.5
+      ? Math.pow(2, 20 * x - 10) / 2
+      : (2 - Math.pow(2, -20 * x + 10)) / 2;
+  }
+
+  function easeOutExpo(x: number): number {
+    return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+  }
+
+  function easeOutQuart(x: number): number {
+    return 1 - Math.pow(1 - x, 4);
+  }
+
+  function easeInOutSine(x: number): number {
+    return -(Math.cos(Math.PI * x) - 1) / 2;
+  }
+
+  function easeInSine(x: number): number {
+    return 1 - Math.cos((x * Math.PI) / 2);
+  }
+
+  function easeLinear(x: number): number {
+    return x;
+  }
+
+  function timeout(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  const scroll = initScroll();
+
+  const lands = document.querySelector("#land-previews")!;
+
+  const about = document.querySelector("#about-container")!;
+
+  const footer = document.querySelector("footer")!;
+
+  const windowHeight = window.innerHeight;
+  const scrollHeight = document.documentElement.scrollHeight;
+
+  const imitateScroll = async () => {
+    await timeout(3000); // wait for page to load and finish initial animations
+
+    scroll.scrollTo(lands, {
+      duration: 1.7,
+      easing: easeInOutSine,
+    });
+
+    await timeout(1700 + 1100); // wait for a bit before scrolling again
+
+    scroll.scrollTo(about.getBoundingClientRect().top + windowHeight / 2, {
+      duration: 1.7,
+      easing: easeInOutSine,
+      offset: 88,
+    });
+
+    await timeout(1700 + 1100); // wait for a bit before scrolling again
+
+    scroll.scrollTo(footer, {
+      duration: 2.2,
+      easing: easeInOutSine,
+      offset: -footer.getBoundingClientRect().height * 1.5 + 75,
+    });
+
+    await timeout(2200 + 1100); // wait for a bit before scrolling again
+
+    scroll.scrollTo(footer, {
+      duration: 1,
+      easing: easeInOutSine,
+    });
+  };
+
+  imitateScroll();
+</script>

@@ -1,16 +1,16 @@
 <div
-  class="w-full h-full absolute top-0 left-0 select-none overflow-hidden"
+  class="absolute left-0 top-0 h-full w-full select-none overflow-hidden"
   data-scroll
   data-scroll-speed="-.2"
 >
   <div class="bg-hero-image">
     <!-- Image overlays -->
     <div
-      class="w-full h-full bg-blue-400 absolute top-0 left-0 opacity-10 select-none"
+      class="absolute left-0 top-0 h-full w-full select-none bg-blue-400 opacity-10"
     >
     </div>
     <div
-      class="w-full h-full bg-white absolute top-0 left-0 opacity-30 md:opacity-10 select-none"
+      class="absolute left-0 top-0 h-full w-full select-none bg-white opacity-30 md:opacity-10"
     >
     </div>
   </div>
@@ -30,6 +30,7 @@
     height: 100%
     background-position: center bottom
     background-image: url($image--portrait + "&w=768")
+    will-change: transform
 
   @media screen  and (-webkit-min-device-pixel-ratio: 2)
     .bg-hero-image

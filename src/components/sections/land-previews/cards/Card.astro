@@ -22,7 +22,7 @@ const imgSrcSet = generateImageSrcset(land.images?.[0].url, [200, 400, 800]); //
 
 <div
   {...attributes}
-  class=` md:px-6 md:pb-10 xl:px-3 h-auto ${className ? className : ""} overflow-visible`
+  class=` md:px-6 md:pb-10 xl:px-3 h-auto ${className ? className : ""} overflow-visible [will-change:transform]`
 >
   <a
     href={`/${land.slug}`}

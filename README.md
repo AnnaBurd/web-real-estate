@@ -1,4 +1,4 @@
-# <img src="public/favicon.svg" width="48" style="margin-bottom:-16px"> VietLand - Real Estate App
+# <img src="public/favicon.svg" width="48" style="margin-bottom:-16px"> [VietLand - Real Estate App][vietland]
 
 ![](preview/responsive-mockup.png)
 
@@ -20,8 +20,6 @@ Initial constraints that we needed to address:
 In this particular scenario, the approach taken was to generate static pages rather than rely on client-side or server-side rendering. The client-side rendering was ruled off due to the significance placed on mobile performance and search engine optimization (SEO). Meanwhile, the idea of spending on the development/hosting/management of the backend side ruled off the server-side rendering approach as well. Instead of overinvesting in the backend infrastructure, we choose the services of the headless CMS (with generous free tiers).
 
 And, although static pages sound … lifeless, the app pages have been designed in a manner that does not give off a static impression entirely! The secret is the usage of component-based islands of JS interactivity whenever necessary.
-
-![](preview/preview.mp4)
 
 [**View Viet Land App (Live)**][vietland]
 

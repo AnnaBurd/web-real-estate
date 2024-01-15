@@ -1,8 +1,12 @@
 # <img src="public/favicon.svg" width="48" style="margin-bottom:-16px"> VietLand - Real Estate App
 
+![](preview/responsive-mockup.png)
+
 > A web application that blends modern design approaches with a timeless and intuitive UI, designed and developed exclusively for the local small-scale real estate business.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2bd48f01-8fed-412f-b2af-bf1b88eb54ab/deploy-status)](https://app.netlify.com/sites/rainbow-selkie-885930/deploys)
+[vietland]: https://viet-land.vn/ "Viet Land App"
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b83daac1-b88a-4a01-bee4-d3af6c745410/deploy-status)](https://app.netlify.com/sites/viet-land/deploys)
 
 The main objective of this project is to help the local business establish a strong connection with potential customers and create an outstanding first impression, ultimately giving the business a distinct advantage amidst the fiercely demanding marketplace.
 
@@ -17,14 +21,13 @@ In this particular scenario, the approach taken was to generate static pages rat
 
 And, although static pages sound … lifeless, the app pages have been designed in a manner that does not give off a static impression entirely! The secret is the usage of component-based islands of JS interactivity whenever necessary.
 
-[**View Viet Land App (Live)**](https://deft-entremet-3bc804.netlify.app/ "Viet Land App")
+![](preview/preview.mp4)
+
+[**View Viet Land App (Live)**][vietland]
 
 ## Key Features
 
 - Mobile-first responsive design
-
-![](preview/mockup.jpg)
-&nbsp;
 
 - Forms with intuitive UI
 
@@ -36,61 +39,66 @@ And, although static pages sound … lifeless, the app pages have been designed 
 
 ## Designed with and Build with
 
-![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-<a href="https://astro.build"><img src="https://astro.badg.es/v2/built-with-astro/small.svg" alt="Built with Astro" width="170" height="28"></a>
+This project was developed by selecting a carefully curated set of modern technologies and tools. The pivotal ones are listed below. For a comprehensive view of all dependencies, including exact versions, feel free to explore the details in the [package.json](https://github.com/AnnaBurd/web-real-estate/blob/main/package.json) file.
+
+| Name                                                                                                                                                   | Usage                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| [![Astro Badge](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=fff&style=flat-square)](https://astro.build/)                           | Leveraged for generating static pages, emphasizing fast load times and optimal performance.                       |
+| [![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=flat-square)](https://reactjs.org/)                           | Integrated strategically for dynamic content and interactive components, providing a lively user experience.      |
+| [![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat-square)](https://www.typescriptlang.org/) | Ensured codebase reliability and scalability, contributing to the overall maintainability of the application.     |
+| [![Contentful Badge](https://img.shields.io/badge/Contentful-2478CC?logo=contentful&logoColor=fff&style=flat-square)](https://www.contentful.com/)     | Served as the headless CMS, facilitating easy content updates and management.                                     |
+| [![Figma Badge](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=fff&style=flat-square)](https://www.figma.com/)                         | Utilized for collaborative design processes, ensuring a cohesive and visually appealing user interface.           |
+| [![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat-square)](https://tailwindcss.com/) | Applied for a streamlined and responsive design, enhancing the overall aesthetic and usability.                   |
+| [![Leaflet Badge](https://img.shields.io/badge/Leaflet-199900?logo=leaflet&logoColor=fff&style=flat-square)](https://leafletjs.com/)                   | Integrated for interactive maps, enhancing the user experience and providing valuable location-based information. |
 
 ## Installation
 
-Linux & Windows:
-
-```bash
-npm install     # Install dependencies
-npm run build   # Build production version
-npm run dev     # Run in development mode
-```
-
-This will run the frontend (client) part of the application, the backend (api) is [here](https://github.com/AnnaBurd/translator-app-ts-api)
-
-TODO:
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:3000`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Command           | Action                                                                                                                           |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `npm install`     | Installs dependencies                                                                                                            |
+| `npm run dev`     | Starts local dev server at `localhost:4321` Note: switched from `localhost:3000` to `localhost:3000` in latest versions of Astro |
+| `npm run build`   | Build your production site to `./dist/`                                                                                          |
+| `npm run preview` | Preview your build locally, before deploying                                                                                     |
 
 ## Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
+The project contains the following files and folders:
 
 ```
 /
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
++---.github                 - configurations for github actions ci
++---.vscode                 - list of recommended extensions for vscode editor
++---dist                    - files generated by build command
++---node_modules            - third-party libs
++---preview                 - preview assets for md documentation
++---public                  - fonts, images and icons
+|
+\---src
+    |
+    +---components          - reusable Astro components
+    |
+    +---layouts             - common layout for all pages
+    |
+    +---model               - application data
+    |
+    +---pages               - file-based routes
+    |       404.astro
+    |       index.astro
+    |       thong-tin.astro
+    |       tim-dat.astro
+    |       [slug].astro
+    |
+    +---scripts             - vanilla js (ts) scripts
+    |
+    \---styles              - css defaults and variables
+
+
+... ts, prettier, tailwind, astro config files
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+During the build, Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name. The `404.astro` page is exposed as the default error page. `[slug].astro` exposes dynamically-generated pages.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
+Astro components in `src/components/` can include pure Astro or React/Vue/Svelte/Preact components.
 
 ## 👀 Want to contribute?
 

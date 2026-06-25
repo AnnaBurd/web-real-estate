@@ -43,16 +43,17 @@ export const loadLandsAddresses = async (lands: Land[], apiUrl: string) => {
   // The batch job is async: 202 = still processing, 429 = rate limited, 200 = done.
   // Use a generous attempt budget with growing back-off so a slow/busy Geoapify
   // does not abort the build (the batch can legitimately take >10s to finish).
-  const maxAttempts = 30;
+  const maxAttempts = 60;
   let attempt = 0;
   while ((response.status === 202 || response.status === 429) && attempt < maxAttempts) {
     attempt++;
 
-    // Back off progressively: ~3s early, growing toward a 15s cap. Honour Retry-After on 429.
+    // Back off progressively: ~5s early, growing toward a 20s cap. Honour Retry-After on 429.
+    // With 60 attempts this gives the batch ~15+ minutes to finish before the build moves on.
     const retryAfter = Number(response.headers.get("retry-after"));
     const backoffMs = Number.isFinite(retryAfter) && retryAfter > 0
       ? retryAfter * 1000
-      : Math.min(3000 + attempt * 1000, 15000);
+      : Math.min(5000 + attempt * 1000, 20000);
 
     console.log(
       `🌍 Geoapify - waiting for the addresses (status ${response.status}), ` +

@@ -1,0 +1,46 @@
+---
+/**
+ * Labelled content block used down the parcel detail page: a clay eyebrow with
+ * an icon, then slotted body content.
+ */
+import Icon from "../ui/Icon.astro";
+
+interface Props {
+  icon: string;
+  title: string;
+}
+const { icon, title } = Astro.props;
+---
+
+<div class="block">
+  <div class="head">
+    <Icon name={icon} size={16} class="ic" />
+    <h2>{title}</h2>
+  </div>
+  <div class="body"><slot /></div>
+</div>
+
+<style>
+  .head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .head :global(.ic) {
+    color: var(--clay);
+  }
+  .head h2 {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  .body {
+    margin-top: 0.75rem;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: color-mix(in oklab, var(--foreground) 85%, transparent);
+  }
+</style>

@@ -1,0 +1,228 @@
+---
+/**
+ * Homepage hero — full-bleed farmland photo, owner-direct positioning,
+ * primary Zalo CTA and a 4-up trust stat row. Ported from the Lovable redesign.
+ */
+import { Image } from "astro:assets";
+import Icon from "../ui/Icon.astro";
+import { zaloLink } from "../../config/site";
+import heroLand from "../../assets/site/hero-land.jpg";
+
+interface Props {
+  /** Number of active (promoted) opportunities, shown in the eyebrow. */
+  count: number;
+}
+const { count } = Astro.props;
+
+const stats: [string, string][] = [
+  ["12+ năm", "Kinh nghiệm tại địa phương"],
+  ["100%", "Sổ đỏ đã xác minh"],
+  ["~14 ngày", "Thời gian sang tên trung bình"],
+  ["Miền Nam", "TP.HCM · Đồng Nai · Lâm Đồng"],
+];
+---
+
+<section class="hero">
+  <div class="bg">
+    <Image
+      src={heroLand}
+      alt="Toàn cảnh đất nông nghiệp miền Nam lúc bình minh"
+      widths={[768, 1280, 1920]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="overlay"></div>
+  </div>
+
+  <div class="container inner">
+    <div class="col">
+      <div class="eyebrow">
+        <span class="ping"></span>
+        Chính chủ · {count} lô đang bán · thương lượng
+      </div>
+      <h1>
+        Đất nền miền Nam, pháp lý minh bạch,
+        <em class="accent">bán trực tiếp</em> từ chính chủ.
+      </h1>
+      <p class="lede">
+        Niêm yết chính chủ. Pháp lý rõ ràng. Giá thương lượng cho người mua
+        thiện chí — không qua trung gian.
+      </p>
+      <div class="cta-wrap">
+        <a
+          class="cta"
+          href={zaloLink(
+            "Chào anh/chị, em muốn nhận giá và pháp lý một lô đất ở miền Nam.",
+          )}
+          target="_blank"
+          rel="noopener"
+        >
+          Nhận giá &amp; pháp lý qua Zalo
+          <Icon name="arrow-right" size={16} />
+        </a>
+        <div class="cta-note">
+          Phản hồi thường trong vòng một giờ · ảnh sổ đỏ + giá sàn + lịch xem đất
+        </div>
+      </div>
+
+      <dl class="stats">
+        {
+          stats.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .bg :global(img) {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--background) 42%, transparent),
+      color-mix(in oklab, var(--background) 58%, transparent) 45%,
+      var(--background)
+    );
+  }
+
+  .inner {
+    padding-block: 4rem 5rem;
+  }
+  .col {
+    max-width: 48rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+    background: color-mix(in oklab, var(--paper) 85%, transparent);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--muted-foreground);
+    backdrop-filter: blur(8px);
+  }
+  .ping {
+    height: 6px;
+    width: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--clay);
+  }
+
+  h1 {
+    margin-top: 1.25rem;
+    font-size: var(--text-7xl);
+    font-weight: var(--weight-semibold);
+    line-height: 1.04;
+    letter-spacing: var(--tracking-tighter);
+    color: var(--ink);
+    max-width: 16ch;
+  }
+  .accent {
+    font-style: normal;
+    color: var(--clay);
+  }
+  .lede {
+    margin-top: 1.25rem;
+    max-width: 36rem;
+    font-size: var(--text-lg);
+    color: var(--muted-foreground);
+  }
+
+  .cta-wrap {
+    margin-top: 2rem;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--clay);
+    padding: 1rem 1.75rem;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--clay-foreground);
+    box-shadow: var(--shadow-lg);
+    transition: opacity 0.15s;
+  }
+  .cta:hover {
+    opacity: 0.95;
+  }
+  .cta :global(svg) {
+    transition: transform 0.15s;
+  }
+  .cta:hover :global(svg) {
+    transform: translateX(2px);
+  }
+  .cta-note {
+    margin-top: 0.75rem;
+    font-size: var(--text-xs);
+    color: var(--muted-foreground);
+  }
+
+  .stats {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 42rem;
+  }
+  .stats dt {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+    color: var(--ink);
+  }
+  .stats dd {
+    margin-top: 0.25rem;
+    font-size: var(--text-xs);
+    color: var(--muted-foreground);
+  }
+
+  @media (min-width: 640px) {
+    .inner {
+      padding-block: 6rem 8rem;
+    }
+    .stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .inner {
+      padding-top: 8rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta :global(svg) {
+      transition: none;
+    }
+  }
+</style>

@@ -1,23 +1,25 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/home/Hero.astro";
+import Listings from "../components/home/Listings.astro";
+import WhyInvest from "../components/home/WhyInvest.astro";
+import Trust from "../components/home/Trust.astro";
+import Process from "../components/home/Process.astro";
+import FinalCTA from "../components/home/FinalCTA.astro";
+import { getPromotedParcels } from "../lib/parcels";
 
-import Hero from "../components/sections/hero/Hero.astro";
-import About from "../components/sections/about/About.astro";
-import LandPreviews from "../components/sections/land-previews/LandPreviews.astro";
-
-import dataModel from "../model/ContentfulModel.js";
-const promotedLands = await dataModel.getPromotedLands();
+const parcels = await getPromotedParcels();
 ---
 
-<Layout pageTitle="Viet Land">
-  <Hero />
-  <LandPreviews
-    promotedLands={promotedLands}
-    heading="Dự án hiện tại"
-    subheading="Công ty giới thiệu mấy dự án đất đang bán với tỷ giá và diện tích các loại đang bán."
-    scrollEffect={true}
-    fullHeight={true}
-    gradient={true}
-  />
-  <About />
-</Layout>
+<BaseLayout
+  title="VietLand — Đất nền pháp lý rõ ràng, bán trực tiếp từ chính chủ"
+  description="Bán đất chính chủ khắp miền Nam Việt Nam. Lô đất đã xác minh sổ đỏ, pháp lý minh bạch, giá thương lượng — không qua trung gian. Nhận giá và pháp lý nhanh qua Zalo."
+  contactMessage="Chào anh/chị, em xem đất trên VietLand và muốn biết thêm chi tiết."
+>
+  <Hero count={parcels.length} />
+  <Listings parcels={parcels} />
+  <WhyInvest />
+  <Trust />
+  <Process />
+  <FinalCTA />
+</BaseLayout>

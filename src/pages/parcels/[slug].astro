@@ -1,0 +1,735 @@
+---
+import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Block from "../../components/parcel/Block.astro";
+import Icon from "../../components/ui/Icon.astro";
+import {
+  getAllParcels,
+  getParcelsBySlugs,
+  formatArea,
+  type Parcel,
+} from "../../lib/parcels";
+import { CONTACT, zaloLink } from "../../config/site";
+
+export const getStaticPaths = (async () => {
+  const parcels = await getAllParcels();
+  return parcels.map((parcel) => ({
+    params: { slug: parcel.id },
+    props: { parcel },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  parcel: Parcel;
+}
+const { parcel } = Astro.props;
+const p = parcel.data;
+const { Content } = await render(parcel);
+
+const title = p.opportunityTitle ?? p.title;
+const cover = p.images[0];
+const gallery = p.images.slice(1);
+
+const VERIFICATION: Record<
+  Parcel["data"]["verification"],
+  { badge: string; short: string; cls: string }
+> = {
+  "red-book": { badge: "Sổ đỏ đã xác minh", short: "Sổ đỏ", cls: "redbook" },
+  pending: { badge: "Pháp lý đang hoàn thiện", short: "Đang hoàn thiện", cls: "clay" },
+  planning: { badge: "Đất quy hoạch", short: "Quy hoạch", cls: "forest" },
+};
+const v = VERIFICATION[p.verification];
+
+const stats: [string, string][] = [
+  ["Diện tích", formatArea(p.area)],
+  ["Khoảng giá", p.priceRange],
+  ...(p.pricePerSqm ? ([["Giá / m²", p.pricePerSqm]] as [string, string][]) : []),
+  ["Pháp lý", v.short],
+];
+
+const mapQ = p.mapQuery ?? (p.coords ? `${p.coords[0]},${p.coords[1]}` : p.location);
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQ)}&z=14&output=embed`;
+
+const suggested = p.suggestedParcels.length
+  ? await getParcelsBySlugs(p.suggestedParcels)
+  : (await getAllParcels()).filter((x) => x.id !== parcel.id).slice(0, 3);
+
+const legalPack = [
+  "Ảnh sổ đỏ công chứng (đã che thông tin)",
+  "Giá sàn chính xác của chủ đất",
+  "Bản đồ địa chính + mốc giới",
+  "Thông tin quy hoạch & lộ giới",
+  "Lịch xem đất trong tuần",
+  "Kết nối trực tiếp với chính chủ",
+];
+
+const metaDesc = `${formatArea(p.area)} · ${p.priceRange} · ${v.short}. ${p.briefDescription ?? p.title}`;
+const ogImage = cover
+  ? new URL(cover.src.src, Astro.site ?? Astro.url).href
+  : undefined;
+---
+
+<BaseLayout
+  title={`${title} · ${p.location} — VietLand`}
+  description={metaDesc}
+  ogImage={ogImage}
+  contactMessage={p.zaloMessage}
+>
+  <div class="container crumb">
+    <a href="/#opportunities">
+      <Icon name="arrow-left" size={14} /> Tất cả lô đất
+    </a>
+  </div>
+
+  <!-- Title block -->
+  <section class="container titleblock">
+    <div class="chips">
+      <span class={`chip ${v.cls}`}>{v.badge}</span>
+      {p.province && <span class="chip outline">{p.province}</span>}
+      <span class="chip clay-soft">Chính chủ · thương lượng</span>
+    </div>
+    <h1>{title}</h1>
+    <div class="loc">
+      <Icon name="location" size={16} />
+      {p.location}
+    </div>
+    {
+      p.urgency && (
+        <div class="urgency">
+          <Icon name="shield-tick" size={14} />
+          {p.urgency}
+        </div>
+      )
+    }
+  </section>
+
+  <!-- Hero image -->
+  {
+    cover && (
+      <section class="container">
+        <div class="hero-img">
+          <Image
+            src={cover.src}
+            alt={cover.alt ?? title}
+            widths={[768, 1280, 1600]}
+            sizes="(min-width: 1280px) 1216px, 100vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Stats bar -->
+  <section class="container statsbar-wrap">
+    <dl class="statsbar">
+      {
+        stats.map(([k, val]) => (
+          <div>
+            <dt>{k}</dt>
+            <dd>{val}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <!-- Body grid -->
+  <section class="container bodygrid">
+    <div class="main">
+      <Block icon="flash" title="Vì sao nên quan tâm">
+        {p.briefDescription && <p class="lead">{p.briefDescription}</p>}
+        {
+          p.sellingPoints.length > 0 && (
+            <ul class="bullets">
+              {p.sellingPoints.map((s) => (
+                <li>
+                  <span class="dot" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </Block>
+
+      <Block icon="document" title="Mô tả chi tiết">
+        <div class="prose"><Content /></div>
+      </Block>
+
+      {
+        p.infrastructure.length > 0 && (
+          <Block icon="routing" title="Hạ tầng & kết nối">
+            <ul class="bullets">
+              {p.infrastructure.map((s) => (
+                <li>
+                  <span class="dot" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </Block>
+        )
+      }
+
+      {
+        p.thesis && (
+          <Block icon="trend-up" title="Phân tích đầu tư">
+            <p>{p.thesis}</p>
+          </Block>
+        )
+      }
+
+      {
+        gallery.length > 0 && (
+          <Block icon="eye" title="Hình ảnh thực tế">
+            <div class="gallery">
+              {gallery.map((img) => (
+                <Image
+                  src={img.src}
+                  alt={img.alt ?? title}
+                  width={640}
+                  height={480}
+                  widths={[320, 640]}
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          </Block>
+        )
+      }
+
+      <Block icon="location" title="Vị trí">
+        <div class="map">
+          <iframe
+            title={`Bản đồ ${title}`}
+            src={mapSrc}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </Block>
+
+      <!-- Locked legal pack -->
+      <div class="locked">
+        <div class="locked-head">
+          <Icon name="lock" size={16} class="ic" />
+          <h2>Hồ sơ pháp lý đầy đủ · đang khóa</h2>
+        </div>
+        <h3>Mở khóa sau khi xác minh qua Zalo</h3>
+        <p>
+          Để bảo vệ chủ đất và người mua nghiêm túc, chúng tôi chỉ gửi ảnh sổ đỏ
+          công chứng, giá sàn chính xác, bản đồ địa chính, thông tin quy hoạch và
+          lịch xem đất sau một bước xác minh ngắn qua Zalo. Thường phản hồi trong
+          vòng một giờ.
+        </p>
+        <ul class="pack">
+          {
+            legalPack.map((i) => (
+              <li>
+                <Icon name="shield-tick" size={14} class="ic" />
+                {i}
+              </li>
+            ))
+          }
+        </ul>
+        <a class="btn" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
+          <Icon name="message" size={16} />
+          Mở khóa hồ sơ pháp lý qua Zalo
+        </a>
+      </div>
+
+      {
+        p.legalNotes.length > 0 && (
+          <Block icon="verify" title="Ghi chú pháp lý">
+            <ul class="bullets">
+              {p.legalNotes.map((s) => (
+                <li>
+                  <span class="dot" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </Block>
+        )
+      }
+
+      {
+        p.risks.length > 0 && (
+          <Block icon="danger" title="Công bố rủi ro">
+            <ul class="bullets">
+              {p.risks.map((s) => (
+                <li>
+                  <span class="dot" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </Block>
+        )
+      }
+    </div>
+
+    <!-- CTA rail -->
+    <aside class="rail">
+      <div class="rail-card">
+        <div class="rail-label">Khoảng giá · thương lượng</div>
+        <div class="rail-price">{p.priceRange}</div>
+        {p.pricePerSqm && <div class="rail-sub">{p.pricePerSqm} · giá sàn gửi khi liên hệ</div>}
+        <a class="btn" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
+          <Icon name="message" size={16} />
+          Nhận giá &amp; pháp lý qua Zalo
+        </a>
+        <div class="rail-list">
+          <div>Bạn sẽ nhận trong vòng một giờ:</div>
+          <div>· Ảnh sổ đỏ công chứng (đã che thông tin)</div>
+          <div>· Bản đồ địa chính + thông tin quy hoạch</div>
+          <div>· Giá sàn + lịch xem đất</div>
+        </div>
+        <div class="rail-hairline"></div>
+        <div class="rail-phone">
+          <span>Thích gọi điện hơn?</span>
+          <a href={CONTACT.tel}>{CONTACT.phoneDisplay}</a>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- More parcels -->
+  {
+    suggested.length > 0 && (
+      <section class="more">
+        <div class="container">
+          <h2>Thêm lô đất chính chủ khác</h2>
+          <div class="more-grid">
+            {suggested.map((s) => (
+              <a class="more-card" href={`/parcels/${s.id}`}>
+                {s.data.images[0] && (
+                  <Image
+                    src={s.data.images[0].src}
+                    alt={s.data.images[0].alt ?? s.data.title}
+                    width={640}
+                    height={480}
+                    widths={[320, 640]}
+                    sizes="(min-width: 640px) 33vw, 100vw"
+                    loading="lazy"
+                  />
+                )}
+                <div class="more-body">
+                  <div class="more-title">{s.data.opportunityTitle ?? s.data.title}</div>
+                  <div class="more-loc">{s.data.location}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .crumb {
+    padding-top: 1.5rem;
+  }
+  .crumb a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--muted-foreground);
+  }
+  .crumb a:hover {
+    color: var(--foreground);
+  }
+
+  /* Title block */
+  .titleblock {
+    padding-block: 1.5rem 2.5rem;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .chip {
+    border-radius: var(--radius-pill);
+    padding: 0.25rem 0.625rem;
+    font-size: 0.625rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+  .chip.redbook {
+    background: var(--redbook);
+    color: var(--redbook-foreground);
+  }
+  .chip.clay {
+    background: var(--clay);
+    color: var(--clay-foreground);
+  }
+  .chip.forest {
+    background: var(--forest);
+    color: var(--forest-foreground);
+  }
+  .chip.outline {
+    border: 1px solid var(--border);
+    color: var(--muted-foreground);
+  }
+  .chip.clay-soft {
+    background: color-mix(in oklab, var(--clay) 10%, transparent);
+    color: var(--clay);
+  }
+  h1 {
+    margin-top: 0.75rem;
+    font-size: var(--text-6xl);
+    font-weight: var(--weight-semibold);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-tighter);
+    color: var(--ink);
+  }
+  .loc {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+  .urgency {
+    margin-top: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklab, var(--redbook) 10%, transparent);
+    padding: 0.375rem 0.75rem;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--redbook);
+  }
+
+  .hero-img {
+    overflow: hidden;
+    border-radius: var(--radius-3xl);
+    border: 1px solid var(--border);
+  }
+  .hero-img :global(img) {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  /* Stats bar */
+  .statsbar-wrap {
+    margin-top: 2rem;
+  }
+  .statsbar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+  .statsbar > div {
+    background: var(--paper);
+    padding: 1.25rem;
+  }
+  .statsbar dt {
+    font-size: 0.625rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--muted-foreground);
+  }
+  .statsbar dd {
+    margin-top: 0.25rem;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  /* Body grid */
+  .bodygrid {
+    margin-top: 3rem;
+    padding-bottom: 4rem;
+    display: grid;
+    gap: 2.5rem;
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    min-width: 0;
+  }
+  .lead {
+    margin-bottom: 0.75rem;
+  }
+  .bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+  }
+  .bullets li {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .dot {
+    margin-top: 9px;
+    height: 4px;
+    width: 4px;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+    background: var(--clay);
+  }
+  .prose :global(p) {
+    margin-bottom: 0.75rem;
+  }
+  .prose :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .gallery :global(img) {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+
+  .map {
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+  }
+  .map iframe {
+    display: block;
+    height: 360px;
+    width: 100%;
+    border: 0;
+  }
+
+  /* Locked legal pack */
+  .locked {
+    overflow: hidden;
+    border-radius: var(--radius-3xl);
+    border: 2px dashed color-mix(in oklab, var(--clay) 40%, transparent);
+    background: var(--cream);
+    padding: 2rem;
+  }
+  .locked-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .locked-head :global(.ic) {
+    color: var(--clay);
+  }
+  .locked-head h2 {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  .locked h3 {
+    margin-top: 0.75rem;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .locked p {
+    margin-top: 0.75rem;
+    max-width: 36rem;
+    font-size: var(--text-sm);
+    color: color-mix(in oklab, var(--foreground) 80%, transparent);
+  }
+  .pack {
+    margin-top: 1.25rem;
+    display: grid;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+  }
+  .pack li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: color-mix(in oklab, var(--foreground) 85%, transparent);
+  }
+  .pack :global(.ic) {
+    flex-shrink: 0;
+    color: var(--clay);
+  }
+
+  .btn {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--clay);
+    padding: 0.875rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--clay-foreground);
+    transition: opacity 0.15s;
+  }
+  .btn:hover {
+    opacity: 0.95;
+  }
+
+  /* CTA rail */
+  .rail-card {
+    border-radius: var(--radius-2xl);
+    border: 2px solid color-mix(in oklab, var(--clay) 30%, transparent);
+    background: var(--paper);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+  }
+  .rail-label {
+    font-size: 0.625rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--muted-foreground);
+  }
+  .rail-price {
+    margin-top: 0.25rem;
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .rail-sub {
+    margin-top: 0.25rem;
+    font-size: var(--text-xs);
+    color: var(--muted-foreground);
+  }
+  .rail-card .btn {
+    width: 100%;
+  }
+  .rail-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.6875rem;
+    line-height: var(--leading-relaxed);
+    color: var(--muted-foreground);
+  }
+  .rail-hairline {
+    margin-top: 1rem;
+    border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  }
+  .rail-phone {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: var(--muted-foreground);
+  }
+  .rail-phone a {
+    font-weight: var(--weight-semibold);
+    color: var(--forest);
+  }
+  .rail-phone a:hover {
+    text-decoration: underline;
+  }
+
+  /* More parcels */
+  .more {
+    border-top: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--cream);
+    padding-block: 4rem;
+  }
+  .more h2 {
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .more-grid {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  .more-card {
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background: var(--paper);
+    transition: border-color 0.2s;
+  }
+  .more-card:hover {
+    border-color: color-mix(in oklab, var(--forest) 40%, transparent);
+  }
+  .more-card :global(img) {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .more-card:hover :global(img) {
+    transform: scale(1.05);
+  }
+  .more-body {
+    padding: 1rem;
+  }
+  .more-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+  }
+  .more-loc {
+    font-size: var(--text-xs);
+    color: var(--muted-foreground);
+  }
+
+  @media (min-width: 640px) {
+    .statsbar {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .more-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .bodygrid {
+      grid-template-columns: 1fr 360px;
+      align-items: start;
+    }
+    .rail {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .more-card :global(img),
+    .more-card:hover :global(img) {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>

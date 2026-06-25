@@ -1,0 +1,120 @@
+---
+/**
+ * "How it works" — four-step owner-direct process. Anchor target #process.
+ */
+const steps: { n: string; t: string; d: string }[] = [
+  {
+    n: "01",
+    t: "Chọn một lô đất",
+    d: "Xem danh sách hiện có hoặc cho chúng tôi biết tiêu chí — diện tích, khu vực, ngân sách, mục đích.",
+  },
+  {
+    n: "02",
+    t: "Yêu cầu hồ sơ pháp lý",
+    d: "Chúng tôi gửi sổ đỏ công chứng, bản đồ địa chính, thông tin quy hoạch và giá sàn — ngay trong ngày.",
+  },
+  {
+    n: "03",
+    t: "Nhận giá thương lượng",
+    d: "Báo giá trực tiếp từ chính chủ, đã bỏ phần hoa hồng mà lẽ ra bạn phải trả cho môi giới.",
+  },
+  {
+    n: "04",
+    t: "Xem đất & hoàn tất",
+    d: "Cùng ra tận nơi, đi xem mốc giới, ký tại văn phòng công chứng. Bàn giao trong vòng 14 ngày.",
+  },
+];
+---
+
+<section id="process" class="process">
+  <div class="container">
+    <div class="head">
+      <div class="eyebrow">Cách thức hoạt động</div>
+      <h2>Bốn bước. Không vòng qua môi giới.</h2>
+    </div>
+    <ol class="steps">
+      {
+        steps.map((s) => (
+          <li class="step">
+            <div class="num">{s.n}</div>
+            <div class="t">{s.t}</div>
+            <p>{s.d}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    border-top: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--background);
+    padding-block: 5rem;
+    scroll-margin-top: 5rem;
+  }
+  .head {
+    max-width: 36rem;
+  }
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  h2 {
+    margin-top: 0.5rem;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .steps {
+    margin-top: 3rem;
+    display: grid;
+    gap: 1.5rem;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: 1fr;
+    counter-reset: none;
+  }
+  .step {
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background: var(--paper);
+    padding: 1.5rem;
+  }
+  .num {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tighter);
+    color: color-mix(in oklab, var(--clay) 80%, transparent);
+  }
+  .t {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+  }
+  .step p {
+    margin-top: 0.5rem;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+
+  @media (min-width: 640px) {
+    .process {
+      padding-block: 7rem;
+    }
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

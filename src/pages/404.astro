@@ -1,47 +1,61 @@
 ---
-import ButtonAnimated from "../components/ui/buttons/ButtonAnimated.astro";
-import Container from "../layouts/Container.astro";
-import Layout from "../layouts/Layout.astro";
-
-const title = "VietLand - thông tin liên lạc";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
 ---
 
-<Layout pageTitle={title}>
-  <Container
-    fullHeight={true}
-    className="!h-screen bg-[--color-secondary-lighter]"
-  >
-    <div
-      class="grid h-full w-full grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-1 md:items-center md:gap-28"
-    >
-      <div
-        class="h-full min-h-[12rem] w-full min-w-[12rem] md:order-1 md:mb-10"
-      >
-        <img class="object-fit h-full w-full" src="/vectors/error.svg" />
-      </div>
-
-      <div class="mx-auto w-fit">
-        <h1
-          class="mb-2 max-w-[30ch] text-xl font-bold leading-tight [text-wrap:balanced]"
-        >
-          Đã xảy ra lỗi
-        </h1>
-        <p class="mb-1 text-base opacity-80 [text-wrap:balanced]">
-          Có vẻ như bạn đã tìm thấy cánh cửa dẫn đến hư vô tuyệt vời. Xin lỗi vì
-          điều đó!
-        </p>
-        <p class="mb-5 text-base opacity-80 [text-wrap:balanced]">
-          Vui lòng truy cập trang chủ của chúng tôi để đến nơi bạn cần đến.
-        </p>
-        <div class="">
-          <ButtonAnimated
-            hiddenText="về trang chủ"
-            onClick="location.href = '/'"
-          >
-            Đưa tôi tơi đo!
-          </ButtonAnimated>
-        </div>
-      </div>
+<BaseLayout
+  title="Không tìm thấy trang — VietLand"
+  description="Trang bạn tìm có thể đã được chuyển hoặc lô đất đã bán."
+>
+  <section class="nf">
+    <div class="container">
+      <div class="eyebrow">Lỗi 404</div>
+      <h1>Không tìm thấy trang này.</h1>
+      <p>Có thể lô đất đã bán hoặc đường dẫn đã thay đổi.</p>
+      <a class="home" href="/">
+        <Icon name="arrow-left" size={16} /> Về trang chủ
+      </a>
     </div>
-  </Container>
-</Layout>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    padding-block: 6rem 8rem;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  h1 {
+    margin-top: 0.75rem;
+    font-size: var(--text-6xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tighter);
+    color: var(--ink);
+  }
+  p {
+    margin-top: 1rem;
+    color: var(--muted-foreground);
+  }
+  .home {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--clay);
+    padding: 0.875rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--clay-foreground);
+    transition: opacity 0.15s;
+  }
+  .home:hover {
+    opacity: 0.95;
+  }
+</style>

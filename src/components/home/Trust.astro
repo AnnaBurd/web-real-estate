@@ -1,0 +1,162 @@
+---
+/**
+ * Trust band — "who you're buying from". Forest-green section with a redacted
+ * Red Book sample image and four credibility points. Ported from Lovable.
+ */
+import { Image } from "astro:assets";
+import Icon from "../ui/Icon.astro";
+import redBook from "../../assets/site/red-book.jpg";
+
+const points: { icon: string; t: string; d: string }[] = [
+  {
+    icon: "shield-tick",
+    t: "Sẵn sàng chứng minh quyền sở hữu",
+    d: "Chúng tôi gửi ảnh sổ đỏ công chứng (đã che thông tin cá nhân) trước mọi buổi xem đất.",
+  },
+  {
+    icon: "document",
+    t: "Lịch sử giao dịch rõ ràng",
+    d: "47 lô đã sang tên từ năm 2013. Nhiều khách hàng tổ chức quay lại. Cung cấp tham chiếu khi cần.",
+  },
+  {
+    icon: "people",
+    t: "Con người thật, không phải tổng đài",
+    d: "Bạn làm việc với cùng một người từ tin nhắn đầu tiên đến khi bàn giao — không qua nhân viên trung gian.",
+  },
+  {
+    icon: "location",
+    t: "Am hiểu địa phương",
+    d: "Hoạt động ngay tại khu vực rao bán, có quan hệ trực tiếp với công chứng và văn phòng địa chính cấp huyện.",
+  },
+];
+---
+
+<section class="trust">
+  <div class="container grid">
+    <div class="media">
+      <Image
+        src={redBook}
+        alt="Sổ đỏ — giấy chứng nhận quyền sử dụng đất của Việt Nam"
+        widths={[640, 1024]}
+        sizes="(min-width: 1024px) 600px, 100vw"
+        loading="lazy"
+      />
+      <div class="tint"></div>
+      <div class="caption">Ảnh mẫu · thông tin chủ đất đã che</div>
+    </div>
+    <div>
+      <div class="eyebrow">Bạn đang mua từ ai</div>
+      <h2>Đội ngũ địa phương nhỏ. Sổ thật. Hơn 12 năm kinh nghiệm.</h2>
+      <ul class="points">
+        {
+          points.map(({ icon, t, d }) => (
+            <li>
+              <Icon name={icon} size={20} class="ic" />
+              <div>
+                <div class="t">{t}</div>
+                <div class="d">{d}</div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust {
+    border-top: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--forest);
+    color: var(--forest-foreground);
+    padding-block: 5rem;
+  }
+  .grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+  }
+  .media :global(img) {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    filter: blur(2px);
+  }
+  .tint {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in oklab, var(--forest) 30%, transparent);
+  }
+  .caption {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklab, var(--paper) 95%, transparent);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.625rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--foreground);
+    backdrop-filter: blur(4px);
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  h2 {
+    margin-top: 0.5rem;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+    color: var(--forest-foreground);
+  }
+
+  .points {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 0;
+    list-style: none;
+  }
+  .points li {
+    display: flex;
+    gap: 1rem;
+  }
+  .points :global(.ic) {
+    margin-top: 2px;
+    flex-shrink: 0;
+    color: var(--clay);
+  }
+  .t {
+    font-weight: var(--weight-semibold);
+  }
+  .d {
+    font-size: var(--text-sm);
+    color: color-mix(in oklab, var(--forest-foreground) 75%, transparent);
+  }
+
+  @media (min-width: 640px) {
+    .trust {
+      padding-block: 7rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+</style>

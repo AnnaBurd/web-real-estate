@@ -1,0 +1,115 @@
+---
+/**
+ * "Why now" — four reasons the southern land market is repricing.
+ * Static editorial content ported from the Lovable redesign, translated to VI.
+ */
+import Icon from "../ui/Icon.astro";
+
+const items: { icon: string; title: string; body: string }[] = [
+  {
+    icon: "trend-up",
+    title: "Hạ tầng bứt phá",
+    body: "Sân bay Long Thành (dự kiến 2026), cao tốc Biên Hòa–Vũng Tàu và quy hoạch ven biển đang vẽ lại bản đồ giá đất khắp miền Nam.",
+  },
+  {
+    icon: "flash",
+    title: "Quỹ đất khan hiếm",
+    body: "Đất mặt tiền và ven biển trong bán kính 90 phút từ TP.HCM gần như đã cạn. Nhiều địa phương đã siết cấp sổ mới ở vùng ven biển.",
+  },
+  {
+    icon: "verify",
+    title: "Pháp lý minh bạch",
+    body: "Chúng tôi chỉ bán đất mình sở hữu hoặc đồng sở hữu — mỗi lô đều có sổ đỏ hoặc lộ trình pháp lý rõ ràng. Không có giao dịch vùng xám.",
+  },
+  {
+    icon: "exchange",
+    title: "Thương lượng, không đấu giá",
+    body: "Bán trực tiếp từ chính chủ nghĩa là giá thật. Mang theo mức giá, tiến độ và phương án của bạn — chốt trong vài ngày, không phải vài tháng.",
+  },
+];
+---
+
+<section class="why">
+  <div class="container">
+    <div class="head">
+      <div class="eyebrow">Vì sao là lúc này</div>
+      <h2>
+        Miền Nam đang ở giữa chu kỳ định giá lại đất hiếm có mỗi thập kỷ.
+      </h2>
+    </div>
+    <div class="grid">
+      {
+        items.map(({ icon, title, body }) => (
+          <div class="cell">
+            <Icon name={icon} size={28} class="ic" />
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    border-top: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--background);
+    padding-block: 5rem;
+  }
+  .head {
+    max-width: 36rem;
+  }
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  h2 {
+    margin-top: 0.5rem;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .grid {
+    margin-top: 3rem;
+    display: grid;
+    gap: 1px;
+    overflow: hidden;
+    border-radius: var(--radius-3xl);
+    border: 1px solid var(--border);
+    background: var(--border);
+    grid-template-columns: 1fr;
+  }
+  .cell {
+    background: var(--paper);
+    padding: 2rem;
+  }
+  .cell :global(.ic) {
+    color: var(--clay);
+  }
+  .cell h3 {
+    margin-top: 1.25rem;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .cell p {
+    margin-top: 0.75rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--muted-foreground);
+  }
+
+  @media (min-width: 640px) {
+    .why {
+      padding-block: 7rem;
+    }
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

@@ -1,16 +1,510 @@
 ---
-import AboutDescription from "../components/sections/about-description/AboutDescription.astro";
-import Agents from "../components/sections/agents/Agents.astro";
-import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/ui/Icon.astro";
+import { CONTACT, zaloLink } from "../config/site";
+import teamLocal from "../assets/site/team-local.jpg";
+import redBookDetail from "../assets/site/red-book-detail.jpg";
 
-const title = "VietLand - thông tin";
+const teamPoints: { icon: string; t: string; d: string }[] = [
+  {
+    icon: "location",
+    t: "Sinh sống và hoạt động tại địa phương",
+    d: "Không phải một văn phòng ở TP.HCM rao bán từ xa. Chúng tôi sống ngay nơi mình bán đất.",
+  },
+  {
+    icon: "people",
+    t: "Bạn nói chuyện với chính chủ",
+    d: "Không qua nhân viên sales, không đổi người liên tục. Cùng một người từ tin nhắn đầu đến khi công chứng sang tên.",
+  },
+  {
+    icon: "document",
+    t: "47 giao dịch thành công từ năm 2013",
+    d: "Nhiều khách hàng tổ chức quay lại. Cung cấp tham chiếu khi có nhu cầu nghiêm túc.",
+  },
+];
+
+const commitments = [
+  "Tình trạng pháp lý công khai trên mọi tin đăng (Sổ đỏ / Đang hoàn thiện / Quy hoạch)",
+  "Liệt kê rõ yếu tố rủi ro — không giấu điều khoản",
+  "Giá là khoảng thương lượng, không phải mồi nhử gọi điện",
+  "Chỉ xem đất sau khi bạn đã xem hồ sơ pháp lý",
+];
+
+const directStats: { label: string; value: string }[] = [
+  { label: "Qua môi giới", value: "45–90 ngày" },
+  { label: "Của chúng tôi", value: "~14 ngày" },
+  { label: "Người mua tiết kiệm", value: "2–5%" },
+];
 ---
 
-<Layout pageTitle={title}>
-  <AboutDescription />
+<BaseLayout
+  title="Thông tin — Chúng tôi là chính chủ, không phải môi giới | VietLand"
+  description="Chính chủ bán đất trực tiếp tại khu vực phía Nam. Không qua môi giới. Sổ đỏ đã xác minh, hơn 12 năm kinh nghiệm địa phương, quy trình minh bạch."
+  contactMessage="Chào anh/chị, em xem trang thông tin và có vài câu hỏi về một lô đất."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-col">
+        <div class="eyebrow">Thông tin</div>
+        <h1>Chúng tôi là chính chủ.<br /><span class="accent">Không phải môi giới.</span></h1>
+        <p class="lede">
+          Mỗi lô đất trên trang này đều do chúng tôi sở hữu hoặc đồng sở hữu.
+          Chúng tôi rao bán trực tiếp vì tin rằng người mua đất tại Việt Nam
+          xứng đáng được minh bạch — không phải gánh phí môi giới hay những tin
+          rao đăng đi đăng lại.
+        </p>
+      </div>
+    </div>
+  </section>
 
-  <Agents />
+  <!-- Ownership proof + team -->
+  <section class="band">
+    <div class="container two">
+      <div class="media">
+        <Image
+          src={teamLocal}
+          alt="Đội ngũ địa phương khảo sát đất tại Bà Rịa – Vũng Tàu"
+          widths={[512, 1024]}
+          sizes="(min-width: 1024px) 600px, 100vw"
+          loading="lazy"
+        />
+        <div class="caption">Khảo sát thực địa · Hòa Long, Bà Rịa</div>
+      </div>
+      <div>
+        <h2>Một đội ngũ. Một khu vực. Hơn mười hai năm.</h2>
+        <p class="muted">
+          Chúng tôi là đối tác gia đình hoạt động tại khu vực Bà Rịa – Vũng Tàu.
+          Lô đất đầu tiên được mua từ năm 2013, và từ đó đến nay chúng tôi liên
+          tục mua, giữ và chọn lọc bán đất trong vùng.
+        </p>
+        <p class="muted">
+          Trong thời gian đó, chúng tôi đã xây dựng quan hệ trực tiếp với công
+          chứng, văn phòng địa chính và cán bộ xã. Điều này quan trọng vì ở Việt
+          Nam, giao dịch đất thành hay bại phụ thuộc vào tốc độ xử lý giấy tờ địa
+          phương — và chúng tôi nắm rõ từng bước.
+        </p>
+        <ul class="points">
+          {
+            teamPoints.map(({ icon, t, d }) => (
+              <li>
+                <Icon name={icon} size={20} class="ic" />
+                <div>
+                  <div class="t">{t}</div>
+                  <div class="d">{d}</div>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
 
-  <!-- Section with company stats (currently not relevant yet) -->
-  <!-- <AboutStats />  -->
-</Layout>
+  <!-- Why listings are real -->
+  <section class="band paper">
+    <div class="container two flip">
+      <div>
+        <div class="eyebrow">Minh bạch</div>
+        <h2>Vì sao đây không phải tin rao của “cò đất”</h2>
+        <div class="stack muted">
+          <p>
+            Phần lớn tin rao bán đất ở Việt Nam được chuyền qua năm nhóm Zalo và
+            ba trang Facebook trước khi bạn nhìn thấy. “Người bán” thường là
+            người chưa từng đặt chân lên mảnh đất đó.
+          </p>
+          <p>
+            Chúng tôi làm ngược lại. Mỗi lô trên trang này hoặc thuộc quyền sở
+            hữu trực tiếp của chúng tôi, hoặc theo thỏa thuận đồng sở hữu có công
+            chứng mà chúng tôi giữ quyền bán. Chúng tôi không rao bán đất mình
+            không kiểm soát.
+          </p>
+          <p>
+            Trước mọi buổi xem đất, chúng tôi gửi ảnh sổ đỏ (đã che thông tin cá
+            nhân), bản đồ địa chính hiện hành và mức giá sàn. Nếu một lô có hạn
+            chế quy hoạch, sổ đang hoàn thiện hay lưu ý pháp lý — chúng tôi nói rõ
+            ngay trong tin đăng công khai.
+          </p>
+        </div>
+
+        <div class="commit">
+          <div class="commit-head">
+            <Icon name="eye" size={20} class="ic" />
+            <div class="t">Cam kết minh bạch</div>
+          </div>
+          <ul>
+            {
+              commitments.map((c) => (
+                <li>
+                  <span class="dash">—</span>
+                  <span>{c}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="media">
+        <Image
+          src={redBookDetail}
+          alt="Sổ đỏ Việt Nam với con dấu xác nhận"
+          widths={[512, 1024]}
+          sizes="(min-width: 1024px) 600px, 100vw"
+          loading="lazy"
+        />
+        <div class="caption">Xác minh sổ đỏ · cung cấp khi có yêu cầu</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why we sell directly -->
+  <section class="band forest">
+    <div class="container">
+      <div class="forest-col">
+        <div class="eyebrow">Bán trực tiếp</div>
+        <h2>Vì sao chúng tôi không dùng môi giới</h2>
+        <div class="stack">
+          <p>
+            Môi giới đất ở Việt Nam thường thu 2–5% hoa hồng, do bên bán trả.
+            Khoản đó được cộng vào giá rao. Người mua trả mà không hề hay biết.
+          </p>
+          <p>
+            Chúng tôi bán trực tiếp vì muốn một cuộc thương lượng sòng phẳng. Bạn
+            đưa giá của bạn, chúng tôi đưa giá sàn, và gặp nhau ở mức trung thực.
+            Không chia hoa hồng, không thổi giá ảo, không chiêu “đang có người
+            mua khác”.
+          </p>
+          <p>
+            Điều này cũng giúp chúng tôi hành động nhanh. Một thương vụ qua môi
+            giới trong vùng thường mất 45–90 ngày. Thời gian sang tên trung bình
+            của chúng tôi, từ tin nhắn nghiêm túc đầu tiên đến khi công chứng
+            chuyển nhượng, là khoảng 14 ngày.
+          </p>
+        </div>
+        <div class="forest-stats">
+          {
+            directStats.map((s) => (
+              <div class="fs">
+                <div class="fs-label">{s.label}</div>
+                <div class="fs-value">{s.value}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <Icon name="shield-tick" size={32} class="cta-ic" />
+      <h2>Vẫn còn băn khoăn? Điều đó là bình thường.</h2>
+      <p>
+        Cách tốt nhất để kiểm chứng chúng tôi là một cuộc gọi Zalo 10 phút. Hỏi
+        xin ảnh sổ đỏ, hỏi về bất kỳ lô nào, hỏi vì sao chúng tôi bán. Chúng tôi
+        trả lời tất cả.
+      </p>
+      <div class="cta-actions">
+        <a
+          class="cta-zalo"
+          href={zaloLink(
+            "Chào anh/chị, em xem trang web và có vài câu hỏi trước khi đi xem đất.",
+          )}
+          target="_blank"
+          rel="noopener"
+        >
+          Hỏi qua Zalo
+        </a>
+        <a class="cta-phone" href={CONTACT.tel}>
+          <Icon name="call" size={16} />
+          {CONTACT.phoneDisplay}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+
+  /* Hero */
+  .hero {
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--cream);
+    padding-block: 4rem;
+  }
+  .hero-col {
+    max-width: 48rem;
+  }
+  .hero h1 {
+    margin-top: 0.75rem;
+    font-size: var(--text-6xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .accent {
+    color: var(--clay);
+  }
+  .lede {
+    margin-top: 1.25rem;
+    max-width: 36rem;
+    font-size: var(--text-lg);
+    color: var(--muted-foreground);
+  }
+
+  /* Generic bands */
+  .band {
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    padding-block: 4rem;
+  }
+  .band.paper {
+    background: var(--paper);
+  }
+  .two {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+  }
+  .media :global(img) {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .caption {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklab, var(--paper) 95%, transparent);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.625rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--foreground);
+    backdrop-filter: blur(4px);
+  }
+
+  h2 {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .band h2 {
+    margin-top: 0.5rem;
+  }
+  .muted {
+    color: var(--muted-foreground);
+  }
+  .band p {
+    margin-top: 1rem;
+  }
+  .stack p {
+    margin-top: 1.25rem;
+  }
+  .stack p:first-child {
+    margin-top: 1.5rem;
+  }
+
+  .points {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .points li {
+    display: flex;
+    gap: 1rem;
+  }
+  .points :global(.ic) {
+    margin-top: 2px;
+    flex-shrink: 0;
+    color: var(--clay);
+  }
+  .points .t {
+    font-weight: var(--weight-semibold);
+  }
+  .points .d {
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+
+  .commit {
+    margin-top: 2rem;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background: var(--background);
+    padding: 1.5rem;
+  }
+  .commit-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .commit-head :global(.ic) {
+    color: var(--clay);
+  }
+  .commit-head .t {
+    font-weight: var(--weight-semibold);
+  }
+  .commit ul {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+  .commit li {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .dash {
+    color: var(--clay);
+  }
+
+  /* Forest band */
+  .forest {
+    background: var(--forest);
+    color: var(--forest-foreground);
+  }
+  .forest-col {
+    max-width: 48rem;
+  }
+  .forest h2 {
+    color: var(--forest-foreground);
+  }
+  .forest .stack {
+    color: color-mix(in oklab, var(--forest-foreground) 80%, transparent);
+  }
+  .forest-stats {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  .fs {
+    border-radius: var(--radius-2xl);
+    border: 1px solid color-mix(in oklab, var(--forest-foreground) 15%, transparent);
+    background: color-mix(in oklab, var(--forest-foreground) 5%, transparent);
+    padding: 1.25rem;
+  }
+  .fs-label {
+    font-size: 0.625rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: color-mix(in oklab, var(--forest-foreground) 60%, transparent);
+  }
+  .fs-value {
+    margin-top: 0.25rem;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  /* Final CTA */
+  .cta-band {
+    background: var(--clay);
+    color: var(--clay-foreground);
+    padding-block: 4rem;
+  }
+  .cta-inner {
+    max-width: 56rem;
+    text-align: center;
+  }
+  .cta-inner :global(.cta-ic) {
+    margin-inline: auto;
+    color: color-mix(in oklab, var(--clay-foreground) 80%, transparent);
+  }
+  .cta-band h2 {
+    margin-top: 1rem;
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tighter);
+    color: var(--clay-foreground);
+  }
+  .cta-band p {
+    margin-inline: auto;
+    margin-top: 1.25rem;
+    max-width: 36rem;
+    font-size: var(--text-lg);
+    color: color-mix(in oklab, var(--clay-foreground) 85%, transparent);
+  }
+  .cta-actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .cta-zalo {
+    border-radius: var(--radius-pill);
+    background: var(--ink);
+    padding: 0.875rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--paper);
+    transition: opacity 0.15s;
+  }
+  .cta-zalo:hover {
+    opacity: 0.9;
+  }
+  .cta-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in oklab, var(--clay-foreground) 40%, transparent);
+    padding: 0.875rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--clay-foreground);
+    transition: background 0.15s;
+  }
+  .cta-phone:hover {
+    background: color-mix(in oklab, var(--clay-foreground) 10%, transparent);
+  }
+
+  @media (min-width: 640px) {
+    .hero {
+      padding-block: 6rem;
+    }
+    .band,
+    .cta-band {
+      padding-block: 6rem;
+    }
+    .forest-stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .two {
+      grid-template-columns: 1fr 1fr;
+    }
+    .two.flip {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+</style>

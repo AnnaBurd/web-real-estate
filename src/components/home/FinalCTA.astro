@@ -1,0 +1,86 @@
+---
+/**
+ * Closing call-to-action — clay band driving the single Zalo conversion.
+ */
+import { zaloLink } from "../../config/site";
+---
+
+<section class="final">
+  <div class="container inner">
+    <div class="eyebrow">Một tin nhắn. Một bước.</div>
+    <h2>Nhận giá chính xác + hồ sơ pháp lý qua Zalo.</h2>
+    <p>
+      Ảnh sổ đỏ, giá sàn và lịch xem đất — thường trong vòng một giờ. Chính chủ.
+      Thương lượng.
+    </p>
+    <div class="cta-wrap">
+      <a
+        class="cta"
+        href={zaloLink(
+          "Chào anh/chị, em muốn nhận đầy đủ hồ sơ pháp lý và giá của một lô đất.",
+        )}
+        target="_blank"
+        rel="noopener"
+      >
+        Mở Zalo ngay
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final {
+    border-top: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--clay);
+    color: var(--clay-foreground);
+    padding-block: 5rem;
+  }
+  .inner {
+    max-width: 48rem;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: color-mix(in oklab, var(--clay-foreground) 70%, transparent);
+  }
+  h2 {
+    margin-top: 0.75rem;
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tighter);
+    color: var(--clay-foreground);
+  }
+  p {
+    margin-inline: auto;
+    margin-top: 1.25rem;
+    max-width: 36rem;
+    font-size: var(--text-lg);
+    color: color-mix(in oklab, var(--clay-foreground) 85%, transparent);
+  }
+  .cta-wrap {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  .cta {
+    border-radius: var(--radius-pill);
+    background: var(--ink);
+    padding: 1rem 2rem;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--paper);
+    transition: opacity 0.15s;
+  }
+  .cta:hover {
+    opacity: 0.9;
+  }
+
+  @media (min-width: 640px) {
+    .final {
+      padding-block: 7rem;
+    }
+  }
+</style>

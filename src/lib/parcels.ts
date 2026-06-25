@@ -3,8 +3,8 @@
  *
  * Replaces the Contentful-backed `Model` (src/model/ContentfulModel.ts). Pages
  * import these helpers instead of the old default-export model. The markdown
- * body is rendered in the page via `await entry.render()` — see usage note at
- * the bottom — so this module stays free of rendering concerns.
+ * body is rendered in the page via `render(entry)` from astro:content, so this
+ * module stays free of rendering concerns.
  */
 import { getCollection, getEntry, type CollectionEntry } from "astro:content";
 

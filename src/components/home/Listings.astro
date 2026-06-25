@@ -1,0 +1,88 @@
+---
+/**
+ * Homepage "Available land opportunities" grid. Anchor target #opportunities
+ * for the header nav. Renders the curated (promoted) parcels as cards.
+ */
+import ParcelCard from "../site/ParcelCard.astro";
+import type { Parcel } from "../../lib/parcels";
+
+interface Props {
+  parcels: Parcel[];
+}
+const { parcels } = Astro.props;
+---
+
+<section id="opportunities" class="listings">
+  <div class="container">
+    <div class="head">
+      <div>
+        <div class="eyebrow">Cơ hội đất đang bán</div>
+        <h2>Lô đất chính chủ tuyển chọn. Mỗi lô đều thương lượng được.</h2>
+      </div>
+      <p class="note">
+        Khoảng giá mang tính tham khảo. Giá sàn chính xác, sổ đỏ công chứng và
+        lịch xem đất sẽ gửi qua Zalo.
+      </p>
+    </div>
+
+    <div class="grid">
+      {parcels.map((parcel) => <ParcelCard parcel={parcel} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .listings {
+    border-top: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--cream);
+    padding-block: 5rem;
+    scroll-margin-top: 5rem;
+  }
+  .head {
+    display: grid;
+    gap: 1.5rem;
+    align-items: end;
+  }
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  h2 {
+    margin-top: 0.5rem;
+    max-width: 36rem;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .note {
+    max-width: 24rem;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+  .grid {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .listings {
+      padding-block: 7rem;
+    }
+    .head {
+      grid-template-columns: 1fr auto;
+    }
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

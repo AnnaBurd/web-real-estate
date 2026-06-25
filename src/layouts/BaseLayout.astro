@@ -1,19 +1,31 @@
 ---
 /**
- * v2 base layout — minimal, pure CSS, Vietnamese-first.
- * Hosts the redesigned pages. (The v1 Layout.astro stays for legacy pages
- * until they are replaced.)
+ * v2 base layout — pure CSS, Vietnamese-first. Includes the shared chrome
+ * (Header, Footer, sticky Zalo/phone contact) so pages only render content.
  */
 import "../styles/app.css";
+import Header from "../components/site/Header.astro";
+import Footer from "../components/site/Footer.astro";
+import StickyContact from "../components/site/StickyContact.astro";
 
 interface Props {
   title: string;
   description?: string;
   /** Open Graph image URL (absolute). */
   ogImage?: string;
+  /** Pre-filled message for the sticky Zalo button. */
+  contactMessage?: string;
+  /** Hide the shared chrome (e.g. for error pages). */
+  bare?: boolean;
 }
 
-const { title, description, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  contactMessage,
+  bare = false,
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
 ---
 
@@ -27,7 +39,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
@@ -37,6 +48,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
   </head>
 
   <body>
-    <slot />
+    {bare ? (
+      <slot />
+    ) : (
+      <>
+        <Header />
+        <main>
+          <slot />
+        </main>
+        <Footer />
+        <StickyContact message={contactMessage} />
+      </>
+    )}
   </body>
 </html>

@@ -1,0 +1,75 @@
+---
+import Icon from "../ui/Icon.astro";
+import { CONTACT, zaloLink } from "../../config/site";
+
+interface Props {
+  message?: string;
+}
+const { message } = Astro.props;
+---
+
+<div class="sticky-contact">
+  <a
+    href={zaloLink(message)}
+    target="_blank"
+    rel="noopener"
+    class="chip zalo"
+  >
+    <Icon name="message" size={20} />
+    <span>Chat Zalo</span>
+  </a>
+  <a href={CONTACT.tel} class="chip phone">
+    <Icon name="call" size={15} />
+    <span>{CONTACT.phoneDisplay}</span>
+  </a>
+</div>
+
+<style>
+  .sticky-contact {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    font-weight: var(--weight-semibold);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.15s;
+  }
+  .chip:hover {
+    transform: scale(1.03);
+  }
+  .zalo {
+    background: var(--zalo);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    font-size: var(--text-sm);
+  }
+  .phone {
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--foreground);
+    padding: 0.55rem 0.9rem;
+    font-size: var(--text-xs);
+    box-shadow: var(--shadow-md);
+  }
+  @media (min-width: 640px) {
+    .sticky-contact {
+      right: 1.5rem;
+      bottom: 1.5rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chip:hover {
+      transform: none;
+    }
+  }
+</style>

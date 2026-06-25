@@ -55,9 +55,9 @@ const parcels = defineCollection({
           }),
         )
         .default([]),
-      // Unlisted YouTube id (facade-embedded). Self-hosted v1 videos must be
-      // re-uploaded to YouTube manually — see migration report.
-      youtubeId: z.string().optional(),
+      // Unlisted YouTube ids (facade-embedded), in display order. Self-hosted
+      // v1 videos must be re-uploaded to YouTube manually — see YOUTUBE.md.
+      youtubeIds: z.array(z.string()).default([]),
 
       // Slugs of related parcels (cross-sell strip).
       suggestedParcels: z.array(z.string()).default([]),

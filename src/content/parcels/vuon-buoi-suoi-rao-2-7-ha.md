@@ -1,0 +1,101 @@
+---
+title: "Vườn Bưởi Suối Rao 2.7 ha"
+location: ""
+order: 99
+promoted: true
+verification: "pending"
+tag: "vị trí tuyệt vời"
+area:
+  value: 2.7
+  unit: "ha"
+priceRange: "25 tỷ"
+negotiable: true
+coords:
+  - 10.5752334
+  - 107.3083241
+briefDescription: "Chính chủ bán vườn bưởi 2.7ha, giá sốc, tại huyện Châu Đức, Bà Rịa Vũng Tàu. Nằm ngay trung tâm xã Suối Rao, giấy tờ đầy đủ, đất bằng phẳng, 3 mặt tiền thuận lợi phân lô. Có ao nuôi cá, cách đường Xuân Sơn-Đá Bạc 500m. Hỗ trợ thủ tục phân lô. 🌳"
+sellingPoints: []
+zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Vườn Bưởi Suối Rao 2.7 ha."
+images:
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/01.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 1"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/02.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 2"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/03.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 3"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/04.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 4"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/05.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 5"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/06.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 6"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/07.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 7"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/08.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 8"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/09.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 9"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/10.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 10"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/11.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 11"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/12.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 12"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/13.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 13"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/14.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 14"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/15.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 15"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/16.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 16"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/17.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 17"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/18.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 18"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/19.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 19"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/20.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 20"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/21.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 21"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/22.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 22"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/23.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 23"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/24.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 24"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/25.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 25"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/26.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 26"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/27.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 27"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/28.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 28"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/29.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 29"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/30.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 30"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/31.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 31"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/32.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 32"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/33.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 33"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/34.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 34"
+  - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/35.jpg"
+    alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 35"
+suggestedParcels:
+  - "long-tan-3-5-ha"
+  - "binh-trung-1-5-ha"
+  - "phu-yen-58-ha"
+  - "song-phan-2-9ha"
+---
+
+Chính chủ cần bán 2.7 ha vườn bưởi ngay trung tâm xã Suối Rao, huyện Châu Đức, Bà Rịa Vũng Tàu. Giấy tờ đầy đủ, sổ đỏ sẵn có. Đất bằng phẳng, đang trồng bưởi và các loại cây ăn trái khác, **đặc biệt có sẵn 2 ao đang nuôi cá**, tạo thêm giá trị và tiềm năng phát triển.
+
+Với **3 mặt tiền**, mảnh đất thuận tiện cho việc phân lô tách thửa, mở ra nhiều cơ hội đầu tư và xây dựng. Vị trí ngay trung tâm khu dân cư xã Suối Rao, chỉ cách đường Xuân Sơn-Đá Bạc 500m, **kết nối thuận tiện với các tuyến đường chính**.
+
+**Chưa hết, chủ nhân mới còn được hỗ trợ thủ tục phân lô tách thửa, đảm bảo sự thuận lợi và nhanh chóng trong quá trình giao dịch**. 🌿

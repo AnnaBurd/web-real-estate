@@ -19,6 +19,8 @@ sellingPoints:
   - "3 mặt tiền, đất bằng phẳng, cách đường Xuân Sơn–Đá Bạc 500 m — rất thuận lợi để phân lô tách thửa."
   - "Châu Đức nay thuộc TP.HCM; sổ đỏ sẵn có, hỗ trợ thủ tục phân lô."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Vườn Bưởi Suối Rao 2.7 ha."
+youtubeIds:
+  - "_X5U_KwfD0Y"
 images:
   - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/01.jpg"
     alt: "Vườn Bưởi Suối Rao 2.7 ha — ảnh 1"

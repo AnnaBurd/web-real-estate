@@ -20,6 +20,9 @@ sellingPoints:
   - "Hòa Long nay thuộc TP.HCM (sáp nhập 2025), kề tuyến cao tốc Biên Hòa–Vũng Tàu vừa thông xe — hạ tầng kéo giá trị đi lên."
   - "Sổ đỏ đầy đủ, đất bằng phẳng, hỗ trợ thủ tục tách thửa — pháp lý rõ ràng, giao dịch nhanh."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô 3,3 Sào Hòa Long."
+youtubeIds:
+  - "fcQL65qwlpM"
+  - "waBqeeWqumc"
 images:
   - src: "../../assets/parcels/3-3-sao-hoa-long/01.jpg"
     alt: "3,3 Sào Hòa Long — ảnh 1"

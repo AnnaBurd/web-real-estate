@@ -19,6 +19,8 @@ sellingPoints:
   - "Di Linh nay thuộc tỉnh Lâm Đồng mở rộng (sáp nhập 2025) — vùng trọng điểm nông nghiệp & du lịch."
   - "Sổ sách đầy đủ, đất rộng vuông vức, pháp lý rõ ràng để sang tên."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Di Linh 5 sào."
+youtubeIds:
+  - "lhr3VS-Gfn0"
 images:
   - src: "../../assets/parcels/di-linh-5-sao/01.jpg"
     alt: "Di Linh 5 sào — ảnh 1"

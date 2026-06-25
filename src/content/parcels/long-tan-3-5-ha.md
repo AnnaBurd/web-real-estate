@@ -19,6 +19,10 @@ sellingPoints:
   - "Cách đường 765 chỉ 1,5 km; khu vực nay thuộc TP.HCM, hưởng lợi từ cao tốc Biên Hòa–Vũng Tàu và sân bay Long Thành (6/2026)."
   - "Quy hoạch phủ hồng, sổ đỏ sẵn có, hỗ trợ thủ tục lên thổ cư và tách thửa."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Long Tân 3,5 ha."
+youtubeIds:
+  - "77I2_IGuAm8"
+  - "McMHD7440ck"
+  - "L-ZhvuFCRr0"
 images:
   - src: "../../assets/parcels/long-tan-3-5-ha/01.jpg"
     alt: "Long Tân 3,5 ha — ảnh 1"

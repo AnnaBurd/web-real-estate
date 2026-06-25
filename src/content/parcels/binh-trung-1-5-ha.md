@@ -19,6 +19,9 @@ sellingPoints:
   - "Thuộc vùng TP.HCM mới, gần trục cao tốc Biên Hòa–Vũng Tàu và sân bay Long Thành (khai thác 6/2026)."
   - "Sổ sách đầy đủ, gia đình bán trực tiếp — thương lượng cho người mua thiện chí."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Bình Trung 1,5 ha."
+youtubeIds:
+  - "ISKQq4pehn4"
+  - "3Dyfh5QW3hE"
 images:
   - src: "../../assets/parcels/binh-trung-1-5-ha/01.jpg"
     alt: "Bình Trung 1,5 ha — ảnh 1"

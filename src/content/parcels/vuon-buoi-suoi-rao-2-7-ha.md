@@ -13,11 +13,29 @@ negotiable: true
 coords:
   - 10.5752334
   - 107.3083241
+province: "TP.HCM (Bà Rịa – Vũng Tàu cũ)"
+urgency: "Chính chủ · có dòng tiền khai thác ngay · thương lượng cho người mua thiện chí"
+pricePerSqm: "≈ 925 nghìn đ/m²"
 briefDescription: "Chính chủ bán 2,7 ha vườn bưởi đang thu hoạch tại trung tâm xã Suối Rao, Châu Đức. 3 mặt tiền, có 2 ao cá, sổ đỏ sẵn có, thuận lợi phân lô."
 sellingPoints:
   - "Vườn bưởi đang cho thu hoạch + 2 ao cá — có dòng tiền khai thác ngay trong khi chờ đất tăng giá."
   - "3 mặt tiền, đất bằng phẳng, cách đường Xuân Sơn–Đá Bạc 500 m — rất thuận lợi để phân lô tách thửa."
   - "Châu Đức nay thuộc TP.HCM; sổ đỏ sẵn có, hỗ trợ thủ tục phân lô."
+infrastructure:
+  - "3 mặt tiền, đất bằng phẳng; cách đường Xuân Sơn–Đá Bạc ~500 m."
+  - "Vườn bưởi đang cho thu hoạch và 2 ao cá — hạ tầng canh tác, nguồn nước sẵn có."
+  - "Thuộc vùng Châu Đức: gần trục Quốc lộ 56 và KCN–Đô thị–Sân golf Châu Đức (Sonadezi, ~2.287 ha)."
+  - "Đường DT765 kết nối Châu Đức – Xuyên Mộc (Hồ Tràm); cao tốc Biên Hòa–Vũng Tàu đã đưa vào khai thác (2026)."
+thesis: "Suối Rao thuộc cung Châu Đức — vùng nông nghiệp và sinh thái kề KCN Sonadezi cùng trục du lịch Hồ Tràm, nay thuộc TP.HCM. Vườn bưởi đang thu hoạch cùng 2 ao cá tạo dòng tiền khai thác ngay trong khi chờ đất tăng giá; lợi thế 3 mặt tiền, đất bằng phẳng thuận lợi phân lô tách thửa hoặc chuyển hướng làm điểm nghỉ dưỡng sinh thái. Suất đầu tư ~925 nghìn đ/m² còn thấp so với mặt bằng đất vườn đã có dòng tiền."
+risks:
+  - "Đất nông nghiệp (trồng cây lâu năm/nuôi trồng thủy sản): muốn xây dựng nhà ở phải chuyển mục đích sang đất ở theo quy hoạch và nộp tiền sử dụng đất."
+  - "Nguồn thu từ bưởi và cá mang tính mùa vụ; người vận hành mới cần thời gian chuyển giao, chăm sóc."
+  - "Phân lô, tách thửa phải đáp ứng diện tích tối thiểu và điều kiện địa phương; nên kiểm tra ranh 3 mặt tiền và lộ giới."
+  - "Lệ phí trước bạ 0,5% (thường bên mua) và thuế TNCN 2% (thường bên bán) theo quy định, có thể thỏa thuận."
+legalNotes:
+  - "Sổ đỏ sẵn có, chính chủ; ảnh sổ, video và thông tin thửa được cung cấp qua Zalo."
+  - "Khuyến nghị xác minh ranh mốc, quy hoạch và tình trạng pháp lý thửa tại Văn phòng đăng ký đất đai trước khi đặt cọc."
+  - "Giao dịch công chứng theo quy định; chủ đất hỗ trợ thủ tục phân lô, sang tên."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Vườn Bưởi Suối Rao 2.7 ha."
 youtubeIds:
   - "_X5U_KwfD0Y"

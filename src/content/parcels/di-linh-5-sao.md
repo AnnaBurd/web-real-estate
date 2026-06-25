@@ -1,10 +1,10 @@
 ---
 title: "Di Linh 5 sào"
-location: ""
-order: 99
+location: "Di Linh, Lâm Đồng"
+order: 6
 promoted: true
-verification: "pending"
-tag: "liên hệ ngay"
+verification: "red-book"
+tag: "Cao nguyên mát lành"
 area:
   value: 5000
   unit: "m2"
@@ -13,8 +13,11 @@ negotiable: true
 coords:
   - 11.5810112
   - 108.0502454382
-briefDescription: "5 sào đất tại Di Linh, giá 12 tỷ đồng. Cơ hội đầu tư với không gian xanh mát. Liên hệ ngay để sở hữu! 🌿"
-sellingPoints: []
+briefDescription: "Chính chủ bán 5 sào (5.000 m²) đất trên cao nguyên Di Linh, Lâm Đồng. Khí hậu mát mẻ, sổ sách đầy đủ, hợp làm nhà vườn nghỉ dưỡng."
+sellingPoints:
+  - "5 sào (5.000 m²) trên cao nguyên Di Linh — khí hậu mát quanh năm, hợp làm nhà vườn nghỉ dưỡng."
+  - "Di Linh nay thuộc tỉnh Lâm Đồng mở rộng (sáp nhập 2025) — vùng trọng điểm nông nghiệp & du lịch."
+  - "Sổ sách đầy đủ, đất rộng vuông vức, pháp lý rõ ràng để sang tên."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Di Linh 5 sào."
 images:
   - src: "../../assets/parcels/di-linh-5-sao/01.jpg"
@@ -47,8 +50,8 @@ suggestedParcels:
   - "song-phan-2-9ha"
 ---
 
-Nằm trong vùng Di Linh, mảnh đất 5 sào này không chỉ là cơ hội đầu tư mà còn là sự hòa mình vào không gian xanh mát và bình yên của vùng nông thôn. Với giá 12 tỷ đồng, bạn có thể sở hữu không gian rộng lớn và tiềm năng phát triển không ngừng.
+Chính chủ bán 5 sào (5.000 m²) đất trên cao nguyên Di Linh — khí hậu mát mẻ quanh năm, cảnh quan xanh, phù hợp làm nhà vườn hoặc điểm nghỉ dưỡng.
 
-Di Linh, với khí hậu mát mẻ và cảnh đẹp tự nhiên tuyệt vời, tạo nên điểm đến lý tưởng cho những người muốn thoát khỏi cuộc sống ồn ào của thành phố. Mảnh đất này không chỉ là nơi đầu tư mà còn là nơi tận hưởng cuộc sống gần gũi với thiên nhiên.
+Di Linh nay thuộc tỉnh Lâm Đồng mở rộng (sáp nhập Lâm Đồng – Bình Thuận – Đắk Nông năm 2025) — vùng trọng điểm về nông nghiệp và du lịch của Nam Tây Nguyên.
 
-**Liên hệ ngay để biết thêm chi tiết và trải nghiệm vẻ đẹp của Di Linh! **🌿
+Sổ sách đầy đủ, đất rộng, pháp lý rõ ràng để sang tên. Giá 12 tỷ, thương lượng trực tiếp. Nhắn Zalo để xem hình thực tế và ảnh sổ.

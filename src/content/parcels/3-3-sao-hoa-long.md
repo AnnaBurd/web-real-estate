@@ -1,10 +1,10 @@
 ---
 title: "3,3 Sào Hòa Long"
-location: ""
-order: 99
+location: "Hòa Long, Bà Rịa"
+order: 1
 promoted: true
-verification: "pending"
-tag: "giá tốt nhất"
+verification: "red-book"
+tag: "Tiềm năng resort"
 area:
   value: 3362
   unit: "m2"
@@ -14,8 +14,11 @@ negotiable: true
 coords:
   - 10.5426813
   - 107.248481743949
-briefDescription: "Chính chủ bán đất 3,3 sào tại trung tâm xã Hòa Long! Vị trí vàng, tầm nhìn hữu tình. Sổ đỏ đầy đủ, tiềm năng phân lô và xây resort."
-sellingPoints: []
+briefDescription: "Chính chủ bán 3,3 sào (3.362 m²) mặt tiền 155 m tại trung tâm xã Hòa Long. Sổ đỏ đầy đủ, đất bằng phẳng, sẵn sàng phân lô hoặc làm khu nghỉ dưỡng."
+sellingPoints:
+  - "Mặt tiền 155 m, cách Quốc lộ 56 chỉ 150 m — sẵn sàng phân lô hoặc làm homestay, khu nghỉ dưỡng nhỏ."
+  - "Hòa Long nay thuộc TP.HCM (sáp nhập 2025), kề tuyến cao tốc Biên Hòa–Vũng Tàu vừa thông xe — hạ tầng kéo giá trị đi lên."
+  - "Sổ đỏ đầy đủ, đất bằng phẳng, hỗ trợ thủ tục tách thửa — pháp lý rõ ràng, giao dịch nhanh."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô 3,3 Sào Hòa Long."
 images:
   - src: "../../assets/parcels/3-3-sao-hoa-long/01.jpg"
@@ -39,18 +42,8 @@ suggestedParcels:
   - "binh-trung-1-5-ha"
 ---
 
-**Độc quyền từ chính chủ: Bán đất 3,3 sào tại trung tâm xã Hòa Long - Giấy tờ đầy đủ, sổ đỏ sẵn sàng**
+Chính chủ bán trực tiếp 3,3 sào (3.362 m²) đất tại trung tâm xã Hòa Long, mặt tiền rộng 155 m. Đất bằng phẳng, tầm nhìn thoáng ra cánh đồng — phù hợp phân lô hoặc phát triển homestay, khu nghỉ dưỡng nhỏ.
 
-🌾 **Vị trí đắc địa, tầm nhìn mở ra ruộng lúa tuyệt vời, mặt tiền 155m thuận tiện cho phân lô hoặc xây dựng resort nghỉ dưỡng**
+Vị trí kết nối tốt: cách Quốc lộ 56 chỉ 150 m và Hương Lộ 2 khoảng 500 m. Sau sáp nhập hành chính 2025, Hòa Long thuộc TP.HCM; tuyến cao tốc Biên Hòa–Vũng Tàu vừa đưa vào khai thác và sân bay Long Thành dự kiến vận hành từ tháng 6/2026 là những lực đẩy hạ tầng cho cả khu vực.
 
-📍 Nằm ngay tại trung tâm xã Hòa Long, cách quốc lộ 56 chỉ 150m và Hương Lộ 2 chỉ 500m
-
-📑 **Hỗ trợ mọi thủ tục phân lô tách thửa nhanh chóng và thuận tiện cho quý khách hàng**
-
-🌟 **Ưu điểm nổi bật:**
-
-- Đất bằng phẳng, thích hợp cho mọi loại hình xây dựng
-- Tầm nhìn độc đáo với cảnh đẹp thiên nhiên xung quanh
-- Tiện ích xã hội và giao thông thuận lợi
-
-📞 **Liên hệ ngay để biết thêm chi tiết và sắm cho mình mảnh đất đẹp nhất tại trung tâm xã Hòa Long!**
+Sổ đỏ đầy đủ, pháp lý rõ ràng, hỗ trợ thủ tục tách thửa. Giá 8 tỷ, thương lượng trực tiếp với chính chủ cho người mua thiện chí. Nhắn Zalo để nhận hình ảnh thực tế, ảnh sổ và vị trí trên bản đồ.

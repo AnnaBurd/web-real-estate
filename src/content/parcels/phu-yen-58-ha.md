@@ -1,10 +1,10 @@
 ---
 title: "Phú Yên 58 ha"
-location: ""
-order: 99
+location: "Sông Cầu, Phú Yên"
+order: 5
 promoted: true
-verification: "pending"
-tag: "đất đẹp"
+verification: "red-book"
+tag: "Quỹ đất lớn"
 area:
   value: 58
   unit: "ha"
@@ -13,8 +13,11 @@ negotiable: true
 coords:
   - 13.0970781
   - 109.17929841584
-briefDescription: "58ha đất tại Phú Yên, diện tích 580,000m2, giá chỉ 9.5 tỷ đồng. Cơ hội đầu tư lớn với vùng đất đa dạng và tiềm năng phát triển cao."
-sellingPoints: []
+briefDescription: "Chính chủ bán 58 ha (580.000 m²) đất liền khối ven biển Sông Cầu, Phú Yên. Suất đầu tư trên mỗi m² rất thấp, sổ sách đầy đủ."
+sellingPoints:
+  - "Quỹ đất 58 ha liền khối ven biển Sông Cầu — quy mô hiếm có cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng."
+  - "Chỉ 9,5 tỷ cho 58 ha — suất đầu tư trên mỗi m² thuộc nhóm thấp nhất trong danh mục."
+  - "Sổ sách đầy đủ; vùng vịnh Xuân Đài đang lên về du lịch — tiềm năng dài hạn lớn."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Phú Yên 58 ha."
 images:
   - src: "../../assets/parcels/phu-yen-58-ha/01.jpg"
@@ -42,8 +45,8 @@ suggestedParcels:
   - "di-linh-5-sao"
 ---
 
-Với diện tích lên đến 58ha, mảnh đất tại Phú Yên đang chờ đợi chủ nhân mới. Với **giá chỉ 9.5 tỷ đồng**, đây là cơ hội đầu tư lớn với diện tích rộng lớn và tiềm năng phát triển đa dạng.
+Chính chủ bán 58 ha (580.000 m²) đất liền khối tại Sông Cầu, Phú Yên — quỹ đất quy mô lớn hiếm có cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng dài hạn.
 
-Phú Yên, với vẻ đẹp tự nhiên hùng vĩ và cộng đồng phát triển, là nơi lý tưởng cho các dự án đầu tư. Mảnh đất này **có diện tích 580,000 m2, mở ra không gian lớn cho sự sáng tạo và phát triển**.
+Mức giá 9,5 tỷ cho 58 ha tương đương suất đầu tư trên mỗi m² thuộc nhóm thấp nhất trong danh mục. Khu vực ven biển Sông Cầu – vịnh Xuân Đài đang phát triển về du lịch, mở ra tiềm năng tăng giá dài hạn.
 
-**Liên hệ ngay để khám phá thêm về cơ hội đầu tư hấp dẫn này và trải nghiệm vẻ đẹp của Phú Yên. **🏞️
+Sổ sách đầy đủ, pháp lý rõ ràng. Giá thương lượng trực tiếp với chính chủ. Nhắn Zalo để nhận video, hình thực tế và thông tin pháp lý.

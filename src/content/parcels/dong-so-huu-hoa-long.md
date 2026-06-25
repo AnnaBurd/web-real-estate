@@ -1,10 +1,10 @@
 ---
 title: "Đồng sở hữu Hòa Long"
-location: ""
-order: 99
+location: "Hòa Long, Bà Rịa"
+order: 8
 promoted: false
-verification: "pending"
-tag: "giá tốt nhất"
+verification: "red-book"
+tag: "Vốn nhỏ"
 area:
   value: 200
   unit: "m2"
@@ -13,8 +13,11 @@ negotiable: true
 coords:
   - 10.5226196
   - 107.1903117178
-briefDescription: "Đất đồng sở hữu tại Hòa Long, giá 600 triệu đồng.  (2 sổ, mỗi sổ 100 m2). Cơ hội đầu tư nhỏ gọn với giá trị lớn. Liên hệ ngay để sở hữu! 🌿"
-sellingPoints: []
+briefDescription: "Đất đồng sở hữu tại Hòa Long, 600 triệu (2 sổ, mỗi sổ 100 m²). Suất đầu tư nhỏ gọn, pháp lý rõ ràng, xem được bản đồ thửa trực tuyến."
+sellingPoints:
+  - "Suất đầu tư nhỏ chỉ 600 triệu — 2 sổ riêng, mỗi sổ 100 m² tại Hòa Long."
+  - "Điểm khởi đầu hợp lý cho người vốn ít muốn vào vùng đất nay thuộc TP.HCM."
+  - "Pháp lý rõ ràng; bản đồ thửa đất xem trực tiếp trên remaps.vn."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Đồng sở hữu Hòa Long."
 images:
   - src: "../../assets/parcels/dong-so-huu-hoa-long/01.jpg"
@@ -32,8 +35,8 @@ images:
 suggestedParcels: []
 ---
 
-Mảnh đất "Đồng Sở Hữu Hòa Long" mang đến cơ hội đầu tư tuyệt vời với mức giá chỉ 600 triệu đồng. Với diện tích đồng sở hữu, đây là cơ hội nhỏ gọn nhưng mang lại giá trị lớn.
+Suất đầu tư nhỏ gọn chỉ 600 triệu cho phần đất đồng sở hữu tại Hòa Long — gồm 2 sổ, mỗi sổ 100 m². Lựa chọn hợp lý cho người vốn ít muốn đặt chân vào vùng đất nay thuộc TP.HCM.
 
-Nằm tại vị trí đắc địa trong xã Hòa Long, mảnh đất này là lựa chọn hoàn hảo cho những người muốn sở hữu một phần đất ổn định và tiềm năng phát triển. Mức giá ưu đãi và cơ hội đầu tư nhỏ gọn làm cho đây là sự lựa chọn hấp dẫn cho những người có nguyện vọng đầu tư nhỏ và có lợi nhuận lớn.
+Pháp lý rõ ràng với 2 sổ riêng; bản đồ thửa đất có thể xem trực tiếp trên remaps.vn trước khi đi xem thực địa.
 
-Liên hệ ngay để biết thêm chi tiết và không bỏ lỡ cơ hội này! 🌿
+Giá 600 triệu, thương lượng trực tiếp với chính chủ. Nhắn Zalo để nhận vị trí bản đồ và ảnh sổ.

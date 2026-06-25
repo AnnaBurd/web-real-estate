@@ -1,9 +1,10 @@
 ---
 title: "Sông Phan 2,9ha"
-location: ""
-order: 99
+location: "Sông Phan, Bình Thuận"
+order: 7
 promoted: false
-verification: "pending"
+verification: "red-book"
+tag: "Cận cao tốc"
 area:
   value: 2.9
   unit: "ha"
@@ -12,8 +13,11 @@ negotiable: true
 coords:
   - 10.8550437
   - 107.7511729685
-briefDescription: "2.9ha đất tại Sông Phan, giá 22 tỷ đồng. Mảnh đất độc đáo, cơ hội đầu tư và phát triển không giới hạn. Liên hệ ngay để biết thêm chi tiết. 🍃"
-sellingPoints: []
+briefDescription: "Chính chủ bán 2,9 ha (29.000 m²) đất tại Sông Phan, gần cao tốc Dầu Giây–Phan Thiết. Sổ sách đầy đủ, nhiều tiềm năng nông nghiệp – nghỉ dưỡng."
+sellingPoints:
+  - "2,9 ha tại Sông Phan, gần cao tốc Dầu Giây–Phan Thiết — tuyến đã khiến giá đất nhiều nơi tăng 3–4 lần từ 2023."
+  - "TP.HCM về Phan Thiết chỉ còn ~1 giờ 40 phút — lực đẩy mạnh cho bất động sản ven biển khu vực."
+  - "Sổ sách đầy đủ, đất rộng, nhiều tiềm năng nông nghiệp – nghỉ dưỡng."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Sông Phan 2,9ha."
 images:
   - src: "../../assets/parcels/song-phan-2-9ha/01.jpg"
@@ -57,8 +61,8 @@ suggestedParcels:
   - "vuon-buoi-suoi-rao-2-7-ha"
 ---
 
-Với diện tích rộng lớn là 1.6ha, mảnh đất tại Sông Phan đang mở ra cơ hội đầu tư không giới hạn. Với mức giá hấp dẫn là 22 tỷ đồng, đây là sự kết hợp tuyệt vời giữa giá trị và tiềm năng phát triển.
+Chính chủ bán 2,9 ha (29.000 m²) đất tại Sông Phan — quỹ đất rộng, nhiều tiềm năng phát triển nông nghiệp và nghỉ dưỡng.
 
-Sông Phan, với vị trí thuận lợi và cảnh quan đẹp mắt, tạo điều kiện lý tưởng cho mọi dự án đầu tư. Mảnh đất này là sự kết hợp độc đáo giữa diện tích rộng lớn và tiềm năng đa dạng.
+Vị trí gần tuyến cao tốc Dầu Giây–Phan Thiết, nơi giá đất nhiều khu vực đã tăng 3–4 lần kể từ khi thông xe năm 2023. Từ TP.HCM về Phan Thiết nay chỉ còn khoảng 1 giờ 40 phút, tạo lực đẩy mạnh cho bất động sản ven biển Bình Thuận (nay thuộc tỉnh Lâm Đồng mở rộng).
 
-**Liên hệ ngay để khám phá thêm về cơ hội và tiềm năng phát triển mà Sông Phan mang lại.** 🍃
+Sổ sách đầy đủ, pháp lý rõ ràng. Giá 22 tỷ, thương lượng trực tiếp với chính chủ. Nhắn Zalo để biết thêm chi tiết và xem hình thực tế.

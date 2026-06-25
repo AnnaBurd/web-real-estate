@@ -1,10 +1,10 @@
 ---
 title: "Vườn Bưởi Suối Rao 2.7 ha"
-location: ""
-order: 99
+location: "Suối Rao, Châu Đức"
+order: 2
 promoted: true
-verification: "pending"
-tag: "vị trí tuyệt vời"
+verification: "red-book"
+tag: "Dòng tiền sẵn có"
 area:
   value: 2.7
   unit: "ha"
@@ -13,8 +13,11 @@ negotiable: true
 coords:
   - 10.5752334
   - 107.3083241
-briefDescription: "Chính chủ bán vườn bưởi 2.7ha, giá sốc, tại huyện Châu Đức, Bà Rịa Vũng Tàu. Nằm ngay trung tâm xã Suối Rao, giấy tờ đầy đủ, đất bằng phẳng, 3 mặt tiền thuận lợi phân lô. Có ao nuôi cá, cách đường Xuân Sơn-Đá Bạc 500m. Hỗ trợ thủ tục phân lô. 🌳"
-sellingPoints: []
+briefDescription: "Chính chủ bán 2,7 ha vườn bưởi đang thu hoạch tại trung tâm xã Suối Rao, Châu Đức. 3 mặt tiền, có 2 ao cá, sổ đỏ sẵn có, thuận lợi phân lô."
+sellingPoints:
+  - "Vườn bưởi đang cho thu hoạch + 2 ao cá — có dòng tiền khai thác ngay trong khi chờ đất tăng giá."
+  - "3 mặt tiền, đất bằng phẳng, cách đường Xuân Sơn–Đá Bạc 500 m — rất thuận lợi để phân lô tách thửa."
+  - "Châu Đức nay thuộc TP.HCM; sổ đỏ sẵn có, hỗ trợ thủ tục phân lô."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Vườn Bưởi Suối Rao 2.7 ha."
 images:
   - src: "../../assets/parcels/vuon-buoi-suoi-rao-2-7-ha/01.jpg"
@@ -94,8 +97,8 @@ suggestedParcels:
   - "song-phan-2-9ha"
 ---
 
-Chính chủ cần bán 2.7 ha vườn bưởi ngay trung tâm xã Suối Rao, huyện Châu Đức, Bà Rịa Vũng Tàu. Giấy tờ đầy đủ, sổ đỏ sẵn có. Đất bằng phẳng, đang trồng bưởi và các loại cây ăn trái khác, **đặc biệt có sẵn 2 ao đang nuôi cá**, tạo thêm giá trị và tiềm năng phát triển.
+Chính chủ bán 2,7 ha vườn bưởi đang cho thu hoạch ngay trung tâm xã Suối Rao, huyện Châu Đức. Trên đất có sẵn 2 ao nuôi cá — mang lại dòng tiền khai thác ngay trong khi chờ đất tăng giá.
 
-Với **3 mặt tiền**, mảnh đất thuận tiện cho việc phân lô tách thửa, mở ra nhiều cơ hội đầu tư và xây dựng. Vị trí ngay trung tâm khu dân cư xã Suối Rao, chỉ cách đường Xuân Sơn-Đá Bạc 500m, **kết nối thuận tiện với các tuyến đường chính**.
+Đất bằng phẳng, 3 mặt tiền, cách đường Xuân Sơn–Đá Bạc khoảng 500 m, rất thuận lợi để phân lô tách thửa. Khu vực Châu Đức nay thuộc TP.HCM sau sáp nhập 2025 và hưởng lợi từ tuyến cao tốc Biên Hòa–Vũng Tàu.
 
-**Chưa hết, chủ nhân mới còn được hỗ trợ thủ tục phân lô tách thửa, đảm bảo sự thuận lợi và nhanh chóng trong quá trình giao dịch**. 🌿
+Sổ đỏ sẵn có, giấy tờ đầy đủ, hỗ trợ thủ tục phân lô. Giá 25 tỷ, thương lượng cho người mua thiện chí. Nhắn Zalo để xem video, hình thực tế và ảnh sổ.

@@ -1,0 +1,7 @@
+/**
+ * v2 global stylesheet entry. Imported once by BaseLayout.
+ * Pure CSS only — no Tailwind. Component styles live in each .astro <style>.
+ */
+@import "./fonts.css";
+@import "./tokens.css";
+@import "./base.css";

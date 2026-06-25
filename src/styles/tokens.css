@@ -1,0 +1,102 @@
+/**
+ * v2 design tokens — extracted verbatim from the redesign build
+ * (viet-land.lovable.app). Pure CSS custom properties, no Tailwind.
+ *
+ * Palette is OKLCH: warm cream ground, dark forest-green ink, forest-green
+ * primary, clay/terracotta accent, red "Red Book" badge, Zalo blue.
+ * Type pairs Fraunces (serif display) with Geist (sans body) — see fonts.css.
+ */
+:root {
+  --radius: 0.5rem;
+
+  /* ---- Surfaces ---- */
+  --background: oklch(96.5% 0.018 85); /* warm cream */
+  --foreground: oklch(22% 0.025 150); /* forest-green ink */
+  --paper: oklch(98.5% 0.012 85); /* near-white warm (cards) */
+  --cream: oklch(94.5% 0.025 80);
+  --ink: oklch(18% 0.02 150); /* darkest — display headings */
+  --card: oklch(98.5% 0.012 85);
+  --card-foreground: oklch(22% 0.025 150);
+  --popover: oklch(98.5% 0.012 85);
+  --popover-foreground: oklch(22% 0.025 150);
+
+  /* ---- Brand ---- */
+  --primary: oklch(32% 0.06 155); /* forest green */
+  --primary-foreground: oklch(97% 0.02 85);
+  --forest: oklch(32% 0.06 155);
+  --forest-foreground: oklch(97% 0.02 85);
+  --accent: oklch(62% 0.16 45); /* clay / terracotta */
+  --accent-foreground: oklch(98% 0.01 85);
+  --clay: oklch(62% 0.16 45);
+  --clay-foreground: oklch(98% 0.01 85);
+
+  /* ---- Neutrals ---- */
+  --secondary: oklch(93% 0.02 85);
+  --secondary-foreground: oklch(22% 0.025 150);
+  --muted: oklch(91% 0.02 85);
+  --muted-foreground: oklch(45% 0.025 140);
+  --border: oklch(85% 0.025 80);
+  --input: oklch(85% 0.025 80);
+  --ring: oklch(32% 0.06 155);
+
+  /* ---- Feedback & badges ---- */
+  --destructive: oklch(52% 0.22 27);
+  --destructive-foreground: oklch(98% 0.01 85);
+  --redbook: oklch(50% 0.21 27); /* "Sổ đỏ" verified badge (red) */
+  --redbook-foreground: oklch(98% 0.01 85);
+
+  /* ---- Channels ---- */
+  --zalo: oklch(60% 0.18 250); /* Zalo blue */
+  --zalo-foreground: oklch(98% 0.01 85);
+
+  /* ---- Typography ---- */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* type scale (Tailwind-derived, matching the build) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: clamp(2rem, 1.6rem + 1.8vw, 2.25rem);
+  --text-5xl: clamp(2.4rem, 1.9rem + 2.4vw, 3rem);
+  --text-6xl: clamp(3rem, 2.3rem + 3.2vw, 3.75rem);
+  --text-7xl: clamp(3.4rem, 2.4rem + 4.2vw, 4.5rem);
+
+  --leading-tight: 1.25;
+  --leading-snug: 1.4;
+  --leading-relaxed: 1.625;
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-wide: 0.05em;
+  --tracking-widest: 0.1em;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+
+  /* ---- Radius scale ---- */
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-pill: 999px;
+
+  /* ---- Shadow (warm-tinted) ---- */
+  --shadow-sm: 0 1px 2px oklch(22% 0.02 150 / 0.06),
+    0 1px 3px oklch(22% 0.02 150 / 0.08);
+  --shadow-md: 0 6px 16px oklch(22% 0.02 150 / 0.09);
+  --shadow-lg: 0 16px 40px oklch(22% 0.02 150 / 0.15);
+
+  /* ---- Layout ---- */
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --container: 80rem; /* container-7xl */
+  --container-narrow: 48rem;
+}

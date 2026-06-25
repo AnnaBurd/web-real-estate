@@ -1,0 +1,42 @@
+---
+/**
+ * v2 base layout — minimal, pure CSS, Vietnamese-first.
+ * Hosts the redesigned pages. (The v1 Layout.astro stays for legacy pages
+ * until they are replaced.)
+ */
+import "../styles/app.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Open Graph image URL (absolute). */
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>

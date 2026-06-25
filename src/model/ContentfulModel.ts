@@ -65,11 +65,20 @@ class ContentfulModel implements Model {
       // Transform the Contentful data into application data format (for easier usage, because Contentful-generated JSON is rather hard to navigate through)
       const loadedLands = entries.items.map(entryToLand);
 
-      // Contentful does not allow to store address, so use another API to get it from the coordinates
-      await loadLandsAddresses(loadedLands, this.geoapifyClientUrl); // TODO: comment/uncomment this line to disable/enable fetching addresses
-
-      // Update the application data and state
+      // Update the application data and state first, so a failure of the
+      // optional address lookup below can never wipe out the land pages.
       this.lands = loadedLands;
+
+      // Contentful does not allow to store address, so use another API to get it from the coordinates.
+      // This is best-effort: if Geoapify is slow/unavailable, lands still render without an address.
+      try {
+        await loadLandsAddresses(loadedLands, this.geoapifyClientUrl);
+      } catch (geoError) {
+        console.log(
+          "🌍⚠️ ContentfulModel: address lookup failed, building lands without addresses: ",
+          geoError,
+        );
+      }
 
       console.log("📖 ContentfulModel: data loaded successfully ");
     } catch (error) {

@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # image assets options
 public/img/*_v*.*
+
+# videos pulled from Contentful for one-off YouTube re-upload (not committed)
+videos-to-upload/

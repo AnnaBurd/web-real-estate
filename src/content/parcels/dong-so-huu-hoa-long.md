@@ -41,15 +41,7 @@ images:
   - src: "../../assets/parcels/dong-so-huu-hoa-long/01.jpg"
     alt: "Đồng sở hữu Hòa Long — ảnh 1"
   - src: "../../assets/parcels/dong-so-huu-hoa-long/02.jpg"
-    alt: "Đồng sở hữu Hòa Long — ảnh 2"
-  - src: "../../assets/parcels/dong-so-huu-hoa-long/03.jpg"
-    alt: "Đồng sở hữu Hòa Long — ảnh 3"
-  - src: "../../assets/parcels/dong-so-huu-hoa-long/04.jpg"
-    alt: "Đồng sở hữu Hòa Long — ảnh 4"
-  - src: "../../assets/parcels/dong-so-huu-hoa-long/05.jpg"
-    alt: "Đồng sở hữu Hòa Long — ảnh 5"
-  - src: "../../assets/parcels/dong-so-huu-hoa-long/06.jpg"
-    alt: "Đồng sở hữu Hòa Long — ảnh 6"
+    alt: "Đồng sở hữu Hòa Long — sổ đỏ đã xác minh (che thông tin cá nhân)"
 suggestedParcels: []
 ---
 

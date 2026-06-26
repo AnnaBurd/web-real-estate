@@ -17,11 +17,11 @@ coords:
 province: "TP.HCM (Bà Rịa – Vũng Tàu cũ)"
 urgency: "Suất đầu tư nhỏ · vốn ~600 triệu · thương lượng trực tiếp với chính chủ"
 pricePerSqm: "≈ 3 triệu đ/m²"
-briefDescription: "Đất đồng sở hữu tại Hòa Long, 600 triệu (2 sổ, mỗi sổ 100 m²). Suất đầu tư nhỏ gọn, pháp lý rõ ràng, xem được bản đồ thửa trực tuyến."
+briefDescription: "Đất đồng sở hữu tại Hòa Long, 600 triệu (2 sổ, mỗi sổ 100 m²). Suất đầu tư nhỏ gọn, xem được bản đồ thửa trực tuyến — cần đối chiếu hình thức sở hữu trước khi giao dịch."
 sellingPoints:
-  - "Suất đầu tư nhỏ chỉ 600 triệu — 2 sổ riêng, mỗi sổ 100 m² tại Hòa Long."
+  - "Suất đầu tư nhỏ chỉ 600 triệu — gồm 2 sổ, mỗi sổ 100 m² tại Hòa Long."
   - "Điểm khởi đầu hợp lý cho người vốn ít muốn vào vùng đất nay thuộc TP.HCM."
-  - "Pháp lý rõ ràng; bản đồ thửa đất xem trực tiếp trên remaps.vn."
+  - "Bản đồ thửa đất xem trực tiếp trên remaps.vn trước khi đi thực địa."
 infrastructure:
   - "Tọa lạc tại Hòa Long, nay thuộc TP.HCM sau sáp nhập 2025."
   - "Bản đồ thửa đất xem trực tuyến trên remaps.vn trước khi đi thực địa."
@@ -48,6 +48,6 @@ suggestedParcels: []
 
 Suất đầu tư nhỏ gọn chỉ 600 triệu cho phần đất đồng sở hữu tại Hòa Long — gồm 2 sổ, mỗi sổ 100 m². Lựa chọn hợp lý cho người vốn ít muốn đặt chân vào vùng đất nay thuộc TP.HCM.
 
-Pháp lý rõ ràng với 2 sổ riêng; bản đồ thửa đất có thể xem trực tiếp trên remaps.vn trước khi đi xem thực địa.
+Phần đất gắn với 2 sổ (mỗi sổ 100 m²); người mua nên đối chiếu hình thức sở hữu — sổ riêng từng thửa hay đồng sở hữu chung sổ — với sổ gốc trước khi giao dịch. Bản đồ thửa đất có thể xem trực tiếp trên remaps.vn trước khi đi xem thực địa.
 
 Giá 600 triệu, thương lượng trực tiếp với chính chủ. Liên hệ để nhận vị trí bản đồ và ảnh sổ.

@@ -5,7 +5,6 @@ location: "Bình Trung, Châu Đức"
 order: 4
 promoted: true
 verification: "red-book"
-tag: "Được xem nhiều"
 area:
   value: 1.5
   unit: "ha"

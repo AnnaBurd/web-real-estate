@@ -1,5 +1,5 @@
 ---
-title: "Sông Phan 2,9ha"
+title: "Sông Phan 2,9 ha"
 opportunityTitle: "Sông Phan 2,9 ha Cận Cao Tốc — Đón Sóng Hạ Tầng Phan Thiết"
 location: "Sông Phan, Bình Thuận"
 order: 7
@@ -37,12 +37,12 @@ legalNotes:
   - "Sổ sách đầy đủ, chính chủ; ảnh sổ và thông tin thửa được cung cấp khi trao đổi trực tiếp."
   - "Khuyến nghị xác minh ranh mốc, quy hoạch và hành lang đường tại Văn phòng đăng ký đất đai trước khi đặt cọc."
   - "Giao dịch công chứng theo quy định; chủ đất hỗ trợ thủ tục sang tên."
-zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Sông Phan 2,9ha."
+zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Sông Phan 2,9 ha."
 images:
   - src: "../../assets/parcels/song-phan-2-9ha/01.jpg"
-    alt: "Sông Phan 2,9ha — ảnh 1"
+    alt: "Sông Phan 2,9 ha — ảnh 1"
   - src: "../../assets/parcels/song-phan-2-9ha/04.jpg"
-    alt: "Sông Phan 2,9ha — sổ đỏ đã xác minh (che thông tin cá nhân)"
+    alt: "Sông Phan 2,9 ha — sổ đỏ đã xác minh (che thông tin cá nhân)"
 suggestedParcels:
   - "phu-yen-58-ha"
   - "long-tan-3-5-ha"

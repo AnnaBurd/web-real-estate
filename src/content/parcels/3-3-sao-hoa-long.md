@@ -1,6 +1,6 @@
 ---
 title: "3,3 Sào Hòa Long"
-opportunityTitle: "Hòa Long Mặt Tiền 155m — Đất Vàng Trung Tâm Bà Rịa"
+opportunityTitle: "Hòa Long Mặt Tiền 155 m — Đất Vàng Trung Tâm Bà Rịa"
 location: "Hòa Long, Bà Rịa"
 order: 1
 promoted: true

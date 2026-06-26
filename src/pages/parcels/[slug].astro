@@ -49,8 +49,12 @@ const stats: [string, string][] = [
   ["Pháp lý", v.short],
 ];
 
-const mapQ = p.mapQuery ?? (p.coords ? `${p.coords[0]},${p.coords[1]}` : p.location);
-const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQ)}&z=14&output=embed`;
+// Google Maps embed, but AREA-LEVEL: we center on the commune/area name (or an
+// explicit mapQuery), never the exact coordinates, so the embed shows the
+// general location without dropping a pin on the precise parcel. Exact
+// coordinates stay out of the page and are shared on contact.
+const mapQ = p.mapQuery ?? p.location;
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQ)}&z=13&output=embed`;
 
 const suggested = p.suggestedParcels.length
   ? await getParcelsBySlugs(p.suggestedParcels)
@@ -206,10 +210,14 @@ const ogImage = cover
       <Block icon="location" title="Vị trí">
         <div class="map">
           <iframe
-            title={`Bản đồ ${title}`}
+            title={`Bản đồ khu vực ${title}`}
             src={mapSrc}
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="map-note">
+            <Icon name="location" size={13} />
+            Vị trí tương đối · tọa độ chính xác gửi khi liên hệ
+          </div>
         </div>
       </Block>
 
@@ -564,15 +572,37 @@ const ogImage = cover
   }
 
   .map {
+    position: relative;
     overflow: hidden;
     border-radius: var(--radius-xl);
     border: 1px solid var(--border);
   }
   .map iframe {
     display: block;
-    height: 360px;
+    height: 380px;
     width: 100%;
     border: 0;
+  }
+  .map-note {
+    position: absolute;
+    left: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklab, var(--paper) 92%, transparent);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: var(--weight-semibold);
+    color: var(--foreground);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+  .map-note :global(svg) {
+    color: var(--clay);
+    flex-shrink: 0;
   }
 
   /* Locked legal pack */

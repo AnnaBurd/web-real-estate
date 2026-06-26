@@ -5,7 +5,10 @@ import { CONTACT, zaloLink } from "../../config/site";
 <header class="site-header">
   <div class="container bar">
     <a href="/" class="brand" aria-label="VietLand — trang chủ">
-      <span class="mark">V</span>
+      <svg class="mark" viewBox="0 0 230 205" fill="none" aria-hidden="true">
+        <path d="M228 2H2.5L25.5 44H160L93.5 161L117.5 202.5L228 2Z" fill="var(--forest)" stroke="var(--forest)" stroke-width="4" stroke-linejoin="round" />
+        <path d="M104 71.5H42L72.5 125.5L104 71.5Z" fill="var(--clay)" stroke="var(--clay)" stroke-width="4" stroke-linejoin="round" />
+      </svg>
       <span class="word">Viet<span class="accent">Land</span></span>
     </a>
 
@@ -49,17 +52,9 @@ import { CONTACT, zaloLink } from "../../config/site";
     min-width: 0;
   }
   .mark {
-    display: grid;
-    place-items: center;
-    height: 2rem;
-    width: 2rem;
-    border-radius: var(--radius-md);
-    background: var(--forest);
-    color: var(--forest-foreground);
-    font-family: var(--font-display);
-    font-weight: var(--weight-black);
-    font-size: 1.125rem;
-    line-height: 1;
+    height: 1.5rem;
+    width: auto;
+    flex: none;
   }
   .word {
     font-family: var(--font-display);

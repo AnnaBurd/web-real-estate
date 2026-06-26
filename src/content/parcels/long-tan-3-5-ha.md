@@ -1,5 +1,6 @@
 ---
 title: "Long Tân 3,5 ha"
+opportunityTitle: "Long Tân 3,5 ha Phủ Hồng — Sẵn Phân Lô, 2 Đường Quy Hoạch"
 location: "Long Tân, Châu Đức"
 order: 3
 promoted: true

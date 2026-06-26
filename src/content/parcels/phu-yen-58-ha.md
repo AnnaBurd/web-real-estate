@@ -1,5 +1,6 @@
 ---
 title: "Phú Yên 58 ha"
+opportunityTitle: "Phú Yên 58 ha Ven Biển — Quỹ Đất Liền Khối Chỉ 16k/m²"
 location: "Sông Cầu, Phú Yên"
 order: 5
 promoted: true

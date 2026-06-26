@@ -1,5 +1,6 @@
 ---
 title: "Vườn Bưởi Suối Rao 2.7 ha"
+opportunityTitle: "Vườn Bưởi Suối Rao 2,7 ha — Dòng Tiền Thu Hoạch Ngay"
 location: "Suối Rao, Châu Đức"
 order: 2
 promoted: true

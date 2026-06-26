@@ -1,5 +1,6 @@
 ---
 title: "Di Linh 5 sào"
+opportunityTitle: "Di Linh 5 Sào Cao Nguyên — Nền Nhà Vườn Khí Hậu Mát Lành"
 location: "Di Linh, Lâm Đồng"
 order: 6
 promoted: true

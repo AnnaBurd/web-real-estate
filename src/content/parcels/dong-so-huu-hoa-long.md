@@ -1,5 +1,6 @@
 ---
 title: "Đồng sở hữu Hòa Long"
+opportunityTitle: "Hòa Long Vốn Nhỏ 600 Triệu — Suất Đầu Tư Sổ Đỏ Dễ Vào"
 location: "Hòa Long, Bà Rịa"
 order: 8
 promoted: true

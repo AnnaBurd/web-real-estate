@@ -1,5 +1,6 @@
 ---
 title: "Bình Trung 1,5 ha"
+opportunityTitle: "Bình Trung 1,5 ha Liền Thửa — Quỹ Đất Khu Dân Cư Châu Đức"
 location: "Bình Trung, Châu Đức"
 order: 4
 promoted: true

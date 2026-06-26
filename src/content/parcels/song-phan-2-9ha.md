@@ -1,5 +1,6 @@
 ---
 title: "Sông Phan 2,9ha"
+opportunityTitle: "Sông Phan 2,9 ha Cận Cao Tốc — Đón Sóng Hạ Tầng Phan Thiết"
 location: "Sông Phan, Bình Thuận"
 order: 7
 promoted: true

@@ -4,9 +4,18 @@
 
 > A web application that blends modern design approaches with a timeless and intuitive UI, designed and developed exclusively for the local small-scale real estate business.
 
-[vietland]: https://viet-land.vn/ "Viet Land App"
+[vietland]: https://v1.viet-land.vn/ "Viet Land App (v1)"
+[vietland-new]: https://viet-land.vn/ "Viet Land (current version)"
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b83daac1-b88a-4a01-bee4-d3af6c745410/deploy-status)](https://app.netlify.com/sites/viet-land/deploys)
+
+> ### A note on versions
+>
+> This repository contains **Version 1**, now available at **[v1.viet-land.vn][vietland]**.
+>
+> Based on real visitor feedback and usage, the site was completely redesigned. The latest version is live at **[viet-land.vn][vietland-new]**.
+>
+> If you'd like to see the code for the current version, feel free to [DM me](https://www.linkedin.com/in/anna-burdanova-b91453218/) — I would be happy to share for free.
 
 The main objective of this project is to help the local business establish a strong connection with potential customers and create an outstanding first impression, ultimately giving the business a distinct advantage amidst the fiercely demanding marketplace.
 

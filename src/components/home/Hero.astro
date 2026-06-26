@@ -15,10 +15,10 @@ interface Props {
 const { count } = Astro.props;
 
 const stats: [string, string][] = [
-  ["12+ năm", "Kinh nghiệm tại địa phương"],
+  ["12+ năm", "Kinh nghiệm bản địa"],
   ["100%", "Sổ đỏ đã xác minh"],
-  ["~14 ngày", "Thời gian sang tên trung bình"],
-  ["Miền Nam", "TP.HCM · Đồng Nai · Lâm Đồng"],
+  ["~14 ngày", "Sang tên trung bình"],
+  ["3 tỉnh", "TP.HCM · Lâm Đồng · Đắk Lắk"],
 ];
 ---
 
@@ -191,8 +191,9 @@ const stats: [string, string][] = [
     margin-top: 3rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    max-width: 42rem;
+    row-gap: 1rem;
+    column-gap: 1.25rem;
+    max-width: 46rem;
   }
   .stats dt {
     font-family: var(--font-display);
@@ -211,6 +212,8 @@ const stats: [string, string][] = [
     .inner {
       padding-block: 6rem 8rem;
     }
+  }
+  @media (min-width: 768px) {
     .stats {
       grid-template-columns: repeat(4, 1fr);
     }

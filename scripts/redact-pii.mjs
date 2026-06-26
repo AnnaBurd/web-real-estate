@@ -110,20 +110,24 @@ for (const job of jobs) {
 }
 
 // Home hero (src/assets/site/red-book.jpg): the Trust band shows this in a 4:3
-// card, so a full two-page spread reads tiny. Crop the freshly-redacted
-// binh-trung cover to just the right page (emblem + title + blurred owner strip)
-// so the certificate fills the frame.
+// card. The binh-trung spread is natively 1280x960 (exactly 4:3), so we use the
+// WHOLE spread rather than a sub-crop — a tight crop of any source (all ~1280px
+// on the long edge) lands well under the card's retina pixel budget and renders
+// soft. The owner block is already blurred upstream; here we additionally blur
+// the booklet serial and barcode so no document identifiers survive.
 {
   const buf = await readFile(P("binh-trung-1-5-ha/08.jpg"));
   const { width, height } = await sharp(buf).metadata();
-  const c = { left: 0.45, top: 0.06, w: 0.54, h: 0.62 };
-  const x = Math.round(c.left * width);
-  const y = Math.round(c.top * height);
-  const w = Math.min(width - x, Math.round(c.w * width));
-  const h = Math.min(height - y, Math.round(c.h * height));
+  const rects = [
+    { left: 0.86, top: 0.84, w: 0.13, h: 0.09 }, // "DI ……" booklet serial, bottom-right
+    { left: 0.2, top: 0.88, w: 0.24, h: 0.09 }, // barcode, bottom-left
+  ];
+  const overlays = await Promise.all(
+    rects.map((b) => blurRegion(buf, width, height, b)),
+  );
   await sharp(buf)
-    .extract({ left: x, top: y, width: w, height: h })
+    .composite(overlays)
     .jpeg({ quality: 90 })
     .toFile(SITE("red-book.jpg"));
-  console.log(`home hero -> src/assets/site/red-book.jpg (${w}x${h})`);
+  console.log(`home hero -> src/assets/site/red-book.jpg (${width}x${height})`);
 }

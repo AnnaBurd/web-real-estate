@@ -37,7 +37,7 @@ const points: { icon: string; t: string; d: string }[] = [
       <Image
         src={redBook}
         alt="Sổ đỏ — giấy chứng nhận quyền sử dụng đất của Việt Nam"
-        widths={[640, 1024]}
+        widths={[640, 1024, 1280]}
         sizes="(min-width: 1024px) 600px, 100vw"
         loading="lazy"
       />
@@ -87,12 +87,11 @@ const points: { icon: string; t: string; d: string }[] = [
     height: 100%;
     width: 100%;
     object-fit: cover;
-    filter: blur(2px);
   }
   .tint {
     position: absolute;
     inset: 0;
-    background: color-mix(in oklab, var(--forest) 30%, transparent);
+    background: color-mix(in oklab, var(--forest) 18%, transparent);
   }
   .caption {
     position: absolute;

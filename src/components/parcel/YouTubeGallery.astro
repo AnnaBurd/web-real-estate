@@ -1,0 +1,224 @@
+---
+import Block from "./Block.astro";
+
+interface Props {
+  ids?: string[];
+  title: string;
+}
+
+const { ids = [], title } = Astro.props;
+
+function getYouTubeId(value: string): string | undefined {
+  const raw = value.trim();
+  if (!raw) return undefined;
+
+  if (/^[A-Za-z0-9_-]{6,}$/.test(raw)) return raw;
+
+  try {
+    const url = new URL(raw);
+    const host = url.hostname.replace(/^www\./, "");
+
+    if (host === "youtu.be") return url.pathname.split("/").filter(Boolean)[0];
+
+    if (host.endsWith("youtube.com")) {
+      const fromQuery = url.searchParams.get("v");
+      if (fromQuery) return fromQuery;
+
+      const parts = url.pathname.split("/").filter(Boolean);
+      const videoIndex = parts.findIndex((part) =>
+        ["embed", "shorts", "live"].includes(part),
+      );
+      if (videoIndex >= 0) return parts[videoIndex + 1];
+    }
+  } catch {
+    return undefined;
+  }
+
+  return undefined;
+}
+
+const videos = ids
+  .map(getYouTubeId)
+  .filter((id): id is string => Boolean(id))
+  .map((id, index) => ({
+    id,
+    label: `Video thực địa ${index + 1}`,
+    thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+  }));
+---
+
+{
+  videos.length > 0 && (
+    <Block icon="eye" title="Video thực địa">
+      <div class="video-grid">
+        {videos.map((video) => (
+          <article class="video-card">
+            <div class="video-frame" data-youtube-frame>
+              <button
+                class="video-trigger"
+                type="button"
+                data-youtube-id={video.id}
+                aria-label={`Phát ${video.label} của ${title}`}
+              >
+                <img
+                  src={video.thumbnail}
+                  alt={`${title} - ${video.label}`}
+                  width="480"
+                  height="360"
+                  loading="lazy"
+                  decoding="async"
+                  referrerpolicy="no-referrer"
+                />
+                <span class="video-shade" aria-hidden="true" />
+                <span class="play" aria-hidden="true">
+                  <span class="play-mark" />
+                </span>
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </Block>
+  )
+}
+
+<script>
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const trigger = target.closest("[data-youtube-id]");
+    if (!(trigger instanceof HTMLElement)) return;
+
+    const frame = trigger.closest("[data-youtube-frame]");
+    const id = trigger.dataset.youtubeId;
+    if (!(frame instanceof HTMLElement) || !id) return;
+
+    const iframe = document.createElement("iframe");
+    iframe.title = trigger.getAttribute("aria-label") || "Video YouTube";
+    iframe.src =
+      "https://www.youtube-nocookie.com/embed/" +
+      encodeURIComponent(id) +
+      "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+    iframe.loading = "lazy";
+    iframe.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+
+    frame.replaceChildren(iframe);
+  });
+</script>
+
+<style>
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 0.75rem;
+  }
+
+  .video-card {
+    min-width: 0;
+  }
+
+  .video-frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    background: var(--muted);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .video-trigger {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    color: var(--clay-foreground);
+    text-align: left;
+  }
+
+  .video-trigger img,
+  .video-frame :global(iframe) {
+    height: 100%;
+    width: 100%;
+  }
+
+  .video-trigger img {
+    object-fit: cover;
+    transition: transform 0.45s ease;
+  }
+
+  .video-trigger:hover img {
+    transform: scale(1.04);
+  }
+
+  .video-frame :global(iframe) {
+    display: block;
+    border: 0;
+  }
+
+  .video-shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, oklch(0% 0 0 / 0.58), transparent 62%),
+      linear-gradient(to right, oklch(0% 0 0 / 0.38), transparent 52%);
+  }
+
+  .play {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    height: 4.25rem;
+    width: 4.25rem;
+    place-items: center;
+    border-radius: var(--radius-pill);
+    background: var(--clay);
+    box-shadow: 0 12px 28px oklch(18% 0.02 150 / 0.28);
+    transform: translate(-50%, -50%);
+    transition:
+      background 0.2s,
+      transform 0.2s;
+  }
+
+  .video-trigger:hover .play {
+    background: var(--forest);
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+
+  .play-mark {
+    display: block;
+    height: 1.125rem;
+    width: 1rem;
+    margin-left: 0.1875rem;
+    background: currentColor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  @media (max-width: 420px) {
+    .play {
+      height: 3.5rem;
+      width: 3.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .video-trigger img,
+    .video-trigger:hover img,
+    .play,
+    .video-trigger:hover .play {
+      transition: none;
+      transform: none;
+    }
+
+    .play,
+    .video-trigger:hover .play {
+      transform: translate(-50%, -50%);
+    }
+  }
+</style>

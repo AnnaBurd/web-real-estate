@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Block from "../../components/parcel/Block.astro";
+import YouTubeGallery from "../../components/parcel/YouTubeGallery.astro";
 import Icon from "../../components/ui/Icon.astro";
 import {
   getAllParcels,
@@ -206,6 +207,8 @@ const ogImage = cover
           </Block>
         )
       }
+
+      <YouTubeGallery ids={p.youtubeIds} title={title} />
 
       <Block icon="location" title="Vị trí">
         <div class="map">

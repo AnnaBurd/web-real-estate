@@ -20,6 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# local Claude Code state / memory (may reference owner PII — never commit)
+.claude/
+
 # image assets options
 public/img/*_v*.*
 

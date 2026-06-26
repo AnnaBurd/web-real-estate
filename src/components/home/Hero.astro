@@ -5,7 +5,7 @@
  */
 import { Image } from "astro:assets";
 import Icon from "../ui/Icon.astro";
-import { zaloLink } from "../../config/site";
+import { zaloLink, FEATURES } from "../../config/site";
 import heroLand from "../../assets/site/hero-land.jpg";
 
 interface Props {
@@ -50,17 +50,31 @@ const stats: [string, string][] = [
         thiện chí — không qua trung gian.
       </p>
       <div class="cta-wrap">
-        <a
-          class="cta"
-          href={zaloLink(
-            "Chào anh/chị, em muốn nhận giá và pháp lý một lô đất ở miền Nam.",
-          )}
-          target="_blank"
-          rel="noopener"
-        >
-          Nhận giá &amp; pháp lý qua Zalo
-          <Icon name="arrow-right" size={16} />
-        </a>
+        {
+          FEATURES.hideDirectContact ? (
+            <button
+              class="cta"
+              type="button"
+              data-lead-open
+              data-lead-context="Chào anh/chị, em muốn nhận giá và pháp lý một lô đất ở miền Nam."
+            >
+              Nhận giá &amp; pháp lý
+              <Icon name="arrow-right" size={16} />
+            </button>
+          ) : (
+            <a
+              class="cta"
+              href={zaloLink(
+                "Chào anh/chị, em muốn nhận giá và pháp lý một lô đất ở miền Nam.",
+              )}
+              target="_blank"
+              rel="noopener"
+            >
+              Nhận giá &amp; pháp lý qua Zalo
+              <Icon name="arrow-right" size={16} />
+            </a>
+          )
+        }
         <div class="cta-note">
           Phản hồi thường trong vòng một giờ · ảnh sổ đỏ + giá sàn + lịch xem đất
         </div>

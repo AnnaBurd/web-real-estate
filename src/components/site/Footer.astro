@@ -1,5 +1,5 @@
 ---
-import { CONTACT } from "../../config/site";
+import { CONTACT, FEATURES, OPERATOR, PRIVACY } from "../../config/site";
 const year = new Date().getFullYear();
 ---
 
@@ -11,17 +11,29 @@ const year = new Date().getFullYear();
         Bán đất chính chủ khắp khu vực phía Nam. Lô đất đã xác minh, pháp lý minh
         bạch, không qua trung gian.
       </p>
+      <p class="status">{OPERATOR.statusNote}</p>
     </div>
     <div class="info">
-      <div class="label">Hotline</div>
-      <div class="muted">{CONTACT.phoneDisplay}</div>
+      <div class="label">Liên hệ</div>
+      {
+        FEATURES.hideDirectContact ? (
+          <div>
+            <button type="button" class="link" data-lead-open>Yêu cầu gọi lại</button>
+          </div>
+        ) : (
+          <div class="muted">{CONTACT.phoneDisplay}</div>
+        )
+      }
       <div class="label">Khu vực</div>
       <div class="muted">Bà Rịa – Vũng Tàu, Việt Nam</div>
-      <div class="label">Công ty</div>
+      <div class="label">Thông tin</div>
       <div><a href="/thong-tin" class="link">Về chúng tôi</a></div>
+      <div><a href={PRIVACY.path} class="link">Chính sách bảo mật</a></div>
     </div>
   </div>
-  <div class="copy">© {year} VietLand. Chỉ bán trực tiếp từ chính chủ.</div>
+  <div class="copy">
+    © {year} {OPERATOR.label}. Chính chủ cá nhân bán trực tiếp — không phải công ty hay môi giới.
+  </div>
 </footer>
 
 <style>
@@ -48,6 +60,12 @@ const year = new Date().getFullYear();
     margin-top: 0.5rem;
     max-width: 28rem;
     font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+  .status {
+    margin-top: 0.75rem;
+    max-width: 28rem;
+    font-size: var(--text-xs);
     color: var(--muted-foreground);
   }
   .info {

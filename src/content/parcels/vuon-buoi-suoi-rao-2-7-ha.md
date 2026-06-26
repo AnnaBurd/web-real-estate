@@ -34,7 +34,7 @@ risks:
   - "Phân lô, tách thửa phải đáp ứng diện tích tối thiểu và điều kiện địa phương; nên kiểm tra ranh 3 mặt tiền và lộ giới."
   - "Lệ phí trước bạ 0,5% (thường bên mua) và thuế TNCN 2% (thường bên bán) theo quy định, có thể thỏa thuận."
 legalNotes:
-  - "Sổ đỏ sẵn có, chính chủ; ảnh sổ, video và thông tin thửa được cung cấp qua Zalo."
+  - "Sổ đỏ sẵn có, chính chủ; ảnh sổ, video và thông tin thửa được cung cấp khi trao đổi trực tiếp."
   - "Khuyến nghị xác minh ranh mốc, quy hoạch và tình trạng pháp lý thửa tại Văn phòng đăng ký đất đai trước khi đặt cọc."
   - "Giao dịch công chứng theo quy định; chủ đất hỗ trợ thủ tục phân lô, sang tên."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Vườn Bưởi Suối Rao 2.7 ha."
@@ -78,4 +78,4 @@ Chính chủ bán 2,7 ha vườn bưởi đang cho thu hoạch ngay trung tâm x
 
 Đất bằng phẳng, 3 mặt tiền, cách đường Xuân Sơn–Đá Bạc khoảng 500 m, rất thuận lợi để phân lô tách thửa. Khu vực Châu Đức nay thuộc TP.HCM sau sáp nhập 2025 và hưởng lợi từ tuyến cao tốc Biên Hòa–Vũng Tàu.
 
-Sổ đỏ sẵn có, giấy tờ đầy đủ, hỗ trợ thủ tục phân lô. Giá 25 tỷ, thương lượng cho người mua thiện chí. Nhắn Zalo để xem video, hình thực tế và ảnh sổ.
+Sổ đỏ sẵn có, giấy tờ đầy đủ, hỗ trợ thủ tục phân lô. Giá 25 tỷ, thương lượng cho người mua thiện chí. Liên hệ để xem video, hình thực tế và ảnh sổ.

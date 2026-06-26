@@ -7,7 +7,7 @@
 import { Image } from "astro:assets";
 import Icon from "../ui/Icon.astro";
 import { type Parcel, formatArea } from "../../lib/parcels";
-import { zaloLink } from "../../config/site";
+import { zaloLink, FEATURES } from "../../config/site";
 
 interface Props {
   parcel: Parcel;
@@ -98,15 +98,24 @@ const badge = VERIFICATION[p.verification];
       )
     }
 
-    <a
-      class="cta"
-      href={zaloLink(p.zaloMessage)}
-      target="_blank"
-      rel="noopener"
-    >
-      <Icon name="message" size={16} />
-      Nhận giá &amp; pháp lý qua Zalo
-    </a>
+    {
+      FEATURES.hideDirectContact ? (
+        <button
+          class="cta"
+          type="button"
+          data-lead-open
+          data-lead-context={p.zaloMessage}
+        >
+          <Icon name="message" size={16} />
+          Nhận giá &amp; pháp lý
+        </button>
+      ) : (
+        <a class="cta" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
+          <Icon name="message" size={16} />
+          Nhận giá &amp; pháp lý qua Zalo
+        </a>
+      )
+    }
   </div>
 </article>
 

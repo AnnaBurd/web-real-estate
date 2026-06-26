@@ -36,7 +36,7 @@ risks:
 legalNotes:
   - "Sổ sách chính chủ; với quy mô lớn, đề nghị rà soát từng thửa, ranh mốc và quy hoạch tại Văn phòng đăng ký đất đai và cơ quan liên quan."
   - "Khuyến nghị thẩm định pháp lý chuyên sâu (luật sư hoặc đơn vị tư vấn) trước khi đặt cọc."
-  - "Giao dịch công chứng theo quy định; hồ sơ pháp lý, video và hình thực tế được cung cấp qua Zalo khi trao đổi."
+  - "Giao dịch công chứng theo quy định; hồ sơ pháp lý, video và hình thực tế được cung cấp khi trao đổi trực tiếp."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Phú Yên 58 ha."
 images:
   - src: "../../assets/parcels/phu-yen-58-ha/02.jpg"
@@ -52,4 +52,4 @@ Chính chủ bán 58 ha (580.000 m²) đất liền khối tại Sông Cầu, Ph
 
 Mức giá 9,5 tỷ cho 58 ha tương đương suất đầu tư trên mỗi m² thuộc nhóm thấp nhất trong danh mục. Khu vực ven biển Sông Cầu – vịnh Xuân Đài đang phát triển về du lịch, mở ra tiềm năng tăng giá dài hạn.
 
-Sổ sách đầy đủ, pháp lý rõ ràng. Giá thương lượng trực tiếp với chính chủ. Nhắn Zalo để nhận video, hình thực tế và thông tin pháp lý.
+Sổ sách đầy đủ, pháp lý rõ ràng. Giá thương lượng trực tiếp với chính chủ. Liên hệ để nhận video, hình thực tế và thông tin pháp lý.

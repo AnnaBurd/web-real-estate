@@ -34,7 +34,7 @@ risks:
   - "Phân lô, tách thửa phải đáp ứng diện tích tối thiểu và điều kiện địa phương."
   - "Lệ phí trước bạ 0,5%, thuế TNCN 2% theo quy định; sau sáp nhập 2025, Bình Thuận thuộc Lâm Đồng — đối chiếu địa danh mới trên hồ sơ."
 legalNotes:
-  - "Sổ sách đầy đủ, chính chủ; ảnh sổ và thông tin thửa được cung cấp qua Zalo."
+  - "Sổ sách đầy đủ, chính chủ; ảnh sổ và thông tin thửa được cung cấp khi trao đổi trực tiếp."
   - "Khuyến nghị xác minh ranh mốc, quy hoạch và hành lang đường tại Văn phòng đăng ký đất đai trước khi đặt cọc."
   - "Giao dịch công chứng theo quy định; chủ đất hỗ trợ thủ tục sang tên."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Sông Phan 2,9ha."
@@ -54,4 +54,4 @@ Chính chủ bán 2,9 ha (29.000 m²) đất tại Sông Phan — quỹ đất r
 
 Vị trí gần tuyến cao tốc Dầu Giây–Phan Thiết, nơi giá đất nhiều khu vực đã tăng 3–4 lần kể từ khi thông xe năm 2023. Từ TP.HCM về Phan Thiết nay còn khoảng 2–2,5 giờ, tạo lực đẩy mạnh cho bất động sản ven biển Bình Thuận (nay thuộc tỉnh Lâm Đồng mở rộng).
 
-Sổ sách đầy đủ, pháp lý rõ ràng. Giá 22 tỷ, thương lượng trực tiếp với chính chủ. Nhắn Zalo để biết thêm chi tiết và xem hình thực tế.
+Sổ sách đầy đủ, pháp lý rõ ràng. Giá 22 tỷ, thương lượng trực tiếp với chính chủ. Liên hệ để biết thêm chi tiết và xem hình thực tế.

@@ -1,5 +1,5 @@
 ---
-import { CONTACT, zaloLink } from "../../config/site";
+import { CONTACT, zaloLink, FEATURES } from "../../config/site";
 ---
 
 <header class="site-header">
@@ -18,13 +18,34 @@ import { CONTACT, zaloLink } from "../../config/site";
     </nav>
 
     <div class="actions">
-      <a href={CONTACT.tel} class="phone">{CONTACT.phoneDisplay}</a>
-      <a
-        href={zaloLink("Chào anh/chị, em muốn nhận giá và pháp lý một lô đất.")}
-        target="_blank"
-        rel="noopener"
-        class="cta">Nhận giá qua Zalo</a
-      >
+      {
+        FEATURES.hideDirectContact ? (
+          <button
+            type="button"
+            class="cta"
+            data-lead-open
+            data-lead-context="Chào anh/chị, em muốn nhận giá và pháp lý một lô đất."
+          >
+            Nhận giá
+          </button>
+        ) : (
+          <>
+            <a href={CONTACT.tel} class="phone">
+              {CONTACT.phoneDisplay}
+            </a>
+            <a
+              href={zaloLink(
+                "Chào anh/chị, em muốn nhận giá và pháp lý một lô đất.",
+              )}
+              target="_blank"
+              rel="noopener"
+              class="cta"
+            >
+              Nhận giá qua Zalo
+            </a>
+          </>
+        )
+      }
     </div>
   </div>
 </header>

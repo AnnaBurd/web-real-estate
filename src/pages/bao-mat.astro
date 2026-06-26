@@ -1,0 +1,171 @@
+---
+/**
+ * Privacy policy (Chính sách bảo mật) — Vietnamese, written for the Personal
+ * Data Protection Law (in force 01/01/2026) + Decree 13/2023/NĐ-CP.
+ * Identity + contact + retention come from src/config/site.ts so there's a
+ * single source of truth. NOTE: reviewed-by-counsel pending; the cross-border
+ * transfer impact dossier (MPS/A05) is a separate filing the owner must handle.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { OPERATOR, PRIVACY, LEAD } from "../config/site";
+
+const controller = OPERATOR.controllerName
+  ? `${OPERATOR.controllerName} (${OPERATOR.label})`
+  : OPERATOR.label;
+
+const sections: { h: string; body: string[] }[] = [
+  {
+    h: "1. Ai chịu trách nhiệm về dữ liệu của bạn",
+    body: [
+      `${OPERATOR.statusNote}`,
+      `Bên kiểm soát dữ liệu cá nhân là chủ đất đứng sau ${controller}. Mọi câu hỏi hoặc yêu cầu liên quan đến dữ liệu cá nhân, vui lòng gửi về <a href="mailto:${OPERATOR.contactEmail}">${OPERATOR.contactEmail}</a>.`,
+    ],
+  },
+  {
+    h: "2. Chúng tôi thu thập dữ liệu gì",
+    body: [
+      "Khi bạn gửi biểu mẫu liên hệ, chúng tôi thu thập những thông tin bạn tự cung cấp: họ tên, số điện thoại, email và lời nhắn (nếu có). Hệ thống cũng ghi nhận lô đất bạn quan tâm, địa chỉ trang bạn gửi từ đó và thời điểm gửi.",
+      "Chúng tôi không thu thập số CMND/CCCD, không yêu cầu giấy tờ tùy thân, và không cố tình thu thập dữ liệu cá nhân nhạy cảm.",
+    ],
+  },
+  {
+    h: "3. Mục đích và cơ sở xử lý",
+    body: [
+      "Chúng tôi chỉ dùng thông tin này để liên hệ lại với bạn về lô đất bạn quan tâm (gọi điện hoặc gửi email), cung cấp giá, hồ sơ pháp lý và sắp xếp lịch xem đất.",
+      "Cơ sở pháp lý là <strong>sự đồng ý</strong> của bạn, thể hiện khi bạn tích chọn ô đồng ý lúc gửi biểu mẫu. Bạn có thể rút lại sự đồng ý bất cứ lúc nào (xem mục 6).",
+    ],
+  },
+  {
+    h: "4. Ai có thể nhận dữ liệu",
+    body: [
+      PRIVACY.processor
+        ? `Khi bạn gửi biểu mẫu, thông tin được chuyển tới hộp thư của chủ đất qua dịch vụ xử lý biểu mẫu <strong>${PRIVACY.processor}</strong>, chỉ nhằm mục đích liên hệ lại với bạn.`
+        : `Khi bạn gửi biểu mẫu, thông tin được chuyển tới hộp thư của chủ đất để chúng tôi liên hệ lại với bạn. Nếu sau này chúng tôi sử dụng một dịch vụ xử lý biểu mẫu của bên thứ ba, chính sách này sẽ được cập nhật và nêu rõ tên dịch vụ đó.`,
+      "Chúng tôi không bán, không trao đổi và không chia sẻ dữ liệu của bạn cho bên thứ ba nào khác vì mục đích quảng cáo.",
+    ],
+  },
+  {
+    h: "5. Thời gian lưu trữ",
+    body: [
+      `Dữ liệu biểu mẫu ${PRIVACY.retentionNote}. Chúng tôi không giữ dữ liệu lâu hơn mức cần thiết cho việc liên hệ lại.`,
+    ],
+  },
+  {
+    h: "6. Quyền của bạn",
+    body: [
+      "Theo pháp luật về bảo vệ dữ liệu cá nhân của Việt Nam, bạn có quyền: được biết, đồng ý hoặc rút lại sự đồng ý, truy cập, chỉnh sửa, xóa, hạn chế hoặc phản đối việc xử lý dữ liệu của mình, và quyền khiếu nại.",
+      `Để thực hiện các quyền này, gửi yêu cầu tới <a href="mailto:${OPERATOR.contactEmail}">${OPERATOR.contactEmail}</a>. Chúng tôi sẽ xử lý trong thời hạn pháp luật quy định.`,
+      "Bạn cũng có quyền khiếu nại tới cơ quan có thẩm quyền (Cục An ninh mạng và phòng, chống tội phạm sử dụng công nghệ cao – A05, Bộ Công an).",
+    ],
+  },
+  {
+    h: "7. Bảo mật",
+    body: [
+      "Trang web không lưu dữ liệu biểu mẫu trên máy chủ riêng; thông tin được truyền qua kết nối mã hóa (HTTPS) tới hộp thư của chủ đất. Dù vậy, không có phương thức truyền tải nào an toàn tuyệt đối.",
+    ],
+  },
+  {
+    h: "8. Thay đổi chính sách",
+    body: [
+      `Chính sách này có thể được cập nhật. Phiên bản hiện hành có hiệu lực từ ngày ${PRIVACY.effectiveDate}.`,
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Chính sách bảo mật — VietLand"
+  description="Cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu cá nhân bạn cung cấp qua biểu mẫu liên hệ."
+  contactMessage="Chào anh/chị, em có câu hỏi về chính sách bảo mật."
+>
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Pháp lý</div>
+      <h1>Chính sách bảo mật</h1>
+      <p class="lede">
+        Trang này giải thích chúng tôi thu thập, sử dụng và bảo vệ thông tin bạn
+        cung cấp qua biểu mẫu liên hệ như thế nào. Có hiệu lực từ {PRIVACY.effectiveDate}.
+      </p>
+    </div>
+  </section>
+
+  <section class="container body">
+    {
+      sections.map((s) => (
+        <div class="sec">
+          <h2>{s.h}</h2>
+          {s.body.map((p) => (
+            <p set:html={p} />
+          ))}
+        </div>
+      ))
+    }
+    <p class="disclaimer">
+      Nếu biểu mẫu không gửi được, bạn có thể liên hệ trực tiếp qua email
+      <a href={`mailto:${LEAD.email}`}>{LEAD.email}</a>.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: var(--cream);
+    padding-block: 4rem;
+  }
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  .hero h1 {
+    margin-top: 0.75rem;
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .lede {
+    margin-top: 1rem;
+    max-width: 40rem;
+    font-size: var(--text-lg);
+    color: var(--muted-foreground);
+  }
+  .body {
+    max-width: 44rem;
+    padding-block: 3rem 5rem;
+  }
+  .sec {
+    margin-top: 2rem;
+  }
+  .sec:first-child {
+    margin-top: 0;
+  }
+  .sec h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .sec p {
+    margin-top: 0.75rem;
+    color: color-mix(in oklab, var(--foreground) 85%, transparent);
+  }
+  .sec :global(a),
+  .disclaimer :global(a) {
+    color: var(--clay);
+    text-decoration: underline;
+  }
+  .disclaimer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+  @media (min-width: 640px) {
+    .hero {
+      padding-block: 5rem;
+    }
+  }
+</style>

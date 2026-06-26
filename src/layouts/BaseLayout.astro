@@ -7,6 +7,8 @@ import "../styles/app.css";
 import Header from "../components/site/Header.astro";
 import Footer from "../components/site/Footer.astro";
 import StickyContact from "../components/site/StickyContact.astro";
+import LeadDialog from "../components/site/LeadDialog.astro";
+import { FEATURES } from "../config/site";
 
 interface Props {
   title: string;
@@ -58,6 +60,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
         </main>
         <Footer />
         <StickyContact message={contactMessage} />
+        {FEATURES.hideDirectContact && <LeadDialog defaultContext={contactMessage} />}
       </>
     )}
   </body>

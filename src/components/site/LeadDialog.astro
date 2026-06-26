@@ -1,0 +1,416 @@
+---
+/**
+ * Sitewide lead-capture dialog. Rendered once per page (by BaseLayout) when
+ * FEATURES.hideDirectContact is on. Any element with `data-lead-open` opens it;
+ * an optional `data-lead-context` attribute records what the visitor is asking
+ * about (e.g. a parcel title) and is sent along with the submission.
+ *
+ * The visitor leaves THEIR own name + phone/email; the team calls or writes
+ * back. No company phone/Zalo is exposed. Submissions POST as JSON to
+ * LEAD.endpoint, with a mailto fallback when no endpoint is configured.
+ */
+import Icon from "../ui/Icon.astro";
+import { LEAD, PRIVACY, OPERATOR } from "../../config/site";
+
+interface Props {
+  /** Fallback context for triggers that don't set their own data-lead-context. */
+  defaultContext?: string;
+}
+const { defaultContext = "" } = Astro.props;
+---
+
+<dialog class="lead-dialog" id="lead-dialog" aria-labelledby="lead-title">
+  <button type="button" class="x" data-lead-close aria-label="Đóng">
+    <Icon name="arrow-right" size={18} />
+  </button>
+
+  <div class="head">
+    <div class="eyebrow">Liên hệ</div>
+    <h2 id="lead-title">Nhận giá &amp; pháp lý</h2>
+    <p>
+      Để lại thông tin — chúng tôi sẽ gọi lại hoặc gửi email cho bạn, thường
+      trong vòng một giờ. Kèm ảnh sổ đỏ, giá sàn và lịch xem đất.
+    </p>
+  </div>
+
+  <form class="form" id="lead-form" novalidate>
+    <input type="hidden" name="context" id="lead-context" />
+
+    <label class="field">
+      <span>Họ tên<i>*</i></span>
+      <input name="name" type="text" autocomplete="name" required maxlength="120" placeholder="Nguyễn Văn A" />
+    </label>
+
+    <div class="row">
+      <label class="field">
+        <span>Số điện thoại</span>
+        <input name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" placeholder="09xx xxx xxx" />
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input name="email" type="email" autocomplete="email" maxlength="160" placeholder="ban@email.com" />
+      </label>
+    </div>
+
+    <label class="field">
+      <span>Lời nhắn</span>
+      <textarea name="message" rows="3" maxlength="1000" placeholder="Lô đất bạn quan tâm, thời gian tiện liên hệ…"></textarea>
+    </label>
+
+    <label class="consent">
+      <input type="checkbox" name="consent" id="lead-consent" />
+      <span>
+        Tôi đồng ý để chủ đất thu thập và sử dụng họ tên, số điện thoại và email
+        của tôi nhằm liên hệ lại về lô đất tôi quan tâm. Thông tin {PRIVACY.retentionNote}.
+        {PRIVACY.processor && ` Dữ liệu được xử lý qua ${PRIVACY.processor}.`}
+        Xem <a href={PRIVACY.path} target="_blank" rel="noopener">Chính sách bảo mật</a>.
+      </span>
+    </label>
+
+    <p class="error" id="lead-error" role="alert" hidden></p>
+
+    <button type="submit" class="submit" id="lead-submit">
+      <Icon name="message" size={16} />
+      Gửi yêu cầu
+    </button>
+    <p class="fineprint">
+      Bạn có thể yêu cầu xem hoặc xóa dữ liệu bất cứ lúc nào qua {OPERATOR.contactEmail}.
+    </p>
+  </form>
+
+  <div class="success" id="lead-success" hidden>
+    <div class="check"><Icon name="shield-tick" size={28} /></div>
+    <h3>Đã nhận yêu cầu của bạn</h3>
+    <p>Chúng tôi sẽ liên hệ lại sớm — thường trong vòng một giờ làm việc.</p>
+    <button type="button" class="ghost" data-lead-close>Đóng</button>
+  </div>
+</dialog>
+
+<script define:vars={{ endpoint: LEAD.endpoint, email: LEAD.email, defaultContext, policyVersion: PRIVACY.effectiveDate }}>
+  const dialog = document.getElementById("lead-dialog");
+  if (dialog) {
+    const form = document.getElementById("lead-form");
+    const ctx = document.getElementById("lead-context");
+    const errEl = document.getElementById("lead-error");
+    const successEl = document.getElementById("lead-success");
+    const submitBtn = document.getElementById("lead-submit");
+    const submitLabel = submitBtn.innerHTML;
+
+    const openDialog = (context) => {
+      form.reset();
+      form.hidden = false;
+      successEl.hidden = true;
+      errEl.hidden = true;
+      ctx.value = context || defaultContext || "";
+      dialog.showModal();
+    };
+
+    document.querySelectorAll("[data-lead-open]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        openDialog(el.getAttribute("data-lead-context"));
+      });
+    });
+
+    dialog.querySelectorAll("[data-lead-close]").forEach((el) =>
+      el.addEventListener("click", () => dialog.close()),
+    );
+    // Click on the backdrop (outside the dialog box) closes it.
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      if (!data.name || !data.name.trim()) {
+        errEl.textContent = "Vui lòng cho biết họ tên của bạn.";
+        errEl.hidden = false;
+        return;
+      }
+      if (!data.phone && !data.email) {
+        errEl.textContent =
+          "Vui lòng để lại số điện thoại hoặc email để chúng tôi liên hệ.";
+        errEl.hidden = false;
+        return;
+      }
+      if (!data.consent) {
+        errEl.textContent =
+          "Vui lòng đồng ý với chính sách bảo mật để chúng tôi có thể liên hệ lại.";
+        errEl.hidden = false;
+        return;
+      }
+      errEl.hidden = true;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Đang gửi…";
+
+      const payload = {
+        ...data,
+        consent: true,
+        consentPolicyVersion: policyVersion,
+        page: location.href,
+        submittedAt: new Date().toISOString(),
+      };
+
+      // Open the visitor's mail client as a universal fallback so a lead is
+      // never lost (used when no endpoint is configured, or a POST fails).
+      const openMailto = () => {
+        const subject = "Yêu cầu liên hệ — " + (data.name || "khách");
+        const body = [
+          "Họ tên: " + (data.name || "—"),
+          "Điện thoại: " + (data.phone || "—"),
+          "Email: " + (data.email || "—"),
+          "Quan tâm: " + (data.context || "—"),
+          "Lời nhắn: " + (data.message || "—"),
+          "Đồng ý CSBM: Có (phiên bản " + policyVersion + ")",
+          "Trang: " + payload.page,
+        ].join("\n");
+        window.location.href =
+          "mailto:" +
+          email +
+          "?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(body);
+      };
+
+      try {
+        let delivered = false;
+        if (endpoint) {
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }).catch(() => null);
+          delivered = !!(res && res.ok);
+        }
+        if (!delivered) openMailto();
+        form.hidden = true;
+        successEl.hidden = false;
+      } catch (err) {
+        errEl.textContent =
+          "Gửi không thành công. Vui lòng thử lại sau ít phút.";
+        errEl.hidden = false;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitLabel;
+      }
+    });
+  }
+</script>
+
+<style>
+  .lead-dialog {
+    width: min(34rem, calc(100vw - 2rem));
+    margin: auto;
+    border-radius: var(--radius-3xl);
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--foreground);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-lg);
+  }
+  .lead-dialog::backdrop {
+    background: oklch(0% 0 0 / 0.45);
+    backdrop-filter: blur(2px);
+  }
+  /* Entry animation */
+  .lead-dialog[open] {
+    animation: pop 0.18s ease-out;
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
+  .x {
+    position: absolute;
+    top: 0.875rem;
+    right: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 2rem;
+    border-radius: var(--radius-pill);
+    color: var(--muted-foreground);
+    transform: rotate(45deg);
+  }
+  .x:hover {
+    background: var(--muted);
+    color: var(--foreground);
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--clay);
+  }
+  .head h2 {
+    margin-top: 0.375rem;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+  .head p {
+    margin-top: 0.625rem;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+
+  .form {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+  .row {
+    display: grid;
+    gap: 0.875rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .field > span {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--foreground);
+  }
+  .field i {
+    color: var(--clay);
+    font-style: normal;
+  }
+  .field input,
+  .field textarea {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--background);
+    padding: 0.625rem 0.75rem;
+    font-size: var(--text-sm);
+    transition: border-color 0.15s;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: color-mix(in oklab, var(--muted-foreground) 75%, transparent);
+  }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--clay);
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 4.5rem;
+  }
+
+  .error {
+    margin: 0;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    color: var(--redbook);
+  }
+
+  .submit {
+    margin-top: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--clay);
+    padding: 0.875rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--clay-foreground);
+    transition: opacity 0.15s;
+  }
+  .submit:hover {
+    opacity: 0.95;
+  }
+  .submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .consent {
+    display: flex;
+    gap: 0.625rem;
+    align-items: flex-start;
+    font-size: 0.75rem;
+    line-height: var(--leading-relaxed);
+    color: var(--muted-foreground);
+    cursor: pointer;
+  }
+  .consent input {
+    margin-top: 2px;
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+    accent-color: var(--clay);
+    cursor: pointer;
+  }
+  .consent a {
+    color: var(--clay);
+    text-decoration: underline;
+  }
+  .fineprint {
+    margin: 0;
+    text-align: center;
+    font-size: 0.6875rem;
+    color: var(--muted-foreground);
+  }
+
+  .success {
+    text-align: center;
+    padding-block: 1rem 0.5rem;
+  }
+  .success .check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklab, var(--forest) 12%, transparent);
+    color: var(--forest);
+  }
+  .success h3 {
+    margin-top: 1rem;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-semibold);
+  }
+  .success p {
+    margin-top: 0.5rem;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+  .ghost {
+    margin-top: 1.25rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    padding: 0.625rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+  .ghost:hover {
+    background: var(--muted);
+  }
+
+  @media (min-width: 480px) {
+    .row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lead-dialog[open] {
+      animation: none;
+    }
+  }
+</style>

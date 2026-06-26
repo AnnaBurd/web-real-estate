@@ -1,6 +1,6 @@
 ---
 import Icon from "../ui/Icon.astro";
-import { CONTACT, zaloLink } from "../../config/site";
+import { CONTACT, zaloLink, FEATURES } from "../../config/site";
 
 interface Props {
   message?: string;
@@ -9,19 +9,25 @@ const { message } = Astro.props;
 ---
 
 <div class="sticky-contact">
-  <a
-    href={zaloLink(message)}
-    target="_blank"
-    rel="noopener"
-    class="chip zalo"
-  >
-    <Icon name="message" size={20} />
-    <span>Chat Zalo</span>
-  </a>
-  <a href={CONTACT.tel} class="chip phone">
-    <Icon name="call" size={15} />
-    <span>{CONTACT.phoneDisplay}</span>
-  </a>
+  {
+    FEATURES.hideDirectContact ? (
+      <button type="button" class="chip lead" data-lead-open data-lead-context={message}>
+        <Icon name="call" size={18} />
+        <span>Yêu cầu gọi lại</span>
+      </button>
+    ) : (
+      <>
+        <a href={zaloLink(message)} target="_blank" rel="noopener" class="chip zalo">
+          <Icon name="message" size={20} />
+          <span>Chat Zalo</span>
+        </a>
+        <a href={CONTACT.tel} class="chip phone">
+          <Icon name="call" size={15} />
+          <span>{CONTACT.phoneDisplay}</span>
+        </a>
+      </>
+    )
+  }
 </div>
 
 <style>
@@ -51,6 +57,12 @@ const { message } = Astro.props;
     background: var(--zalo);
     color: #fff;
     padding: 0.75rem 1rem;
+    font-size: var(--text-sm);
+  }
+  .lead {
+    background: var(--clay);
+    color: var(--clay-foreground);
+    padding: 0.75rem 1.1rem;
     font-size: var(--text-sm);
   }
   .phone {

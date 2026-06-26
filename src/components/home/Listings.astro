@@ -5,6 +5,7 @@
  */
 import ParcelCard from "../site/ParcelCard.astro";
 import type { Parcel } from "../../lib/parcels";
+import { FEATURES } from "../../config/site";
 
 interface Props {
   parcels: Parcel[];
@@ -21,7 +22,11 @@ const { parcels } = Astro.props;
       </div>
       <p class="note">
         Khoảng giá mang tính tham khảo. Giá sàn chính xác, sổ đỏ công chứng và
-        lịch xem đất sẽ gửi qua Zalo.
+        lịch xem đất sẽ gửi {
+          FEATURES.hideDirectContact
+            ? "sau khi bạn để lại thông tin."
+            : "qua Zalo."
+        }
       </p>
     </div>
 

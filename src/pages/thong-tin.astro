@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/ui/Icon.astro";
-import { CONTACT, zaloLink } from "../config/site";
+import { CONTACT, zaloLink, FEATURES } from "../config/site";
 import teamLocal from "../assets/site/team-local.jpg";
 import redBookDetail from "../assets/site/red-book-detail.jpg";
 
@@ -110,8 +110,8 @@ const directStats: { label: string; value: string }[] = [
         <h2>Vì sao đây không phải tin rao của “cò đất”</h2>
         <div class="stack muted">
           <p>
-            Phần lớn tin rao bán đất ở Việt Nam được chuyền qua năm nhóm Zalo và
-            ba trang Facebook trước khi bạn nhìn thấy. “Người bán” thường là
+            Phần lớn tin rao bán đất ở Việt Nam được chuyền qua nhiều nhóm chat
+            và trang mạng xã hội trước khi bạn nhìn thấy. “Người bán” thường là
             người chưa từng đặt chân lên mảnh đất đó.
           </p>
           <p>
@@ -203,25 +203,42 @@ const directStats: { label: string; value: string }[] = [
       <Icon name="shield-tick" size={32} class="cta-ic" />
       <h2>Vẫn còn băn khoăn? Điều đó là bình thường.</h2>
       <p>
-        Cách tốt nhất để kiểm chứng chúng tôi là một cuộc gọi Zalo 10 phút. Hỏi
-        xin ảnh sổ đỏ, hỏi về bất kỳ lô nào, hỏi vì sao chúng tôi bán. Chúng tôi
-        trả lời tất cả.
+        {
+          FEATURES.hideDirectContact
+            ? "Cách tốt nhất để kiểm chứng chúng tôi là một cuộc trao đổi 10 phút. Để lại thông tin, chúng tôi sẽ liên hệ lại — hỏi xin ảnh sổ đỏ, hỏi về bất kỳ lô nào, hỏi vì sao chúng tôi bán. Chúng tôi trả lời tất cả."
+            : "Cách tốt nhất để kiểm chứng chúng tôi là một cuộc gọi Zalo 10 phút. Hỏi xin ảnh sổ đỏ, hỏi về bất kỳ lô nào, hỏi vì sao chúng tôi bán. Chúng tôi trả lời tất cả."
+        }
       </p>
       <div class="cta-actions">
-        <a
-          class="cta-zalo"
-          href={zaloLink(
-            "Chào anh/chị, em xem trang web và có vài câu hỏi trước khi đi xem đất.",
-          )}
-          target="_blank"
-          rel="noopener"
-        >
-          Hỏi qua Zalo
-        </a>
-        <a class="cta-phone" href={CONTACT.tel}>
-          <Icon name="call" size={16} />
-          {CONTACT.phoneDisplay}
-        </a>
+        {
+          FEATURES.hideDirectContact ? (
+            <button
+              class="cta-zalo"
+              type="button"
+              data-lead-open
+              data-lead-context="Chào anh/chị, em xem trang web và có vài câu hỏi trước khi đi xem đất."
+            >
+              Yêu cầu gọi lại
+            </button>
+          ) : (
+            <>
+              <a
+                class="cta-zalo"
+                href={zaloLink(
+                  "Chào anh/chị, em xem trang web và có vài câu hỏi trước khi đi xem đất.",
+                )}
+                target="_blank"
+                rel="noopener"
+              >
+                Hỏi qua Zalo
+              </a>
+              <a class="cta-phone" href={CONTACT.tel}>
+                <Icon name="call" size={16} />
+                {CONTACT.phoneDisplay}
+              </a>
+            </>
+          )
+        }
       </div>
     </div>
   </section>

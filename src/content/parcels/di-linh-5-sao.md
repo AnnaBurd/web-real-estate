@@ -34,7 +34,7 @@ risks:
   - "Cao tốc đang thi công; tiến độ và mốc hoàn thành (dự kiến 2027) có thể thay đổi."
   - "Kiểm tra quy hoạch 3 loại đất, hành lang suối/đường và nguồn nước tưới; lệ phí trước bạ 0,5%, thuế TNCN 2% theo quy định."
 legalNotes:
-  - "Sổ sách đầy đủ, chính chủ; ảnh sổ, video và vị trí được cung cấp qua Zalo."
+  - "Sổ sách đầy đủ, chính chủ; ảnh sổ, video và vị trí được cung cấp khi trao đổi trực tiếp."
   - "Khuyến nghị xác minh loại đất, quy hoạch và điều kiện tách thửa tại Văn phòng đăng ký đất đai Di Linh trước khi đặt cọc."
   - "Giao dịch công chứng theo quy định; chủ đất hỗ trợ thủ tục sang tên."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Di Linh 5 sào."
@@ -61,4 +61,4 @@ Chính chủ bán 5 sào (5.000 m²) đất trên cao nguyên Di Linh — khí h
 
 Di Linh nay thuộc tỉnh Lâm Đồng mở rộng (sáp nhập Lâm Đồng – Bình Thuận – Đắk Nông năm 2025) — vùng trọng điểm về nông nghiệp và du lịch của Nam Tây Nguyên.
 
-Sổ sách đầy đủ, đất rộng, pháp lý rõ ràng để sang tên. Giá 12 tỷ, thương lượng trực tiếp. Nhắn Zalo để xem hình thực tế và ảnh sổ.
+Sổ sách đầy đủ, đất rộng, pháp lý rõ ràng để sang tên. Giá 12 tỷ, thương lượng trực tiếp. Liên hệ để xem hình thực tế và ảnh sổ.

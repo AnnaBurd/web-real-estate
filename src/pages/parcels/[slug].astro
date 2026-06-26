@@ -11,7 +11,7 @@ import {
   formatArea,
   type Parcel,
 } from "../../lib/parcels";
-import { CONTACT, zaloLink } from "../../config/site";
+import { CONTACT, zaloLink, FEATURES } from "../../config/site";
 
 export const getStaticPaths = (async () => {
   const parcels = await getAllParcels();
@@ -219,12 +219,19 @@ const ogImage = cover
           <Icon name="lock" size={16} class="ic" />
           <h2>Hồ sơ pháp lý đầy đủ · đang khóa</h2>
         </div>
-        <h3>Mở khóa sau khi xác minh qua Zalo</h3>
+        <h3>
+          {
+            FEATURES.hideDirectContact
+              ? "Mở khóa sau một bước xác minh ngắn"
+              : "Mở khóa sau khi xác minh qua Zalo"
+          }
+        </h3>
         <p>
           Để bảo vệ chủ đất và người mua nghiêm túc, chúng tôi chỉ gửi ảnh sổ đỏ
           công chứng, giá sàn chính xác, bản đồ địa chính, thông tin quy hoạch và
-          lịch xem đất sau một bước xác minh ngắn qua Zalo. Thường phản hồi trong
-          vòng một giờ.
+          lịch xem đất sau một bước xác minh ngắn{
+            FEATURES.hideDirectContact ? "" : " qua Zalo"
+          }. Thường phản hồi trong vòng một giờ.
         </p>
         <ul class="pack">
           {
@@ -236,10 +243,24 @@ const ogImage = cover
             ))
           }
         </ul>
-        <a class="btn" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
-          <Icon name="message" size={16} />
-          Mở khóa hồ sơ pháp lý qua Zalo
-        </a>
+        {
+          FEATURES.hideDirectContact ? (
+            <button
+              class="btn"
+              type="button"
+              data-lead-open
+              data-lead-context={p.zaloMessage}
+            >
+              <Icon name="message" size={16} />
+              Mở khóa hồ sơ pháp lý
+            </button>
+          ) : (
+            <a class="btn" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
+              <Icon name="message" size={16} />
+              Mở khóa hồ sơ pháp lý qua Zalo
+            </a>
+          )
+        }
       </div>
 
       {
@@ -279,21 +300,51 @@ const ogImage = cover
         <div class="rail-label">Khoảng giá · thương lượng</div>
         <div class="rail-price">{p.priceRange}</div>
         {p.pricePerSqm && <div class="rail-sub">{p.pricePerSqm} · giá sàn gửi khi liên hệ</div>}
-        <a class="btn" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
-          <Icon name="message" size={16} />
-          Nhận giá &amp; pháp lý qua Zalo
-        </a>
+        {
+          FEATURES.hideDirectContact ? (
+            <button
+              class="btn"
+              type="button"
+              data-lead-open
+              data-lead-context={p.zaloMessage}
+            >
+              <Icon name="message" size={16} />
+              Nhận giá &amp; pháp lý
+            </button>
+          ) : (
+            <a class="btn" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
+              <Icon name="message" size={16} />
+              Nhận giá &amp; pháp lý qua Zalo
+            </a>
+          )
+        }
         <div class="rail-list">
           <div>Bạn sẽ nhận trong vòng một giờ:</div>
           <div>· Ảnh sổ đỏ công chứng (đã che thông tin)</div>
           <div>· Bản đồ địa chính + thông tin quy hoạch</div>
           <div>· Giá sàn + lịch xem đất</div>
         </div>
-        <div class="rail-hairline"></div>
-        <div class="rail-phone">
-          <span>Thích gọi điện hơn?</span>
-          <a href={CONTACT.tel}>{CONTACT.phoneDisplay}</a>
-        </div>
+        {
+          FEATURES.hideDirectContact ? (
+            <>
+              <div class="rail-hairline" />
+              <div class="rail-phone">
+                <span>Tiện hơn khi để lại số?</span>
+                <button type="button" class="railbtn" data-lead-open data-lead-context={p.zaloMessage}>
+                  Yêu cầu gọi lại
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div class="rail-hairline" />
+              <div class="rail-phone">
+                <span>Thích gọi điện hơn?</span>
+                <a href={CONTACT.tel}>{CONTACT.phoneDisplay}</a>
+              </div>
+            </>
+          )
+        }
       </div>
     </aside>
   </section>
@@ -648,11 +699,13 @@ const ogImage = cover
     font-size: 0.6875rem;
     color: var(--muted-foreground);
   }
-  .rail-phone a {
+  .rail-phone a,
+  .rail-phone .railbtn {
     font-weight: var(--weight-semibold);
     color: var(--forest);
   }
-  .rail-phone a:hover {
+  .rail-phone a:hover,
+  .rail-phone .railbtn:hover {
     text-decoration: underline;
   }
 

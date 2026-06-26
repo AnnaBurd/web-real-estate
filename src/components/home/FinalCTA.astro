@@ -2,28 +2,47 @@
 /**
  * Closing call-to-action — clay band driving the single Zalo conversion.
  */
-import { zaloLink } from "../../config/site";
+import { zaloLink, FEATURES } from "../../config/site";
 ---
 
 <section class="final">
   <div class="container inner">
-    <div class="eyebrow">Một tin nhắn. Một bước.</div>
-    <h2>Nhận giá chính xác + hồ sơ pháp lý qua Zalo.</h2>
+    <div class="eyebrow">Một bước. Chúng tôi liên hệ lại.</div>
+    <h2>
+      {
+        FEATURES.hideDirectContact
+          ? "Nhận giá chính xác + hồ sơ pháp lý."
+          : "Nhận giá chính xác + hồ sơ pháp lý qua Zalo."
+      }
+    </h2>
     <p>
       Ảnh sổ đỏ, giá sàn và lịch xem đất — thường trong vòng một giờ. Chính chủ.
       Thương lượng.
     </p>
     <div class="cta-wrap">
-      <a
-        class="cta"
-        href={zaloLink(
-          "Chào anh/chị, em muốn nhận đầy đủ hồ sơ pháp lý và giá của một lô đất.",
-        )}
-        target="_blank"
-        rel="noopener"
-      >
-        Mở Zalo ngay
-      </a>
+      {
+        FEATURES.hideDirectContact ? (
+          <button
+            class="cta"
+            type="button"
+            data-lead-open
+            data-lead-context="Chào anh/chị, em muốn nhận đầy đủ hồ sơ pháp lý và giá của một lô đất."
+          >
+            Yêu cầu nhận giá
+          </button>
+        ) : (
+          <a
+            class="cta"
+            href={zaloLink(
+              "Chào anh/chị, em muốn nhận đầy đủ hồ sơ pháp lý và giá của một lô đất.",
+            )}
+            target="_blank"
+            rel="noopener"
+          >
+            Mở Zalo ngay
+          </a>
+        )
+      }
     </div>
   </div>
 </section>

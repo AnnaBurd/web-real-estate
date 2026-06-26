@@ -35,7 +35,7 @@ risks:
   - "Người mua thường chịu lệ phí trước bạ 0,5%; thuế TNCN 2% thường do bên bán — các khoản này có thể thỏa thuận trong hợp đồng."
   - "Sau sáp nhập 01/7/2025, đơn vị hành chính đổi tên — đối chiếu địa chỉ, số tờ và số thửa trên sổ trước khi giao dịch."
 legalNotes:
-  - "Sổ đỏ chính chủ; ảnh sổ và thông tin thửa được cung cấp qua Zalo khi trao đổi."
+  - "Sổ đỏ chính chủ; ảnh sổ và thông tin thửa được cung cấp khi trao đổi trực tiếp."
   - "Khuyến nghị kiểm tra quy hoạch, lộ giới và tình trạng thế chấp/ngăn chặn tại Văn phòng đăng ký đất đai trước khi đặt cọc."
   - "Hợp đồng chuyển nhượng công chứng tại văn phòng công chứng địa phương; chủ đất hỗ trợ thủ tục sang tên, tách thửa."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô 3,3 Sào Hòa Long."
@@ -60,4 +60,4 @@ Chính chủ bán trực tiếp 3,3 sào (3.362 m²) đất tại trung tâm xã
 
 Vị trí kết nối tốt: cách Quốc lộ 56 chỉ 150 m và Hương Lộ 2 khoảng 500 m. Sau sáp nhập hành chính 2025, Hòa Long thuộc TP.HCM; tuyến cao tốc Biên Hòa–Vũng Tàu vừa đưa vào khai thác và sân bay Long Thành dự kiến khai thác cuối năm 2026 là những lực đẩy hạ tầng cho cả khu vực.
 
-Sổ đỏ đầy đủ, pháp lý rõ ràng, hỗ trợ thủ tục tách thửa. Giá 8 tỷ, thương lượng trực tiếp với chính chủ cho người mua thiện chí. Nhắn Zalo để nhận hình ảnh thực tế, ảnh sổ và vị trí trên bản đồ.
+Sổ đỏ đầy đủ, pháp lý rõ ràng, hỗ trợ thủ tục tách thửa. Giá 8 tỷ, thương lượng trực tiếp với chính chủ cho người mua thiện chí. Liên hệ để nhận hình ảnh thực tế, ảnh sổ và vị trí trên bản đồ.

@@ -1,0 +1,11 @@
+# Netlify build + functions config for the static Astro site.
+# The site is static (publish ./dist). The contact form's only backend is the
+# provider-agnostic lead function in netlify/functions, exposed at /api/lead.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

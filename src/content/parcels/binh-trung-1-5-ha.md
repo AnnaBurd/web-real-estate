@@ -34,7 +34,7 @@ risks:
   - "Quỹ đất lớn cần xác minh tính liền thửa và ranh mốc thực tế trên thực địa."
   - "Lệ phí trước bạ 0,5% (bên mua), thuế TNCN 2% (bên bán) theo quy định; đối chiếu địa danh mới sau sáp nhập 2025."
 legalNotes:
-  - "Sổ sách đầy đủ, gia đình bán trực tiếp; ảnh sổ và thông tin thửa được cung cấp qua Zalo."
+  - "Sổ sách đầy đủ, gia đình bán trực tiếp; ảnh sổ và thông tin thửa được cung cấp khi trao đổi trực tiếp."
   - "Khuyến nghị xác minh quy hoạch, ranh mốc, tình trạng thế chấp/ngăn chặn tại Văn phòng đăng ký đất đai trước khi đặt cọc."
   - "Giao dịch công chứng theo quy định; chủ đất hỗ trợ thủ tục sang tên, tách thửa."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Bình Trung 1,5 ha."
@@ -63,4 +63,4 @@ Gia đình cần bán 1,5 ha (15.000 m²) đất liền thửa tại Bình Trung
 
 Khu vực Bình Trung nay thuộc TP.HCM sau sáp nhập 2025, gần trục cao tốc Biên Hòa–Vũng Tàu và hưởng lợi từ sân bay Long Thành dự kiến khai thác cuối năm 2026.
 
-Sổ sách đầy đủ, pháp lý rõ ràng. Gia đình bán trực tiếp nên giá thương lượng được cho người mua thiện chí. Giá 12 tỷ. Nhắn Zalo để xem hình thực tế và ảnh sổ.
+Sổ sách đầy đủ, pháp lý rõ ràng. Gia đình bán trực tiếp nên giá thương lượng được cho người mua thiện chí. Giá 12 tỷ. Liên hệ để xem hình thực tế và ảnh sổ.

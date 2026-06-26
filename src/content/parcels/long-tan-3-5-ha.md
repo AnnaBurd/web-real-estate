@@ -34,7 +34,7 @@ risks:
   - "Tách thửa, phân lô phải đáp ứng diện tích tối thiểu và điều kiện do địa phương quy định."
   - "Lệ phí trước bạ 0,5% và thuế TNCN 2% theo quy định; đối chiếu địa danh mới sau sáp nhập 2025."
 legalNotes:
-  - "Sổ đỏ sẵn có, chính chủ; ảnh sổ, video và vị trí được cung cấp qua Zalo."
+  - "Sổ đỏ sẵn có, chính chủ; ảnh sổ, video và vị trí được cung cấp khi trao đổi trực tiếp."
   - "Khuyến nghị đối chiếu bản đồ quy hoạch (phần phủ hồng) và lộ giới 2 tuyến đường tại Văn phòng đăng ký đất đai/phòng quản lý đô thị trước khi đặt cọc."
   - "Giao dịch công chứng theo quy định; chủ đất hỗ trợ thủ tục lên thổ cư và tách thửa."
 zaloMessage: "Chào anh/chị, em muốn hỏi giá và pháp lý lô Long Tân 3,5 ha."
@@ -61,4 +61,4 @@ Chính chủ bán 3,5 ha đất bằng phẳng tại trung tâm xã Long Tân. Q
 
 Cách đường 765 chỉ 1,5 km. Khu vực nay thuộc TP.HCM sau sáp nhập 2025, kề trục cao tốc Biên Hòa–Vũng Tàu và trong vùng lan tỏa của sân bay Long Thành (dự kiến khai thác cuối 2026).
 
-Sổ đỏ sẵn có, hỗ trợ thủ tục lên thổ cư và tách thửa. Giá 35 tỷ, thương lượng trực tiếp với chính chủ. Nhắn Zalo để nhận ảnh sổ, video và vị trí chính xác.
+Sổ đỏ sẵn có, hỗ trợ thủ tục lên thổ cư và tách thửa. Giá 35 tỷ, thương lượng trực tiếp với chính chủ. Liên hệ để nhận ảnh sổ, video và vị trí chính xác.

@@ -50,4 +50,4 @@ Suất đầu tư nhỏ gọn chỉ 600 triệu cho phần đất đồng sở h
 
 Pháp lý rõ ràng với 2 sổ riêng; bản đồ thửa đất có thể xem trực tiếp trên remaps.vn trước khi đi xem thực địa.
 
-Giá 600 triệu, thương lượng trực tiếp với chính chủ. Nhắn Zalo để nhận vị trí bản đồ và ảnh sổ.
+Giá 600 triệu, thương lượng trực tiếp với chính chủ. Liên hệ để nhận vị trí bản đồ và ảnh sổ.

@@ -2,7 +2,7 @@
 title: "Sông Phan 2,9ha"
 location: "Sông Phan, Bình Thuận"
 order: 7
-promoted: false
+promoted: true
 verification: "red-book"
 tag: "Cận cao tốc"
 area:

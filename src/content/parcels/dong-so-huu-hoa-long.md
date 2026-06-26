@@ -2,7 +2,7 @@
 title: "Đồng sở hữu Hòa Long"
 location: "Hòa Long, Bà Rịa"
 order: 8
-promoted: false
+promoted: true
 verification: "red-book"
 tag: "Vốn nhỏ"
 area:

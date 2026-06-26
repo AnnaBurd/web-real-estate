@@ -9,7 +9,7 @@ tag: "Được xem nhiều"
 area:
   value: 1.5
   unit: "ha"
-priceRange: "12 tỷ"
+priceRange: "11 tỷ – 12 tỷ"
 negotiable: true
 coords:
   - 10.614597

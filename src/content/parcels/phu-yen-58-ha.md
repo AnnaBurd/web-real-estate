@@ -9,7 +9,7 @@ tag: "Quỹ đất lớn"
 area:
   value: 58
   unit: "ha"
-priceRange: "9.5 tỷ"
+priceRange: "8,8 tỷ – 9,5 tỷ"
 negotiable: true
 coords:
   - 13.0970781

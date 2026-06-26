@@ -10,7 +10,7 @@ area:
   value: 3362
   unit: "m2"
 faceSideLength: 155
-priceRange: "8 tỷ"
+priceRange: "7,5 tỷ – 8 tỷ"
 negotiable: true
 coords:
   - 10.5426813

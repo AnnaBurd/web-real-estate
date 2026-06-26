@@ -9,7 +9,7 @@ tag: "Cao nguyên mát lành"
 area:
   value: 5000
   unit: "m2"
-priceRange: "12 tỷ"
+priceRange: "11 tỷ – 12 tỷ"
 negotiable: true
 coords:
   - 11.5810112

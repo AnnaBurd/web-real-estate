@@ -223,8 +223,13 @@ const badge = VERIFICATION[p.verification];
 
   .facts {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem 1.25rem;
+  }
+  .facts div:last-child {
+    width: max-content;
+    max-width: 100%;
+    margin-left: auto;
   }
   .facts dt {
     font-size: 0.625rem;
@@ -241,6 +246,7 @@ const badge = VERIFICATION[p.verification];
   .neg {
     font-size: 0.625rem;
     font-weight: var(--weight-medium);
+    white-space: nowrap;
     color: var(--clay);
   }
 

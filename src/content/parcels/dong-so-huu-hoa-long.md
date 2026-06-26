@@ -9,7 +9,7 @@ tag: "Vốn nhỏ"
 area:
   value: 200
   unit: "m2"
-priceRange: "600 triệu"
+priceRange: "560 – 600 triệu"
 negotiable: true
 coords:
   - 10.5226196

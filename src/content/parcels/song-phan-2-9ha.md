@@ -9,7 +9,7 @@ tag: "Cận cao tốc"
 area:
   value: 2.9
   unit: "ha"
-priceRange: "22 tỷ"
+priceRange: "20,5 tỷ – 22 tỷ"
 negotiable: true
 coords:
   - 10.8550437

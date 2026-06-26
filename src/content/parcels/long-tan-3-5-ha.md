@@ -9,7 +9,7 @@ tag: "Sẵn phân lô"
 area:
   value: 3.5
   unit: "ha"
-priceRange: "35 tỷ"
+priceRange: "32,5 tỷ – 35 tỷ"
 negotiable: true
 coords:
   - 10.5551694

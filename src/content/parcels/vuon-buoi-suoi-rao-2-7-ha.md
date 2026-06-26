@@ -9,7 +9,7 @@ tag: "Dòng tiền sẵn có"
 area:
   value: 2.7
   unit: "ha"
-priceRange: "25 tỷ"
+priceRange: "23 tỷ – 25 tỷ"
 negotiable: true
 coords:
   - 10.5752334

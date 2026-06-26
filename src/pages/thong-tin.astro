@@ -3,8 +3,8 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/ui/Icon.astro";
 import { CONTACT, zaloLink, FEATURES } from "../config/site";
-import teamLocal from "../assets/site/team-local.jpg";
-import redBookDetail from "../assets/site/red-book-detail.jpg";
+import landPhoto from "../assets/parcels/3-3-sao-hoa-long/01.jpg";
+import redBookPhoto from "../assets/parcels/3-3-sao-hoa-long/04.jpg";
 
 const teamPoints: { icon: string; t: string; d: string }[] = [
   {
@@ -19,8 +19,8 @@ const teamPoints: { icon: string; t: string; d: string }[] = [
   },
   {
     icon: "document",
-    t: "47 giao dịch thành công từ năm 2013",
-    d: "Nhiều khách hàng tổ chức quay lại. Cung cấp tham chiếu khi có nhu cầu nghiêm túc.",
+    t: "Gắn bó với vùng đất từ 2013",
+    d: "Hơn mười năm mua, giữ và chọn lọc bán lại đất của chính mình trong vùng. Cung cấp tham chiếu khi có nhu cầu nghiêm túc.",
   },
 ];
 
@@ -32,15 +32,15 @@ const commitments = [
 ];
 
 const directStats: { label: string; value: string }[] = [
-  { label: "Qua môi giới", value: "45–90 ngày" },
-  { label: "Của chúng tôi", value: "~14 ngày" },
-  { label: "Người mua tiết kiệm", value: "2–5%" },
+  { label: "Hoa hồng môi giới điển hình", value: "2–5%" },
+  { label: "Phí môi giới khi mua trực tiếp", value: "0đ" },
+  { label: "Thương lượng", value: "Trực tiếp với chủ đất" },
 ];
 ---
 
 <BaseLayout
   title="Thông tin — Chúng tôi là chính chủ, không phải môi giới | VietLand"
-  description="Chính chủ bán đất trực tiếp tại khu vực phía Nam. Không qua môi giới. Sổ đỏ đã xác minh, hơn 12 năm kinh nghiệm địa phương, quy trình minh bạch."
+  description="Chính chủ cá nhân bán đất trực tiếp tại khu vực phía Nam. Không qua môi giới. Một gia đình gắn bó với vùng đất từ 2013, sổ đỏ đầy đủ, quy trình minh bạch."
   contactMessage="Chào anh/chị, em xem trang thông tin và có vài câu hỏi về một lô đất."
 >
   <!-- Hero -->
@@ -64,20 +64,21 @@ const directStats: { label: string; value: string }[] = [
     <div class="container two">
       <div class="media">
         <Image
-          src={teamLocal}
-          alt="Đội ngũ địa phương khảo sát đất tại Bà Rịa – Vũng Tàu"
+          src={landPhoto}
+          alt="Mảnh đất thực tế tại Hòa Long, Bà Rịa (nay thuộc TP.HCM)"
           widths={[512, 1024]}
           sizes="(min-width: 1024px) 600px, 100vw"
           loading="lazy"
         />
-        <div class="caption">Khảo sát thực địa · Hòa Long, Bà Rịa</div>
+        <div class="caption">Đất thực tế · Hòa Long, Bà Rịa</div>
       </div>
       <div>
-        <h2>Một đội ngũ. Một khu vực. Hơn mười hai năm.</h2>
+        <h2>Ba người trong một gia đình. Một vùng đất. Hơn mười năm.</h2>
         <p class="muted">
-          Chúng tôi là đối tác gia đình hoạt động tại khu vực Bà Rịa – Vũng Tàu.
-          Lô đất đầu tiên được mua từ năm 2013, và từ đó đến nay chúng tôi liên
-          tục mua, giữ và chọn lọc bán đất trong vùng.
+          Chúng tôi là ba người trong cùng một gia đình, hoạt động tại khu vực
+          Bà Rịa – Vũng Tàu (nay thuộc TP.HCM). Lô đất đầu tiên được mua từ năm
+          2013, và từ đó đến nay chúng tôi liên tục mua, giữ và chọn lọc bán lại
+          đất của chính mình trong vùng.
         </p>
         <p class="muted">
           Trong thời gian đó, chúng tôi đã xây dựng quan hệ trực tiếp với công
@@ -148,8 +149,8 @@ const directStats: { label: string; value: string }[] = [
 
       <div class="media">
         <Image
-          src={redBookDetail}
-          alt="Sổ đỏ Việt Nam với con dấu xác nhận"
+          src={redBookPhoto}
+          alt="Sổ đỏ một lô đất của chúng tôi, thông tin cá nhân đã che"
           widths={[512, 1024]}
           sizes="(min-width: 1024px) 600px, 100vw"
           loading="lazy"
@@ -177,10 +178,8 @@ const directStats: { label: string; value: string }[] = [
             mua khác”.
           </p>
           <p>
-            Điều này cũng giúp chúng tôi hành động nhanh. Một thương vụ qua môi
-            giới trong vùng thường mất 45–90 ngày. Thời gian sang tên trung bình
-            của chúng tôi, từ tin nhắn nghiêm túc đầu tiên đến khi công chứng
-            chuyển nhượng, là khoảng 14 ngày.
+            Điều này cũng giúp chúng tôi hành động nhanh và linh hoạt: làm việc
+            trực tiếp với chủ đất, không phải chờ qua nhiều khâu trung gian.
           </p>
         </div>
         <div class="forest-stats">

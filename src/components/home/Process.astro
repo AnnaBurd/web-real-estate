@@ -108,11 +108,17 @@ const steps: { n: string; t: string; d: string }[] = [
     .process {
       padding-block: 7rem;
     }
+    h2 {
+      font-size: var(--text-5xl);
+    }
     .steps {
       grid-template-columns: repeat(2, 1fr);
     }
   }
   @media (min-width: 1024px) {
+    h2 {
+      white-space: nowrap;
+    }
     .steps {
       grid-template-columns: repeat(4, 1fr);
     }

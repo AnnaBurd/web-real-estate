@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Lead function isn't a page; keep it out of crawls.
+Disallow: /api/
+
+Sitemap: https://viet-land.vn/sitemap-index.xml

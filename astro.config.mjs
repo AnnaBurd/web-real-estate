@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import { readdirSync } from "node:fs";
+import sitemap from "@astrojs/sitemap";
 
 /**
  * v1 → v2 route changes (see redesign):
@@ -20,4 +21,11 @@ const redirects = {
 export default defineConfig({
   site: "https://viet-land.vn",
   redirects,
+  integrations: [
+    sitemap({
+      // The /tim-dat redirect stub and the privacy page shouldn't dilute the
+      // sitemap; keep it to the real, indexable destinations.
+      filter: (page) => !page.includes("/tim-dat"),
+    }),
+  ],
 });

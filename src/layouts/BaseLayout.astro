@@ -15,20 +15,36 @@ interface Props {
   description?: string;
   /** Open Graph image URL (absolute). */
   ogImage?: string;
+  /** Alt text for the OG image. */
+  ogImageAlt?: string;
   /** Pre-filled message for the sticky Zalo button. */
   contactMessage?: string;
   /** Hide the shared chrome (e.g. for error pages). */
   bare?: boolean;
+  /** JSON-LD structured data — a single node or an array of nodes. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title,
   description,
   ogImage,
+  ogImageAlt,
   contactMessage,
   bare = false,
+  jsonLd,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+
+const SITE_NAME = "VietLand";
+// Default social-share image, used when a page doesn't supply its own.
+const ogImageUrl = new URL(
+  ogImage ?? "/og-default.jpg",
+  Astro.site ?? Astro.url,
+).href;
+const ogImageAltText = ogImageAlt ?? title;
+
+const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <!doctype html>
@@ -40,13 +56,43 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#153c25" />
+
+    <!-- Preload the display-font subsets used by the LCP headings -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxCBTeO-U.woff2"
+      crossorigin
+    />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="vi_VN" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:url" content={canonical} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={ogImageAltText} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    {
+      jsonLdItems.map((item) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
+      ))
+    }
   </head>
 
   <body>

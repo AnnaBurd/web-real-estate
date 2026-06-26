@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Block from "../../components/parcel/Block.astro";
@@ -10,6 +10,7 @@ import {
   getAllParcels,
   getParcelsBySlugs,
   formatArea,
+  parsePriceRange,
   type Parcel,
 } from "../../lib/parcels";
 import { CONTACT, zaloLink, FEATURES } from "../../config/site";
@@ -71,16 +72,73 @@ const legalPack = [
 ];
 
 const metaDesc = `${formatArea(p.area)} · ${p.priceRange} · ${v.short}. ${p.briefDescription ?? p.title}`;
+
+// Build a 1200×630 social-share derivative rather than serving the full-size
+// original to crawlers.
 const ogImage = cover
-  ? new URL(cover.src.src, Astro.site ?? Astro.url).href
+  ? new URL(
+      (await getImage({
+        src: cover.src,
+        width: 1200,
+        height: 630,
+        fit: "cover",
+        format: "jpeg",
+      })).src,
+      Astro.site ?? Astro.url,
+    ).href
   : undefined;
+
+const site = Astro.site ?? Astro.url;
+const canonicalUrl = new URL(Astro.url.pathname, site).href;
+const price = parsePriceRange(p.priceRange);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Trang chủ", item: new URL("/", site).href },
+      { "@type": "ListItem", position: 2, name: title, item: canonicalUrl },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: title,
+    description: metaDesc,
+    ...(ogImage ? { image: ogImage } : {}),
+    category: "Bất động sản — Đất nền",
+    ...(p.province ? { areaServed: p.province } : {}),
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Diện tích", value: formatArea(p.area) },
+      { "@type": "PropertyValue", name: "Tình trạng pháp lý", value: v.short },
+    ],
+    offers: price
+      ? {
+          "@type": "AggregateOffer",
+          priceCurrency: "VND",
+          lowPrice: price.low,
+          highPrice: price.high,
+          availability: "https://schema.org/InStock",
+          url: canonicalUrl,
+        }
+      : {
+          "@type": "Offer",
+          priceCurrency: "VND",
+          availability: "https://schema.org/InStock",
+          url: canonicalUrl,
+        },
+  },
+];
 ---
 
 <BaseLayout
   title={`${title} · ${p.location} — VietLand`}
   description={metaDesc}
   ogImage={ogImage}
+  ogImageAlt={cover?.alt ?? title}
   contactMessage={p.zaloMessage}
+  jsonLd={jsonLd}
 >
   <div class="container crumb">
     <a href="/#opportunities">

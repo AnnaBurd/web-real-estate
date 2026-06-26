@@ -9,12 +9,39 @@ import FinalCTA from "../components/home/FinalCTA.astro";
 import { getPromotedParcels } from "../lib/parcels";
 
 const parcels = await getPromotedParcels();
+
+const site = Astro.site ?? Astro.url;
+const abs = (path: string) => new URL(path, site).href;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "VietLand",
+    url: abs("/"),
+    inLanguage: "vi-VN",
+    description:
+      "Bán đất chính chủ khắp miền Nam Việt Nam — pháp lý minh bạch, không qua trung gian.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Lô đất chính chủ đang bán",
+    itemListElement: parcels.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: abs(`/parcels/${p.id}/`),
+      name: p.data.opportunityTitle ?? p.data.title,
+    })),
+  },
+];
 ---
 
 <BaseLayout
   title="VietLand — Đất nền pháp lý rõ ràng, bán trực tiếp từ chính chủ"
   description="Bán đất chính chủ khắp miền Nam Việt Nam. Lô đất đã xác minh sổ đỏ, pháp lý minh bạch, giá thương lượng — không qua trung gian. Nhận giá và pháp lý nhanh khi liên hệ."
   contactMessage="Chào anh/chị, em xem đất trên VietLand và muốn biết thêm chi tiết."
+  jsonLd={jsonLd}
 >
   <Hero count={parcels.length} />
   <Listings parcels={parcels} />

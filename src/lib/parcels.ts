@@ -45,3 +45,44 @@ export function formatArea(area: Parcel["data"]["area"]): string {
   const unit = area.unit === "m2" ? "m²" : area.unit;
   return `${area.value.toLocaleString("vi-VN")} ${unit}`;
 }
+
+/** Vietnamese magnitude words → VND multiplier. */
+const PRICE_UNIT_VND: Record<string, number> = {
+  tỷ: 1e9,
+  triệu: 1e6,
+  nghìn: 1e3,
+};
+
+/**
+ * Parse a displayed price range (e.g. "7,5 tỷ – 8 tỷ", "560 – 600 triệu") into
+ * numeric VND bounds for structured data. Vietnamese notation uses a comma as
+ * the decimal separator, and the magnitude word may appear on only one side of
+ * the range ("560 – 600 triệu" = both in triệu). Returns null when it can't
+ * parse confidently — callers then omit price rather than fabricate one.
+ */
+export function parsePriceRange(
+  priceRange: string,
+): { low: number; high: number } | null {
+  const sides = priceRange
+    .split(/\s*[–—-]\s*/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((text) => {
+      const num = text.match(/[\d.,]+/);
+      if (!num) return null;
+      // vi-VN: comma is the decimal separator; dots group thousands.
+      const value = parseFloat(num[0].replace(/\./g, "").replace(",", "."));
+      if (!Number.isFinite(value)) return null;
+      const unit = Object.keys(PRICE_UNIT_VND).find((u) => text.includes(u));
+      return { value, unit };
+    });
+
+  if (sides.length === 0 || sides.some((s) => s === null)) return null;
+  const fallbackUnit = sides.find((s) => s!.unit)?.unit;
+  if (!fallbackUnit) return null;
+
+  const values = (sides as { value: number; unit?: string }[]).map((s) =>
+    Math.round(s.value * PRICE_UNIT_VND[s.unit ?? fallbackUnit]),
+  );
+  return { low: Math.min(...values), high: Math.max(...values) };
+}

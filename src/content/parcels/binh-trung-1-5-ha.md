@@ -25,8 +25,8 @@ infrastructure:
   - "1,5 ha liền thửa, quỹ đất lớn nguyên khối — thuận lợi làm khu dân cư hoặc phân lô."
   - "Thuộc vùng Châu Đức, gần trục Quốc lộ 56 và KCN–Đô thị–Sân golf Châu Đức (Sonadezi, ~2.287 ha)."
   - "Cao tốc Biên Hòa–Vũng Tàu đã đưa vào khai thác (2026), TP.HCM–Vũng Tàu còn ~70 phút."
-  - "Sân bay Long Thành dự kiến khai thác cuối năm 2026 — lực đẩy hạ tầng cho cả vùng."
-thesis: "Bình Trung (Châu Đức), nay thuộc TP.HCM, có lợi thế quỹ đất 1,5 ha liền thửa — hiếm trong bối cảnh đất lớn nguyên khối ngày càng ít. Quá trình công nghiệp hóa quanh KCN Sonadezi cùng hạ tầng vùng (cao tốc Biên Hòa–Vũng Tàu, sân bay Long Thành) tạo nguồn cầu nhà ở và dịch vụ. Suất đầu tư ~800 nghìn đ/m² thuộc nhóm thấp cho đất quy mô lớn, phù hợp nhà đầu tư dài hạn hoặc phát triển khu dân cư, phân lô."
+  - "Sân bay Long Thành dự kiến khai thác cuối năm 2026 — yếu tố hạ tầng quan trọng của cả vùng."
+thesis: "Bình Trung (Châu Đức), nay thuộc TP.HCM, có lợi thế quỹ đất 1,5 ha liền thửa trong bối cảnh đất lớn nguyên khối ngày càng ít. Quá trình công nghiệp hóa quanh KCN Sonadezi cùng hạ tầng vùng (cao tốc Biên Hòa–Vũng Tàu, sân bay Long Thành) có thể tạo nhu cầu nhà ở và dịch vụ. Suất đầu tư ~800 nghìn đ/m² phù hợp nhà đầu tư dài hạn hoặc phát triển khu dân cư, phân lô."
 risks:
   - "Đất nông nghiệp: muốn làm khu dân cư hoặc lên thổ cư phải chuyển mục đích theo quy hoạch sử dụng đất và nộp tiền sử dụng đất."
   - "Phân lô, tách thửa phải đáp ứng diện tích tối thiểu và điều kiện địa phương; kiểm tra đất có dính quy hoạch giao thông/công trình công cộng không."

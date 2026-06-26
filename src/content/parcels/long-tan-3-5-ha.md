@@ -27,7 +27,7 @@ infrastructure:
   - "Cách đường 765 ~1,5 km; kết nối Châu Đức – Xuyên Mộc (Hồ Tràm) và trục Quốc lộ 56."
   - "Gần KCN–Đô thị–Sân golf Châu Đức (Sonadezi, ~2.287 ha) — nguồn cầu nhà ở, dịch vụ."
   - "Cao tốc Biên Hòa–Vũng Tàu đã đưa vào khai thác (2026); sân bay Long Thành dự kiến khai thác cuối năm 2026."
-thesis: "Long Tân (Châu Đức), nay thuộc TP.HCM, là quỹ đất lớn bằng phẳng có 2 con đường quy hoạch cắt ngang — bố cục lý tưởng để phân lô, tách thửa. Quy hoạch đã phủ hồng tạo nền tảng thuận lợi cho việc chuyển lên đất ở. Khu vực hưởng lợi kép từ công nghiệp hóa (KCN Sonadezi) và hạ tầng vùng (cao tốc Biên Hòa–Vũng Tàu, sân bay Long Thành), với suất đầu tư ~1 triệu đ/m² cho đất quy mô lớn."
+thesis: "Long Tân (Châu Đức), nay thuộc TP.HCM, là quỹ đất lớn bằng phẳng có 2 con đường quy hoạch cắt ngang — bố cục lý tưởng để phân lô, tách thửa. Quy hoạch đã phủ hồng tạo nền tảng thuận lợi cho việc chuyển lên đất ở. Khu vực hưởng lợi từ công nghiệp hóa (KCN Sonadezi) và hạ tầng vùng (cao tốc Biên Hòa–Vũng Tàu, sân bay Long Thành), với suất đầu tư ~1 triệu đ/m² cho đất quy mô lớn."
 risks:
   - "Quy hoạch phủ hồng là định hướng đất ở, nhưng hiện trạng có thể vẫn là đất nông nghiệp — vẫn cần làm thủ tục chuyển mục đích và nộp tiền sử dụng đất."
   - "2 con đường quy hoạch cắt ngang đồng nghĩa có lộ giới/hành lang — cần trừ phần diện tích nằm trong chỉ giới đường khi tính hiệu quả phân lô."

@@ -10,37 +10,37 @@ const teamPoints: { icon: string; t: string; d: string }[] = [
   {
     icon: "location",
     t: "Sinh sống và hoạt động tại địa phương",
-    d: "Không phải một văn phòng ở TP.HCM rao bán từ xa. Chúng tôi sống ngay nơi mình bán đất.",
+    d: "Chúng tôi hoạt động tại khu vực có đất bán, nên có thể hỗ trợ xem thực địa và giấy tờ nhanh hơn.",
   },
   {
     icon: "people",
     t: "Bạn nói chuyện với chính chủ",
-    d: "Không qua nhân viên sales, không đổi người liên tục. Cùng một người từ tin nhắn đầu đến khi công chứng sang tên.",
+    d: "Bạn trao đổi với người nắm hồ sơ, không phải qua nhiều lớp nhân viên trung gian.",
   },
   {
     icon: "document",
     t: "Gắn bó với vùng đất từ 2013",
-    d: "Hơn mười năm mua, giữ và chọn lọc bán lại đất của chính mình trong vùng. Cung cấp tham chiếu khi có nhu cầu nghiêm túc.",
+    d: "Hơn mười năm mua, giữ và chọn lọc bán lại đất của gia đình trong vùng. Có thể cung cấp thêm thông tin khi trao đổi nghiêm túc.",
   },
 ];
 
 const commitments = [
-  "Tình trạng pháp lý công khai trên mọi tin đăng (Sổ đỏ / Đang hoàn thiện / Quy hoạch)",
-  "Liệt kê rõ yếu tố rủi ro — không giấu điều khoản",
-  "Giá là khoảng thương lượng, không phải mồi nhử gọi điện",
-  "Chỉ xem đất sau khi bạn đã xem hồ sơ pháp lý",
+  "Tình trạng pháp lý được nêu rõ trên từng tin đăng",
+  "Điểm cần kiểm tra được ghi riêng để người mua tự đối chiếu",
+  "Khoảng giá hiển thị là mức tham khảo để người mua cân nhắc trước khi liên hệ",
+  "Khuyến khích xem hồ sơ trước khi đi thực địa",
 ];
 
 const directStats: { label: string; value: string }[] = [
   { label: "Hoa hồng môi giới điển hình", value: "2–5%" },
-  { label: "Phí môi giới khi mua trực tiếp", value: "0đ" },
+  { label: "Phí môi giới trả cho chúng tôi", value: "0đ" },
   { label: "Thương lượng", value: "Trực tiếp với chủ đất" },
 ];
 ---
 
 <BaseLayout
-  title="Thông tin — Chúng tôi là chính chủ, không phải môi giới | VietLand"
-  description="Chính chủ cá nhân bán đất trực tiếp tại khu vực phía Nam. Không qua môi giới. Một gia đình gắn bó với vùng đất từ 2013, sổ đỏ đầy đủ, quy trình minh bạch."
+  title="Thông tin — Chủ đất bán trực tiếp | VietLand"
+  description="Chủ đất cá nhân bán trực tiếp tại khu vực phía Nam. Một gia đình gắn bó với vùng đất từ 2013, cung cấp thông tin rõ ràng để người mua kiểm tra trước khi xem đất."
   contactMessage="Chào anh/chị, em xem trang thông tin và có vài câu hỏi về một lô đất."
 >
   <!-- Hero -->
@@ -48,12 +48,12 @@ const directStats: { label: string; value: string }[] = [
     <div class="container">
       <div class="hero-col">
         <div class="eyebrow">Thông tin</div>
-        <h1>Chúng tôi là chính chủ.<br /><span class="accent">Không phải môi giới.</span></h1>
+        <h1>Chủ đất bán trực tiếp.<br /><span class="accent">Không qua môi giới.</span></h1>
         <p class="lede">
           Mỗi lô đất trên trang này đều do chúng tôi sở hữu hoặc đồng sở hữu.
           Chúng tôi rao bán trực tiếp vì tin rằng người mua đất tại Việt Nam
-          xứng đáng được minh bạch — không phải gánh phí môi giới hay những tin
-          rao đăng đi đăng lại.
+          nên được xem thông tin rõ ràng trước khi đi thực địa, không phải qua
+          nhiều lớp trung gian.
         </p>
       </div>
     </div>
@@ -83,8 +83,8 @@ const directStats: { label: string; value: string }[] = [
         <p class="muted">
           Trong thời gian đó, chúng tôi đã xây dựng quan hệ trực tiếp với công
           chứng, văn phòng địa chính và cán bộ xã. Điều này quan trọng vì ở Việt
-          Nam, giao dịch đất thành hay bại phụ thuộc vào tốc độ xử lý giấy tờ địa
-          phương — và chúng tôi nắm rõ từng bước.
+          Nam, giao dịch đất phụ thuộc nhiều vào việc đối chiếu hồ sơ, quy hoạch
+          và giấy tờ tại địa phương.
         </p>
         <ul class="points">
           {
@@ -108,24 +108,22 @@ const directStats: { label: string; value: string }[] = [
     <div class="container two flip">
       <div>
         <div class="eyebrow">Minh bạch</div>
-        <h2>Vì sao đây không phải tin rao của “cò đất”</h2>
+        <h2>Vì sao thông tin trên trang này đáng kiểm tra</h2>
         <div class="stack muted">
           <p>
-            Phần lớn tin rao bán đất ở Việt Nam được chuyền qua nhiều nhóm chat
-            và trang mạng xã hội trước khi bạn nhìn thấy. “Người bán” thường là
-            người chưa từng đặt chân lên mảnh đất đó.
+            Nhiều tin rao bán đất được truyền qua nhiều kênh trước khi đến người
+            mua, khiến thông tin về giá, giấy tờ và vị trí dễ bị sai lệch.
           </p>
           <p>
-            Chúng tôi làm ngược lại. Mỗi lô trên trang này hoặc thuộc quyền sở
-            hữu trực tiếp của chúng tôi, hoặc theo thỏa thuận đồng sở hữu có công
-            chứng mà chúng tôi giữ quyền bán. Chúng tôi không rao bán đất mình
-            không kiểm soát.
+            Với các lô trên trang này, chúng tôi chỉ đăng những lô gia đình sở
+            hữu trực tiếp hoặc có quyền làm việc rõ ràng theo hồ sơ đồng sở hữu.
+            Người mua có thể yêu cầu giấy tờ để tự kiểm tra trước khi xem đất.
           </p>
           <p>
             Trước mọi buổi xem đất, chúng tôi gửi ảnh sổ đỏ (đã che thông tin cá
-            nhân), bản đồ địa chính hiện hành và mức giá sàn. Nếu một lô có hạn
-            chế quy hoạch, sổ đang hoàn thiện hay lưu ý pháp lý — chúng tôi nói rõ
-            ngay trong tin đăng công khai.
+            nhân), bản đồ địa chính hiện hành và mức giá sàn. Nếu một lô có
+            hạn chế quy hoạch, hồ sơ đang hoàn thiện hay lưu ý pháp lý, chúng tôi
+            ghi rõ trong tin đăng công khai.
           </p>
         </div>
 
@@ -169,17 +167,17 @@ const directStats: { label: string; value: string }[] = [
         <div class="stack">
           <p>
             Môi giới đất ở Việt Nam thường thu 2–5% hoa hồng, do bên bán trả.
-            Khoản đó được cộng vào giá rao. Người mua trả mà không hề hay biết.
+            Khoản này thường được tính vào phương án giá, dù người mua không
+            luôn nhìn thấy thành phần chi phí đó.
           </p>
           <p>
-            Chúng tôi bán trực tiếp vì muốn một cuộc thương lượng sòng phẳng. Bạn
-            đưa giá của bạn, chúng tôi đưa giá sàn, và gặp nhau ở mức trung thực.
-            Không chia hoa hồng, không thổi giá ảo, không chiêu “đang có người
-            mua khác”.
+            Chúng tôi bán trực tiếp để quá trình trao đổi đơn giản hơn. Bạn nêu
+            ngân sách và điều kiện mua, chúng tôi phản hồi mức giá sàn cùng phần
+            có thể thương lượng.
           </p>
           <p>
             Điều này cũng giúp chúng tôi hành động nhanh và linh hoạt: làm việc
-            trực tiếp với chủ đất, không phải chờ qua nhiều khâu trung gian.
+            trực tiếp với người mua, không phải chờ qua nhiều khâu trung gian.
           </p>
         </div>
         <div class="forest-stats">
@@ -204,8 +202,8 @@ const directStats: { label: string; value: string }[] = [
       <p>
         {
           FEATURES.hideDirectContact
-            ? "Cách tốt nhất để kiểm chứng chúng tôi là một cuộc trao đổi 10 phút. Để lại thông tin, chúng tôi sẽ liên hệ lại — hỏi xin ảnh sổ đỏ, hỏi về bất kỳ lô nào, hỏi vì sao chúng tôi bán. Chúng tôi trả lời tất cả."
-            : "Cách tốt nhất để kiểm chứng chúng tôi là một cuộc gọi Zalo 10 phút. Hỏi xin ảnh sổ đỏ, hỏi về bất kỳ lô nào, hỏi vì sao chúng tôi bán. Chúng tôi trả lời tất cả."
+            ? "Cách tốt nhất để kiểm tra thông tin là trao đổi trực tiếp. Để lại thông tin, chúng tôi sẽ liên hệ lại để gửi hồ sơ, trả lời câu hỏi về từng lô và hẹn lịch xem đất nếu phù hợp."
+            : "Cách tốt nhất để kiểm tra thông tin là trao đổi trực tiếp qua Zalo. Bạn có thể hỏi hồ sơ, giá, lý do bán và lịch xem đất của từng lô."
         }
       </p>
       <div class="cta-actions">

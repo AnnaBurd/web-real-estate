@@ -27,7 +27,7 @@ infrastructure:
   - "Bám trục Quốc lộ 20 — tuyến huyết mạch TP.HCM – Bảo Lộc – Đà Lạt; kết nối sân bay Liên Khương (Đức Trọng)."
   - "Cao tốc Dầu Giây–Liên Khương (Đà Lạt) đang thi công, dự kiến 2027; đoạn Bảo Lộc–Liên Khương chạy song song QL20, qua Di Linh."
   - "Đất rộng, vuông vức — phù hợp nhà vườn, điểm nghỉ dưỡng cao nguyên."
-thesis: "Di Linh là cao nguyên khí hậu mát, thủ phủ cà phê, nay thuộc tỉnh Lâm Đồng mở rộng (hợp nhất Lâm Đồng – Bình Thuận – Đắk Nông). Tuyến cao tốc Dầu Giây–Liên Khương đang triển khai (đoạn Bảo Lộc–Liên Khương qua Di Linh) sẽ rút ngắn TP.HCM tới ranh Di Linh còn khoảng 2,5 giờ khi hoàn thiện (dự kiến 2027), kích hoạt nhu cầu nhà vườn – nghỉ dưỡng. Di Linh được nhìn nhận là vùng đầu tư mới chu kỳ 2025–2030 với giá còn mềm hơn Bảo Lộc, Đà Lạt."
+thesis: "Di Linh là cao nguyên khí hậu mát, thủ phủ cà phê, nay thuộc tỉnh Lâm Đồng mở rộng (hợp nhất Lâm Đồng – Bình Thuận – Đắk Nông). Tuyến cao tốc Dầu Giây–Liên Khương đang triển khai (đoạn Bảo Lộc–Liên Khương qua Di Linh) dự kiến rút ngắn thời gian di chuyển từ TP.HCM khi hoàn thiện, hỗ trợ nhu cầu nhà vườn và nghỉ dưỡng. Di Linh được nhiều nhà đầu tư quan tâm vì giá còn mềm hơn Bảo Lộc, Đà Lạt."
 risks:
   - "Đất nông nghiệp/đất trồng cây lâu năm: xây dựng nhà vườn, nghỉ dưỡng cần chuyển mục đích sang đất ở theo quy hoạch và hạn mức được duyệt."
   - "Lâm Đồng từng siết phân lô, tách thửa đất nông nghiệp — kiểm tra quy định tách thửa hiện hành trước khi đầu tư theo hướng phân lô."

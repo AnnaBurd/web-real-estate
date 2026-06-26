@@ -1,6 +1,6 @@
 ---
 title: "Phú Yên 58 ha"
-opportunityTitle: "Phú Yên 58 ha Ven Biển — Quỹ Đất Liền Khối Chỉ 16 Nghìn đ/m²"
+opportunityTitle: "Sông Cầu 58 ha ven biển, quỹ đất liền khối"
 location: "Sông Cầu, Phú Yên"
 order: 5
 promoted: true
@@ -15,19 +15,19 @@ coords:
   - 13.0970781
   - 109.17929841584
 province: "Đắk Lắk (Phú Yên cũ)"
-urgency: "Chính chủ · quỹ đất 58 ha liền khối · suất đầu tư/m² rất thấp"
+urgency: "Chính chủ, quỹ đất 58 ha liền khối, giá có thương lượng"
 pricePerSqm: "≈ 16 nghìn đ/m²"
-briefDescription: "Chính chủ bán 58 ha (580.000 m²) đất liền khối ven biển Sông Cầu, Phú Yên. Suất đầu tư trên mỗi m² rất thấp, sổ sách đầy đủ."
+briefDescription: "Chính chủ bán 58 ha (580.000 m²) đất liền khối ven biển Sông Cầu, Phú Yên. Suất đầu tư trên mỗi m² thấp so với các lô khác trong danh mục, sổ sách đầy đủ."
 sellingPoints:
-  - "Quỹ đất 58 ha liền khối ven biển Sông Cầu — quy mô hiếm có cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng."
-  - "Chỉ 9,5 tỷ cho 58 ha — suất đầu tư trên mỗi m² thuộc nhóm thấp nhất trong danh mục."
-  - "Sổ sách đầy đủ; vùng vịnh Xuân Đài đang lên về du lịch — tiềm năng dài hạn lớn."
+  - "Quỹ đất 58 ha liền khối ven biển Sông Cầu — quy mô lớn cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng."
+  - "9,5 tỷ cho 58 ha — suất đầu tư trên mỗi m² thấp so với các lô khác trong danh mục."
+  - "Sổ sách đầy đủ; vùng vịnh Xuân Đài đang phát triển về du lịch, phù hợp nhà đầu tư dài hạn."
 infrastructure:
   - "58 ha liền khối khu vực Sông Cầu – ven vịnh Xuân Đài."
   - "Vịnh Xuân Đài là Khu du lịch quốc gia (quy hoạch đến 2030; ~13.000 ha mặt nước, bờ vịnh >50 km)."
   - "Gần Quốc lộ 1; sân bay Tuy Hòa trong vùng (đề xuất nâng cấp, mở thêm đường bay)."
   - "Cao tốc Bắc–Nam và đường sắt tốc độ cao Bắc–Nam quy hoạch đi qua khu vực Phú Yên."
-thesis: "Đây là quỹ đất quy mô lớn hiếm có — 58 ha liền khối gần Khu du lịch quốc gia vịnh Xuân Đài — với suất đầu tư chỉ ~16 nghìn đ/m². Phù hợp tầm nhìn dài hạn cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng, đón đầu quá trình phát triển du lịch ven biển Sông Cầu cùng hạ tầng cao tốc và đường sắt Bắc–Nam. Sau sáp nhập 2025, khu vực thuộc tỉnh Đắk Lắk (Phú Yên cũ)."
+thesis: "Đây là quỹ đất quy mô lớn — 58 ha liền khối gần Khu du lịch quốc gia vịnh Xuân Đài — với suất đầu tư khoảng ~16 nghìn đ/m². Phù hợp tầm nhìn dài hạn cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng, gắn với quá trình phát triển du lịch ven biển Sông Cầu cùng hạ tầng cao tốc và đường sắt Bắc–Nam. Sau sáp nhập 2025, khu vực thuộc tỉnh Đắk Lắk (Phú Yên cũ)."
 risks:
   - "Quỹ đất lớn 58 ha: cần xác minh là một hay nhiều thửa/sổ, hiện trạng loại đất (nông nghiệp, rừng sản xuất…) và tính liền khối thực tế."
   - "Một phần khu vực có thể nằm trong ranh quy hoạch Khu du lịch quốc gia vịnh Xuân Đài — kiểm tra ranh quy hoạch, mục đích và điều kiện phát triển được phép; dự án quy mô lớn thường phải qua thủ tục đầu tư cấp tỉnh."
@@ -48,8 +48,8 @@ suggestedParcels:
   - "di-linh-5-sao"
 ---
 
-Chính chủ bán 58 ha (580.000 m²) đất liền khối tại Sông Cầu, Phú Yên — quỹ đất quy mô lớn hiếm có cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng dài hạn.
+Chính chủ bán 58 ha (580.000 m²) đất liền khối tại Sông Cầu, Phú Yên — quỹ đất quy mô lớn cho dự án nông nghiệp, sinh thái hoặc nghỉ dưỡng dài hạn.
 
-Mức giá 9,5 tỷ cho 58 ha tương đương suất đầu tư trên mỗi m² thuộc nhóm thấp nhất trong danh mục. Khu vực ven biển Sông Cầu – vịnh Xuân Đài đang phát triển về du lịch, mở ra tiềm năng tăng giá dài hạn.
+Mức giá 9,5 tỷ cho 58 ha tương đương suất đầu tư trên mỗi m² thấp so với các lô khác trong danh mục. Khu vực ven biển Sông Cầu – vịnh Xuân Đài đang phát triển về du lịch, phù hợp nhà đầu tư có tầm nhìn dài hạn.
 
 Sổ sách đầy đủ, pháp lý rõ ràng. Giá thương lượng trực tiếp với chính chủ. Liên hệ để nhận video, hình thực tế và thông tin pháp lý.

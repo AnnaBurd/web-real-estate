@@ -22,9 +22,9 @@ const VERIFICATION: Record<
   Parcel["data"]["verification"],
   { label: string; cls: string }
 > = {
-  "red-book": { label: "Sổ đỏ đã xác minh", cls: "redbook" },
-  pending: { label: "Pháp lý đang hoàn thiện", cls: "clay" },
-  planning: { label: "Đất quy hoạch", cls: "forest" },
+  "red-book": { label: "Có sổ đỏ", cls: "redbook" },
+  pending: { label: "Hồ sơ đang hoàn thiện", cls: "clay" },
+  planning: { label: "Cần kiểm tra quy hoạch", cls: "forest" },
 };
 const badge = VERIFICATION[p.verification];
 ---

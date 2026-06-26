@@ -37,9 +37,9 @@ const VERIFICATION: Record<
   Parcel["data"]["verification"],
   { badge: string; short: string; cls: string }
 > = {
-  "red-book": { badge: "Sổ đỏ đã xác minh", short: "Sổ đỏ", cls: "redbook" },
-  pending: { badge: "Pháp lý đang hoàn thiện", short: "Đang hoàn thiện", cls: "clay" },
-  planning: { badge: "Đất quy hoạch", short: "Quy hoạch", cls: "forest" },
+  "red-book": { badge: "Có sổ đỏ", short: "Có sổ đỏ", cls: "redbook" },
+  pending: { badge: "Hồ sơ đang hoàn thiện", short: "Đang hoàn thiện", cls: "clay" },
+  planning: { badge: "Cần kiểm tra quy hoạch", short: "Cần kiểm tra", cls: "forest" },
 };
 const v = VERIFICATION[p.verification];
 
@@ -224,23 +224,23 @@ const ogImage = cover
         </div>
       </Block>
 
-      <!-- Locked legal pack -->
+      <!-- Legal pack request -->
       <div class="locked">
         <div class="locked-head">
           <Icon name="lock" size={16} class="ic" />
-          <h2>Hồ sơ pháp lý đầy đủ · đang khóa</h2>
+          <h2>Hồ sơ pháp lý & thông tin chi tiết</h2>
         </div>
         <h3>
           {
             FEATURES.hideDirectContact
-              ? "Mở khóa sau một bước xác minh ngắn"
-              : "Mở khóa sau khi xác minh qua Zalo"
+              ? "Gửi sau khi bạn để lại thông tin"
+              : "Gửi sau khi xác nhận qua Zalo"
           }
         </h3>
         <p>
           Để bảo vệ chủ đất và người mua nghiêm túc, chúng tôi chỉ gửi ảnh sổ đỏ
           công chứng, giá sàn chính xác, bản đồ địa chính, thông tin quy hoạch và
-          lịch xem đất sau một bước xác minh ngắn{
+          lịch xem đất sau khi trao đổi ngắn{
             FEATURES.hideDirectContact ? "" : " qua Zalo"
           }. Thường phản hồi trong ngày.
         </p>
@@ -263,12 +263,12 @@ const ogImage = cover
               data-lead-context={p.zaloMessage}
             >
               <Icon name="message" size={16} />
-              Mở khóa hồ sơ pháp lý
+              Yêu cầu hồ sơ pháp lý
             </button>
           ) : (
             <a class="btn" href={zaloLink(p.zaloMessage)} target="_blank" rel="noopener">
               <Icon name="message" size={16} />
-              Mở khóa hồ sơ pháp lý qua Zalo
+              Yêu cầu hồ sơ pháp lý qua Zalo
             </a>
           )
         }

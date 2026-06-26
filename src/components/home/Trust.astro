@@ -7,7 +7,7 @@ import { Image } from "astro:assets";
 import Icon from "../ui/Icon.astro";
 import redBook from "../../assets/site/red-book.jpg";
 
-const points: { icon: string; t: string; d: string }[] = [
+const points = [
   {
     icon: "shield-tick",
     t: "Sẵn sàng chứng minh quyền sở hữu",
@@ -28,7 +28,7 @@ const points: { icon: string; t: string; d: string }[] = [
     t: "Am hiểu địa phương",
     d: "Hoạt động ngay tại khu vực rao bán, có quan hệ trực tiếp với công chứng và văn phòng địa chính cấp huyện.",
   },
-];
+] as const;
 ---
 
 <section class="trust">

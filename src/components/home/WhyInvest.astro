@@ -5,19 +5,19 @@
  */
 import Icon from "../ui/Icon.astro";
 
-const items: { icon: string; title: string; body: string }[] = [
+const items = [
   {
     icon: "trend-up",
     title: "Hạ tầng bứt phá",
     body: "Sân bay Long Thành (dự kiến 2026), cao tốc Biên Hòa–Vũng Tàu và quy hoạch ven biển đang vẽ lại bản đồ giá đất khắp miền Nam.",
   },
   {
-    icon: "flash",
+    icon: "sparkle",
     title: "Quỹ đất khan hiếm",
     body: "Đất mặt tiền và ven biển trong bán kính 90 phút từ TP.HCM gần như đã cạn. Nhiều địa phương đã siết cấp sổ mới ở vùng ven biển.",
   },
   {
-    icon: "verify",
+    icon: "judge",
     title: "Pháp lý minh bạch",
     body: "Chúng tôi chỉ bán đất mình sở hữu hoặc đồng sở hữu — mỗi lô đều có sổ đỏ hoặc lộ trình pháp lý rõ ràng. Không có giao dịch vùng xám.",
   },
@@ -26,7 +26,7 @@ const items: { icon: string; title: string; body: string }[] = [
     title: "Thương lượng, không đấu giá",
     body: "Bán trực tiếp từ chính chủ nghĩa là giá thật. Mang theo mức giá, tiến độ và phương án của bạn — chốt trong vài ngày, không phải vài tháng.",
   },
-];
+] as const;
 ---
 
 <section class="why">

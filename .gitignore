@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # image assets options
 public/img/*_v*.*
+
+# Local Netlify folder
+.netlify

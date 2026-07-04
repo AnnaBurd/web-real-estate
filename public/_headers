@@ -1,0 +1,4 @@
+# v1 is retired; v1.viet-land.vn stays browsable as an archive but must not
+# be indexed (it competes with viet-land.vn in search results).
+/*
+  X-Robots-Tag: noindex
